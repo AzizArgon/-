@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "backend",
+      "runtimeExecutable": "F:\\claudy\\diplom\\backend\\.venv\\Scripts\\python.exe",
+      "runtimeArgs": ["-m", "uvicorn", "main:app", "--reload", "--app-dir", "F:\\claudy\\diplom\\backend"],
+      "port": 8000
+    },
+    {
+      "name": "frontend",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "F:\\claudy\\diplom\\frontend", "run", "dev"],
+      "port": 5173
+    }
+  ]
+}

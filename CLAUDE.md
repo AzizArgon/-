@@ -81,5 +81,22 @@ Swagger: http://127.0.0.1:8000/docs. На ПК Азиза `.venv` и `.env` (с�
 - Путь к БД — `backend/database.db` (абсолютный, не зависит от папки запуска). `.env` лежит в `backend/`.
 - Таблица `masters` пока не создана (после ноября). Магазин (`stores`) при регистрации продавца не создаётся — будет отдельным шагом.
 
+### Фаза 2 — готово (frontend: каркас, вход, регистрация)
+- `frontend/`: Vite 8 + React 19 + Tailwind CSS 4 (плагин `@tailwindcss/vite`, без `tailwind.config`) + react-router-dom 7 + Axios + react-i18next.
+- Тексты — `src/locales/ru.json`, инициализация — `src/i18n.js`.
+- `src/services/api.js` — Axios-клиент (адрес из `VITE_API_URL`, по умолчанию `http://127.0.0.1:8000/api`), сам подставляет токен; `errorKey()` переводит HTTP-код в ключ i18n.
+- `src/services/auth.jsx` — `AuthProvider`/`useAuth`: токен в `localStorage` (`pc_market_token`), при загрузке сессия восстанавливается через `/auth/me`.
+- Страницы: `/` (заглушка главной), `/login`, `/register` (выбор роли Покупатель/Продавец). Залогиненного с `/login` и `/register` перекидывает на `/`.
+- Проверено в браузере: регистрация продавца, несовпадение паролей, неверный пароль, вход, выход, восстановление сессии после перезагрузки; дубликат email → 409.
+- Особенность: Pydantic `EmailStr` отклоняет зарезервированные домены (`.test`, `.local`) → 422. Для тестов использовать `@example.com`.
+
+### Как запустить frontend
+```
+cd frontend
+npm install        # только первый раз
+npm run dev        # http://localhost:5173 (backend должен быть запущен)
+```
+В Claude Code оба сервера описаны в `.claude/launch.json` (`backend`, `frontend`).
+
 ### Дальше
-Фаза 2 — frontend (Vite + React + Tailwind + i18n), страницы входа и регистрации.
+Фаза 3 — магазин продавца + загрузка прайса (drag-and-drop) и ИИ-парсер с предпросмотром.
