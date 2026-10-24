@@ -51,3 +51,35 @@
 backend/app/{api,core,db,schemas,services}, backend/main.py, backend/requirements.txt
 frontend/src/{components,pages,services,locales}, frontend/src/App.jsx
 ```
+
+## Статус
+Репозиторий: https://github.com/AzizArgon/-.git, ветка `main`.
+
+### Фаза 1 — готово (backend: каркас, БД, авторизация)
+- Структура `backend/app/{api,core,db,schemas,services}`, точка входа `backend/main.py`, CORS для `http://localhost:5173`, `GET /api/health`.
+- Модели SQLAlchemy (`app/db/models.py`): users, stores, categories, products, offers, price_history, fraud_flags. Таблицы создаются через `create_all` при старте сервера.
+- Авторизация (`app/api/auth.py`): `POST /api/auth/register`, `POST /api/auth/login`, `GET /api/auth/me`. Проверка ролей — `require_role(...)` в `app/api/deps.py`.
+- Проверено вручную: регистрация, вход, `/me`, дубликат email → 409, неверный пароль → 401, регистрация как admin → 422, без токена → 401.
+
+### Как запустить сервер
+```
+cd backend
+py -3.12 -m venv .venv                      # только первый раз
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt   # только первый раз
+copy .env.example .env                      # только первый раз, вписать JWT_SECRET
+.\.venv\Scripts\python.exe -m uvicorn main:app --reload
+```
+Swagger: http://127.0.0.1:8000/docs. На ПК Азиза `.venv` и `.env` (со случайным JWT_SECRET) уже созданы.
+
+### Принятые технические решения
+- Python 3.12 в виртуальном окружении `backend/.venv` (системный Python 3.10 не трогаем).
+- `bcrypt==4.0.1` закреплён: passlib несовместим с bcrypt ≥ 4.1. Пароль 8–72 символа (лимит bcrypt).
+- JWT через PyJWT, срок жизни 24 ч, в токене `sub` = user id и `role`. Вход принимает JSON (`email`, `password`), токен передаётся как `Authorization: Bearer ...`.
+- При регистрации можно выбрать только роль `buyer` или `seller`; `admin` назначается вручную, `master` — после ноября.
+- Email приводится к нижнему регистру.
+- Enum-поля хранятся в БД как строки (`native_enum=False`). В SQLite включены внешние ключи (`PRAGMA foreign_keys=ON`).
+- Путь к БД — `backend/database.db` (абсолютный, не зависит от папки запуска). `.env` лежит в `backend/`.
+- Таблица `masters` пока не создана (после ноября). Магазин (`stores`) при регистрации продавца не создаётся — будет отдельным шагом.
+
+### Дальше
+Фаза 2 — frontend (Vite + React + Tailwind + i18n), страницы входа и регистрации.
