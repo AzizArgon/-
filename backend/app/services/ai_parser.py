@@ -1,7 +1,8 @@
-"""Step 3 of the import pipeline: Gemini turns cleaned rows into structured products.
+"""Step 3 of the import pipeline: the AI normalizes product names it gets in chunks.
 
-The AI only normalizes text and picks a category slug from our list.
-MXIK codes, stock status and currency are decided by code, not by the AI.
+The AI only sees names ("id|name" lines) and answers with compact JSON. Price, article
+and stock are taken from the table by code; MXIK codes come from our own directory.
+Providers: Gemini (several models, each with its own free daily quota), then Groq.
 """
 
 import asyncio
@@ -12,6 +13,7 @@ import time
 from datetime import date
 from typing import Literal
 
+import httpx
 from google import genai
 from google.genai import types
 from pydantic import BaseModel, TypeAdapter, ValidationError
@@ -23,81 +25,80 @@ from app.services.price_cleaner import CleanRow
 log = logging.getLogger(__name__)
 
 MAX_RETRIES = 5
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+# Rough token estimates used to respect tokens-per-minute limits
+CHARS_PER_TOKEN = 3.5
+OUTPUT_TOKENS_PER_ROW = 45
 
 
-class Spec(BaseModel):
-    key: str
-    value: str
+class CompactItem(BaseModel):
+    """Short keys keep the answer small: i=row, c=category, b=brand, m=model, n=name, s=condition, p=specs."""
+
+    i: int
+    c: str
+    b: str | None = None
+    m: str | None = None
+    n: str
+    s: Literal["new", "used", "refurbished"] = "new"
+    p: list[str] = []
 
 
-class ParsedItem(BaseModel):
-    row: int
-    category: str
-    brand: str | None = None
-    model: str | None = None
-    name: str
-    price: float | None = None
-    condition: Literal["new", "used", "refurbished"] = "new"
-    specs: list[Spec] = []
+class GroqAnswer(BaseModel):
+    items: list[CompactItem]
 
 
-_items_adapter = TypeAdapter(list[ParsedItem])
+_items_adapter = TypeAdapter(list[CompactItem])
 
-_CATEGORY_LIST = "\n".join(f"- {slug}: {name}" for slug, name, _ in CATEGORIES)
+_CATEGORY_LIST = ", ".join(f"{slug} ({name})" for slug, name, _ in CATEGORIES)
 
-PROMPT = f"""Ты разбираешь прайс-лист магазина компьютерной техники из Узбекистана.
-Каждая строка начинается с идентификатора вида r123, ячейки разделены " | ".
-Строки "# Sheet: ... / Section: ..." — это контекст (лист и подзаголовок), они подсказывают категорию для строк ниже.
-
-Для каждой строки, которая является ТОВАРОМ, верни объект:
-- row: число из идентификатора (r123 -> 123);
-- category: один slug из списка ниже (если не подходит ни один — other);
-- brand: производитель (Intel, Kingston, MSI…), без лишних слов;
-- model: модель/артикул производителя, если есть;
-- name: чистое нормализованное название: бренд, модель, ключевые характеристики. Исправь опечатки и сленг, убери пометки магазина ("распродажа", "акция", "new!");
-- price: цена из столбца с ценой (если цен несколько — первая, обычно "опт"); если цены нет — null. Не путай цену с номером строки, объёмом или частотой;
-- condition: new, used (б/у) или refurbished (восстановленный); по умолчанию new;
-- specs: 2–6 ключевых характеристик парами key/value (например: socket, memory, capacity, frequency, power).
-
-Не придумывай данные, которых нет в строке. Если в строке противоречие (например, в названии DDR5, а в артикуле DDR4) — оставь как есть, не исправляй.
-Строки, которые не являются товарами (заголовки, примечания, контакты, условия доставки), пропусти.
-
-Категории:
-{_CATEGORY_LIST}
+PROMPT = f"""Ты нормализуешь названия товаров из прайс-листа магазина компьютерной техники (Узбекистан).
+Вход: строки "id|название | доп. текст". Строки "# лист / раздел" — контекст, подсказка категории.
+Для каждой строки-ТОВАРА верни объект:
+i — id; c — категория (slug из списка); b — бренд; m — модель/артикул производителя;
+n — чистое название: бренд, модель, ключевые параметры; исправь опечатки и сленг, убери пометки магазина ("распродажа", "акция");
+s — состояние: used (б/у) или refurbished (восстановленный); для новых не указывай;
+p — 2–5 ключевых характеристик строками "ключ:значение" (socket:AM5, capacity:1TB).
+Не указывай b и m, если их нет. Не придумывай данные. Противоречия (в названии DDR5, в артикуле DDR4) не исправляй.
+Не-товары (заголовки, примечания, условия) пропусти.
+Категории: {_CATEGORY_LIST}
 """
 
-_client: genai.Client | None = None
-# model -> day its free daily quota ran out (free tier: ~20 requests per day per model)
-_exhausted_on: dict[str, date] = {}
+GROQ_FORMAT = 'Ответ — JSON-объект {"items": [ ... ]} с объектами из ключей i, c, b, m, n, s, p.'
 
 
 class QuotaExhausted(RuntimeError):
     """Every configured model has used up its daily quota."""
 
 
-def _available_models() -> list[str]:
-    models = [settings.gemini_model, *settings.gemini_fallback_models]
-    return [m for m in models if _exhausted_on.get(m) != date.today()]
-_request_times: list[float] = []
-_rate_lock = asyncio.Lock()
+class TruncatedAnswer(RuntimeError):
+    """The answer hit the output token limit: the chunk must be split."""
 
 
-async def _wait_for_rate_limit() -> None:
-    """Keeps us under settings.gemini_rpm requests per rolling minute."""
-    async with _rate_lock:
-        while True:
-            now = time.monotonic()
-            _request_times[:] = [t for t in _request_times if now - t < 60]
-            if len(_request_times) < settings.gemini_rpm:
-                _request_times.append(now)
-                return
-            await asyncio.sleep(60 - (now - _request_times[0]) + 0.5)
+class RateLimiter:
+    """Keeps a provider under its requests-per-minute and tokens-per-minute limits."""
+
+    def __init__(self, rpm: int, tpm: int | None = None):
+        self.rpm, self.tpm = rpm, tpm
+        self._events: list[tuple[float, int]] = []
+        self._lock = asyncio.Lock()
+
+    async def acquire(self, tokens: int = 0) -> None:
+        async with self._lock:
+            while True:
+                now = time.monotonic()
+                self._events = [(t, n) for t, n in self._events if now - t < 60]
+                used = sum(n for _, n in self._events)
+                if len(self._events) < self.rpm and (not self.tpm or not self._events or used + tokens <= self.tpm):
+                    self._events.append((now, tokens))
+                    return
+                await asyncio.sleep(60 - (now - self._events[0][0]) + 0.5)
 
 
-def _retry_delay(error: Exception, attempt: int) -> float:
-    """429 tells how long to wait ("retry in 6.5s"); otherwise back off linearly."""
-    match = re.search(r"retry in ([\d.]+)s", str(error))
-    return float(match.group(1)) + 1 if match else 10 * (attempt + 1)
+_gemini_limiter = RateLimiter(settings.gemini_rpm)
+_groq_limiter = RateLimiter(settings.groq_rpm, settings.groq_tpm)
+# model -> day its free daily quota ran out (free tier: ~20 requests per day per model)
+_exhausted_on: dict[str, date] = {}
+_client: genai.Client | None = None
 
 
 def _get_client() -> genai.Client:
@@ -107,14 +108,65 @@ def _get_client() -> genai.Client:
     return _client
 
 
-async def parse_chunk(chunk: str) -> list[ParsedItem]:
+def _available_models() -> list[str]:
+    models = [settings.gemini_model, *settings.gemini_fallback_models]
+    return [m for m in models if _exhausted_on.get(m) != date.today()]
+
+
+def _retry_delay(error: Exception, attempt: int) -> float:
+    """429 tells how long to wait ("retry in 6.5s"); otherwise back off linearly."""
+    match = re.search(r"retry in ([\d.]+)s", str(error))
+    return float(match.group(1)) + 1 if match else 10 * (attempt + 1)
+
+
+def format_chunk(rows: list[CleanRow]) -> str:
+    """"id|name" lines; the sheet/section context line is repeated when it changes."""
+    lines, ctx = [], None
+    for r in rows:
+        if (r.sheet, r.section) != ctx:
+            ctx = (r.sheet, r.section)
+            lines.append(f"# {r.sheet} / {r.section or '-'}")
+        lines.append(f"{r.row}|{r.ai_text}")
+    return "\n".join(lines)
+
+
+def _estimate_tokens(text: str, rows: int) -> int:
+    return int(len(text) / CHARS_PER_TOKEN) + rows * OUTPUT_TOKENS_PER_ROW
+
+
+def _to_dicts(items: list[CompactItem]) -> list[dict]:
+    result = []
+    for it in items:
+        specs = dict(p.split(":", 1) for p in it.p if ":" in p)
+        result.append({
+            "row": it.i,
+            "category": it.c if it.c in CATEGORY_SLUGS else "other",
+            "brand": it.b or None,
+            "model": it.m or None,
+            "name": it.n,
+            "condition": it.s,
+            "specs": {k.strip(): v.strip() for k, v in specs.items()},
+        })
+    return result
+
+
+async def _call_gemini(model: str, text: str) -> tuple[str, bool]:
+    """Returns (answer text, truncated?). A separate function so tests can replace it."""
     config = types.GenerateContentConfig(
         system_instruction=PROMPT,
         response_mime_type="application/json",
-        response_schema=list[ParsedItem],
+        response_schema=list[CompactItem],
         temperature=0,
+        max_output_tokens=settings.gemini_max_output_tokens,
         thinking_config=types.ThinkingConfig(thinking_level=settings.gemini_thinking_level),
     )
+    resp = await _get_client().aio.models.generate_content(model=model, contents=text, config=config)
+    finish = resp.candidates[0].finish_reason if resp.candidates else None
+    return resp.text or "", finish == types.FinishReason.MAX_TOKENS
+
+
+async def _gemini(rows: list[CleanRow], stats: dict) -> list[dict]:
+    text = format_chunk(rows)
     last_error: Exception | None = None
     attempt = 0
     while attempt < MAX_RETRIES:
@@ -122,14 +174,18 @@ async def parse_chunk(chunk: str) -> list[ParsedItem]:
         if not models:
             raise QuotaExhausted("Daily quota exhausted for all Gemini models")
         model = models[0]
-        await _wait_for_rate_limit()
+        await _gemini_limiter.acquire()
+        stats["requests"] = stats.get("requests", 0) + 1
         try:
-            resp = await _get_client().aio.models.generate_content(model=model, contents=chunk, config=config)
-            items = _items_adapter.validate_python(json.loads(resp.text))
-            for item in items:
-                if item.category not in CATEGORY_SLUGS:
-                    item.category = "other"
+            answer, truncated = await _call_gemini(model, text)
+            if truncated:
+                raise TruncatedAnswer(f"{len(rows)} rows did not fit into the answer")
+            items = _to_dicts(_items_adapter.validate_python(json.loads(answer)))
+            models_used = stats.setdefault("models", {})
+            models_used[model] = models_used.get(model, 0) + 1
             return items
+        except TruncatedAnswer:
+            raise
         except (ValidationError, json.JSONDecodeError, TypeError) as e:
             last_error = e  # malformed answer: just ask again
         except Exception as e:  # network errors, 429 rate limits, 503 overload
@@ -137,6 +193,7 @@ async def parse_chunk(chunk: str) -> list[ParsedItem]:
                 # Waiting hours makes no sense: switch to the next model right away
                 log.warning("Gemini %s: daily quota exhausted, switching model", model)
                 _exhausted_on[model] = date.today()
+                stats["requests"] -= 1  # rejected before any work, not counted
                 continue
             last_error = e
             await asyncio.sleep(_retry_delay(e, attempt))
@@ -145,28 +202,69 @@ async def parse_chunk(chunk: str) -> list[ParsedItem]:
     raise RuntimeError(f"Gemini failed after {MAX_RETRIES} attempts: {last_error}")
 
 
-def merge_rows(rows: list[CleanRow], items: list[ParsedItem]) -> list[dict]:
-    """Join AI answers with the original rows. Rows the AI skipped are not products."""
-    by_row = {r.row: r for r in rows}
+async def _call_groq(text: str) -> tuple[str, bool]:
+    """Returns (answer text, truncated?). A separate function so tests can replace it."""
+    payload = {
+        "model": settings.groq_model,
+        "messages": [{"role": "system", "content": PROMPT + GROQ_FORMAT}, {"role": "user", "content": text}],
+        "response_format": {"type": "json_object"},
+        "temperature": 0,
+        "reasoning_effort": "low",
+        "max_completion_tokens": settings.groq_max_output_tokens,
+    }
+    async with httpx.AsyncClient(timeout=120) as client:
+        resp = await client.post(GROQ_URL, json=payload, headers={"Authorization": f"Bearer {settings.groq_api_key}"})
+    if resp.status_code == 429:
+        raise RuntimeError(f"Groq 429, retry in {resp.headers.get('retry-after', '10')}s")
+    resp.raise_for_status()
+    choice = resp.json()["choices"][0]
+    return choice["message"]["content"] or "", choice.get("finish_reason") == "length"
+
+
+async def _groq(rows: list[CleanRow], stats: dict) -> list[dict]:
+    text = format_chunk(rows)
+    last_error: Exception | None = None
+    for attempt in range(MAX_RETRIES):
+        await _groq_limiter.acquire(_estimate_tokens(text, len(rows)))
+        stats["requests"] = stats.get("requests", 0) + 1
+        stats["groq_requests"] = stats.get("groq_requests", 0) + 1
+        try:
+            answer, truncated = await _call_groq(text)
+            if truncated:
+                raise TruncatedAnswer(f"{len(rows)} rows did not fit into the answer")
+            return _to_dicts(GroqAnswer.model_validate_json(answer).items)
+        except TruncatedAnswer:
+            raise
+        except (ValidationError, json.JSONDecodeError, KeyError) as e:
+            last_error = e
+        except Exception as e:
+            last_error = e
+            await asyncio.sleep(_retry_delay(e, attempt))
+        log.warning("Groq attempt %s failed: %s", attempt + 1, str(last_error)[:300])
+    raise RuntimeError(f"Groq failed after {MAX_RETRIES} attempts: {last_error}")
+
+
+async def _split_on_truncation(call, rows: list[CleanRow], stats: dict) -> list[dict]:
+    try:
+        return await call(rows, stats)
+    except TruncatedAnswer:
+        if len(rows) == 1:
+            raise RuntimeError("A single row does not fit into the answer")
+        half = len(rows) // 2
+        stats["splits"] = stats.get("splits", 0) + 1
+        return await _split_on_truncation(call, rows[:half], stats) + await _split_on_truncation(call, rows[half:], stats)
+
+
+async def parse_rows(rows: list[CleanRow], stats: dict) -> list[dict]:
+    """Gemini first; if every Gemini model is out of quota or failing, Groq in smaller pieces."""
+    try:
+        return await _split_on_truncation(_gemini, rows, stats)
+    except RuntimeError as e:
+        if not settings.groq_api_key:
+            raise
+        log.warning("Gemini unavailable (%s), using Groq", str(e)[:200])
+    size = settings.groq_chunk_rows
     result = []
-    for item in sorted(items, key=lambda i: i.row):
-        src = by_row.get(item.row)
-        if src is None:
-            continue  # AI invented a row id
-        result.append(
-            {
-                "row": item.row,
-                "raw_name": src.raw_name,
-                "section": src.section,
-                "category": item.category,
-                "brand": item.brand,
-                "model": item.model,
-                "name": item.name,
-                "price": item.price,
-                "condition": item.condition,
-                "specs": {s.key: s.value for s in item.specs},
-                # No price in the file means "out of stock"
-                "is_in_stock": item.price is not None,
-            }
-        )
+    for start in range(0, len(rows), size):
+        result += await _split_on_truncation(_groq, rows[start : start + size], stats)
     return result

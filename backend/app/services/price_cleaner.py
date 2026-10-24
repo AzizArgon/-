@@ -4,20 +4,36 @@ What it does before anything is sent to the AI:
 - skips duplicate sheets (e.g. "Export");
 - drops NaN / "Unnamed: N" placeholders and empty rows;
 - turns subheader rows ("DDR", "Блоки питания", table headers) into section markers;
-- truncates the long "характеристики" column and any overly long cell.
+- truncates the long "характеристики" column and any overly long cell;
+- takes price, article and stock straight from the table columns (the AI never sees them).
 """
 
 import re
 from dataclasses import dataclass, field
 
 SKIP_SHEETS = {"export"}
-HEADER_WORDS = ("опт", "цена", "розница", "наименование", "характеристик", "коробка", "price", "name")
-SPECS_HEADER = "характеристик"
+HEADER_WORDS = (
+    "опт", "цена", "розница", "наименование", "характеристик", "коробка", "артикул", "наличие",
+    "price", "name",
+)
+# Column roles detected from header rows; the first matching keyword wins
+COLUMN_ROLES = {
+    "price": ("цена", "опт", "розн", "стоимость", "price"),
+    "name": ("наименование", "название", "товар", "name"),
+    "article": ("артикул", "код", "part", "sku"),
+    "specs": ("характеристик",),
+    "stock": ("наличие", "склад", "остаток", "stock"),
+    "index": ("#", "№"),
+}
+OUT_OF_STOCK_WORDS = ("нет", "под заказ", "ожида", "0")
 SPECS_MAX_LEN = 120
 CELL_MAX_LEN = 200
+ARTICLE_MAX_WORDS = 5
 
 _EMPTY_CELL = re.compile(r"^(nan|none|unnamed: ?\d+|-+|:?-{3,}:?)$", re.IGNORECASE)
-_NUMBER = re.compile(r"^\d[\d\s.,]*$")
+_NUMBER = re.compile(r"^\$?\d[\d\s.,]*(\$|сум|sum|у\.?е\.?)?$", re.IGNORECASE)
+_THOUSANDS = re.compile(r"^\d{1,3}(,\d{3})+$")
+_CYRILLIC = re.compile(r"[а-яё]", re.IGNORECASE)
 
 
 @dataclass
@@ -26,14 +42,34 @@ class CleanRow:
     sheet: str
     section: str
     cells: list[str] = field(default_factory=list)
+    name: str = ""  # product name cell
+    article: str | None = None  # manufacturer part number / model code cell
+    price: float | None = None
+    is_in_stock: bool = False
+    ai_text: str = ""  # what the AI gets: name and other text cells, no price/specs/stock
 
     @property
     def raw_name(self) -> str:
         # Text without price-like cells: stays the same when only the price changes
         return " | ".join(c for c in self.cells if not _NUMBER.match(c))
 
-    def to_line(self) -> str:
-        return f"r{self.row} | " + " | ".join(self.cells)
+
+def parse_price(text: str) -> float | None:
+    """'1 250 000', '61.0', '35,', '$120', '1,250,000', '12,5' -> float; anything else -> None."""
+    if not text or not _NUMBER.match(text):
+        return None
+    t = re.sub(r"[^\d.,]", "", text).rstrip(".,")
+    if "," in t and "." in t:
+        t = t.replace(",", "")
+    elif _THOUSANDS.match(t):
+        t = t.replace(",", "")
+    else:
+        t = t.replace(",", ".")
+    try:
+        value = float(t)
+    except ValueError:
+        return None
+    return value if value > 0 else None
 
 
 def _clean_cell(cell: str) -> str:
@@ -63,11 +99,58 @@ def _section_name(cells: list[str]) -> str:
     return filled[0] if filled else ""
 
 
+def _column_roles(cells: list[str]) -> dict[int, str]:
+    roles: dict[int, str] = {}
+    for i, cell in enumerate(cells):
+        low = cell.lower()
+        for role, words in COLUMN_ROLES.items():
+            if low.startswith(words) or (role != "index" and any(w in low for w in words)):
+                # Several price columns ("опт", "розница"): the first one is used
+                if role not in roles.values():
+                    roles[i] = role
+                break
+    return roles
+
+
+def _extract_fields(row: CleanRow, cells: list[str], roles: dict[int, str]) -> None:
+    by_role = {role: i for i, role in roles.items()}
+    skip = {i for i, role in roles.items() if role in ("specs", "stock", "index", "price")}
+    texts = [(i, c) for i, c in enumerate(cells) if c and i not in skip and not _NUMBER.match(c)]
+
+    if "price" in by_role:
+        row.price = parse_price(cells[by_role["price"]])
+    else:
+        # No header: the last number in the row (not the first cell, which may be a row number)
+        numbers = [c for i, c in enumerate(cells) if i > 0 and c and _NUMBER.match(c)]
+        row.price = parse_price(numbers[-1]) if numbers else None
+
+    name_i = by_role.get("name")
+    if name_i is None or not cells[name_i]:
+        name_i = max(texts, key=lambda t: len(t[1]))[0] if texts else None
+    row.name = cells[name_i] if name_i is not None else ""
+    row.ai_text = " | ".join([row.name] + [c for i, c in texts if i != name_i]) if row.name else ""
+
+    article_i = by_role.get("article")
+    if article_i is None:
+        # A part number is short, Latin and has digits ("i3-12100F"); brands and types are not
+        short = [
+            i for i, c in texts
+            if i != name_i and len(c.split()) <= ARTICLE_MAX_WORDS
+            and any(ch.isdigit() for ch in c) and not _CYRILLIC.search(c)
+        ]
+        article_i = short[0] if short else None
+    row.article = cells[article_i] or None if article_i is not None and article_i != name_i else None
+
+    # An explicit stock column wins; otherwise "no price in the file" means "out of stock"
+    stock = cells[by_role["stock"]].lower() if "stock" in by_role else ""
+    row.is_in_stock = row.price is not None and not (stock and stock.startswith(OUT_OF_STOCK_WORDS))
+
+
 def clean_markdown(md: str) -> list[CleanRow]:
     rows: list[CleanRow] = []
     sheet, section = "", ""
     skip_sheet = False
-    specs_cols: set[int] = set()
+    roles: dict[int, str] = {}
 
     for line in md.splitlines():
         line = line.strip()
@@ -75,7 +158,7 @@ def clean_markdown(md: str) -> list[CleanRow]:
             sheet = line[3:].strip()
             section = ""
             skip_sheet = sheet.lower() in SKIP_SHEETS
-            specs_cols = set()
+            roles = {}
             continue
         if skip_sheet or not line or set(line) <= set("|-: "):
             continue
@@ -86,32 +169,28 @@ def clean_markdown(md: str) -> list[CleanRow]:
             continue
 
         if _is_header_row(cells):
-            # Remember which column holds long specs so it can be shortened below
-            found = {i for i, c in enumerate(cells) if SPECS_HEADER in c.lower()}
+            # Remember which column holds what, so values can be taken by code
+            found = _column_roles(cells)
             if found:
-                specs_cols = found
+                roles = found
             name = _section_name(cells)
             if name:
                 section = name
             continue
 
+        specs_cols = {i for i, role in roles.items() if role == "specs"}
         cells = [
             _truncate(c, SPECS_MAX_LEN if i in specs_cols else CELL_MAX_LEN)
             for i, c in enumerate(cells)
         ]
-        rows.append(CleanRow(row=len(rows) + 1, sheet=sheet, section=section, cells=[c for c in cells if c]))
+        row = CleanRow(row=len(rows) + 1, sheet=sheet, section=section, cells=[c for c in cells if c])
+        _extract_fields(row, cells, roles)
+        if row.name:
+            rows.append(row)
     return rows
 
 
-def make_chunks(rows: list[CleanRow], size: int) -> list[str]:
-    """Split rows into text chunks; each chunk repeats its sheet/section context."""
-    chunks = []
-    for start in range(0, len(rows), size):
-        lines, ctx = [], None
-        for r in rows[start : start + size]:
-            if (r.sheet, r.section) != ctx:
-                ctx = (r.sheet, r.section)
-                lines.append(f"# Sheet: {r.sheet} / Section: {r.section or '-'}")
-            lines.append(r.to_line())
-        chunks.append("\n".join(lines))
-    return chunks
+
+def cache_key(text: str) -> str:
+    """Normalized name used as the parse cache key: case, spaces and punctuation ignored."""
+    return " ".join(re.findall(r"[a-zа-яё0-9]+", text.lower()))

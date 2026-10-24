@@ -1,9 +1,10 @@
-"""Price list import: file -> markitdown -> cleanup -> Gemini in chunks -> preview -> publish."""
+"""Price list import: file -> markitdown -> cleanup -> cache / rules / AI -> preview -> publish."""
 
 import asyncio
 import io
 import logging
 import re
+import time
 from pathlib import Path
 
 from markitdown import MarkItDown, StreamInfo
@@ -12,9 +13,12 @@ from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.db.database import SessionLocal
-from app.db.models import Category, Condition, ImportStatus, Offer, PriceHistory, PriceImport, Product, Store
-from app.services.ai_parser import QuotaExhausted, merge_rows, parse_chunk
-from app.services.price_cleaner import clean_markdown, make_chunks
+from app.db.models import (
+    Category, Condition, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store,
+)
+from app.services.ai_parser import QuotaExhausted, parse_rows
+from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
+from app.services.rule_parser import parse_by_rules
 
 log = logging.getLogger(__name__)
 
@@ -33,47 +37,159 @@ def _set(import_id: int, **fields) -> None:
         db.commit()
 
 
+def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
+    """One row of the preview table. Price, article and stock always come from the file."""
+    p = parsed or {}
+    return {
+        "row": r.row,
+        "raw_name": r.raw_name,
+        "sheet": r.sheet,
+        "section": r.section,
+        "ai_text": r.ai_text,
+        "cache_key": cache_key(r.ai_text),
+        "article": r.article,
+        "category": p.get("category", "other"),
+        "brand": p.get("brand"),
+        "model": p.get("model") or r.article,
+        "name": p.get("name") or r.name,
+        "price": r.price,
+        "condition": p.get("condition", "new"),
+        "specs": p.get("specs") or {},
+        "is_in_stock": r.is_in_stock,
+        "source": source,  # cache / rule / ai / failed
+    }
+
+
+def _cache_data(row: dict) -> dict:
+    return {k: row.get(k) for k in ("category", "brand", "model", "name", "condition", "specs")}
+
+
+def save_cache(db: Session, entries: dict[str, dict], source: str) -> None:
+    if not entries:
+        return
+    existing = {c.key: c for c in db.scalars(select(ParseCache).where(ParseCache.key.in_(list(entries))))}
+    for key, data in entries.items():
+        if key in existing:
+            existing[key].data, existing[key].source = data, source
+        else:
+            db.add(ParseCache(key=key, data=data, source=source))
+    db.commit()
+
+
+async def parse_clean_rows(db: Session, rows: list[CleanRow], stats: dict, on_progress=None) -> list[dict]:
+    """Cache first, then rules, and only the rest goes to the AI in big chunks."""
+    started = time.monotonic()
+    keys = list({cache_key(r.ai_text) for r in rows})
+    cached = {c.key: c.data for c in db.scalars(select(ParseCache).where(ParseCache.key.in_(keys)))}
+    result: dict[int, dict] = {}
+    pending: list[CleanRow] = []
+    skipped = 0
+    for r in rows:
+        hit = cached.get(cache_key(r.ai_text))
+        rule = None if hit else parse_by_rules(r.name)
+        if hit and hit.get("skip"):
+            skipped += 1  # the AI said earlier: not a product
+        elif hit:
+            result[r.row] = _preview_row(r, hit, "cache")
+        elif rule:
+            result[r.row] = _preview_row(r, rule, "rule")
+        else:
+            pending.append(r)
+
+    size = settings.parser_chunk_rows
+    chunks = [pending[i : i + size] for i in range(0, len(pending), size)]
+    by_source = [v["source"] for v in result.values()]
+    stats.update(
+        rows=len(rows), cache=by_source.count("cache") + skipped, rule=by_source.count("rule"),
+        ai_rows=len(pending), chunks=len(chunks), requests=0,
+    )
+    done = 0
+    if on_progress:
+        on_progress(done, len(chunks))
+    sem = asyncio.Semaphore(settings.parser_concurrency)
+
+    async def worker(chunk: list[CleanRow]):
+        nonlocal done
+        async with sem:
+            try:
+                items = {it["row"]: it for it in await parse_rows(chunk, stats)}
+            except RuntimeError as e:
+                log.error("Chunk of %s rows failed: %s", len(chunk), str(e)[:300])
+                stats["quota_hit"] = stats.get("quota_hit") or isinstance(e, QuotaExhausted)
+                for r in chunk:
+                    result[r.row] = _preview_row(r, None, "failed")
+            else:
+                # Rows the AI skipped are not products (notes, headers)
+                for r in chunk:
+                    if r.row in items:
+                        result[r.row] = _preview_row(r, items[r.row], "ai")
+                # Skipped rows are cached too, so notes are not sent to the AI again
+                save_cache(db, {
+                    cache_key(r.ai_text): _cache_data(items[r.row]) if r.row in items else {"skip": True}
+                    for r in chunk
+                }, "ai")
+        done += 1
+        if on_progress:
+            on_progress(done, len(chunks))
+
+    await asyncio.gather(*(worker(c) for c in chunks))
+    stats["failed_rows"] = sum(v["source"] == "failed" for v in result.values())
+    stats["seconds"] = round(time.monotonic() - started, 1)
+    return [result[k] for k in sorted(result)]
+
+
+def _finish(import_id: int, rows: list[dict], stats: dict) -> None:
+    if not rows:
+        _set(import_id, status=ImportStatus.failed, error="empty_file", stats_json=stats)
+        return
+    failed = stats.get("failed_rows", 0)
+    error = f"{'ai_quota' if stats.get('quota_hit') else 'rows_failed'}:{failed}" if failed else None
+    _set(import_id, status=ImportStatus.ready, rows_json=rows, error=error, stats_json=stats)
+
+
+def _progress(import_id: int):
+    return lambda done, total: _set(import_id, chunks_done=done, chunks_total=total)
+
+
 async def run_import(import_id: int, data: bytes, filename: str) -> None:
     """Background job: fills price_imports.rows_json and reports progress per chunk."""
     try:
         md = await asyncio.to_thread(file_to_markdown, data, filename)
         rows = clean_markdown(md)
-        chunks = make_chunks(rows, settings.parser_chunk_rows)
-        if not chunks:
-            _set(import_id, status=ImportStatus.failed, error="empty_file")
-            return
-        _set(import_id, chunks_total=len(chunks))
-
-        sem = asyncio.Semaphore(settings.parser_concurrency)
-        done, failed, quota_hit, items = 0, 0, False, []
-
-        async def worker(chunk: str):
-            nonlocal done, failed, quota_hit
-            async with sem:
-                try:
-                    items.extend(await parse_chunk(chunk))
-                except QuotaExhausted:
-                    quota_hit = True
-                    failed += 1
-                except RuntimeError as e:
-                    log.error("Import %s: chunk failed: %s", import_id, e)
-                    failed += 1
-            done += 1
-            _set(import_id, chunks_done=done)
-
-        await asyncio.gather(*(worker(c) for c in chunks))
-
-        if failed == len(chunks):
-            _set(import_id, status=ImportStatus.failed, error="ai_quota" if quota_hit else "ai_failed")
-            return
-        _set(
-            import_id,
-            status=ImportStatus.ready,
-            rows_json=merge_rows(rows, items),
-            error=f"chunks_failed:{failed}" if failed else None,
-        )
+        stats: dict = {}
+        with SessionLocal() as db:
+            parsed = await parse_clean_rows(db, rows, stats, _progress(import_id))
+        _finish(import_id, parsed, stats)
     except Exception as e:  # never leave an import stuck in "processing"
         log.exception("Import %s failed", import_id)
+        _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
+
+
+async def retry_failed_rows(import_id: int) -> None:
+    """Parses again only the rows that failed (e.g. after the AI quota ran out)."""
+    try:
+        with SessionLocal() as db:
+            imp = db.get(PriceImport, import_id)
+            rows = list(imp.rows_json)
+            failed = [
+                CleanRow(
+                    row=r["row"], sheet=r.get("sheet", ""), section=r.get("section", ""), cells=[r["raw_name"]],
+                    name=r["name"], article=r.get("article"), price=r.get("price"),
+                    is_in_stock=r.get("is_in_stock", False), ai_text=r.get("ai_text") or r["name"],
+                )
+                for r in rows if r.get("source") == "failed"
+            ]
+            stats = dict(imp.stats_json or {})
+            retry_stats: dict = {}
+            reparsed = await parse_clean_rows(db, failed, retry_stats, _progress(import_id))
+        by_row = {r["row"]: r for r in rows if r.get("source") != "failed"}
+        by_row.update({r["row"]: r for r in reparsed})
+        stats["retries"] = stats.get("retries", []) + [retry_stats]
+        stats["failed_rows"] = retry_stats.get("failed_rows", 0)
+        stats["quota_hit"] = retry_stats.get("quota_hit", False)
+        _finish(import_id, [by_row[k] for k in sorted(by_row)], stats)
+    except Exception as e:  # never leave an import stuck in "processing"
+        log.exception("Retry of import %s failed", import_id)
         _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
 
 
@@ -144,4 +260,6 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     imp.status = ImportStatus.published
     imp.rows_json = rows
     db.commit()
+    # Reviewed rows teach the cache: next upload of the same names needs no AI at all
+    save_cache(db, {r["cache_key"]: _cache_data(r) for r in rows if r.get("cache_key")}, "seller")
     return stats

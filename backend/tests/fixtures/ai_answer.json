@@ -1,0 +1,51 @@
+{
+  "model": "gemini-3.5-flash-lite",
+  "items": [
+    {
+      "i": 1,
+      "c": "gpu",
+      "b": "NVIDIA",
+      "m": "GTX 1660 Super",
+      "n": "Видеокарта NVIDIA GeForce GTX 1660 Super 6GB",
+      "s": "used",
+      "p": [
+        "memory:6GB",
+        "memory_type:GDDR6"
+      ]
+    },
+    {
+      "i": 2,
+      "c": "cpu",
+      "b": "Intel",
+      "m": "Core i5-12400F",
+      "n": "Процессор Intel Core i5-12400F",
+      "s": "used",
+      "p": [
+        "socket:LGA1700",
+        "cores:6"
+      ]
+    },
+    {
+      "i": 5,
+      "c": "mouse",
+      "b": "Logitech",
+      "m": "910-005808",
+      "n": "Мышь Logitech G102 Lightsync черная",
+      "p": [
+        "color:черный",
+        "model:G102 Lightsync"
+      ]
+    },
+    {
+      "i": 6,
+      "c": "psu",
+      "b": "Aerocool",
+      "m": "KCAS Plus 600W",
+      "n": "Блок питания Aerocool KCAS Plus 600W",
+      "p": [
+        "power:600W",
+        "certification:80 PLUS Bronze"
+      ]
+    }
+  ]
+}

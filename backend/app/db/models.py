@@ -176,7 +176,24 @@ class PriceImport(Base):
     chunks_done: Mapped[int] = mapped_column(Integer, default=0)
     rows_json: Mapped[list] = mapped_column(JSON, default=list)
     error: Mapped[str | None] = mapped_column(Text)
+    # How the rows were parsed: counts by source, AI requests, seconds (for the parser experiment)
+    stats_json: Mapped[dict] = mapped_column(JSON, default=dict)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class ParseCache(Base):
+    """Already parsed names: the same row is never sent to the AI twice.
+
+    Seller corrections from the preview overwrite AI answers (source = "seller").
+    """
+
+    __tablename__ = "parse_cache"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    key: Mapped[str] = mapped_column(String(512), unique=True, index=True)
+    data: Mapped[dict] = mapped_column(JSON)
+    source: Mapped[str] = mapped_column(String(16))
+    updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
 
 class ExchangeRate(Base):

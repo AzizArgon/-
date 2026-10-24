@@ -6,7 +6,7 @@ from app.api.deps import require_role
 from app.db.database import get_db
 from app.db.models import Currency, ImportStatus, PriceImport, Store, User
 from app.schemas.seller import ImportDetail, ImportOut, PublishRequest, PublishResult, StoreIn, StoreOut
-from app.services.importer import ALLOWED_EXTENSIONS, publish_import, run_import
+from app.services.importer import ALLOWED_EXTENSIONS, publish_import, retry_failed_rows, run_import
 
 router = APIRouter(tags=["seller"])
 
@@ -93,3 +93,18 @@ def publish(import_id: int, data: PublishRequest, user: User = Depends(seller_on
     if imp.status != ImportStatus.ready:
         raise HTTPException(status.HTTP_409_CONFLICT, "Import is not ready to publish")
     return publish_import(db, imp, store, [r.model_dump() for r in data.rows])
+
+
+@router.post("/imports/{import_id}/retry", response_model=ImportOut, status_code=status.HTTP_202_ACCEPTED)
+def retry_import(
+    import_id: int, background: BackgroundTasks, user: User = Depends(seller_only), db: Session = Depends(get_db)
+):
+    """Parses again the rows that failed, e.g. the next day when the AI quota is back."""
+    _, imp = _my_import(db, user, import_id)
+    if imp.status != ImportStatus.ready or not any(r.get("source") == "failed" for r in imp.rows_json):
+        raise HTTPException(status.HTTP_409_CONFLICT, "Nothing to retry")
+    imp.status = ImportStatus.processing
+    imp.chunks_done = 0
+    db.commit()
+    background.add_task(retry_failed_rows, imp.id)
+    return imp

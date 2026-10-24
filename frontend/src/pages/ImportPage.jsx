@@ -9,7 +9,8 @@ const POLL_MS = 2000
 const CONDITIONS = ['new', 'used', 'refurbished']
 
 // Rows the seller should look at: no price, unknown category or no brand
-const needsAttention = (r) => r.price == null || r.category === 'other' || !r.brand
+const needsAttention = (r) => r.source === 'failed' || r.price == null || r.category === 'other' || !r.brand
+const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
 
@@ -84,7 +85,8 @@ function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
                 <input className={`${cellInput} font-medium`} disabled={readOnly} value={r.name} required
                   onChange={(e) => edit(r.row, 'name', e.target.value)} />
                 <p className="truncate px-1.5 text-xs text-slate-400" title={r.raw_name}>
-                  {t('import.original')}: {r.raw_name}
+                  <span className={SOURCE_STYLE[r.source] || ''}>{t(`import.source.${r.source || 'ai'}`)}</span>
+                  {' · '}{t('import.original')}: {r.raw_name}
                 </p>
               </td>
               <td className="px-2 py-1.5 align-top">
@@ -136,6 +138,7 @@ export default function ImportPage() {
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
   const [stats, setStats] = useState(null)
+  const [reloadKey, setReloadKey] = useState(0)
 
   useEffect(() => {
     api.get('/categories').then((res) => setCategories(res.data)).catch(() => {})
@@ -154,7 +157,7 @@ export default function ImportPage() {
         .catch((err) => setError(t(errorKey(err))))
     load()
     return () => clearTimeout(timer)
-  }, [id, t])
+  }, [id, t, reloadKey])
 
   const publish = async () => {
     setError('')
@@ -170,7 +173,20 @@ export default function ImportPage() {
     }
   }
 
-  const partialFailed = imp?.error?.startsWith('chunks_failed:') ? imp.error.split(':')[1] : null
+  // Re-parse rows that failed (e.g. the next day, when the free AI quota is back)
+  const retry = async () => {
+    setError('')
+    try {
+      await api.post(`/imports/${id}/retry`)
+      setReloadKey((k) => k + 1)
+    } catch (err) {
+      setError(t(errorKey(err, { 409: 'errors.importNotReady' })))
+    }
+  }
+
+  // error is "rows_failed:N" or "ai_quota:N" when some rows could not be parsed
+  const [failReason, failedCount] = imp?.status === 'ready' && imp.error ? imp.error.split(':') : []
+  const parseStats = imp?.stats?.rows ? imp.stats : null
 
   return (
     <div className="grid gap-6">
@@ -189,7 +205,7 @@ export default function ImportPage() {
       <ErrorText>{error}</ErrorText>
       {imp?.status === 'processing' && <Progress imp={imp} />}
       {imp?.status === 'failed' && (
-        <ErrorText>{t(imp.error === 'ai_quota' ? 'import.quota' : 'import.failed')}</ErrorText>
+        <ErrorText>{t('import.failed')}</ErrorText>
       )}
       {imp?.status === 'published' && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800">
@@ -199,7 +215,15 @@ export default function ImportPage() {
       )}
       {imp?.status === 'ready' && (
         <>
-          {partialFailed && <p className="rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">{t('import.partial', { count: partialFailed })}</p>}
+          {failedCount && (
+            <div className="flex items-center justify-between rounded-md bg-amber-50 px-3 py-2 text-sm text-amber-800">
+              <span>{t(failReason === 'ai_quota' ? 'import.partialQuota' : 'import.partial', { count: failedCount })}</span>
+              <button onClick={retry} className="rounded-md border border-amber-300 px-3 py-1 hover:bg-amber-100">
+                {t('import.retry')}
+              </button>
+            </div>
+          )}
+          {parseStats && <p className="text-sm text-slate-500">{t('import.stats', parseStats)}</p>}
           <p className="text-sm text-slate-500">{t('import.hint')}</p>
         </>
       )}

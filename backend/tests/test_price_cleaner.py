@@ -1,4 +1,6 @@
-from app.services.price_cleaner import clean_markdown, make_chunks
+import pytest
+
+from app.services.price_cleaner import cache_key, clean_markdown, parse_price
 
 SAMPLE = """## CPU, DDR, HDD
 | CPU | Unnamed: 1 | опт |
@@ -42,9 +44,24 @@ def test_raw_name_ignores_price():
     assert rows[0].raw_name == "Intel-Core i3 - 12100F, 3.3 GHz, oem | i3-12100F"
 
 
-def test_chunks_repeat_context():
+def test_price_article_and_stock_come_from_columns():
     rows = clean_markdown(SAMPLE)
-    chunks = make_chunks(rows, 2)
-    assert len(chunks) == 3
-    assert chunks[1].startswith("# Sheet: CPU, DDR, HDD / Section: DDR")
-    assert "r3 | KingBank DDR5" in chunks[1]
+    cpu, no_price, kingbank, _, speakers = rows
+    assert (cpu.price, cpu.article, cpu.is_in_stock) == (87, "i3-12100F", True)
+    assert (no_price.price, no_price.is_in_stock) == (None, False)
+    assert kingbank.article == "KJXS DDR4 6000MHz 8GB UDIMM"
+    # Header "наименование ... цена": name and price by column, specs never reach the AI
+    assert (speakers.name, speakers.price) == ("F&D T-60X", 55)
+    assert "Мощность" not in speakers.ai_text
+
+
+@pytest.mark.parametrize("text,value", [
+    ("1 250 000", 1250000), ("61.0", 61), ("35,", 35), ("$120", 120), ("1,250,000", 1250000),
+    ("12,5", 12.5), ("NaN", None), ("0", None), ("i3-12100F", None),
+])
+def test_parse_price(text, value):
+    assert parse_price(text) == value
+
+
+def test_cache_key_ignores_case_and_punctuation():
+    assert cache_key("Lexar DDR4 8GB, 3200MHz!") == cache_key("lexar  ddr4 8gb 3200mhz")

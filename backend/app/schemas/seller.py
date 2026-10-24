@@ -43,6 +43,12 @@ class PreviewRow(BaseModel):
     condition: Literal["new", "used", "refurbished"] = "new"
     specs: dict[str, str] = {}
     is_in_stock: bool = True
+    # Filled by the parser: where the row came from and how to find it in the parse cache
+    sheet: str = ""
+    article: str | None = None
+    ai_text: str | None = None
+    cache_key: str | None = None
+    source: Literal["cache", "rule", "ai", "failed", "seller"] = "ai"
 
 
 class ImportOut(BaseModel):
@@ -55,6 +61,7 @@ class ImportOut(BaseModel):
     chunks_total: int
     chunks_done: int
     error: str | None
+    stats: dict = Field(default_factory=dict, validation_alias="stats_json")
     created_at: datetime
 
     @field_validator("created_at")
