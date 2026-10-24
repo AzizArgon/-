@@ -105,8 +105,10 @@ def _column_roles(cells: list[str]) -> dict[int, str]:
         low = cell.lower()
         for role, words in COLUMN_ROLES.items():
             if low.startswith(words) or (role != "index" and any(w in low for w in words)):
-                # Several price columns ("опт", "розница"): the first one is used
-                if role not in roles.values():
+                if role == "price":
+                    # Several price columns are kept: wholesale ("опт") is preferred over retail
+                    roles[i] = "price_wholesale" if "опт" in low else "price"
+                elif role not in roles.values():
                     roles[i] = role
                 break
     return roles
@@ -114,11 +116,15 @@ def _column_roles(cells: list[str]) -> dict[int, str]:
 
 def _extract_fields(row: CleanRow, cells: list[str], roles: dict[int, str]) -> None:
     by_role = {role: i for i, role in roles.items()}
-    skip = {i for i, role in roles.items() if role in ("specs", "stock", "index", "price")}
+    skip = {i for i, role in roles.items() if role in ("specs", "stock", "index", "price", "price_wholesale")}
     texts = [(i, c) for i, c in enumerate(cells) if c and i not in skip and not _NUMBER.match(c)]
+    price_cols = [i for i, r in roles.items() if r == "price_wholesale"] + [i for i, r in roles.items() if r == "price"]
 
-    if "price" in by_role:
-        row.price = parse_price(cells[by_role["price"]])
+    if price_cols:
+        # The first filled price column wins: wholesale if there is one, otherwise retail.
+        # Numbers in columns without a price header (barcodes, notes) are never guessed as prices
+        prices = (parse_price(cells[i]) for i in price_cols if i < len(cells))
+        row.price = next((p for p in prices if p is not None), None)
     else:
         # No header: the last number in the row (not the first cell, which may be a row number)
         numbers = [c for i, c in enumerate(cells) if i > 0 and c and _NUMBER.match(c)]

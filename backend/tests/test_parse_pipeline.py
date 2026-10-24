@@ -123,3 +123,28 @@ def test_without_any_ai_rows_are_kept_as_failed(db, rows, monkeypatch):
     # Failed rows stay in the preview with the price from the file, ready for a retry
     assert stats["failed_rows"] == len(failed) > 0
     assert any(r["price"] == 95 for r in failed)
+
+
+def test_ai_specs_not_in_row_are_guesses(db, rows):
+    result = asyncio.run(parse_clean_rows(db, rows, {}))
+    psu = next(r for r in result if r["category"] == "psu")
+    # "600W" is in the row; "80 PLUS Bronze" was invented by the AI
+    assert "600W" in psu["specs"].values()
+    assert "certification" in psu["specs_guess"] and "certification" not in psu["specs"]
+    cpu = next(r for r in result if r["source"] == "ai" and r["category"] == "cpu")
+    assert "socket" in cpu["specs_guess"]  # LGA1700 is not written in "проц i5 12400f б/у"
+
+
+@pytest.mark.parametrize("value,text,expected", [
+    ("4GB DDR4", "Lenovo (Intel Core i3/ DDR4 4GB/ HDD 1TB)", True),
+    ("1.5m", "SPG5-C-5 1,5м", True),
+    ("16A", "для нагрузки до 16 ампер", True),
+    ("wireless", "беспроводные наушники", True),
+    ("33 стр/мин", "(A4, 1Gb,33стр/мин, цв.лаз.МФУ)", True),
+    ("80 PLUS Bronze", "Блок питания 600W Aerocool KCAS Plus", False),
+    ("6", "б/у видюха gtx 1660 super 6gb", True),
+    ("6", "gtx 1660 super", False),
+    ("LGA1700", "проц i5 12400f б/у", False),
+])
+def test_spec_in_text(value, text, expected):
+    assert ai_parser.spec_in_text(value, text) is expected

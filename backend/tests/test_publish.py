@@ -65,3 +65,11 @@ def test_same_product_from_two_stores_shares_one_card(db):
     assert len(db.scalars(select(Product)).all()) == 1
     offers = db.scalars(select(Offer)).all()
     assert {o.currency for o in offers} == {Currency.USD, Currency.UZS}
+
+
+def test_duplicate_row_without_price_does_not_erase_price(db):
+    store = _store(db, "a@example.com")
+    rows = [_row(1, "Jonsbo Fan HF2-120B Black", 10), _row(2, "Jonsbo Fan HF2-120B Black", None)]
+    publish_import(db, _import(db, store), store, rows)
+    offer = db.scalar(select(Offer).where(Offer.raw_name == "Jonsbo Fan HF2-120B Black"))
+    assert offer.price == 10 and offer.is_in_stock is True

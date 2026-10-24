@@ -89,7 +89,7 @@ def _ram(text: str):
     if kit:
         size, count = (kit[1], kit[2]) if kit[1] else (kit[3], kit[4])
         rest = rest.replace(kit[0], f"({count}x{size}GB)")
-    form = "SODIMM" if re.search(r"SODIMM|SODIM", rest, re.IGNORECASE) else "DIMM"
+    form = "SODIMM" if re.search(r"SODIMM|SODIM", rest, re.IGNORECASE) else None  # not written = unknown
     rest = re.sub(r"\bSODIMM?\b", "SODIMM", rest, flags=re.IGNORECASE)
     ddr = m["type"].upper()
     name = f"{m['brand']} {ddr} {m['cap'].upper()} {m['freq'].replace('mhz', 'MHz')}{rest}"

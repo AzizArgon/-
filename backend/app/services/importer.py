@@ -16,7 +16,7 @@ from app.db.database import SessionLocal
 from app.db.models import (
     Category, Condition, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store,
 )
-from app.services.ai_parser import QuotaExhausted, parse_rows
+from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
 
@@ -40,6 +40,10 @@ def _set(import_id: int, **fields) -> None:
 def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
     """One row of the preview table. Price, article and stock always come from the file."""
     p = parsed or {}
+    specs, guessed = p.get("specs") or {}, {}
+    if source in ("ai", "cache"):
+        # AI specs must be backed by the row text; the rest is only a guess
+        specs, guessed = split_specs(specs, f"{r.sheet} {r.section} {r.raw_name}")
     return {
         "row": r.row,
         "raw_name": r.raw_name,
@@ -54,14 +58,18 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "name": p.get("name") or r.name,
         "price": r.price,
         "condition": p.get("condition", "new"),
-        "specs": p.get("specs") or {},
+        "specs": specs,
+        "specs_guess": guessed,
         "is_in_stock": r.is_in_stock,
         "source": source,  # cache / rule / ai / failed
     }
 
 
 def _cache_data(row: dict) -> dict:
-    return {k: row.get(k) for k in ("category", "brand", "model", "name", "condition", "specs")}
+    data = {k: row.get(k) for k in ("category", "brand", "model", "name", "condition")}
+    # Guesses stay in the cache: they are re-checked against the row text every time
+    data["specs"] = {**(row.get("specs_guess") or {}), **(row.get("specs") or {})}
+    return data
 
 
 def save_cache(db: Session, entries: dict[str, dict], source: str) -> None:
@@ -218,7 +226,10 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     seen: set[int] = set()
     stats = {"created": 0, "updated": 0, "out_of_stock": 0}
 
-    for r in rows:
+    # The same item listed twice in one file: a row without a price must not overwrite a priced one
+    priced = {r["raw_name"] for r in rows if r.get("price") is not None}
+    rows_to_save = [r for r in rows if r.get("price") is not None or r["raw_name"] not in priced]
+    for r in rows_to_save:
         category = categories.get(r["category"]) or categories["other"]
         key = make_match_key(category.slug, r["name"])
         product = products.get(key) or db.scalar(select(Product).where(Product.match_key == key))
@@ -233,6 +244,8 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         price = r.get("price")
         in_stock = price is not None and r.get("is_in_stock", True)
         offer = offers_by_raw.get(r["raw_name"])
+        if offer is not None and offer.id in seen:
+            continue  # duplicate within this file: the first priced row is kept
         price_changed = True
         if offer is None:
             offer = Offer(store=store, raw_name=r["raw_name"])

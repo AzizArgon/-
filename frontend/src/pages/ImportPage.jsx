@@ -29,6 +29,24 @@ function Progress({ imp }) {
   )
 }
 
+const specsText = (specs) => Object.entries(specs || {}).map(([k, v]) => `${k}: ${v}`).join(' · ')
+
+// Confirmed specs are written in the row; AI guesses are shown apart and never saved
+function Specs({ specs, guess }) {
+  const { t } = useTranslation()
+  const confirmed = specsText(specs)
+  const guessed = specsText(guess)
+  if (!confirmed && !guessed) return null
+  return (
+    <p className="truncate px-1.5 text-xs text-slate-500" title={[confirmed, guessed].filter(Boolean).join('\n')}>
+      {confirmed}
+      {guessed && (
+        <span className="italic text-amber-700">{confirmed && ' · '}{t('import.aiGuess')}: {guessed}</span>
+      )}
+    </p>
+  )
+}
+
 function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
@@ -88,6 +106,7 @@ function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
                   <span className={SOURCE_STYLE[r.source] || ''}>{t(`import.source.${r.source || 'ai'}`)}</span>
                   {' · '}{t('import.original')}: {r.raw_name}
                 </p>
+                <Specs specs={r.specs} guess={r.specs_guess} />
               </td>
               <td className="px-2 py-1.5 align-top">
                 <input className={cellInput} disabled={readOnly} value={r.brand ?? ''}

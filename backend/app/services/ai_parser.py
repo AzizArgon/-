@@ -130,6 +130,67 @@ def format_chunk(rows: list[CleanRow]) -> str:
     return "\n".join(lines)
 
 
+def _normalize(text: str) -> str:
+    # "1,5м" -> "1.5м", but a list "1Gb,33стр" keeps its comma
+    return re.sub(r"(?<=\d),(?=\d)", ".", text.lower().replace("ё", "е"))
+
+
+# Units may differ between the AI answer and the row ("1.5m" / "1,5м"): only the number must match
+_UNITS = {
+    "gb", "mb", "tb", "kb", "w", "вт", "hz", "гц", "ghz", "mhz", "ггц", "мгц", "m", "м", "mm", "мм", "cm", "см",
+    "a", "а", "v", "в", "mah", "dpi", "ppm", "rpm", "ms", "мс", "inch", "дюйм", "шт", "pcs", "мин", "стр",
+    "va", "ва", "стр/мин",
+}
+# The AI answers in English, rows are often Russian: English word start -> Russian stem
+_SYNONYMS = (
+    ("wireless", "беспровод"), ("wired", "провод"), ("mechanic", "механ"), ("laser", "лаз"), ("inkjet", "струй"),
+    ("black", "черн"), ("white", "бел"), ("grey", "сер"), ("gray", "сер"), ("red", "красн"), ("blue", "син"),
+    ("green", "зелен"), ("pink", "розов"), ("silver", "серебр"), ("gold", "золот"), ("headphone", "наушн"),
+    ("headset", "гарнитур"), ("keyboard", "клав"), ("mouse", "мыш"), ("fan", "вентил"), ("cooler", "кулер"),
+    ("speaker", "акуст"), ("speaker", "колон"), ("monitor", "монитор"), ("printer", "принтер"), ("mfp", "мфу"),
+    ("curved", "изогн"), ("used", "б/у"), ("membrane", "мембран"), ("gaming", "игров"), ("liquid", "водян"),
+    ("water", "водян"), ("color", "цв"), ("bronze", "бронз"), ("platinum", "платин"), ("titanium", "титан"),
+)
+
+
+def _stem_in(tok: str, norm: str) -> bool:
+    """Russian endings differ ("струйный" / "струйное"): compare the word stem."""
+    return bool(re.fullmatch(r"[а-я]{5,}", tok)) and tok[: max(4, len(tok) - 3)] in norm
+
+
+def spec_in_text(value: str, text: str) -> bool:
+    """Is the spec value written in the row itself? Every number and every word must be found there.
+
+    "4GB DDR4" matches "DDR4 4GB", "16A" matches "16 ампер", "wireless" matches "беспроводные";
+    "80 PLUS Bronze" does not match "Блок питания 600W", "6" does not match "1660".
+    """
+    norm = _normalize(text)
+    compact = re.sub(r"[^a-zа-я0-9.+/]", "", norm)
+    tokens = [t.strip(".") for t in re.findall(r"[a-zа-я0-9.+/]+", _normalize(value))]
+    tokens = [t for t in tokens if t]
+    if not tokens:
+        return False
+    for tok in tokens:
+        num = re.fullmatch(r"(\d+(?:\.\d+)?)([a-zа-я]*)", tok)
+        if num and (not num[2] or num[2] in _UNITS):
+            # a standalone number: not a part of "DDR4" or "1660"
+            if not re.search(rf"(?<![\d.a-zа-я]){re.escape(num[1])}(?!\d)", norm):
+                return False
+        elif tok in _UNITS or len(tok) < 2 or tok in compact or _stem_in(tok, norm):
+            continue
+        elif not any(tok.startswith(en) and ru in norm for en, ru in _SYNONYMS):
+            return False
+    return True
+
+
+def split_specs(specs: dict, text: str) -> tuple[dict, dict]:
+    """(confirmed by the row text, AI guesses). Guesses are shown but never saved or used by Anti-Fraud."""
+    confirmed, guessed = {}, {}
+    for key, value in specs.items():
+        (confirmed if spec_in_text(str(value), text) else guessed)[key] = value
+    return confirmed, guessed
+
+
 def _estimate_tokens(text: str, rows: int) -> int:
     return int(len(text) / CHARS_PER_TOKEN) + rows * OUTPUT_TOKENS_PER_ROW
 

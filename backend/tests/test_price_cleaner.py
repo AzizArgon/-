@@ -65,3 +65,17 @@ def test_parse_price(text, value):
 
 def test_cache_key_ignores_case_and_punctuation():
     assert cache_key("Lexar DDR4 8GB, 3200MHz!") == cache_key("lexar  ddr4 8gb 3200mhz")
+
+
+def test_second_price_column_is_used_when_wholesale_is_empty():
+    md = """## Sharkoon
+| NaN | NaN | наименование | NaN | Розница | опт |
+| --- | --- | --- | --- | --- | --- |
+| Sharkoon | Игровая мышь | Mouse Sharkoon Light 180 black | NaN | NaN | 10 |
+| Sharkoon | Игровая мышь | Mouse Sharkoon Force II | NaN | 12 | 11 |
+| Sharkoon | Игровая мышь | Mouse Sharkoon Light 200 | NaN | 15 | NaN |
+| Gigabyte | MB Gigabyte B850 EAGLE | 4719331871239 | NaN | NaN | NaN |
+"""
+    rows = clean_markdown(md)
+    # wholesale preferred, retail as fallback, a barcode is never a price
+    assert [r.price for r in rows] == [10, 11, 15, None]
