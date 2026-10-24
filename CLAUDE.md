@@ -119,5 +119,12 @@ npm run dev        # http://localhost:5173 (backend должен быть зап
 - Тесты: `cd backend` → `.\.venv\Scripts\python.exe -m pytest`. Кейс Anti-Fraud «KingBank DDR5 / KJXS DDR4» — `tests/fixtures/antifraud_cases.json` (тест пропускается, пока нет `app/services/antifraud.py`).
 - Схема БД изменилась (`categories.slug`, `products.match_key`, `offers.currency`, `price_history.currency`, новые `price_imports`, `exchange_rates`). Alembic нет → при изменении схемы удалить `backend/database.db` (тестовые аккаунты пропадут).
 
+### Тестовые данные в локальной БД
+- Продавец `seller1@example.com` / `seller12345`, магазин «Age Computers»: опубликовано 1492 предложения из реального прайса (импорт №2) и мини-CSV в UZS (импорт №3).
+
+### Открытые вопросы
+- Лимит Gemini: бесплатный тариф = 20 запросов/сутки на модель, прайс ≈ 10 запросов. Для эксперимента с 5–10 «грязными» прайсами (~100 запросов) нужен платный тариф — решение за Азизом. Пока работает переключение на запасные модели.
+- Реальный прайс разобран не полностью (6 из 10 частей) — перезапустить импорт, когда будет квота.
+
 ### Дальше
 Фаза 4 — каталог с поиском и фильтрами, карточка товара с предложениями (цены в USD и UZS по курсу ЦБ), Anti-Fraud.
