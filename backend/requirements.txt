@@ -1,0 +1,11 @@
+fastapi==0.115.12
+uvicorn[standard]==0.34.2
+pydantic==2.11.4
+pydantic-settings==2.9.1
+email-validator==2.2.0
+SQLAlchemy==2.0.40
+PyJWT==2.10.1
+passlib==1.7.4
+# passlib is incompatible with bcrypt>=4.1, keep pinned
+bcrypt==4.0.1
+python-dotenv==1.1.0
