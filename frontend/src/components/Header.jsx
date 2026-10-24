@@ -8,13 +8,16 @@ export default function Header() {
 
   return (
     <header className="border-b border-slate-200 bg-white">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-6">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-6">
         <Link to="/" className="text-xl font-semibold tracking-tight">
           {t('app.name')}
         </Link>
         <nav className="flex items-center gap-4 text-sm">
           {user ? (
             <>
+              {user.role === 'seller' && (
+                <Link to="/seller" className="rounded-md px-3 py-1.5 hover:bg-slate-100">{t('nav.seller')}</Link>
+              )}
               <span className="text-slate-500">
                 {user.email} · {t(`roles.${user.role}`)}
               </span>

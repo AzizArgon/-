@@ -1,0 +1,84 @@
+from datetime import date, datetime, timezone
+from typing import Literal
+
+from pydantic import BaseModel, ConfigDict, Field, field_validator
+
+
+class StoreIn(BaseModel):
+    name: str = Field(min_length=2, max_length=255)
+    inn_stir: str | None = Field(default=None, max_length=20)
+    phone: str | None = Field(default=None, max_length=32)
+    telegram: str | None = Field(default=None, max_length=64)
+    address: str | None = Field(default=None, max_length=255)
+    district: str | None = Field(default=None, max_length=128)
+
+
+class StoreOut(StoreIn):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    is_verified: bool
+
+
+class CategoryOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    slug: str
+    name: str
+    mxik_code: str | None
+
+
+class PreviewRow(BaseModel):
+    """One parsed row in the editable preview table."""
+
+    row: int
+    raw_name: str
+    section: str = ""
+    category: str
+    brand: str | None = None
+    model: str | None = None
+    name: str = Field(min_length=1, max_length=512)
+    price: float | None = Field(default=None, ge=0)
+    condition: Literal["new", "used", "refurbished"] = "new"
+    specs: dict[str, str] = {}
+    is_in_stock: bool = True
+
+
+class ImportOut(BaseModel):
+    model_config = ConfigDict(from_attributes=True)
+
+    id: int
+    filename: str
+    currency: str
+    status: str
+    chunks_total: int
+    chunks_done: int
+    error: str | None
+    created_at: datetime
+
+    @field_validator("created_at")
+    @classmethod
+    def _assume_utc(cls, value: datetime) -> datetime:
+        # SQLite drops the timezone; we always store UTC
+        return value if value.tzinfo else value.replace(tzinfo=timezone.utc)
+
+
+class ImportDetail(ImportOut):
+    rows: list[PreviewRow] = Field(validation_alias="rows_json")
+
+
+class PublishRequest(BaseModel):
+    rows: list[PreviewRow]
+
+
+class PublishResult(BaseModel):
+    created: int
+    updated: int
+    out_of_stock: int
+
+
+class RateOut(BaseModel):
+    currency: str
+    rate: float
+    rate_date: date

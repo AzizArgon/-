@@ -9,3 +9,8 @@ passlib==1.7.4
 # passlib is incompatible with bcrypt>=4.1, keep pinned
 bcrypt==4.0.1
 python-dotenv==1.1.0
+markitdown[xlsx,xls,pdf]==0.1.9
+google-genai==2.33.0
+httpx==0.28.1
+python-multipart==0.0.32
+pytest==9.1.1

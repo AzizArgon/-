@@ -12,12 +12,17 @@ api.interceptors.request.use((config) => {
   return config
 })
 
-// Maps an axios error to an i18n key from the "errors" section
-export function errorKey(err) {
+// Maps an axios error to an i18n key from the "errors" section.
+// `overrides` lets a page give its own meaning to a status code, e.g. { 409: 'errors.importNotReady' }
+export function errorKey(err, overrides = {}) {
   if (!err.response) return 'errors.network'
+  if (overrides[err.response.status]) return overrides[err.response.status]
   switch (err.response.status) {
     case 401: return 'errors.invalidCredentials'
+    case 404: return 'errors.notFound'
     case 409: return 'errors.emailTaken'
+    case 413: return 'errors.fileTooLarge'
+    case 415: return 'errors.fileType'
     case 422: return 'errors.validation'
     default: return 'errors.unknown'
   }

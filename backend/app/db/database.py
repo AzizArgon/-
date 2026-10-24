@@ -30,3 +30,8 @@ def init_db():
     from app.db import models  # noqa: F401  (register models on Base.metadata)
 
     Base.metadata.create_all(bind=engine)
+
+    from app.db.seed import seed_categories
+
+    with SessionLocal() as db:
+        seed_categories(db)

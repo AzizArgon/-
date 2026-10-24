@@ -1,7 +1,7 @@
 import enum
-from datetime import datetime, timezone
+from datetime import date, datetime, timezone
 
-from sqlalchemy import JSON, Boolean, DateTime, Enum, Float, ForeignKey, Integer, String, Text
+from sqlalchemy import JSON, Boolean, Date, DateTime, Enum, Float, ForeignKey, Integer, String, Text, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.db.database import Base
@@ -27,6 +27,18 @@ class Condition(str, enum.Enum):
     new = "new"
     used = "used"
     refurbished = "refurbished"
+
+
+class Currency(str, enum.Enum):
+    USD = "USD"
+    UZS = "UZS"
+
+
+class ImportStatus(str, enum.Enum):
+    processing = "processing"
+    ready = "ready"
+    failed = "failed"
+    published = "published"
 
 
 class FlagLevel(str, enum.Enum):
@@ -79,6 +91,7 @@ class Category(Base):
     __tablename__ = "categories"
 
     id: Mapped[int] = mapped_column(primary_key=True)
+    slug: Mapped[str] = mapped_column(String(64), unique=True)
     name: Mapped[str] = mapped_column(String(255), unique=True)
     mxik_code: Mapped[str | None] = mapped_column(String(32), index=True)
 
@@ -95,6 +108,8 @@ class Product(Base):
     brand: Mapped[str | None] = mapped_column(String(128), index=True)
     model: Mapped[str | None] = mapped_column(String(255))
     normalized_name: Mapped[str] = mapped_column(String(512), index=True)
+    # Lowercased brand+model used to merge the same product from different stores
+    match_key: Mapped[str] = mapped_column(String(512), index=True)
     specs_json: Mapped[dict] = mapped_column(JSON, default=dict)
 
     category: Mapped[Category | None] = relationship(back_populates="products")
@@ -108,7 +123,9 @@ class Offer(Base):
     product_id: Mapped[int] = mapped_column(ForeignKey("products.id"), index=True)
     store_id: Mapped[int] = mapped_column(ForeignKey("stores.id", ondelete="CASCADE"), index=True)
     raw_name: Mapped[str] = mapped_column(Text)
-    price: Mapped[float] = mapped_column(Float)
+    # Price is kept in the seller's original currency
+    price: Mapped[float | None] = mapped_column(Float)
+    currency: Mapped[Currency] = mapped_column(str_enum(Currency), default=Currency.USD)
     is_in_stock: Mapped[bool] = mapped_column(Boolean, default=True)
     condition: Mapped[Condition] = mapped_column(str_enum(Condition), default=Condition.new)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
@@ -125,6 +142,7 @@ class PriceHistory(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     offer_id: Mapped[int] = mapped_column(ForeignKey("offers.id", ondelete="CASCADE"), index=True)
     price: Mapped[float] = mapped_column(Float)
+    currency: Mapped[Currency] = mapped_column(str_enum(Currency), default=Currency.USD)
     recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
 
     offer: Mapped[Offer] = relationship(back_populates="price_history")
@@ -142,3 +160,34 @@ class FraudFlag(Base):
     status: Mapped[FlagStatus] = mapped_column(str_enum(FlagStatus), default=FlagStatus.active)
 
     offer: Mapped[Offer] = relationship(back_populates="fraud_flags")
+
+
+class PriceImport(Base):
+    """One uploaded price list: parsed rows wait here until the seller publishes them."""
+
+    __tablename__ = "price_imports"
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    store_id: Mapped[int] = mapped_column(ForeignKey("stores.id", ondelete="CASCADE"), index=True)
+    filename: Mapped[str] = mapped_column(String(255))
+    currency: Mapped[Currency] = mapped_column(str_enum(Currency))
+    status: Mapped[ImportStatus] = mapped_column(str_enum(ImportStatus), default=ImportStatus.processing)
+    chunks_total: Mapped[int] = mapped_column(Integer, default=0)
+    chunks_done: Mapped[int] = mapped_column(Integer, default=0)
+    rows_json: Mapped[list] = mapped_column(JSON, default=list)
+    error: Mapped[str | None] = mapped_column(Text)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow)
+
+
+class ExchangeRate(Base):
+    """Official CBU rate: how many UZS one unit of the currency costs on a given day."""
+
+    __tablename__ = "exchange_rates"
+    __table_args__ = (UniqueConstraint("currency", "rate_date"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    currency: Mapped[str] = mapped_column(String(3))
+    rate: Mapped[float] = mapped_column(Float)
+    rate_date: Mapped[date] = mapped_column(Date, index=True)
+    # When we last asked cbu.uz: on weekends rate_date lags behind, so it can't tell freshness
+    fetched_on: Mapped[date] = mapped_column(Date, default=date.today)
