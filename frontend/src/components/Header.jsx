@@ -13,6 +13,7 @@ export default function Header() {
           {t('app.name')}
         </Link>
         <nav className="flex items-center gap-4 text-sm">
+          <Link to="/market" className="rounded-md px-3 py-1.5 hover:bg-slate-100">{t('nav.market')}</Link>
           {user ? (
             <>
               {user.role === 'seller' && (

@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { useNavigate, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
+import { MarketLabel, ProductMarket } from '../components/Market'
 import api, { errorKey } from '../services/api'
 import Price from '../components/Price'
 import { formatDate, formatDayMonth, formatPrice, telegramUrl } from '../services/format'
@@ -25,7 +26,7 @@ function Contacts({ store }) {
   )
 }
 
-function OfferRow({ offer, usdRate, rateDate }) {
+function OfferRow({ offer, usdRate, rateDate, market }) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const { store } = offer
@@ -50,6 +51,7 @@ function OfferRow({ offer, usdRate, rateDate }) {
         </div>
         <div className="text-right">
           <Price price={offer.price} currency={offer.currency} usdRate={usdRate} rateDate={rateDate} />
+          {offer.is_in_stock && <div className="mt-1"><MarketLabel info={market} /></div>}
         </div>
         <div className="w-44 text-right">
           {open ? <Contacts store={store} /> : (
@@ -116,6 +118,8 @@ export default function ProductPage() {
         </p>
       )}
 
+      <ProductMarket market={product.market} usdRate={product.usd_rate} />
+
       <div className="mt-8 flex items-center justify-between">
         <h2 className="text-lg font-semibold">{t('product.offers', { count: product.offers.length })}</h2>
         <div className="flex rounded-md border border-slate-300 bg-white p-0.5 text-sm">
@@ -132,7 +136,7 @@ export default function ProductPage() {
         <p className="mt-1 text-sm text-slate-500">{t('price.rateNote', { date: formatDayMonth(product.usd_rate_date), rate: formatPrice(product.usd_rate, 'UZS') })}</p>
       )}
       <ul className="mt-4 grid gap-3">
-        {product.offers.map((o) => <OfferRow key={o.id} offer={o} usdRate={product.usd_rate} rateDate={product.usd_rate_date} />)}
+        {product.offers.map((o) => <OfferRow key={o.id} offer={o} usdRate={product.usd_rate} rateDate={product.usd_rate_date} market={product.market?.offers[o.id]} />)}
       </ul>
     </section>
   )

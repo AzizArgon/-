@@ -3,8 +3,10 @@ import Header from './components/Header'
 import CatalogPage from './pages/CatalogPage'
 import ImportPage from './pages/ImportPage'
 import LoginPage from './pages/LoginPage'
+import MarketPage from './pages/MarketPage'
 import ProductPage from './pages/ProductPage'
 import RegisterPage from './pages/RegisterPage'
+import SellerAnalyticsPage from './pages/SellerAnalyticsPage'
 import SellerPage from './pages/SellerPage'
 import { useAuth } from './services/auth.jsx'
 
@@ -30,9 +32,11 @@ export default function App() {
         <Routes>
           <Route path="/" element={<CatalogPage />} />
           <Route path="/products/:id" element={<ProductPage />} />
+          <Route path="/market" element={<MarketPage />} />
           <Route path="/login" element={<GuestOnly><LoginPage /></GuestOnly>} />
           <Route path="/register" element={<GuestOnly><RegisterPage /></GuestOnly>} />
           <Route path="/seller" element={<RoleOnly role="seller"><SellerPage /></RoleOnly>} />
+          <Route path="/seller/analytics" element={<RoleOnly role="seller"><SellerAnalyticsPage /></RoleOnly>} />
           <Route path="/seller/imports/:id" element={<RoleOnly role="seller"><ImportPage /></RoleOnly>} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

@@ -225,6 +225,7 @@ function ImportHistory({ items }) {
 }
 
 export default function SellerPage() {
+  const { t } = useTranslation()
   const [store, setStore] = useState(undefined)
   const [imports, setImports] = useState(null)
 
@@ -243,6 +244,10 @@ export default function SellerPage() {
   if (imports === null) return null
   return (
     <div className="grid gap-6">
+      <Link to="/seller/analytics" className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-6 py-4 hover:border-slate-400">
+        <span><span className="font-semibold">{t('market.analyticsTitle')}</span><span className="ml-3 text-sm text-slate-500">{t('market.analyticsHint')}</span></span>
+        <span aria-hidden>→</span>
+      </Link>
       {/* The currency the seller chose last time is the default everywhere */}
       <AddGoods defaultCurrency={imports[0]?.currency || 'USD'} onAdded={loadImports} />
       <ImportHistory items={imports} />
