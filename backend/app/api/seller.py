@@ -12,7 +12,6 @@ from app.schemas.seller import (
 from app.services.importer import (
     ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import, run_text_import,
 )
-from app.services.text_import import text_title
 from app.services.manual import create_product, product_brief, save_offer, store_offer, suggest_products
 
 router = APIRouter(tags=["seller"])
@@ -86,7 +85,8 @@ def paste_text(data: TextImportIn, background: BackgroundTasks, user: User = Dep
                db: Session = Depends(get_db)):
     """"Paste as text": a Telegram post goes through the same pipeline and preview as a file."""
     store = _require_store(db, user)
-    imp = PriceImport(store_id=store.id, filename=text_title(data.text), source="text", currency=Currency(data.currency))
+    # No file name: the page calls it "Текст от 25.10, 14:30" by the creation time
+    imp = PriceImport(store_id=store.id, filename="", source="text", currency=Currency(data.currency))
     db.add(imp)
     db.commit()
     db.refresh(imp)

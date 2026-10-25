@@ -28,3 +28,11 @@ export function formatDayMonth(iso) {
 // Converted amounts are approximate: sums rounded to 1 000, dollars to whole dollars
 export const roundSum = (value) => Math.round(value / 1000) * 1000
 export const roundUsd = (value) => Math.round(value)
+
+// Import history name: a file is called by its name, a pasted text by its time ("Текст от 25.10, 14:30")
+export function importTitle(imp) {
+  if (imp.source !== 'text' || imp.filename) return imp.filename
+  const d = new Date(imp.created_at)
+  const time = new Intl.DateTimeFormat(i18n.language || 'ru', { hour: '2-digit', minute: '2-digit' }).format(d)
+  return i18n.t('manual.textTitle', { date: formatDayMonth(imp.created_at), time })
+}

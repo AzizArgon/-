@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import AddFromCatalog from '../components/AddFromCatalog'
 import { ErrorText } from '../components/AuthForm'
 import api, { errorKey } from '../services/api'
+import { importTitle } from '../services/format'
 
 const STORE_FIELDS = ['name', 'inn_stir', 'phone', 'telegram', 'address', 'district']
 const FIELD_LABELS = { inn_stir: 'innStir' }
@@ -210,8 +211,8 @@ function ImportHistory({ items }) {
             <span className="min-w-0 truncate">
               <span className="mr-2 rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600">{t(`manual.source.${imp.source}`)}</span>
               {imp.source === 'manual'
-                ? <span className="font-medium">{imp.filename}</span>
-                : <Link to={`/seller/imports/${imp.id}`} className="font-medium hover:underline">{imp.filename}</Link>}
+                ? <span className="font-medium">{importTitle(imp)}</span>
+                : <Link to={`/seller/imports/${imp.id}`} className="font-medium hover:underline">{importTitle(imp)}</Link>}
             </span>
             <span className="shrink-0 pl-3 text-slate-500">
               {imp.currency} · {new Date(imp.created_at).toLocaleString('ru-RU')} · {t(`import.status.${imp.status}`)}

@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
-import { formatDayMonth, formatPrice, roundSum, roundUsd } from '../services/format'
+import { formatDayMonth, importTitle, formatPrice, roundSum, roundUsd } from '../services/format'
 import { specsText, useSpecDictionary } from '../services/specs'
 
 const PAGE_SIZE = 50
@@ -259,7 +259,7 @@ export default function ImportPage() {
       <div className="flex items-center justify-between">
         <div>
           <Link to="/seller" className="text-sm text-slate-500 hover:underline">← {t('import.back')}</Link>
-          <h1 className="mt-1 text-2xl font-semibold">{t('import.title')}{imp && `: ${imp.filename}`}</h1>
+          <h1 className="mt-1 text-2xl font-semibold">{t('import.title')}{imp && `: ${importTitle(imp)}`}</h1>
         </div>
         {imp?.status === 'ready' && (
           <button onClick={publish} disabled={busy || rows.length === 0}
@@ -271,7 +271,7 @@ export default function ImportPage() {
       <ErrorText>{error}</ErrorText>
       {imp?.status === 'processing' && <Progress imp={imp} />}
       {imp?.status === 'failed' && (
-        <ErrorText>{t('import.failed')}</ErrorText>
+        <ErrorText>{t([`import.error.${imp.error?.split(':')[0]}`, 'import.failed'])}</ErrorText>
       )}
       {imp?.status === 'published' && (
         <div className="rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-emerald-800">

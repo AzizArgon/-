@@ -86,7 +86,7 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "model": p.get("model") or r.article,
         "name": p.get("name") or r.name,
         "price": r.price,
-        "condition": p.get("condition", "new"),
+        "condition": r.condition or p.get("condition", "new"),
         "specs": specs,
         "specs_guess": guessed,
         "is_in_stock": r.is_in_stock,
@@ -192,7 +192,8 @@ def flag_rows(db: Session, rows: list[dict], store_id: int, currency: Currency) 
 
 def _finish(import_id: int, rows: list[dict], stats: dict) -> None:
     if not rows:
-        _set(import_id, status=ImportStatus.failed, error="empty_file", stats_json=stats)
+        # Rows were found, but the AI said none of them is a product (notes, adverts)
+        _set(import_id, status=ImportStatus.failed, error="no_products", stats_json=stats)
         return
     with SessionLocal() as db:
         imp = db.get(PriceImport, import_id)
@@ -210,28 +211,39 @@ def _progress(import_id: int):
 async def run_import(import_id: int, data: bytes, filename: str) -> None:
     """Background job: fills price_imports.rows_json and reports progress per chunk."""
     try:
-        md = await asyncio.to_thread(file_to_markdown, data, filename)
+        try:
+            md = await asyncio.to_thread(file_to_markdown, data, filename)
+        except Exception:
+            log.exception("Import %s: file can't be read", import_id)
+            _set(import_id, status=ImportStatus.failed, error="unreadable_file")
+            return
         rows = clean_markdown(md)
+        if not rows:
+            _set(import_id, status=ImportStatus.failed, error="no_rows")
+            return
         stats: dict = {}
         with SessionLocal() as db:
             parsed = await parse_clean_rows(db, rows, stats, _progress(import_id))
         _finish(import_id, parsed, stats)
     except Exception as e:  # never leave an import stuck in "processing"
         log.exception("Import %s failed", import_id)
-        _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
+        _set(import_id, status=ImportStatus.failed, error=f"internal:{str(e)[:400]}")
 
 
 async def run_text_import(import_id: int, text: str, currency: Currency) -> None:
     """Background job for a pasted post: the same pipeline from the cleanup on, without a file."""
     try:
         rows = text_to_rows(text, currency.value)
+        if not rows:
+            _set(import_id, status=ImportStatus.failed, error="no_prices")
+            return
         stats: dict = {}
         with SessionLocal() as db:
             parsed = await parse_clean_rows(db, rows, stats, _progress(import_id))
         _finish(import_id, parsed, stats)
     except Exception as e:  # never leave an import stuck in "processing"
         log.exception("Text import %s failed", import_id)
-        _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
+        _set(import_id, status=ImportStatus.failed, error=f"internal:{str(e)[:400]}")
 
 
 async def retry_failed_rows(import_id: int) -> None:
@@ -260,7 +272,7 @@ async def retry_failed_rows(import_id: int) -> None:
         _finish(import_id, [by_row[k] for k in sorted(by_row)], stats)
     except Exception as e:  # never leave an import stuck in "processing"
         log.exception("Retry of import %s failed", import_id)
-        _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
+        _set(import_id, status=ImportStatus.failed, error=f"internal:{str(e)[:400]}")
 
 
 def fail_stale_imports() -> None:

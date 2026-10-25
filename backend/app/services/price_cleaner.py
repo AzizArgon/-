@@ -50,6 +50,7 @@ class CleanRow:
     # Pasted text only: every line has its own currency; True = none was written, the default one was taken
     currency: str | None = None
     currency_check: bool = False
+    condition: str | None = None  # a card post with "Состояние: Б/У": read by code, wins over the AI
 
     @property
     def raw_name(self) -> str:

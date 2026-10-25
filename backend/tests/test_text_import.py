@@ -14,7 +14,7 @@ from app.db.models import Currency, ImportStatus, Offer, PriceImport, Store, Use
 from app.db.seed import seed_categories
 from app.services import ai_parser
 from app.services.importer import parse_clean_rows, publish_import
-from app.services.text_import import find_price, text_title, text_to_rows
+from app.services.text_import import find_price, text_to_rows
 
 POSTS = json.loads((Path(__file__).parent / "fixtures" / "telegram_posts.json").read_text(encoding="utf-8"))["posts"]
 
@@ -41,7 +41,6 @@ def test_find_price(line, price, currency, check):
 def test_adverts_and_contacts_are_not_products():
     text = "🔥 Акция!\nДоставка по городу 30 000 сум\nтел 90-123-45-67\n#пк\nhttps://t.me/shop\ni3 12100f — 80$"
     assert [r.name for r in text_to_rows(text, "USD")] == ["i3 12100f"]
-    assert text_title(text) == "i3 12100f"
 
 
 def test_price_on_the_next_line():
@@ -130,3 +129,40 @@ def test_text_updates_the_store_offer_on_the_same_card(db, recorded_ai):
     assert stats["updated"] == 1 and stats["created"] == 3
     cpu = db.scalars(select(Offer).where(Offer.price == 110)).one()
     assert cpu.currency == Currency.USD and len(cpu.price_history) == 2
+
+
+CARDS = json.loads((Path(__file__).parent / "fixtures" / "telegram_posts.json").read_text(encoding="utf-8"))["cards"]
+
+
+@pytest.mark.parametrize("post", CARDS, ids=lambda p: p["title"])
+def test_card_post_is_one_product(db, recorded_ai, post):
+    rows = _parse(db, post, recorded_ai)
+    assert len(rows) == 1
+    row, want = rows[0], post["expected"]
+    assert (row["name"], row["category"], row["condition"], row["price"], row["currency"]) == (
+        want["name"], want["category"], want["condition"], want["price"], want["currency"])
+    specs = {k: v for k, v in row["specs"].items() if not k.startswith("_")}
+    assert specs == want["specs"]  # chips and timings are not in the dictionary: dropped
+    assert sorted(row["specs"].get("_inferred", {})) == want["inferred"]
+
+
+def test_bilingual_card_keeps_one_language_and_skips_adverts():
+    row = text_to_rows(CARDS[0]["text"], "UZS")[0]
+    assert row.price == 950_000 and row.condition == "used"
+    assert not any("Holati" in c or "Hajmi" in c or "Доставка" in c or "Фергане" in c or "@" in c for c in row.cells)
+    assert row.cells[0].startswith("Комплект оперативной памяти Corsair")
+
+
+@pytest.mark.parametrize("line, price", [("Цена: 950.000 сум", 950_000), ("Narxi: 950 000 so'm", 950_000),
+                                         ("Narxi: 1.250.000 so’m", 1_250_000), ("Монитор 1.2 млн", 1_200_000)])
+def test_sum_thousand_separators(line, price):
+    assert find_price(line, "UZS")[:2] == (price, "UZS")
+
+
+def test_uzbek_words():
+    from app.services.text_import import uz_to_ru
+    assert uz_to_ru("Holati: B/U, 2x8 GB to’plam, Narxi: 950 000 so'm") == "состояние: б/у, 2x8 GB комплект, цена: 950 000 so'm"
+
+
+def test_list_is_not_a_card():
+    assert len(text_to_rows(POSTS[2]["text"], "USD")) == 3  # "Цена:" on its own line is still a list
