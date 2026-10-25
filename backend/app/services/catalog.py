@@ -9,7 +9,8 @@ from sqlalchemy.orm import Session, selectinload
 from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Product, Store
 from app.services.exchange import to_usd, to_uzs
 from app.services.spec_dictionary import CARD_SPECS, NUMBER, YESNO, Spec, spec_map, specs_of
-from app.services.spec_normalizer import normalize_specs
+from app.services.spec_inference import INFERABLE
+from app.services.spec_normalizer import INFERRED, merge_specs, normalize_specs
 
 # Type words some stores add and others don't ("Процессор ...", "... Motherboard"): not part of the model
 TYPE_WORDS = {
@@ -76,10 +77,11 @@ def rebuild_specs(db: Session, trace: dict | None = None, demo_store_ids: set[in
         offers = sorted(p.offers, key=lambda o: o.id)
         texts = [o.raw_name for o in offers if o.store_id not in demo_store_ids] or [o.raw_name for o in offers]
         specs: dict = {}
+        # Old values of keys a rule can infer are not trusted as written: they are found or inferred again
+        old = {k: v for k, v in (p.specs_json or {}).items() if k not in INFERABLE.get(category, ())}
         for i, text in enumerate(dict.fromkeys(texts)):
             # Old specs were checked against the first store's row; other rows only add what is missing
-            found = normalize_specs(category, text, p.specs_json if i == 0 else None, p.brand, trace)
-            specs.update({k: v for k, v in found.items() if k not in specs})
+            specs = merge_specs(specs, normalize_specs(category, text, old if i == 0 else None, p.brand, trace))
         if specs != p.specs_json:
             p.specs_json = specs
             changed += 1
@@ -323,8 +325,10 @@ def product_card(db: Session, product_id: int, usd_rate: float | None, sort: str
         "id": product.id, "name": product.normalized_name, "brand": product.brand, "model": product.model,
         "category": product.category.slug if product.category else "other",
         "mxik_code": product.category.mxik_code if product.category else None,
-        # Specs in dictionary order, with units for the page: [{"key": "capacity", "value": 16, "unit": "GB"}]
-        "specs": [{"key": s.key, "kind": s.kind, "unit": s.unit, "value": (product.specs_json or {})[s.key]}
+        # Specs in dictionary order, with units and the source: "inferred" = the rule that added a value the
+        # seller did not write (the page marks it), None = written by the seller
+        "specs": [{"key": s.key, "kind": s.kind, "unit": s.unit, "value": (product.specs_json or {})[s.key],
+                   "inferred": (product.specs_json or {}).get(INFERRED, {}).get(s.key)}
                   for s in specs_of(product.category.slug if product.category else "other")
                   if s.key in (product.specs_json or {})],
         "usd_rate": usd_rate, "offers": offers,

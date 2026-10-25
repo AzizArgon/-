@@ -55,7 +55,8 @@
     "updated": "прайс от {{date}}",
     "contact": "Связаться",
     "telegram": "Написать в Telegram",
-    "noContacts": "Магазин не указал контакты"
+    "noContacts": "Магазин не указал контакты",
+    "inferredNote": "* — продавец не указал, выведено правилом (подробности при наведении)"
   },
   "price": {
     "rateHint": "Пересчёт по курсу ЦБ на {{date}}",
@@ -223,6 +224,14 @@
         "orange": "Оранжевый",
         "purple": "Фиолетовый"
       }
+    },
+    "inferred": {
+      "intel_f_graphics": "Выведено правилом: у процессоров Intel буква F в модели означает «без встроенной графики», остальные модели Core её имеют",
+      "cpu_brand_by_series": "Выведено правилом: Core, Xeon, Pentium, Celeron — процессоры Intel; Ryzen, Athlon, Threadripper — AMD",
+      "gpu_vendor_by_chip": "Выведено правилом: чипы GeForce RTX/GTX выпускает NVIDIA, Radeon RX — AMD, Arc — Intel",
+      "board_size_by_chipset": "Выведено правилом: буква M после чипсета (B760M) означает Micro-ATX, буква I — Mini-ITX",
+      "resolution_by_name": "Выведено правилом: FHD = 1920×1080, QHD = 2560×1440, UHD/4K = 3840×2160",
+      "ram_dimm_by_default": "Выведено правилом: память для ноутбуков (SODIMM) продавцы всегда помечают; без такой пометки это обычная память DIMM для ПК"
     }
   },
   "roles": {

@@ -1,7 +1,8 @@
 import pytest
 
 from app.services.spec_dictionary import CARD_SPECS, CHOICE, DICTIONARY, NUMBER
-from app.services.spec_normalizer import new_trace, normalize_specs, specs_as_text
+from app.services.spec_inference import INFERENCES
+from app.services.spec_normalizer import merge_specs, new_trace, normalize_specs, specs_as_text
 
 
 @pytest.mark.parametrize("text", ["Lexar DDR4 16GB 3200MHz", "Lexar DDR4 16 ГБ 3200 МГц", "Lexar DDR4 16Gb 3200mhz",
@@ -24,15 +25,21 @@ def test_sodimm_spellings(word):
     assert normalize_specs("ram", f"Hiksemi DDR5 32GB 5600MHz {word}")["form_factor"] == "SODIMM"
 
 
-def test_ram_without_form_factor_has_none():
-    assert "form_factor" not in normalize_specs("ram", "Lexar DDR5 16GB 5600MHz")
+def test_ram_without_mark_is_dimm_inferred_by_rule():
+    specs = normalize_specs("ram", "Lexar DDR5 16GB 5600MHz")
+    assert specs["form_factor"] == "DIMM" and specs["_inferred"] == {"form_factor": "ram_dimm_by_default"}
+    assert "modules" not in specs  # "1 stick" is never inferred
+    # Written by the seller: no inference mark
+    assert "_inferred" not in normalize_specs("ram", "Lexar DDR5 16GB 5600MHz SODIMM")
+    assert "_inferred" not in normalize_specs("ram", "Kingston DDR4 8GB 3200MHz UDIMM")
     assert normalize_specs("ram", "Samsung DDR4 32GB 3200MHz ECC REG")["ecc"] is True
     assert normalize_specs("ram", "Lexar DDR4 8GB 3600MHz RGB")["rgb"] is True
 
 
 def test_intel_f_means_no_graphics():
     specs = normalize_specs("cpu", "Intel-Core i5 - 12400F, 2.5 GHz, 18MB, oem, LGA1700, Alder Lake")
-    assert specs == {"brand": "Intel", "series": "Core i5", "socket": "LGA1700", "graphics": False, "pack": "OEM"}
+    assert specs == {"brand": "Intel", "series": "Core i5", "socket": "LGA1700", "graphics": False, "pack": "OEM",
+                     "_inferred": {"graphics": "intel_f_graphics"}}
     assert normalize_specs("cpu", "Intel-Core i5 - 14400, 2.5 GHz, 20MB, BOX, LGA1700")["graphics"] is True
     assert normalize_specs("cpu", "Intel-Core Ultra 7-265KF, 5.5 GHz, 30MB, oem, LGA 1851")["series"] == "Core Ultra 7"
 
@@ -46,7 +53,9 @@ def test_amd_cpu():
 
 def test_slang_cpu_gets_only_what_is_written():
     # "проц i5 12400f б/у": the socket is not written, so there is no socket
-    assert normalize_specs("cpu", "проц i5 12400f б/у") == {"brand": "Intel", "series": "Core i5", "graphics": False}
+    assert normalize_specs("cpu", "проц i5 12400f б/у") == {
+        "brand": "Intel", "series": "Core i5", "graphics": False,
+        "_inferred": {"brand": "cpu_brand_by_series", "graphics": "intel_f_graphics"}}
 
 
 @pytest.mark.parametrize("text,chip,vendor", [
@@ -78,7 +87,8 @@ def test_ssd_and_hdd():
 
 def test_motherboard():
     assert normalize_specs("motherboard", "MB ASUS AMD AM5 PRIME B650M-K DDR5 (90MB1F60-M0EAY0)") == {
-        "socket": "AM5", "chipset": "B650", "form_factor": "mATX", "memory_type": "DDR5"}
+        "socket": "AM5", "chipset": "B650", "form_factor": "mATX", "memory_type": "DDR5",
+        "_inferred": {"form_factor": "board_size_by_chipset"}}
     specs = normalize_specs("motherboard", "MB Gigabyte AMD AM5 X870E AORUS ELITE X DDR5 WIFI7")
     assert specs["chipset"] == "X870E" and specs["wifi"] is True and "form_factor" not in specs
 
@@ -140,3 +150,26 @@ def test_dictionary_is_consistent():
         for s in specs:
             assert (s.unit is not None) == (s.kind == NUMBER), (category, s.key)
             assert s.values is None or s.kind == CHOICE
+
+
+def test_inferred_values_are_redone_not_trusted_and_lose_to_written():
+    first = normalize_specs("ram", "Lexar DDR5 16GB 5600MHz")
+    # The same specs coming back (preview -> publish) stay inferred, not "written by the seller"
+    assert normalize_specs("ram", "Lexar DDR5 16GB 5600MHz", first) == first
+    # Another store wrote SODIMM: the written value replaces the inferred one on the card
+    card = merge_specs(first, normalize_specs("ram", "Lexar DDR5 16GB 5600MHz SO-DIMM"))
+    assert card["form_factor"] == "SODIMM" and "_inferred" not in card
+    # A written value is never replaced by an inferred one
+    assert merge_specs(card, first) == card
+
+
+def test_antifraud_text_ignores_inferred():
+    specs = normalize_specs("cpu", "проц i5 12400f б/у")
+    assert specs_as_text("cpu", specs) == "Core i5"
+
+
+def test_every_inference_has_a_hint_text():
+    import json
+    from pathlib import Path
+    ru = json.loads((Path(__file__).parents[2] / "frontend/src/locales/ru.json").read_text(encoding="utf-8"))
+    assert {r.rule_id for r in INFERENCES} <= set(ru["specs"]["inferred"])

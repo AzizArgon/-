@@ -22,7 +22,7 @@ from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
-from app.services.spec_normalizer import normalize_specs, source_text
+from app.services.spec_normalizer import merge_specs, normalize_specs, source_text, written_specs
 
 log = logging.getLogger(__name__)
 
@@ -98,7 +98,7 @@ def _cache_data(row: dict) -> dict:
     data = {k: row.get(k) for k in ("category", "brand", "model", "name", "condition")}
     data["risks"] = row.get("ai_risks") or row.get("risks") or []
     # Guesses stay in the cache: they are re-checked against the row text every time
-    data["specs"] = {**(row.get("specs_guess") or {}), **(row.get("specs") or {})}
+    data["specs"] = {**(row.get("specs_guess") or {}), **written_specs(row.get("specs"))}  # inferred ones are redone
     return data
 
 
@@ -282,9 +282,8 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
                 normalized_name=r["name"], match_key=key, specs_json=specs,
             )
             db.add(product)
-        elif any(k not in (product.specs_json or {}) for k in specs):
-            # Another store wrote what this card was missing: the card gets the union of all stores
-            product.specs_json = {**specs, **(product.specs_json or {})}
+        else:
+            product.specs_json = merge_specs(product.specs_json, specs)
         products[key] = product
 
         price = r.get("price")

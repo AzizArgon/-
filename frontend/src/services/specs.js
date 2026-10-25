@@ -48,7 +48,10 @@ export function useSpecDictionary() {
 // {capacity: 16, type: "DDR5"} of a category -> "Тип памяти: DDR5 · Объём: 16 ГБ"
 export function specsText(category, specs, dictionary) {
   const known = Object.fromEntries((dictionary?.[category] || []).map((s) => [s.key, s]))
+  const inferred = specs?._inferred || {} // values added by a rule, not written by the seller: marked with "*"
   return Object.entries(specs || {})
-    .map(([key, value]) => `${specLabel(key, category)}: ${known[key] ? formatSpec({ ...known[key], value }) : value}`)
+    .filter(([key]) => !key.startsWith('_'))
+    .map(([key, value]) => `${specLabel(key, category)}: ${known[key] ? formatSpec({ ...known[key], value }) : value}`
+      + (inferred[key] ? '*' : ''))
     .join(' · ')
 }

@@ -96,11 +96,19 @@ export default function ProductPage() {
           {specs.map((s) => (
             <div key={s.key} className="contents">
               <dt className="text-slate-500">{specLabel(s.key, product.category)}</dt>
-              <dd>{formatSpec(s)}</dd>
+              {/* Not written by the seller: inferred by a rule, the reason is in the hover hint */}
+              <dd>
+                {s.inferred ? (
+                  <span title={t(`specs.inferred.${s.inferred}`)} className="cursor-help border-b border-dotted border-slate-400">
+                    {formatSpec(s)}<sup className="text-slate-400">*</sup>
+                  </span>
+                ) : formatSpec(s)}
+              </dd>
             </div>
           ))}
         </dl>
       )}
+      {specs.some((s) => s.inferred) && <p className="mt-1 text-xs text-slate-400">{t('product.inferredNote')}</p>}
 
       <div className="mt-8 flex items-center justify-between">
         <h2 className="text-lg font-semibold">{t('product.offers', { count: product.offers.length })}</h2>

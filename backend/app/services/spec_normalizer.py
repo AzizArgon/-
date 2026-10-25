@@ -5,14 +5,17 @@
 
 Honesty rule: values are taken only from what the seller wrote (the row, the article and specs already
 confirmed by the row). Nothing is guessed: no value in the text -> no value, and the product simply does not
-appear under that filter. The only derivations are fixed rules of model names (Intel "F" = no graphics,
-"B760M" = Micro-ATX, "RTX" = NVIDIA, "FHD" = 1920x1080).
+appear under that filter. Values that follow from the written ones (Intel "F" = no graphics, "B760M" =
+Micro-ATX) are added by the rules in `spec_inference.py` and stored as "inferred by a rule".
 """
 
 import re
 from collections import Counter, defaultdict
 
 from app.services.spec_dictionary import CHOICE, NUMBER, YESNO, Spec, spec_map, specs_of
+from app.services.spec_inference import infer
+
+INFERRED = "_inferred"  # specs_json[INFERRED] = {key: rule_id}: values the seller did not write
 
 # Unit words -> multiplier to the dictionary unit (TB -> GB: x1000, like drive makers count)
 UNIT_WORDS = {
@@ -87,8 +90,7 @@ def _chip(m):
 
 
 GPU_CHIP = [(r"\b(rtx|gtx|gt|rx|arc\s*[ab])\s*-?\s*(\d{3,4})\s*(ti\s*super|ti|super|xtx|xt|gre)?(?![a-z0-9])", _chip)]
-RESOLUTION = [(r"(\d{3,4})\s*[x×х*]\s*(\d{3,4})(?!\s*(?:см|cm|мм|mm))", lambda m: f"{m[1]}x{m[2]}"),
-              (r"\b(?:uhd|4k)\b", "3840x2160"), (r"\bqhd\b|\b2k\b", "2560x1440"), (r"\bfhd\b|full\s*hd", "1920x1080")]
+RESOLUTION = [(r"(\d{3,4})\s*[x×х*]\s*(\d{3,4})(?!\s*(?:см|cm|мм|mm))", lambda m: f"{m[1]}x{m[2]}")]
 LAPTOP_RAM = [(r"(?:lp)?ddr\d?\w*\s*(\d+)\s*gb|(\d+)\s*gb\s*(?:lp)?ddr", lambda m: _number(_first(m[1], m[2])))]
 LAPTOP_STORAGE = [(
     rf"(?:ssd|hdd|emmc)\s*{NUM}\s*(gb|tb)|{NUM}\s*(gb|tb)\s*(?:ssd|hdd)",
@@ -109,25 +111,20 @@ RULES: dict[str, dict[str, list]] = {
         "rgb": RGB,
     },
     "cpu": {
-        "brand": [(r"\bintel\b|core\s*(?:i[3579]|ultra)|\bi[3579]\s*-?\s*\d{4,5}|xeon|pentium|celeron", "Intel"),
-                  (r"\bamd\b|ryzen|athlon|threadripper", "AMD")],
+        "brand": [(r"\bintel\b", "Intel"), (r"\bamd\b", "AMD")],
         "series": CPU_SERIES,
         "socket": SOCKET,
         "cores": [(r"(\d+)\s*(?:cores?|ядер|ядра|ядро)\b|(\d+)\s*c\s*/\s*\d+\s*t\b", lambda m: int(_first(m[1], m[2])))],
         "threads": [(r"(\d+)\s*(?:threads?|потоков|потока)\b|\d+\s*c\s*/\s*(\d+)\s*t\b", lambda m: int(_first(m[1], m[2])))],
         "graphics": [
             (r"\bno\s*gpu\b|без\s*(?:встроенной\s*)?графики", False),
-            # Intel model rule: "F" in the suffix = no built-in graphics (12400F, 14600KF, 265KF)
-            (r"(?:\bi[3579]|ultra\s*[579]|\bcore\s*[357])\s*-?\s*\d{3,5}([a-z]*)\b",
-             lambda m: "f" not in m[1].lower()),
             (r"\bgpu\b|graphics|графика", True),
         ],
         "pack": [(r"\bbox(?:ed)?\b", "BOX"), (r"\boem\b|\btray\b", "OEM")],
     },
     "gpu": {
         "chip": GPU_CHIP,
-        "vendor": [(r"\b(?:rtx|gtx|gt)\s*-?\s*\d{3,4}|geforce|nvidia", "NVIDIA"),
-                   (r"\brx\s*-?\s*\d{3,4}|radeon", "AMD"), (r"\barc\s*[ab]\d{3}", "Intel")],
+        "vendor": [(r"geforce|nvidia", "NVIDIA"), (r"radeon", "AMD")],
         "memory": [(SIZE, _gb)],
         "memory_type": [(r"\bgddr(\d)(x?)\b", lambda m: f"GDDR{m[1]}{m[2].upper()}")],
     },
@@ -149,8 +146,8 @@ RULES: dict[str, dict[str, list]] = {
         "chipset": [(r"\b([abhqxz]\d{2,3})(e?)[a-z]?(?![a-z0-9])", lambda m: (m[1] + m[2]).upper())],
         "form_factor": [
             (r"\be-?atx\b", "E-ATX"),
-            (r"micro-?\s?atx|\bm-?atx\b|\b[abhqxz]\d{2,3}e?m(?![a-z0-9])", "mATX"),
-            (r"mini-?\s?itx|\bitx\b|\b[abhqxz]\d{2,3}e?i(?![a-z0-9])", "ITX"),
+            (r"micro-?\s?atx|\bm-?atx\b", "mATX"),
+            (r"mini-?\s?itx|\bitx\b", "ITX"),
             (r"\batx\b", "ATX"),
         ],
         "memory_type": [(r"(?<![a-z])ddr([345])(?![0-9])|\bd([45])\b", lambda m: f"DDR{_first(m[1], m[2])}")],
@@ -376,9 +373,11 @@ def normalize_specs(category: str, text: str, given: dict | None = None, brand: 
     given  — specs from the rules, the AI (already checked against the row) or the seller: dictionary keys are
              normalized and fill the gaps, other keys are read as extra text ("lighting: ARGB" -> rgb);
     brand  — kept only if the brand is written in the text.
+    Then the inference rules fill what follows from the written values; they are listed in result["_inferred"].
     """
     specs = spec_map(category)
-    given = given or {}
+    # Values inferred earlier are not "written by the seller": they are inferred again, never trusted as given
+    given = {k: v for k, v in (given or {}).items() if not k.startswith("_") and k not in (given or {}).get(INFERRED, {})}
     loose = " ".join(str(v) for k, v in given.items() if k not in specs and not isinstance(v, bool))
     result = extract(category, f"{text} | {loose}" if loose else text, trace)
     for key, value in given.items():
@@ -389,8 +388,34 @@ def normalize_specs(category: str, text: str, given: dict | None = None, brand: 
     brand_value = canonical_brand(brand or "")
     if brand_value and "brand" in specs and "brand" not in result and _squash(brand_value) in _squash(text):
         result["brand"] = brand_value if valid(specs["brand"], brand_value) else None
+    result = {k: v for k, v in result.items() if v is not None}
+    inferred = {}
+    for key, (value, rule_id) in infer(category, text, result).items():
+        if key in specs and valid(specs[key], value):
+            result[key], inferred[key] = value, rule_id
     order = [s.key for s in specs_of(category)]
-    return {k: result[k] for k in order if result.get(k) is not None}
+    clean = {k: result[k] for k in order if k in result}
+    return {**clean, INFERRED: inferred} if inferred else clean
+
+
+def merge_specs(card: dict | None, store: dict) -> dict:
+    """The card gets the union of all stores: a key the card lacks, or has only inferred by a rule while this
+    store wrote it, is taken from this store (with its source)."""
+    card = dict(card or {})
+    card_rules, store_rules = dict(card.pop(INFERRED, {})), store.get(INFERRED, {})
+    for key, value in store.items():
+        if key != INFERRED and (key not in card or (key in card_rules and key not in store_rules)):
+            card[key] = value
+            card_rules.pop(key, None)
+            if key in store_rules:
+                card_rules[key] = store_rules[key]
+    return {**card, INFERRED: card_rules} if card_rules else card
+
+
+def written_specs(specs: dict) -> dict:
+    """Only what the seller wrote: dictionary values without the inferred ones (for Anti-Fraud)."""
+    inferred = (specs or {}).get(INFERRED, {})
+    return {k: v for k, v in (specs or {}).items() if not k.startswith("_") and k not in inferred}
 
 
 def source_text(raw_name: str | None, article: str | None = None) -> str:
@@ -399,9 +424,10 @@ def source_text(raw_name: str | None, article: str | None = None) -> str:
 
 
 def specs_as_text(category: str, specs: dict) -> str:
-    """Specs as plain words for text checks (Anti-Fraud): "DDR5 16GB 6000MHz ecc". "No" values are left out."""
+    """Specs as plain words for text checks (Anti-Fraud): "DDR5 16GB 6000MHz ecc". "No" values and values
+    inferred by rules are left out: Anti-Fraud judges only what the seller wrote."""
     parts = []
-    for key, value in (specs or {}).items():
+    for key, value in written_specs(specs).items():
         spec = spec_map(category).get(key)
         if isinstance(value, bool):
             if value:

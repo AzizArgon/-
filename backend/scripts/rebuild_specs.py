@@ -17,7 +17,7 @@ from app.db.database import SessionLocal  # noqa: E402
 from app.db.models import Product, Store, User  # noqa: E402
 from app.services.catalog import rebuild_specs  # noqa: E402
 from app.services.spec_dictionary import DICTIONARY  # noqa: E402
-from app.services.spec_normalizer import new_trace  # noqa: E402
+from app.services.spec_normalizer import INFERRED, new_trace, written_specs  # noqa: E402
 
 
 def coverage(db) -> None:
@@ -28,7 +28,10 @@ def coverage(db) -> None:
     print("| Категория | Товаров | Характеристики (% товаров со значением) |\n|---|---|---|")
     for cat, specs in sorted(by_cat.items(), key=lambda x: -len(x[1])):
         keys = [s.key for s in DICTIONARY.get(cat, DICTIONARY["other"])]
-        cells = ", ".join(f"{k} {round(100 * sum(k in s for s in specs) / len(specs))}%" for k in keys)
+        pct = lambda n: round(100 * n / len(specs))  # noqa: E731
+        inferred = lambda k: sum(k in s.get(INFERRED, {}) for s in specs)  # noqa: E731
+        cells = ", ".join(f"{k} {pct(sum(k in s for s in specs))}%"
+                          + (f" (выведено правилом {pct(inferred(k))}%)" if inferred(k) else "") for k in keys)
         print(f"| {cat} | {len(specs)} | {cells} |")
 
 
@@ -36,7 +39,7 @@ def spellings(db, trace) -> None:
     """Spellings without numbers ("NGB", "N ГБ", "NxNGB") -> how many dictionary values they became."""
     values: dict[tuple, set] = defaultdict(set)
     for p in db.scalars(select(Product)):
-        for key, value in (p.specs_json or {}).items():
+        for key, value in written_specs(p.specs_json).items():
             values[(p.category.slug if p.category else "other", key)].add(value)
     print("\n| Категория / характеристика | Написаний | Значений в словаре | Примеры написаний |\n|---|---|---|---|")
     for (cat, key), shapes in sorted(trace.items(), key=lambda x: -len(x[1])):
