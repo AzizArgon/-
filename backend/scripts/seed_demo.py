@@ -4,24 +4,26 @@ Each store gets part of the assortment (popular items overlap, so cards show 2-4
 prices +-5-15%, some items out of stock, its own price-list freshness; one store sells in UZS,
 one is verified, one has a few items far below the market (Anti-Fraud "price below market").
 Goes through publish_import, so flags and price history work as for a real upload.
+Demo price history for the last 3 months (price_history.is_demo): small moves, RAM and SSD grew noticeably.
 Re-running updates the same stores and offers, no duplicates. Usage (from backend/):
   .venv/Scripts/python.exe scripts/seed_demo.py
 """
 
 import random
 import sys
-from datetime import timedelta
+from datetime import datetime, time, timedelta, timezone
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from sqlalchemy import select  # noqa: E402
+from sqlalchemy import delete, select  # noqa: E402
 from sqlalchemy.orm import Session, selectinload  # noqa: E402
 
 from app.core.security import hash_password  # noqa: E402
 from app.db.models import (  # noqa: E402
-    Currency, ImportStatus, Offer, PriceImport, Product, Store, User, UserRole, utcnow,
+    Currency, ImportStatus, Offer, PriceHistory, PriceImport, Product, Store, User, UserRole, utcnow,
 )
+from app.services.exchange import RateBook, ensure_rates  # noqa: E402
 
 SOURCE_EMAIL = "seller1@example.com"  # Age Computers: the real price list the demo is built from
 DEMO_PASSWORD = "demo12345"
@@ -30,6 +32,9 @@ DEMO_FILENAME = "demo_seed.xlsx"
 SHOWCASE = ["Core i5-12400F", "Ryzen 5 7500F", "RTX 5060 TWIN EDGE OC", "990 PRO 1TB"]
 POPULAR = {"cpu", "gpu", "ram", "ssd", "motherboard", "psu", "monitor"}
 FALLBACK_USD_RATE = 12_000.0
+# Demo history: days ago of the past price points, and how much a category grew over those 3 months
+HISTORY_DAYS_AGO = [92, 78, 64, 50, 36, 22, 10]
+TREND = {"ram": 0.24, "ssd": 0.09, "gpu": -0.04}
 
 STORES = [
     {"email": "demo1@example.com", "name": "Silicon Plus", "district": "Юнусабад", "address": "ул. Амира Темура, 107",
@@ -106,7 +111,43 @@ def _rows(spec: dict, offers: list[Offer], usd_rate: float) -> list[dict]:
     return rows
 
 
-def seed_demo(db: Session, usd_rate: float | None) -> list[dict]:
+def seed_history(db: Session, store_ids: list[int], fetch_rates: bool = False) -> int:
+    """Invented past prices of the demo stores' offers, leading up to today's price. Old demo history is replaced.
+
+    UZS prices of the past are converted by the CBU rate of that day, as a real store would have written them.
+    """
+    db.execute(delete(PriceHistory).where(PriceHistory.is_demo.is_(True)))
+    today = utcnow().date()
+    days = [today - timedelta(days=d) for d in HISTORY_DAYS_AGO]
+    if fetch_rates:
+        ensure_rates(db, set(days))
+    rates = RateBook(db)
+    added = 0
+    for store_id in store_ids:
+        offers = db.scalars(
+            select(Offer).where(Offer.store_id == store_id, Offer.price.is_not(None))
+            .options(selectinload(Offer.product).selectinload(Product.category)).order_by(Offer.raw_name)
+        ).all()
+        for o in offers:
+            rng = random.Random(f"{store_id}:{o.raw_name}")
+            category = o.product.category.slug if o.product.category else "other"
+            usd_now = o.price / (rates.on(today) or FALLBACK_USD_RATE) if o.currency == Currency.UZS else o.price
+            growth = TREND.get(category, 0.0)
+            for ago, day in zip(HISTORY_DAYS_AGO, days):
+                # Linear trend towards today's price plus a small store's own move (+-2%)
+                usd = usd_now / (1 + growth * ago / HISTORY_DAYS_AGO[0]) * (1 + rng.uniform(-0.02, 0.02))
+                if o.currency == Currency.UZS:
+                    price = round(usd * (rates.on(day) or FALLBACK_USD_RATE), -3)
+                else:
+                    price = round(usd)
+                at = datetime.combine(day, time(12), tzinfo=timezone.utc)
+                db.add(PriceHistory(offer_id=o.id, price=price, currency=o.currency, recorded_at=at, is_demo=True))
+                added += 1
+    db.commit()
+    return added
+
+
+def seed_demo(db: Session, usd_rate: float | None, fetch_rates: bool = False) -> list[dict]:
     from app.services.importer import publish_import
 
     usd_rate = usd_rate or FALLBACK_USD_RATE
@@ -122,6 +163,8 @@ def seed_demo(db: Session, usd_rate: float | None) -> list[dict]:
             offer.updated_at = updated
         db.commit()
         report.append({"store": spec["name"], "rows": len(rows), **stats})
+    store_ids = [db.scalar(select(Store.id).join(Store.owner).where(User.email == s["email"])) for s in STORES]
+    report.append({"demo_history_points": seed_history(db, store_ids, fetch_rates)})
     return report
 
 
@@ -132,5 +175,5 @@ if __name__ == "__main__":
     init_db()
     with SessionLocal() as db:
         rate = get_usd_rate(db)
-        for line in seed_demo(db, rate.rate if rate else None):
+        for line in seed_demo(db, rate.rate if rate else None, fetch_rates=True):
             print(line)

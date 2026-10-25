@@ -82,6 +82,8 @@ class Store(Base):
     address: Mapped[str | None] = mapped_column(String(255))
     district: Mapped[str | None] = mapped_column(String(128))
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
+    # Archive source (an old price list of a shop, e.g. Gshop 2023): its prices go only to the price history
+    is_archive: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 
     owner: Mapped[User] = relationship(back_populates="stores")
     offers: Mapped[list["Offer"]] = relationship(back_populates="store")
@@ -146,8 +148,33 @@ class PriceHistory(Base):
     price: Mapped[float] = mapped_column(Float)
     currency: Mapped[Currency] = mapped_column(str_enum(Currency), default=Currency.USD)
     recorded_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, index=True)
+    # Invented history of the demo stores (scripts/seed_demo.py): deleted with one query
+    is_demo: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0", index=True)
 
     offer: Mapped[Offer] = relationship(back_populates="price_history")
+
+
+class ArchivePrice(Base):
+    """One row of an old price list (archive source): only history, never a current offer or a catalog card.
+
+    Matched to a reference card when the model is the same; unmatched rows stay here as they were.
+    """
+
+    __tablename__ = "archive_prices"
+    __table_args__ = (UniqueConstraint("store_id", "sheet", "raw_name"),)
+
+    id: Mapped[int] = mapped_column(primary_key=True)
+    store_id: Mapped[int] = mapped_column(ForeignKey("stores.id", ondelete="CASCADE"), index=True)
+    product_id: Mapped[int | None] = mapped_column(ForeignKey("products.id", ondelete="SET NULL"), index=True)
+    sheet: Mapped[str] = mapped_column(String(128))
+    section: Mapped[str | None] = mapped_column(String(255))
+    raw_name: Mapped[str] = mapped_column(Text)
+    price: Mapped[float] = mapped_column(Float)
+    currency: Mapped[Currency] = mapped_column(str_enum(Currency), default=Currency.USD)
+    condition: Mapped[Condition] = mapped_column(str_enum(Condition), default=Condition.new)
+    # A note that makes the price not comparable ("only in a PC build")
+    note: Mapped[str | None] = mapped_column(String(64))
+    price_date: Mapped[date] = mapped_column(Date)
 
 
 class FraudFlag(Base):

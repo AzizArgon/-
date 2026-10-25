@@ -4,6 +4,7 @@ from sqlalchemy.orm import Session
 from app.db.database import get_db
 from app.services.catalog import parse_spec_filters, product_card, search_products
 from app.services.exchange import get_usd_rate
+from app.services.market import product_market
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
 
@@ -46,4 +47,4 @@ def get_product(product_id: int, sort: str = Query("recommended", pattern="^(rec
     card = product_card(db, product_id, usd_rate, sort)
     if card is None:
         raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
-    return {**card, "usd_rate_date": rate_date}
+    return {**card, "usd_rate_date": rate_date, "market": product_market(db, product_id)}

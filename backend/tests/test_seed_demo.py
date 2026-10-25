@@ -23,7 +23,10 @@ def test_demo_stores_share_cards_flag_cheap_items_and_rerun_without_duplicates(d
     publish_import(db, _import(db, age), age, rows)
 
     report = seed_demo(db, 12_000)
-    assert [r["store"] for r in report] == ["Silicon Plus", "Byte Market", "PC Galaxy"]
+    assert [r["store"] for r in report[:3]] == ["Silicon Plus", "Byte Market", "PC Galaxy"]
+    # Demo history: 7 past points per demo offer, marked so that one query deletes it
+    demo = db.scalar(select(func.count()).where(PriceHistory.is_demo.is_(True)))
+    assert demo == report[3]["demo_history_points"] == 7 * sum(r["created"] for r in report[:3])
     i5 = db.scalars(select(Offer).where(Offer.raw_name.like("%i5-12400F%"))).all()
     assert len({o.product_id for o in i5}) == 1 and len(i5) == 4  # Age + 3 demo stores, one card
     byte_market = next(o for o in i5 if o.store.name == "Byte Market")

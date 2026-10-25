@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import auth, catalog, reference, seller
+from app.api import auth, catalog, market, reference, seller
 from app.core.config import settings
 from app.db.database import init_db
 from app.services.importer import fail_stale_imports
@@ -32,6 +32,7 @@ app.include_router(auth.router, prefix="/api")
 app.include_router(seller.router, prefix="/api")
 app.include_router(reference.router, prefix="/api")
 app.include_router(catalog.router, prefix="/api")
+app.include_router(market.router, prefix="/api")
 
 
 @app.get("/api/health")

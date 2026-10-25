@@ -12,6 +12,7 @@ from app.schemas.seller import (
 from app.services.importer import (
     ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import, run_text_import,
 )
+from app.services.market import PERIODS, index_table, market_data, missing_popular, seller_position
 from app.services.manual import create_product, product_brief, save_offer, store_offer, suggest_products
 
 router = APIRouter(tags=["seller"])
@@ -174,3 +175,15 @@ def add_product(data: ProductIn, user: User = Depends(seller_only), db: Session 
         raise HTTPException(status.HTTP_409_CONFLICT, {
             "code": "product_exists", "product": product_brief(product, store_offer(db, store, product))})
     return product_brief(product)
+
+
+@router.get("/seller/analytics")
+def market_analytics(period: str = Query("quarter", pattern=f"^({'|'.join(PERIODS)})$"),
+                     user: User = Depends(seller_only), db: Session = Depends(get_db)):
+    """"Market analytics": category indices, the seller's prices against the market, what competitors sell more."""
+    from app.api.market import usd_rate_info
+
+    store = _require_store(db, user)
+    md = market_data(db)
+    return {"indices": index_table(md, period), "position": seller_position(db, md, store.id),
+            "missing": missing_popular(db, md, store.id), **usd_rate_info(db)}
