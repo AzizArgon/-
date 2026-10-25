@@ -10,7 +10,7 @@ from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Prod
 from app.services.exchange import to_usd, to_uzs
 from app.services.spec_dictionary import CARD_SPECS, NUMBER, YESNO, Spec, spec_map, specs_of
 from app.services.spec_inference import INFERABLE
-from app.services.spec_normalizer import INFERRED, merge_specs, normalize_specs
+from app.services.spec_normalizer import INFERRED, SUSPECT, merge_specs, normalize_specs
 
 # Type words some stores add and others don't ("Процессор ...", "... Motherboard"): not part of the model
 TYPE_WORDS = {
@@ -327,6 +327,7 @@ def product_card(db: Session, product_id: int, usd_rate: float | None, sort: str
                        "source": f.source.value} for f in o.fraud_flags if f.status == FlagStatus.active],
         })
     offers.sort(key=price_order if sort == "price" else recommended_order)
+    slug = product.category.slug if product.category else "other"
     return {
         "id": product.id, "name": product.normalized_name, "brand": product.brand, "model": product.model,
         "category": product.category.slug if product.category else "other",
@@ -337,5 +338,8 @@ def product_card(db: Session, product_id: int, usd_rate: float | None, sort: str
                    "inferred": (product.specs_json or {}).get(INFERRED, {}).get(s.key)}
                   for s in specs_of(product.category.slug if product.category else "other")
                   if s.key in (product.specs_json or {})],
+        # Numbers outside their plausible range (a typo?): not in filters, the page asks to check them
+        "suspect": [{"key": k, "kind": NUMBER, "unit": spec_map(slug).get(k).unit if k in spec_map(slug) else None,
+                     "value": v} for k, v in (product.specs_json or {}).get(SUSPECT, {}).items()],
         "usd_rate": usd_rate, "offers": offers,
     }

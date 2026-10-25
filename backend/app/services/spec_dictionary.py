@@ -196,3 +196,44 @@ def specs_of(category: str) -> tuple[Spec, ...]:
 
 def spec_map(category: str) -> dict[str, Spec]:
     return {s.key: s for s in specs_of(category)}
+
+
+# Plausible ranges of numbers: a value outside is most likely a typo of the seller ("DDR5 600MHz" instead of 6000).
+# It is not corrected and not used in filters: the seller sees "possible typo", the buyer "specs need checking".
+# Ranges are wide on purpose (real products only, from the slowest to the newest flagship), in dictionary units.
+PLAUSIBLE: dict[str, dict[str, tuple[float, float]]] = {
+    "ram": {"capacity": (1, 512), "modules": (1, 8)},
+    "cpu": {"cores": (1, 128), "threads": (1, 256)},
+    "gpu": {"memory": (1, 48)},
+    "ssd": {"capacity": (32, 16000)},
+    "hdd": {"capacity": (80, 30000), "rpm": (4200, 15000)},
+    "monitor": {"size": (10, 57), "refresh_rate": (48, 750)},  # portable 14", esports 600 Hz exist
+    "psu": {"power": (30, 3000)},  # laptop/AIO adapters are in this category too
+    "cooling": {"radiator": (80, 480)},
+    "speakers": {"power": (1, 2000)},
+    "laptop": {"ram": (2, 128), "storage": (64, 8000), "screen": (10, 18.4), "refresh_rate": (60, 300)},
+    "aio": {"ram": (2, 128), "storage": (64, 8000), "screen": (19, 34)},
+    "desktop": {"ram": (2, 512), "storage": (64, 30000)},
+    "ups": {"power_va": (300, 20000), "power_w": (150, 20000)},
+    "projector": {"brightness": (100, 15000)},
+    "flash": {"capacity": (1, 2000)},
+}
+# RAM frequency depends on the generation (JEDEC base up to the fastest overclocking kits)
+RAM_FREQUENCY = {"DDR3": (800, 2933), "DDR4": (1600, 5333), "DDR5": (4000, 9000), None: (800, 9000)}
+
+
+def plausible_range(category: str, key: str, specs: dict) -> tuple[float, float] | None:
+    if category == "ram" and key == "frequency":
+        return RAM_FREQUENCY.get(specs.get("type"), RAM_FREQUENCY[None])
+    return PLAUSIBLE.get(category, {}).get(key)
+
+
+def implausible(category: str, specs: dict) -> dict[str, tuple[float, float]]:
+    """{key: (min, max)} of numbers outside their plausible range."""
+    result = {}
+    for key, value in specs.items():
+        limits = plausible_range(category, key, specs)
+        if limits and isinstance(value, (int, float)) and not isinstance(value, bool) \
+                and not limits[0] <= value <= limits[1]:
+            result[key] = limits
+    return result

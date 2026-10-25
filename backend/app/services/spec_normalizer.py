@@ -12,10 +12,12 @@ Micro-ATX) are added by the rules in `spec_inference.py` and stored as "inferred
 import re
 from collections import Counter, defaultdict
 
-from app.services.spec_dictionary import CHOICE, NUMBER, YESNO, Spec, spec_map, specs_of
+from app.services.spec_dictionary import CHOICE, NUMBER, YESNO, Spec, implausible, spec_map, specs_of
 from app.services.spec_inference import infer
 
 INFERRED = "_inferred"  # specs_json[INFERRED] = {key: rule_id}: values the seller did not write
+# specs_json[SUSPECT] = {key: value}: a number outside its plausible range (a typo?) — kept apart, not in filters
+SUSPECT = "_suspect"
 
 # Unit words -> multiplier to the dictionary unit (TB -> GB: x1000, like drive makers count)
 UNIT_WORDS = {
@@ -106,7 +108,9 @@ RULES: dict[str, dict[str, list]] = {
         "type": [(r"(?<![a-zа-я])(?:ddr|ддр)([345])(?![0-9])", _ddr)],  # "ддр4" in Telegram posts
         "form_factor": [(r"so-?\s?dimm?|sodim|для ноутбук|notebook|laptop", "SODIMM"),
                         (r"\b(?:u|long)?dimm\b|для пк|desktop", "DIMM")],
-        "frequency": [(r"(\d{4})\s*(?:mhz|мгц|mt/s)|ddr\d-(\d{4})", lambda m: int(_first(m[1], m[2])))],
+        # The first one written is the base: "3200Mhz up to 4000Mhz" -> 3200 (overclocking is not taken).
+        # 3 digits too: "600MHz" is a typo, but it is what the seller wrote (kept apart as doubtful)
+        "frequency": [(r"(?<![\d.])(\d{3,5})\s*(?:mhz|мгц|mt/s)|ddr\d-(\d{4})", lambda m: int(_first(m[1], m[2])))],
         "ecc": [(r"non-?ecc", False), (r"\becc\b|\breg(?:istered)?\b|\brdimm\b", True)],
         "rgb": RGB,
     },
@@ -389,13 +393,15 @@ def normalize_specs(category: str, text: str, given: dict | None = None, brand: 
     if brand_value and "brand" in specs and "brand" not in result and _squash(brand_value) in _squash(text):
         result["brand"] = brand_value if valid(specs["brand"], brand_value) else None
     result = {k: v for k, v in result.items() if v is not None}
+    # "DDR5 600MHz": not corrected, not used in filters or inference, shown as "possible typo"
+    suspect = {k: result.pop(k) for k in implausible(category, result)}
     inferred = {}
     for key, (value, rule_id) in infer(category, text, result).items():
         if key in specs and valid(specs[key], value):
             result[key], inferred[key] = value, rule_id
     order = [s.key for s in specs_of(category)]
     clean = {k: result[k] for k in order if k in result}
-    return {**clean, INFERRED: inferred} if inferred else clean
+    return {**clean, **({INFERRED: inferred} if inferred else {}), **({SUSPECT: suspect} if suspect else {})}
 
 
 def merge_specs(card: dict | None, store: dict) -> dict:
@@ -403,13 +409,16 @@ def merge_specs(card: dict | None, store: dict) -> dict:
     store wrote it, is taken from this store (with its source)."""
     card = dict(card or {})
     card_rules, store_rules = dict(card.pop(INFERRED, {})), store.get(INFERRED, {})
+    suspect = {**store.get(SUSPECT, {}), **card.pop(SUSPECT, {})}
     for key, value in store.items():
-        if key != INFERRED and (key not in card or (key in card_rules and key not in store_rules)):
+        if not key.startswith("_") and (key not in card or (key in card_rules and key not in store_rules)):
             card[key] = value
             card_rules.pop(key, None)
             if key in store_rules:
                 card_rules[key] = store_rules[key]
-    return {**card, INFERRED: card_rules} if card_rules else card
+    # A doubtful value stays only while no store gave a plausible one
+    suspect = {k: v for k, v in suspect.items() if k not in card}
+    return {**card, **({INFERRED: card_rules} if card_rules else {}), **({SUSPECT: suspect} if suspect else {})}
 
 
 def written_specs(specs: dict) -> dict:

@@ -177,3 +177,18 @@ def test_every_inference_has_a_hint_text():
 
 def test_cyrillic_ddr_from_posts():
     assert normalize_specs("ram", "озу 16гб ддр4 3200")["type"] == "DDR4"
+
+
+def test_implausible_numbers_are_kept_apart():
+    from app.services.spec_normalizer import SUSPECT, merge_specs
+    specs = normalize_specs("ram", "GMOC DDR5 16GB 600MHz RGB", {"frequency": "600MHz"})
+    assert "frequency" not in specs and specs[SUSPECT] == {"frequency": 600}
+    assert normalize_specs("ram", "DDR4 16GB 3200MHz")["frequency"] == 3200
+    assert SUSPECT in normalize_specs("ram", "DDR4 8GB 6000MHz")  # 6000 is DDR5, not DDR4
+    assert normalize_specs("psu", "Блок питания 6500W")[SUSPECT] == {"power": 6500}
+    # Another store wrote a plausible value: the doubt goes away
+    assert SUSPECT not in merge_specs(specs, {"type": "DDR5", "frequency": 6000})
+
+
+def test_base_frequency_not_overclock():
+    assert normalize_specs("ram", "DDR4 32GB (2x16GB) 3200Mhz up to 4000Mhz")["frequency"] == 3200

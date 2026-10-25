@@ -109,6 +109,12 @@ export default function ProductPage() {
         </dl>
       )}
       {specs.some((s) => s.inferred) && <p className="mt-1 text-xs text-slate-400">{t('product.inferredNote')}</p>}
+      {product.suspect?.length > 0 && (
+        <p className="mt-3 rounded-md border border-amber-200 bg-amber-50 px-3 py-2 text-sm text-amber-900"
+          title={product.suspect.map((s) => `${specLabel(s.key, product.category)}: ${formatSpec(s)}`).join(', ')}>
+          {t('product.specsNeedCheck')}
+        </p>
+      )}
 
       <div className="mt-8 flex items-center justify-between">
         <h2 className="text-lg font-semibold">{t('product.offers', { count: product.offers.length })}</h2>

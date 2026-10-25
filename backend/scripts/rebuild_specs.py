@@ -16,8 +16,8 @@ from sqlalchemy import select  # noqa: E402
 from app.db.database import SessionLocal  # noqa: E402
 from app.db.models import Product, Store, User  # noqa: E402
 from app.services.catalog import rebuild_specs  # noqa: E402
-from app.services.spec_dictionary import DICTIONARY  # noqa: E402
-from app.services.spec_normalizer import INFERRED, new_trace, written_specs  # noqa: E402
+from app.services.spec_dictionary import DICTIONARY, plausible_range  # noqa: E402
+from app.services.spec_normalizer import INFERRED, SUSPECT, new_trace, written_specs  # noqa: E402
 
 
 def coverage(db) -> None:
@@ -48,6 +48,17 @@ def spellings(db, trace) -> None:
             print(f"| {cat} / {key} | {len(shapes)} | {len(values[(cat, key)])} | {examples} |")
 
 
+def suspects(db) -> None:
+    """Numbers outside their plausible range (typos?): kept apart from the filters, listed for the report."""
+    found = [(p, k, v) for p in db.scalars(select(Product)) for k, v in (p.specs_json or {}).get(SUSPECT, {}).items()]
+    print(f"\nПохоже на опечатку: {len(found)} значений у {len({p.id for p, _, _ in found})} товаров")
+    print("| Категория | Товар | Характеристика | Значение | Допустимо |\n|---|---|---|---|---|")
+    for p, key, value in sorted(found, key=lambda x: (x[0].category.slug if x[0].category else "", x[1])):
+        cat = p.category.slug if p.category else "other"
+        lo, hi = plausible_range(cat, key, p.specs_json) or ("?", "?")
+        print(f"| {cat} | {p.normalized_name} | {key} | {value} | {lo}–{hi} |")
+
+
 if __name__ == "__main__":
     trace = new_trace()
     with SessionLocal() as db:
@@ -56,4 +67,5 @@ if __name__ == "__main__":
         print(rebuild_specs(db, trace, demo, commit=not dry))
         coverage(db)
         spellings(db, trace)
+        suspects(db)
         db.rollback()

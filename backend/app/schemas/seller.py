@@ -52,7 +52,8 @@ class PreviewRow(BaseModel):
     price: float | None = Field(default=None, ge=0)
     condition: Literal["new", "used", "refurbished"] = "new"
     # Dictionary values ("DDR5", 16, true) + "_inferred": {key: rule} for values added by inference rules
-    specs: dict[str, bool | int | float | str | dict[str, str]] = {}
+    # + "_suspect": {key: number} for numbers outside their plausible range (a typo?)
+    specs: dict[str, bool | int | float | str | dict[str, str | int | float]] = {}
     # AI specs not found in the row text: shown to the seller, never saved to the product
     specs_guess: dict[str, str] = {}
     is_in_stock: bool = True

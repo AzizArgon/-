@@ -14,7 +14,7 @@ const CONDITIONS = ['new', 'used', 'refurbished']
 
 // Rows the seller should look at: no price, unknown category, no brand or an Anti-Fraud warning
 const isFlagged = (r) => (r.flags || []).some((f) => f.level !== 'info')
-const needsAttention = (r) => r.source === 'failed' || r.currency_check || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
+const needsAttention = (r) => r.source === 'failed' || r.currency_check || Boolean(r.specs?._suspect) || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
 const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
@@ -43,14 +43,19 @@ function Specs({ category, specs, guess }) {
   const dictionary = useSpecDictionary()
   const confirmed = specsText(category, specs, dictionary)
   const guessed = rawSpecsText(guess)
-  if (!confirmed && !guessed) return null
+  // A number outside its plausible range ("DDR5 600 МГц"): not used in filters, the seller should fix the row
+  const suspect = specsText(category, specs?._suspect, dictionary)
+  if (!confirmed && !guessed && !suspect) return null
   return (
-    <p className="truncate px-1.5 text-xs text-slate-500" title={[confirmed, guessed].filter(Boolean).join('\n')}>
-      {confirmed}
-      {guessed && (
-        <span className="italic text-amber-700">{confirmed && ' · '}{t('import.aiGuess')}: {guessed}</span>
-      )}
-    </p>
+    <>
+      {suspect && <p className="px-1.5 text-xs font-medium text-red-700">{t('import.possibleTypo')}: {suspect}</p>}
+      <p className="truncate px-1.5 text-xs text-slate-500" title={[confirmed, guessed].filter(Boolean).join('\n')}>
+        {confirmed}
+        {guessed && (
+          <span className="italic text-amber-700">{confirmed && ' · '}{t('import.aiGuess')}: {guessed}</span>
+        )}
+      </p>
+    </>
   )
 }
 

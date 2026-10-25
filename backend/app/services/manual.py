@@ -15,7 +15,7 @@ from app.services.antifraud import check_offer, market_prices, save_offer_flags
 from app.services.catalog import card_specs, make_match_key, search_filter
 from app.services.exchange import get_usd_rate
 from app.services.spec_dictionary import spec_map
-from app.services.spec_normalizer import INFERRED, _from_value, canonical_brand, normalize_specs
+from app.services.spec_normalizer import INFERRED, SUSPECT, _from_value, canonical_brand, normalize_specs
 
 SUGGEST_LIMIT = 8
 
@@ -120,10 +120,13 @@ def create_product(db: Session, store: Store, category: Category, brand: str | N
             chosen["brand"] = brand_value
     # What the seller chose is "specified by the seller"; inference rules may add the rest (marked as inferred)
     specs = normalize_specs(category.slug, " ".join(filter(None, [brand, model, name])), chosen, brand)
-    specs.update(chosen)
+    suspect = specs.pop(SUSPECT, {})
+    specs.update({k: v for k, v in chosen.items() if k not in suspect})  # a typo in the form stays doubtful
     inferred = {k: v for k, v in specs.pop(INFERRED, {}).items() if k not in chosen}
     if inferred:
         specs[INFERRED] = inferred
+    if suspect:
+        specs[SUSPECT] = suspect
     product = Product(
         category=category, brand=brand, model=model, normalized_name=name, match_key=key, specs_json=specs,
         manual_store_id=store.id,
