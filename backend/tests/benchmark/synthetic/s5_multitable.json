@@ -5,7 +5,7 @@
   "brand": "Redmi",
   "model": "A24",
   "name": "Redmi A24 24\"",
-  "match_key": "monitor:24 a24 redmi",
+  "match_key": "monitor:100hz 24 a24 redmi",
   "specs": {
    "size": 24,
    "resolution": "1920x1080",
@@ -13,6 +13,8 @@
    "panel": "IPS",
    "brand": "Redmi"
   },
+  "source": "Redmi - 24\" A24 Desktop Monitor, IPS, 100Hz, 6mc, FHD (1920x1080), HDMI+DP, (P24FBB-RA)",
+  "article": "P24FBB-RA",
   "flags": [],
   "price": 877000,
   "currency": "UZS",
@@ -25,7 +27,7 @@
   "brand": "Inno3D",
   "model": "N50602-08D7-198072N",
   "name": "Inno3D GeForce RTX 5060 TWIN X2 OC V2 8GB",
-  "match_key": "gpu:5060 8gb geforce inno3d oc rtx twin v2 x2",
+  "match_key": "gpu:5060 8gb inno3d oc rtx twin v2 x2",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5060",
@@ -33,6 +35,8 @@
    "memory_type": "GDDR7",
    "brand": "Inno3D"
   },
+  "source": "Inno3D - 8GB GeForce RTX5060 TWIN X2 OC V2 GDDR7 128bit (N50602-08D7-198072N)",
+  "article": "N50602-08D7X-195070N",
   "flags": [],
   "price": 6458000,
   "currency": "UZS",
@@ -52,6 +56,8 @@
    "memory_type": "DDR4",
    "brand": "ASUS"
   },
+  "source": "MB ASUS PRIME H610M-F D4 DDR4 (90MB1H70-M0EAY0)",
+  "article": "90MB1H70-M0EAY0",
   "flags": [],
   "price": 735000,
   "currency": "UZS",
@@ -72,6 +78,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i3 - 13100, 3.4 GHz, 12MB, oem, LGA1700, Raptor Lake",
+  "article": "i3-13100",
   "flags": [],
   "price": 1268000,
   "currency": "UZS",
@@ -84,7 +92,7 @@
   "brand": "HP",
   "model": "527SW",
   "name": "HP 527SW 27\"",
-  "match_key": "monitor:27 527sw hp",
+  "match_key": "monitor:100hz 27 527sw hp",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -92,6 +100,8 @@
    "panel": "IPS",
    "brand": "HP"
   },
+  "source": "HP - 27\" 527SW LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), VGA+HDMI, Silver White (94F47AA)",
+  "article": "94F47AA",
   "flags": [],
   "price": 2145000,
   "currency": "UZS",
@@ -104,12 +114,14 @@
   "brand": "Toshiba",
   "model": "HDWT860UZSVA",
   "name": "HDD Toshiba 6TB Surveillance S300 HDWT860UZSVA 5400 rpm",
-  "match_key": "hdd:5400 6tb hdd hdwt860uzsva rpm s300 surveillance toshiba",
+  "match_key": "hdd:6tb hdwt860uzsva s300 surveillance toshiba",
   "specs": {
    "capacity": 6000,
    "rpm": 5400,
    "brand": "Toshiba"
   },
+  "source": "HDD 6TB Toshiba Surveillance S300 HDWT860UZSVA 5400Rpm Original OEM",
+  "article": "HDWT860UZSVA",
   "flags": [],
   "price": 3436000,
   "currency": "UZS",
@@ -122,13 +134,15 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B860 AORUS ELITE WF7 ICE DDR5 LGA1851",
-  "match_key": "motherboard:aorus b860 ddr5 elite gigabyte ice lga1851 wf7",
+  "match_key": "motherboard:aorus b860 ddr5 elite gigabyte ice wf7",
   "specs": {
    "socket": "LGA1851",
    "chipset": "B860",
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B860 AORUS ELITE WF7 ICE DDR5 LGA1851",
+  "article": null,
   "flags": [],
   "price": 3235000,
   "currency": "UZS",
@@ -141,7 +155,7 @@
   "brand": "Gigabyte",
   "model": "MO27U2",
   "name": "Gigabyte MO27U2 27\"",
-  "match_key": "monitor:27 gigabyte mo27u2",
+  "match_key": "monitor:240hz 27 gigabyte mo27u2",
   "specs": {
    "size": 27,
    "resolution": "3840x2160",
@@ -149,6 +163,8 @@
    "panel": "OLED",
    "brand": "Gigabyte"
   },
+  "source": "Gigabyte - 27\" MO27U2 Gaming Monitor, QD-OLED, 240hz, 0,03mc, UHD (3440 х 1440), HDMI, DisplayPort, Type C, USB, Black",
+  "article": "MO27U2",
   "flags": [],
   "price": 9077000,
   "currency": "UZS",
@@ -161,7 +177,7 @@
   "brand": "HP",
   "model": "34c",
   "name": "HP OMEN 34c 34\"",
-  "match_key": "monitor:34 34c hp omen",
+  "match_key": "monitor:180hz 34 34c hp omen",
   "specs": {
    "size": 34,
    "resolution": "3440x1440",
@@ -169,6 +185,8 @@
    "panel": "VA",
    "brand": "HP"
   },
+  "source": "HP - 34\" OMEN 34c G2 [2H] Gaming Monitor, VA, 180 Hz, WQHD (3440 x 1440),HDMI; DisplayPort (AV4C1AA)",
+  "article": "AV4C1AA",
   "flags": [],
   "price": 5925000,
   "currency": "UZS",
@@ -181,7 +199,7 @@
   "brand": "Palit",
   "model": "NE75080U19T2-GB2035S",
   "name": "Palit GeForce RTX 5080 INFINITY 3 OC 16GB",
-  "match_key": "gpu:16gb 3 5080 geforce infinity oc palit rtx",
+  "match_key": "gpu:16gb 3 5080 infinity oc palit rtx",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5080",
@@ -189,6 +207,8 @@
    "memory_type": "GDDR7",
    "brand": "Palit"
   },
+  "source": "Palit - 16GB GeForce RTX5080 INFINITY 3 OC GDDR7 256bit 3-DP HDMI (NE75080U19T2-GB2035S)",
+  "article": "NE75080S19T2-GB2031A",
   "flags": [],
   "price": 19671000,
   "currency": "UZS",
@@ -209,6 +229,8 @@
    "graphics": false,
    "pack": "OEM"
   },
+  "source": "Intel-Core i7 - 12700F, 3.2 GHz, 25MB, oem, LGA1700, Alder Lake",
+  "article": "i7-12700F",
   "flags": [],
   "price": 2974000,
   "currency": "UZS",
@@ -221,7 +243,7 @@
   "brand": "Lenovo",
   "model": "S24-4e",
   "name": "Lenovo ThinkVision S24-4e 24\"",
-  "match_key": "monitor:24 4e lenovo s24 thinkvision",
+  "match_key": "monitor:100hz 24 4e lenovo s24 thinkvision",
   "specs": {
    "size": 24,
    "resolution": "1920x1080",
@@ -229,6 +251,8 @@
    "panel": "IPS",
    "brand": "Lenovo"
   },
+  "source": "Lenovo - 24\" ThinkVision S24-4e Monitor, IPS, 4ms, 100Hz, FHD (1920x1080), HDMI, VGA (64B5KAT1EU) (Маркировка)",
+  "article": "64B5KAT1EU",
   "flags": [],
   "price": 1138000,
   "currency": "UZS",
@@ -249,6 +273,8 @@
    "frequency": 5600,
    "brand": "Lexar"
   },
+  "source": "Lexar DDR5 8GB 5600MHz SODIMM",
+  "article": null,
   "flags": [],
   "price": 1564000,
   "currency": "UZS",
@@ -271,6 +297,8 @@
    "graphics": false,
    "pack": "OEM"
   },
+  "source": "AMD Ryzen™ 5 Vermeer 5600X - 3.7 GHz, 6 cores/12 threads, No GPU, AM4 (100-000000065), oem",
+  "article": "100-000000065",
   "flags": [],
   "price": 1398000,
   "currency": "UZS",
@@ -290,6 +318,8 @@
    "panel": "IPS",
    "brand": "HP"
   },
+  "source": "HP - 37.5\" 7 Pro 738PU Monitor, IPS, 5mc, WQHD+ (3840 x 1600 ), HDMI+DP+Type-C,USB,Audio, Black-Silver (8K167AA) (маркировка)",
+  "article": "8K167AA",
   "flags": [],
   "price": 16211000,
   "currency": "UZS",
@@ -302,7 +332,7 @@
   "brand": "Titan Army",
   "model": "KG257S",
   "name": "Titan Army KG257S 25\"",
-  "match_key": "monitor:25 army kg257s titan",
+  "match_key": "monitor:25 275hz army kg257s titan",
   "specs": {
    "size": 25,
    "resolution": "2560x1440",
@@ -310,6 +340,8 @@
    "panel": "IPS",
    "brand": "Titan Army"
   },
+  "source": "Titan Army - 25\" KG257S PLUS Gaming Monitor, Fast IPS, 275Hz, 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+  "article": null,
   "flags": [],
   "price": 2429000,
   "currency": "UZS",
@@ -322,7 +354,7 @@
   "brand": "Gigabyte",
   "model": "GS27FC2",
   "name": "Gigabyte GS27FC2 27\"",
-  "match_key": "monitor:27 gigabyte gs27fc2",
+  "match_key": "monitor:240hz 27 gigabyte gs27fc2",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -331,6 +363,8 @@
    "curved": true,
    "brand": "Gigabyte"
   },
+  "source": "Gigabyte - 27\" GS27FC2 Curved Gaming Monitor, VA, 240hz, 1mc, FHD (1920x1080), HDMI, DisplayPort, Black",
+  "article": "GS27FC2",
   "flags": [],
   "price": 1754000,
   "currency": "UZS",
@@ -343,7 +377,7 @@
   "brand": "ASUS",
   "model": "90MB1GT0-M0EAY0",
   "name": "ASUS TUF GAMING B650-E WIFI DDR5",
-  "match_key": "motherboard:asus b650 ddr5 e gaming tuf wifi",
+  "match_key": "motherboard:asus b650 ddr5 e tuf wifi",
   "specs": {
    "socket": "AM5",
    "chipset": "B650",
@@ -351,6 +385,8 @@
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 TUF GAMING B650-E WIFI DDR5 (90MB1GT0-M0EAY0)",
+  "article": "90MB1GT0-M0EAY0",
   "flags": [],
   "price": 2607000,
   "currency": "UZS",
@@ -363,13 +399,15 @@
   "brand": "Hiksemi",
   "model": null,
   "name": "SSD Hiksemi 512GB NVMe",
-  "match_key": "ssd:512gb hiksemi nvme ssd",
+  "match_key": "ssd:512gb hiksemi",
   "specs": {
    "capacity": 512,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "Hiksemi"
   },
+  "source": "SSD M.2 Hiksemi 512GB NVMe",
+  "article": null,
   "flags": [],
   "price": 782000,
   "currency": "UZS",
@@ -382,7 +420,7 @@
   "brand": "ASUS",
   "model": "90MB1MU0-M0EAY0",
   "name": "ASUS TUF GAMING B850M-PLUS WIFI7 DDR5",
-  "match_key": "motherboard:asus b850m ddr5 gaming plus tuf wifi7",
+  "match_key": "motherboard:asus b850m ddr5 plus tuf wifi7",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
@@ -391,6 +429,8 @@
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 TUF GAMING B850M-PLUS WIFI7 DDR5 (90MB1MU0-M0EAY0)",
+  "article": "90MB1MU0-M0EAY0",
   "flags": [],
   "price": 2891000,
   "currency": "UZS",
@@ -411,6 +451,8 @@
    "frequency": 4800,
    "brand": "Lexar"
   },
+  "source": "Lexar DDR5 16GB 4800MHz SODIMM",
+  "article": null,
   "flags": [],
   "price": 2702000,
   "currency": "UZS",
@@ -431,6 +473,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM5 PRO B850-P WIFI DDR5",
+  "article": "911-7E56-021",
   "flags": [],
   "price": 2417000,
   "currency": "UZS",
@@ -450,6 +494,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B650 EAGLE DDR5",
+  "article": null,
   "flags": [],
   "price": 1588000,
   "currency": "UZS",
@@ -462,12 +508,14 @@
   "brand": "Toshiba",
   "model": "HDEB034ZSA51",
   "name": "HDD Toshiba 24TB Surveillance S300 HDEB034ZSA51 7200 rpm",
-  "match_key": "hdd:24tb 7200 hdd hdeb034zsa51 rpm s300 surveillance toshiba",
+  "match_key": "hdd:24tb hdeb034zsa51 s300 surveillance toshiba",
   "specs": {
    "capacity": 24000,
    "rpm": 7200,
    "brand": "Toshiba"
   },
+  "source": "HDD 24TB Toshiba Surveillance S300 HDEB034ZSA51 7200Rpm 256MB buffer Original",
+  "article": null,
   "flags": [],
   "price": 8994000,
   "currency": "UZS",
@@ -490,6 +538,8 @@
    "graphics": false,
    "pack": "OEM"
   },
+  "source": "AMD Ryzen™ 5 Cezanne 5500 - 3.6 GHz, 6 cores/12 threads, No GPU, AM4 (100-000000457), oem",
+  "article": "100-000000457",
   "flags": [],
   "price": 1066000,
   "currency": "UZS",
@@ -510,6 +560,8 @@
    "frequency": 3200,
    "brand": "GMOC"
   },
+  "source": "GMOC DDR4 16GB 3200MHz SODIMM",
+  "article": null,
   "flags": [],
   "price": 841000,
   "currency": "UZS",
@@ -522,7 +574,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B850 GAMING X WIFI6E DDR5",
-  "match_key": "motherboard:b850 ddr5 gaming gigabyte wifi6e x",
+  "match_key": "motherboard:b850 ddr5 gigabyte wifi6e x",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
@@ -530,6 +582,8 @@
    "wifi": true,
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B850 GAMING X WIFI6E DDR5",
+  "article": null,
   "flags": [],
   "price": 2358000,
   "currency": "UZS",
@@ -542,13 +596,15 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte Z890 D PLUS DDR5 LGA1851",
-  "match_key": "motherboard:d ddr5 gigabyte lga1851 plus z890",
+  "match_key": "motherboard:d ddr5 gigabyte plus z890",
   "specs": {
    "socket": "LGA1851",
    "chipset": "Z890",
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte Z890 D PLUS DDR5 LGA1851",
+  "article": null,
   "flags": [],
   "price": 2631000,
   "currency": "UZS",
@@ -568,6 +624,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 X870 AORUS ELITE X ICE DDR5",
+  "article": null,
   "flags": [],
   "price": 3899000,
   "currency": "UZS",
@@ -580,7 +638,7 @@
   "brand": "Teamgroup",
   "model": null,
   "name": "Teamgroup DDR5 32GB 6000MHz (2x16GB) RGB",
-  "match_key": "ram:2x16gb 32gb 6000mhz ddr5 rgb teamgroup",
+  "match_key": "ram:32gb 6000mhz ddr5 rgb teamgroup",
   "specs": {
    "type": "DDR5",
    "form_factor": "DIMM",
@@ -590,6 +648,8 @@
    "rgb": true,
    "brand": "TeamGroup"
   },
+  "source": "Teamgroup DDR5 32GB 6000MHz (16*2) RGB",
+  "article": null,
   "flags": [],
   "price": 6802000,
   "currency": "UZS",
@@ -610,6 +670,8 @@
    "graphics": false,
    "pack": "OEM"
   },
+  "source": "Intel-Core i3 - 12100F, 3.3 GHz, 12MB, oem, LGA1700, Alder Lake",
+  "article": "i3-12100F",
   "flags": [],
   "price": 984000,
   "currency": "UZS",
@@ -622,7 +684,7 @@
   "brand": "ASUS",
   "model": "90MB1LZ0-M0EAY0",
   "name": "ASUS X870 MAX GAMING WIFI7 W DDR5",
-  "match_key": "motherboard:asus ddr5 gaming max wifi7w x870",
+  "match_key": "motherboard:asus ddr5 max wifi7w x870",
   "specs": {
    "socket": "AM5",
    "chipset": "X870",
@@ -630,6 +692,8 @@
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 X870 MAX GAMING WIFI7 W DDR5 (90MB1LZ0-M0EAY0)",
+  "article": "90MB1LZ0-M0EAY0",
   "flags": [],
   "price": 4159000,
   "currency": "UZS",
@@ -642,12 +706,14 @@
   "brand": "Toshiba",
   "model": "HDWT840UZSVA",
   "name": "HDD Toshiba 4TB Surveillance S300 HDWT840UZSVA 5400 rpm",
-  "match_key": "hdd:4tb 5400 hdd hdwt840uzsva rpm s300 surveillance toshiba",
+  "match_key": "hdd:4tb hdwt840uzsva s300 surveillance toshiba",
   "specs": {
    "capacity": 4000,
    "rpm": 5400,
    "brand": "Toshiba"
   },
+  "source": "HDD 4TB Toshiba Surveillance S300 HDWT840UZSVA 5400Rpm Original OEM",
+  "article": "HDWT840UZSVA",
   "flags": [],
   "price": 1979000,
   "currency": "UZS",
@@ -660,13 +726,15 @@
   "brand": "GMOC",
   "model": null,
   "name": "SSD GMOC 256GB NVMe",
-  "match_key": "ssd:256gb gmoc nvme ssd",
+  "match_key": "ssd:256gb gmoc",
   "specs": {
    "capacity": 256,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "GMOC"
   },
+  "source": "SSD M.2 GMOC 256GB NVMe",
+  "article": null,
   "flags": [],
   "price": 450000,
   "currency": "UZS",
@@ -687,6 +755,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM5 MPG B850I EDGE TI WIFIDDR5",
+  "article": "911-7E79-001",
   "flags": [],
   "price": 3875000,
   "currency": "UZS",
@@ -699,7 +769,7 @@
   "brand": "MSI",
   "model": "274CXF",
   "name": "MSI MAG 274CXF 27\"",
-  "match_key": "monitor:27 274cxf mag msi",
+  "match_key": "monitor:27 274cxf 280hz mag msi",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -708,6 +778,8 @@
    "curved": true,
    "brand": "MSI"
   },
+  "source": "MSI - 27\" MAG 274CXF Curved Gaming Monitor, Rapid VA, 0,5mc, 280hz, FHD (1920x1080), HDMI+DP+TypeC, Black (9S6-3CE31T-012)",
+  "article": "9S6-3CE31T-012",
   "flags": [],
   "price": 2240000,
   "currency": "UZS",
@@ -726,6 +798,8 @@
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS PRIME Z790-P DDR5 (90MB1CK0-M1EAY0)",
+  "article": "90MB1CK0-M1EAY0",
   "flags": [],
   "price": 2334000,
   "currency": "UZS",
@@ -738,7 +812,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B760M GAMING X WF6E GEN5 DDR5 LGA1700",
-  "match_key": "motherboard:b760m ddr5 gaming gen5 gigabyte lga1700 wf6e x",
+  "match_key": "motherboard:b760m ddr5 gen5 gigabyte wf6e x",
   "specs": {
    "socket": "LGA1700",
    "chipset": "B760",
@@ -746,6 +820,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B760M GAMING X WF6E GEN5 DDR5 LGA1700",
+  "article": "GA-B760M-GAMING-X-WF6E",
   "flags": [],
   "price": 1754000,
   "currency": "UZS",
@@ -765,6 +841,8 @@
    "memory_type": "DDR4",
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun Challenger B760M-F DDR4",
+  "article": "MS-Challenger B760M-F D4",
   "flags": [],
   "price": 865000,
   "currency": "UZS",
@@ -777,7 +855,7 @@
   "brand": "Samsung",
   "model": "LS27AG320NEXXS",
   "name": "Samsung LS27AG320NEXXS 27\"",
-  "match_key": "monitor:27 ls27ag320nexxs samsung",
+  "match_key": "monitor:165hz 27 ls27ag320nexxs samsung",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -785,6 +863,8 @@
    "panel": "VA",
    "brand": "Samsung"
   },
+  "source": "Samsung - 27\" LS27AG320NEXXS Odyssey G3 G32A Gaming Monitor, VA, 165Hz, 1mc, FHD (1920x1080), Height Adjustable, Pivot, HDMI, DP, Black",
+  "article": "LS27AG320NEXXS",
   "flags": [],
   "price": 1789000,
   "currency": "UZS",
@@ -806,6 +886,8 @@
    "wifi": true,
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun AMD AM5 Terminator B850M PRO II WIFI7 DDR5",
+  "article": null,
   "flags": [],
   "price": 1766000,
   "currency": "UZS",
@@ -818,7 +900,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B760M DS3H GEN5 DDR5 LGA1700",
-  "match_key": "motherboard:b760m ddr5 ds3h gen5 gigabyte lga1700",
+  "match_key": "motherboard:b760m ddr5 ds3h gen5 gigabyte",
   "specs": {
    "socket": "LGA1700",
    "chipset": "B760",
@@ -826,6 +908,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B760M DS3H GEN5 DDR5 LGA1700",
+  "article": "B760M DS3H GEN5 DDR5",
   "flags": [],
   "price": 1304000,
   "currency": "UZS",
@@ -846,6 +930,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i7 - 14700K, 3.4 GHz, 33MB, oem, LGA1700, Raptor Lake",
+  "article": "i7-14700K",
   "flags": [],
   "price": 4444000,
   "currency": "UZS",
@@ -866,6 +952,8 @@
    "wifi": true,
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun Challenger B760M WIFI DDR4",
+  "article": "MS-Challenger B760M D4 WiFi",
   "flags": [],
   "price": 1173000,
   "currency": "UZS",
@@ -878,7 +966,7 @@
   "brand": "Palit",
   "model": "NE7506TU19P1-GB2062M",
   "name": "Palit GeForce RTX 5060 Ti WHITE OC 8GB",
-  "match_key": "gpu:5060 8gb geforce oc palit rtx ti white",
+  "match_key": "gpu:5060 8gb oc palit rtx ti white",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5060 Ti",
@@ -886,6 +974,8 @@
    "memory_type": "GDDR7",
    "brand": "Palit"
   },
+  "source": "Palit - 8GB GeForce RTX5060Ti WHITE OC GDDR7 128bit 3-DP HDMI (NE7506TU19P1-GB2062M)",
+  "article": "NE75060U19P1-GB2063M",
   "flags": [],
   "price": 7288000,
   "currency": "UZS",
@@ -906,6 +996,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B650M AORUS ELITE AX ICE DDR5 (2 штук)",
+  "article": null,
   "flags": [],
   "price": 2595000,
   "currency": "UZS",
@@ -918,13 +1010,15 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte X870 GAMING WF6 DDR5",
-  "match_key": "motherboard:ddr5 gaming gigabyte wf6 x870",
+  "match_key": "motherboard:ddr5 gigabyte wf6 x870",
   "specs": {
    "socket": "AM5",
    "chipset": "X870",
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 X870 GAMING WF6 DDR5",
+  "article": null,
   "flags": [],
   "price": 2560000,
   "currency": "UZS",
@@ -937,7 +1031,7 @@
   "brand": "ASUS",
   "model": "XG27AQDNG",
   "name": "ASUS ROG Strix QD-OLED XG27AQDNG 27\"",
-  "match_key": "monitor:27 asus oled qd rog strix xg27aqdng",
+  "match_key": "monitor:27 360hz asus rog strix xg27aqdng",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -945,6 +1039,8 @@
    "panel": "OLED",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" ROG Strix QD-OLED XG27AQDNG Gaming Monitor, QHD (2560x1440), 360Hz, 0,03ms, USB Type-C, HDR400, Black (90LM0CH0-B01971)",
+  "article": "90LM0CH0-B01971",
   "flags": [],
   "price": 9113000,
   "currency": "UZS",
@@ -965,6 +1061,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core Ultra 9-285K, 5.7 GHz, 40MB, oem, LGA 1851, Arrow Lake",
+  "article": "9-285K",
   "flags": [],
   "price": 5759000,
   "currency": "UZS",
@@ -977,7 +1075,7 @@
   "brand": "ASUS",
   "model": "90MB14A0-M0EAY0",
   "name": "ASUS TUF GAMING B550M-PLUS DDR4",
-  "match_key": "motherboard:asus b550m ddr4 gaming plus tuf",
+  "match_key": "motherboard:asus b550m ddr4 plus tuf",
   "specs": {
    "socket": "AM4",
    "chipset": "B550",
@@ -985,6 +1083,8 @@
    "memory_type": "DDR4",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM4 TUF GAMING B550M-PLUS DDR4 (90MB14A0-M0EAY0)",
+  "article": "90MB14A0-M0EAY0",
   "flags": [],
   "price": 1860000,
   "currency": "UZS",
@@ -997,7 +1097,7 @@
   "brand": "Titan Army",
   "model": "KG277S",
   "name": "Titan Army KG277S 27\"",
-  "match_key": "monitor:27 army kg277s titan",
+  "match_key": "monitor:240hz 27 army kg277s titan",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1005,6 +1105,8 @@
    "panel": "IPS",
    "brand": "Titan Army"
   },
+  "source": "Titan Army - 27\" KG277S PLUS Gaming Monitor, Fast IPS, 240Hz (overclock 275Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+  "article": null,
   "flags": [],
   "price": 1991000,
   "currency": "UZS",
@@ -1017,7 +1119,7 @@
   "brand": "Titan Army",
   "model": "KG277R",
   "name": "Titan Army KG277R 27\"",
-  "match_key": "monitor:27 army kg277r titan",
+  "match_key": "monitor:200hz 27 army kg277r titan",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1025,6 +1127,8 @@
    "panel": "IPS",
    "brand": "Titan Army"
   },
+  "source": "Titan Army - 27\" KG277R PLUS Gaming Monitor, Fast IPS, 200Hz (overclock 245Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+  "article": null,
   "flags": [],
   "price": 2074000,
   "currency": "UZS",
@@ -1037,13 +1141,15 @@
   "brand": "MSI",
   "model": "274QPF",
   "name": "MSI MAG 274QPF 27\"",
-  "match_key": "monitor:27 274qpf mag msi",
+  "match_key": "monitor:27 274qpf 300hz mag msi",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
    "refresh_rate": 300,
    "brand": "MSI"
   },
+  "source": "MSI - 27\" MAG 274QPF X30MV Gaming Monitor, MiniLED, 1mc, 300hz, WQHD (2560x1440), HDMI+DP, HAS, Black (9S6-3CF09H-028)",
+  "article": "9S6-3CF09H-028",
   "flags": [],
   "price": 4432000,
   "currency": "UZS",
@@ -1056,7 +1162,7 @@
   "brand": "ASUS",
   "model": "VG279Q3A",
   "name": "ASUS TUF Gaming VG279Q3A 27\"",
-  "match_key": "monitor:27 asus gaming tuf vg279q3a",
+  "match_key": "monitor:180hz 27 asus tuf vg279q3a",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1064,6 +1170,8 @@
    "panel": "IPS",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" TUF Gaming VG279Q3A Gaming Monitor, FHD(1920x1080), 180Hz, Fast IPS, 1ms (GTG), FreeSync, G-Sync, Black (90LM0990-B01170)",
+  "article": "90LM0990-B01170",
   "flags": [],
   "price": 1896000,
   "currency": "UZS",
@@ -1084,6 +1192,8 @@
    "wifi": true,
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun Challenger B760M-F WIFI DDR4",
+  "article": "MS-Challenger B760M-F WIFI D4",
   "flags": [],
   "price": 984000,
   "currency": "UZS",
@@ -1096,7 +1206,7 @@
   "brand": "Samsung",
   "model": "LS27F430UAIXCI",
   "name": "Samsung LS27F430UAIXCI 27\"",
-  "match_key": "monitor:27 ls27f430uaixci samsung",
+  "match_key": "monitor:100hz 27 ls27f430uaixci samsung",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1104,6 +1214,8 @@
    "panel": "IPS",
    "brand": "Samsung"
   },
+  "source": "Samsung - 27\" LS27F430UAIXCI S4 S43GC LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), HDMI, Type C, Black (маркировка)",
+  "article": "LS27F430UAI",
   "flags": [],
   "price": 2441000,
   "currency": "UZS",
@@ -1116,13 +1228,15 @@
   "brand": "Samsung",
   "model": null,
   "name": "SSD Samsung 1TB 990 PRO NVMe M.2",
-  "match_key": "ssd:1tb 2 990 m nvme pro samsung ssd",
+  "match_key": "ssd:1tb 990 pro samsung",
   "specs": {
    "capacity": 1000,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "Samsung"
   },
+  "source": "SSD M.2 Samsung 1TB 990 PRO NVMe M.2",
+  "article": "MZ-V9P1T0B/AM",
   "flags": [],
   "price": 2571000,
   "currency": "UZS",
@@ -1135,13 +1249,15 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte Z890 AORUS PRO ICE DDR5 LGA1851",
-  "match_key": "motherboard:aorus ddr5 gigabyte ice lga1851 pro z890",
+  "match_key": "motherboard:aorus ddr5 gigabyte ice pro z890",
   "specs": {
    "socket": "LGA1851",
    "chipset": "Z890",
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte Z890 AORUS PRO ICE DDR5 LGA1851",
+  "article": null,
   "flags": [],
   "price": 4799000,
   "currency": "UZS",
@@ -1154,7 +1270,7 @@
   "brand": "Inno3D",
   "model": "N50702-12D7-195064N",
   "name": "Inno3D GeForce RTX 5070 TWIN X2 12GB",
-  "match_key": "gpu:12gb 5070 geforce inno3d rtx twin x2",
+  "match_key": "gpu:12gb 5070 inno3d rtx twin x2",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5070",
@@ -1162,6 +1278,8 @@
    "memory_type": "GDDR7",
    "brand": "Inno3D"
   },
+  "source": "Inno3D - 12GB GeForce RTX5070 TWIN X2 GDDR7 192bit (N50702-12D7-195064N)",
+  "article": "N50702-12D7-195064N",
   "flags": [],
   "price": 10973000,
   "currency": "UZS",
@@ -1174,7 +1292,7 @@
   "brand": "Pixel",
   "model": "PXG27Q2-Quantom",
   "name": "Pixel PXG27Q2-Quantom 27\"",
-  "match_key": "monitor:27 pixel pxg27q2 quantom",
+  "match_key": "monitor:240hz 27 pixel pxg27q2 quantom",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1182,6 +1300,8 @@
    "panel": "IPS",
    "brand": "Pixel"
   },
+  "source": "Pixel - 27\" PXG27Q2-Quantom Dot Gaming Monitor, IPS, 240Hz OC 275Hz, 1mc, QHD (2560*1440), HDMI, Display port, HAS",
+  "article": "PXG27Q2",
   "flags": [],
   "price": 2086000,
   "currency": "UZS",
@@ -1194,7 +1314,7 @@
   "brand": "MSI",
   "model": null,
   "name": "MSI PRO H610M-S DDR4 LGA1700",
-  "match_key": "motherboard:ddr4 h610m lga1700 msi pro s",
+  "match_key": "motherboard:ddr4 h610m msi pro s",
   "specs": {
    "socket": "LGA1700",
    "chipset": "H610",
@@ -1202,6 +1322,8 @@
    "memory_type": "DDR4",
    "brand": "MSI"
   },
+  "source": "MB MSI PRO H610M-S DDR4 LGA1700",
+  "article": "911-7E44-013 / 911-7E44-023",
   "flags": [],
   "price": 628000,
   "currency": "UZS",
@@ -1214,13 +1336,15 @@
   "brand": "Kingfast",
   "model": null,
   "name": "SSD Kingfast 256GB NVMe",
-  "match_key": "ssd:256gb kingfast nvme ssd",
+  "match_key": "ssd:256gb kingfast",
   "specs": {
    "capacity": 256,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "Kingfast"
   },
+  "source": "SSD M.2 Kingfast 256GB NVMe",
+  "article": null,
   "flags": [],
   "price": 486000,
   "currency": "UZS",
@@ -1241,6 +1365,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i7 - 14700, 3.4 GHz, 33MB, oem, LGA1700, Raptor Lake",
+  "article": "i7-14700",
   "flags": [],
   "price": 3993000,
   "currency": "UZS",
@@ -1253,13 +1379,15 @@
   "brand": "Lexar",
   "model": null,
   "name": "SSD Lexar 512GB NVMe LNM780",
-  "match_key": "ssd:512gb lexar lnm780 nvme ssd",
+  "match_key": "ssd:512gb lexar lnm780",
   "specs": {
    "capacity": 512,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "Lexar"
   },
+  "source": "SSD M.2 Lexar 512GB NVMe LNM780",
+  "article": null,
   "flags": [],
   "price": 912000,
   "currency": "UZS",
@@ -1272,7 +1400,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B860M AORUS ELITE WIFI6E DDR5 LGA1851",
-  "match_key": "motherboard:aorus b860m ddr5 elite gigabyte lga1851 wifi6e",
+  "match_key": "motherboard:aorus b860m ddr5 elite gigabyte wifi6e",
   "specs": {
    "socket": "LGA1851",
    "chipset": "B860",
@@ -1281,6 +1409,8 @@
    "wifi": true,
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B860M AORUS ELITE WIFI6E DDR5 LGA1851",
+  "article": "GA-B860M-A-ELITE-WF6E",
   "flags": [],
   "price": 2678000,
   "currency": "UZS",
@@ -1293,7 +1423,7 @@
   "brand": "Pixel",
   "model": "PXG27F",
   "name": "Pixel PXG27F 27\"",
-  "match_key": "monitor:27 pixel pxg27f",
+  "match_key": "monitor:200hz 27 pixel pxg27f",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1301,6 +1431,8 @@
    "panel": "IPS",
    "brand": "Pixel"
   },
+  "source": "Pixel - 27\" PXG27F Gaming Monitor, IPS, 200Hz, 1mc, FHD (1920*1080), HDMI, Display port",
+  "article": "PXG27F",
   "flags": [],
   "price": 1066000,
   "currency": "UZS",
@@ -1313,7 +1445,7 @@
   "brand": "AOC",
   "model": "25G50Z",
   "name": "AOC 25G50Z 25\"",
-  "match_key": "monitor:25 25g50z aoc",
+  "match_key": "monitor:25 25g50z 260hz aoc",
   "specs": {
    "size": 25,
    "resolution": "1920x1080",
@@ -1321,6 +1453,8 @@
    "panel": "IPS",
    "brand": "AOC"
   },
+  "source": "AOC - 25\" 25G50Z Gaming Monitor, IPS, 0,3mc, 260Hz, FHD (1920x1080), HDMI+DP, Black (распродажа)",
+  "article": "25G50Z",
   "flags": [],
   "price": 1221000,
   "currency": "UZS",
@@ -1333,7 +1467,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B860M AORUS ELITE WIFI6E ICE DDR5 LGA1851",
-  "match_key": "motherboard:aorus b860m ddr5 elite gigabyte ice lga1851 wifi6e",
+  "match_key": "motherboard:aorus b860m ddr5 elite gigabyte ice wifi6e",
   "specs": {
    "socket": "LGA1851",
    "chipset": "B860",
@@ -1342,6 +1476,8 @@
    "wifi": true,
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B860M AORUS ELITE WIFI6E ICE DDR5 LGA1851",
+  "article": "B860MAELITEWF6EICE",
   "flags": [],
   "price": 2808000,
   "currency": "UZS",
@@ -1354,12 +1490,14 @@
   "brand": "Teamgroup",
   "model": null,
   "name": "SSD Teamgroup 256GB SATA III",
-  "match_key": "ssd:256gb iii sata ssd teamgroup",
+  "match_key": "ssd:256gb teamgroup",
   "specs": {
    "capacity": 256,
    "interface": "SATA",
    "brand": "TeamGroup"
   },
+  "source": "SSD Teamgroup 256GB SATA III",
+  "article": null,
   "flags": [],
   "price": 427000,
   "currency": "UZS",
@@ -1380,6 +1518,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i7 - 12700, 3.2 GHz, 25MB, oem, LGA1700, Alder Lake",
+  "article": "i7-12700",
   "flags": [],
   "price": 3140000,
   "currency": "UZS",
@@ -1402,6 +1542,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "AMD Ryzen™ 9 Granite Ridge 9900X - 4.4 Ghz, 12 cores/24 threads, GPU, AM5, (100-000000662), oem",
+  "article": "100-000000662",
   "flags": [],
   "price": 3792000,
   "currency": "UZS",
@@ -1414,7 +1556,7 @@
   "brand": "HP",
   "model": "7",
   "name": "HP 7 27\"",
-  "match_key": "monitor:27 7 hp",
+  "match_key": "monitor:120hz 27 7 hp",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1422,6 +1564,8 @@
    "panel": "IPS",
    "brand": "HP"
   },
+  "source": "HP - 27\" 7 Pro 727PQ Monitor, IPS, 5mc, 120Hz, QHD (2560x1440), HDMI+DP, Black-Silver (8J4D8UT) (маркировка)",
+  "article": "8J4D8UT",
   "flags": [],
   "price": 6280000,
   "currency": "UZS",
@@ -1434,7 +1578,7 @@
   "brand": "AOC",
   "model": "27G50Z",
   "name": "AOC 27G50Z 27\"",
-  "match_key": "monitor:27 27g50z aoc",
+  "match_key": "monitor:260hz 27 27g50z aoc",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1442,6 +1586,8 @@
    "panel": "IPS",
    "brand": "AOC"
   },
+  "source": "AOC - 27\" 27G50Z Gaming Monitor, IPS, 0,3mc, 260Hz, FHD (1920x1080), HDMI+DP, Black (распродажа)",
+  "article": "27G50Z",
   "flags": [],
   "price": 1695000,
   "currency": "UZS",
@@ -1454,7 +1600,7 @@
   "brand": "KingBank",
   "model": null,
   "name": "KingBank DDR5 32GB 6400MHz (2x16GB) Longdimm Black Heatsink DRAM (Hynix M-die C32)",
-  "match_key": "ram:2x16gb 32gb 6400mhz black c32 ddr5 die dram heatsink hynix kingbank longdimm m",
+  "match_key": "ram:32gb 6400mhz black c32 ddr5 die dram heatsink hynix kingbank longdimm m",
   "specs": {
    "type": "DDR5",
    "form_factor": "DIMM",
@@ -1463,6 +1609,8 @@
    "modules": 2,
    "brand": "KingBank"
   },
+  "source": "KingBank DDR5 32GB 6400MHz 16GB*2 Longdimm Black Heatsink DRAM (Hynix M-die C32)",
+  "article": null,
   "flags": [],
   "price": 7063000,
   "currency": "UZS",
@@ -1475,7 +1623,7 @@
   "brand": "Corsair",
   "model": null,
   "name": "Corsair DDR5 32GB 5200MHz (2x16GB) RGB",
-  "match_key": "ram:2x16gb 32gb 5200mhz corsair ddr5 rgb",
+  "match_key": "ram:32gb 5200mhz corsair ddr5 rgb",
   "specs": {
    "type": "DDR5",
    "form_factor": "DIMM",
@@ -1485,6 +1633,8 @@
    "rgb": true,
    "brand": "Corsair"
   },
+  "source": "Corsair DDR5 32GB 5200MHz (16*2) RGB",
+  "article": null,
   "flags": [],
   "price": 6032000,
   "currency": "UZS",
@@ -1505,6 +1655,8 @@
    "wifi": true,
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 X870E EAGLE X WIFI7 DDR5",
+  "article": "GA-X870E-EAGLE-X-WF7",
   "flags": [],
   "price": 4325000,
   "currency": "UZS",
@@ -1517,7 +1669,7 @@
   "brand": "Samsung",
   "model": "LS24D300GAIXCI",
   "name": "Samsung LS24D300GAIXCI 24\"",
-  "match_key": "monitor:24 ls24d300gaixci samsung",
+  "match_key": "monitor:100hz 24 ls24d300gaixci samsung",
   "specs": {
    "size": 24,
    "resolution": "1920x1080",
@@ -1525,6 +1677,8 @@
    "panel": "IPS",
    "brand": "Samsung"
   },
+  "source": "Samsung - 24\" LS24D300GAIXCI S3 LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), HDMI, DVI, Black (маркировка) (1 штук)",
+  "article": "LS24D300GAIXCI",
   "flags": [],
   "price": 1221000,
   "currency": "UZS",
@@ -1537,7 +1691,7 @@
   "brand": "ASUS",
   "model": "XG279CNS",
   "name": "ASUS ROG Strix XG279CNS 27\"",
-  "match_key": "monitor:27 asus rog strix xg279cns",
+  "match_key": "monitor:27 380hz asus rog strix xg279cns",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1545,6 +1699,8 @@
    "panel": "IPS",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" ROG Strix XG279CNS Gaming Monitor, FHD(1920x1080), IPS, 380Hz, 0.3ms GTG, USB Type-C, DisplayHDR™ 400, Black (90LM0AW0-B01371)",
+  "article": "90LM0AW0-B01371",
   "flags": [],
   "price": 4858000,
   "currency": "UZS",
@@ -1557,7 +1713,7 @@
   "brand": "MSI",
   "model": null,
   "name": "MSI B850 GAMING PLUS WIFI6E DDR5",
-  "match_key": "motherboard:b850 ddr5 gaming msi plus wifi6e",
+  "match_key": "motherboard:b850 ddr5 msi plus wifi6e",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
@@ -1565,6 +1721,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM5 B850 GAMING PLUS WIFI6E DDR5",
+  "article": "911-7E56-014",
   "flags": [],
   "price": 2702000,
   "currency": "UZS",
@@ -1577,7 +1735,7 @@
   "brand": "Acer",
   "model": "VG270U",
   "name": "Acer Nitro VG270U 27\"",
-  "match_key": "monitor:27 acer nitro vg270u",
+  "match_key": "monitor:200hz 27 acer nitro vg270u",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1585,6 +1743,8 @@
    "panel": "IPS",
    "brand": "Acer"
   },
+  "source": "Acer - 27\" Nitro VG270U Gaming Monitor, IPS, 200Hz, 0,5mc, WQHD (2560x1440), HDMI+DP, Audio, Black (UM.HV0SS.102)",
+  "article": "UM.HV0SS.102",
   "flags": [],
   "price": 2240000,
   "currency": "UZS",
@@ -1597,7 +1757,7 @@
   "brand": "Titan Army",
   "model": "X256K",
   "name": "Titan Army X256K 25\"",
-  "match_key": "monitor:25 army titan x256k",
+  "match_key": "monitor:25 425hz army titan x256k",
   "specs": {
    "size": 25,
    "resolution": "1920x1080",
@@ -1605,6 +1765,8 @@
    "panel": "IPS",
    "brand": "Titan Army"
   },
+  "source": "Titan Army - 25\" X256K Gaming Monitor, Fast IPS, 425Hz, 1mc, FHD (1920x1080), HDMI, Display port, audio, HAS, White",
+  "article": null,
   "flags": [],
   "price": 2773000,
   "currency": "UZS",
@@ -1617,7 +1779,7 @@
   "brand": "MSI",
   "model": null,
   "name": "MSI B860M GAMING PLUS WIFI DDR5 LGA1851",
-  "match_key": "motherboard:b860m ddr5 gaming lga1851 msi plus wifi",
+  "match_key": "motherboard:b860m ddr5 msi plus wifi",
   "specs": {
    "socket": "LGA1851",
    "chipset": "B860",
@@ -1626,6 +1788,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI B860M GAMING PLUS WIFI DDR5 LGA1851 (1 штук)",
+  "article": "911-7E42-003",
   "flags": [],
   "price": 2406000,
   "currency": "UZS",
@@ -1646,6 +1810,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B850M FORCE DDR5",
+  "article": null,
   "flags": [],
   "price": 1612000,
   "currency": "UZS",
@@ -1658,7 +1824,7 @@
   "brand": "Samsung",
   "model": "LS27BG400EPXUZ",
   "name": "Samsung LS27BG400EPXUZ 27\"",
-  "match_key": "monitor:27 ls27bg400epxuz samsung",
+  "match_key": "monitor:240hz 27 ls27bg400epxuz samsung",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1666,6 +1832,8 @@
    "panel": "IPS",
    "brand": "Samsung"
   },
+  "source": "Samsung - 27\" LS27BG400EPXUZ Odyssey G4 Gaming Monitor, IPS, 240Hz, 1mc, FHD (1920x1080), HDMI+DP, Black (маркировка) (распродажа)",
+  "article": "LS27BG400EPXUZ",
   "flags": [],
   "price": 3034000,
   "currency": "UZS",
@@ -1678,7 +1846,7 @@
   "brand": "MSI",
   "model": null,
   "name": "MSI MPG Z890 EDGE TI WIFI DDR5 LGA1851",
-  "match_key": "motherboard:ddr5 edge lga1851 mpg msi ti wifi z890",
+  "match_key": "motherboard:ddr5 edge mpg msi ti wifi z890",
   "specs": {
    "socket": "LGA1851",
    "chipset": "Z890",
@@ -1686,6 +1854,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI MPG Z890 EDGE TI WIFI DDR5 LGA1851 (1 штук)",
+  "article": "911-7E19-002",
   "flags": [],
   "price": 5652000,
   "currency": "UZS",
@@ -1698,13 +1868,15 @@
   "brand": "Samsung",
   "model": null,
   "name": "SSD Samsung 2TB 9100 PRO NVMe M.2 (MZ-VAP2T0B/AM)",
-  "match_key": "ssd:2 2tb 9100 am m mz nvme pro samsung ssd vap2t0b",
+  "match_key": "ssd:2tb 9100 pro samsung",
   "specs": {
    "capacity": 2000,
    "interface": "NVMe",
    "form_factor": "M.2",
    "brand": "Samsung"
   },
+  "source": "SSD M.2 Samsung 2TB 9100 PRO NVMe M.2 (MZ-VAP2T0B/AM)",
+  "article": "MZ-V9P2T0BW",
   "flags": [],
   "price": 4574000,
   "currency": "UZS",
@@ -1725,6 +1897,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i5 - 12400, 2.7 GHz, 18MB, oem, LGA1700, Alder Lake",
+  "article": "i5-12400",
   "flags": [],
   "price": 1659000,
   "currency": "UZS",
@@ -1737,7 +1911,7 @@
   "brand": "Samsung",
   "model": "LS27D300GAIXCI",
   "name": "Samsung LS27D300GAIXCI 27\"",
-  "match_key": "monitor:27 ls27d300gaixci samsung",
+  "match_key": "monitor:100hz 27 ls27d300gaixci samsung",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -1745,6 +1919,8 @@
    "panel": "IPS",
    "brand": "Samsung"
   },
+  "source": "Samsung - 27\" LS27D300GAIXCI S3 LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), HDMI, DVI, Black (маркировка)",
+  "article": "LS27D300GAIXCI",
   "flags": [],
   "price": 1458000,
   "currency": "UZS",
@@ -1764,6 +1940,8 @@
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 ROG CROSSHAIR X870E HERO BTF DDR5 (90MB1MX0-M0EAY0)",
+  "article": "90MB1MX0-M0EAY0",
   "flags": [],
   "price": 10037000,
   "currency": "UZS",
@@ -1776,12 +1954,14 @@
   "brand": "Transcend",
   "model": null,
   "name": "External SSD Transcend 2TB ESD300S USB 3.2 Type-C (TS2TESD300S)",
-  "match_key": "ssd:2 2tb 3 c esd300s external ssd transcend ts2tesd300s type usb",
+  "match_key": "ssd:2 2tb 3 c esd300s external transcend type usb",
   "specs": {
    "capacity": 2000,
    "external": true,
    "brand": "Transcend"
   },
+  "source": "Ext SSD Transcend 2TB ESD300S USB 3.2 Type-C (TS2TESD300S)",
+  "article": "TS2TESD300S",
   "flags": [],
   "price": 2074000,
   "currency": "UZS",
@@ -1802,6 +1982,8 @@
    "frequency": 5600,
    "brand": "Hiksemi"
   },
+  "source": "Hiksemi DDR5 16GB 5600MHz",
+  "article": null,
   "flags": [],
   "price": 2868000,
   "currency": "UZS",
@@ -1821,6 +2003,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B850 EAGLE ICE DDR5",
+  "article": null,
   "flags": [],
   "price": 1991000,
   "currency": "UZS",
@@ -1833,7 +2017,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "SSD Gigabyte 500GB Gen4 400E NVMe (G440E500G)",
-  "match_key": "ssd:400e 500gb g440e500g gen4 gigabyte nvme ssd",
+  "match_key": "ssd:400e 500gb gen4 gigabyte",
   "specs": {
    "capacity": 500,
    "interface": "NVMe",
@@ -1841,6 +2025,8 @@
    "pcie": "4.0",
    "brand": "Gigabyte"
   },
+  "source": "SSD M.2 Gigabyte 500GB Gen4 400E NVMe (G440E500G) (распродажа)",
+  "article": "G440E500G",
   "flags": [],
   "price": 1102000,
   "currency": "UZS",
@@ -1862,6 +2048,8 @@
    "wifi": true,
    "brand": "Sapphire"
   },
+  "source": "MB SAPPHIRE AMD AM5 PURE B850M WIFI DDR5 (52123-02-40G)",
+  "article": "52123-02-40G",
   "flags": [],
   "price": 2086000,
   "currency": "UZS",
@@ -1874,13 +2062,15 @@
   "brand": "ASUS",
   "model": "90MB1P20-M0EAY0",
   "name": "ASUS ROG STRIX X870E-E GAMING NEO DDR5",
-  "match_key": "motherboard:asus ddr5 e gaming neo rog strix x870e",
+  "match_key": "motherboard:asus ddr5 e neo rog strix x870e",
   "specs": {
    "socket": "AM5",
    "chipset": "X870E",
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 ROG STRIX X870E-E GAMING NEO DDR5 (90MB1P20-M0EAY0)",
+  "article": "90MB1P20-M0EAY0",
   "flags": [],
   "price": 7714000,
   "currency": "UZS",
@@ -1893,7 +2083,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte Z890 UD WIFI6E DDR5 LGA1851",
-  "match_key": "motherboard:ddr5 gigabyte lga1851 ud wifi6e z890",
+  "match_key": "motherboard:ddr5 gigabyte ud wifi6e z890",
   "specs": {
    "socket": "LGA1851",
    "chipset": "Z890",
@@ -1901,6 +2091,8 @@
    "wifi": true,
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte Z890 UD WIFI6E DDR5 LGA1851",
+  "article": null,
   "flags": [],
   "price": 2856000,
   "currency": "UZS",
@@ -1913,13 +2105,15 @@
   "brand": "MSI",
   "model": null,
   "name": "MSI MPG B550 GAMING PLUS DDR4",
-  "match_key": "motherboard:b550 ddr4 gaming mpg msi plus",
+  "match_key": "motherboard:b550 ddr4 mpg msi plus",
   "specs": {
    "socket": "AM4",
    "chipset": "B550",
    "memory_type": "DDR4",
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM4 MPG B550 GAMING PLUS DDR4",
+  "article": "911-7C56-087",
   "flags": [],
   "price": 1742000,
   "currency": "UZS",
@@ -1932,7 +2126,7 @@
   "brand": "ASUS",
   "model": "PG27AQWP-G",
   "name": "ASUS ROG Strix OLED PG27AQWP-G 27\"",
-  "match_key": "monitor:27 asus g oled pg27aqwp rog strix",
+  "match_key": "monitor:27 540hz asus g pg27aqwp rog strix",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -1940,6 +2134,8 @@
    "panel": "OLED",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" ROG Strix OLED PG27AQWP-G Edition 20 Gaming Monitor, QHD @ 540Hz, FHD @ 720Hz, 0,02ms, HDR, Black (90LM0CF0-B02971)",
+  "article": "90LM0CF0-B02971",
   "flags": [],
   "price": 17254000,
   "currency": "UZS",
@@ -1960,6 +2156,8 @@
    "frequency": 5600,
    "brand": "ADATA"
   },
+  "source": "Adata DDR5 16GB 5600MHz SODIMM",
+  "article": null,
   "flags": [],
   "price": 2643000,
   "currency": "UZS",
@@ -1972,13 +2170,15 @@
   "brand": "Adata",
   "model": null,
   "name": "SSD Adata 1TB SATAIII 2.5\"",
-  "match_key": "ssd:1tb 2 5 adata sataiii ssd",
+  "match_key": "ssd:1tb 2 5 adata",
   "specs": {
    "capacity": 1000,
    "interface": "SATA",
    "form_factor": "2.5\"",
    "brand": "ADATA"
   },
+  "source": "SSD Adata 1TB SATAIII 2.5\"",
+  "article": null,
   "flags": [],
   "price": 1197000,
   "currency": "UZS",
@@ -1991,13 +2191,15 @@
   "brand": "ASUS",
   "model": "90MB1P10-M0EAY0",
   "name": "ASUS ROG STRIX B850-A GAMING NEO DDR5",
-  "match_key": "motherboard:a asus b850 ddr5 gaming neo rog strix",
+  "match_key": "motherboard:a asus b850 ddr5 neo rog strix",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 ROG STRIX B850-A GAMING NEO DDR5 (90MB1P10-M0EAY0)",
+  "article": "90MB1P10-M0EAY0",
   "flags": [],
   "price": 4396000,
   "currency": "UZS",
@@ -2010,7 +2212,7 @@
   "brand": "Axle",
   "model": null,
   "name": "Axle GeForce RTX 3050 8GB",
-  "match_key": "gpu:3050 8gb axle geforce rtx",
+  "match_key": "gpu:3050 8gb axle rtx",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 3050",
@@ -2018,6 +2220,8 @@
    "memory_type": "GDDR6",
    "brand": "Axle"
   },
+  "source": "Axle - 8GB GeForce RTX3050 128Bits GDDR6",
+  "article": "Axle RTX3050 8GB GDDR6",
   "flags": [],
   "price": 2915000,
   "currency": "UZS",
@@ -2030,7 +2234,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "Gigabyte B760M H DDR4 LGA1700",
-  "match_key": "motherboard:b760m ddr4 gigabyte h lga1700",
+  "match_key": "motherboard:b760m ddr4 gigabyte h",
   "specs": {
    "socket": "LGA1700",
    "chipset": "B760",
@@ -2038,6 +2242,8 @@
    "memory_type": "DDR4",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte B760M H DDR4 LGA1700",
+  "article": "GA-B760M-H-D4",
   "flags": [],
   "price": 960000,
   "currency": "UZS",
@@ -2060,6 +2266,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "AMD Ryzen™ 7 Granite Ridge 9700X - 3.8 Ghz, 8 cores/16 threads, GPU, AM5, (100-000001404), oem",
+  "article": "100-000001404",
   "flags": [],
   "price": 2951000,
   "currency": "UZS",
@@ -2072,7 +2280,7 @@
   "brand": "Arktek",
   "model": null,
   "name": "Arktek GeForce GT 1050 Ti 4GB",
-  "match_key": "gpu:1050 4gb arktek geforce gt ti",
+  "match_key": "gpu:1050 4gb arktek gt ti",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "GT 1050 Ti",
@@ -2080,6 +2288,8 @@
    "memory_type": "GDDR6",
    "brand": "Arktek"
   },
+  "source": "Arktek - 4GB GeForce GT1050Ti 128Bits GDDR6",
+  "article": "AKN1050TID6-S4GH1",
   "flags": [],
   "price": 1398000,
   "currency": "UZS",
@@ -2100,6 +2310,8 @@
    "memory_type": "DDR5",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM5 B850M FORCE WF6E DDR5",
+  "article": null,
   "flags": [],
   "price": 1991000,
   "currency": "UZS",
@@ -2112,7 +2324,7 @@
   "brand": "Palit",
   "model": "NE75080019T2-GB2035S",
   "name": "Palit GeForce RTX 5080 INFINITY 3 16GB",
-  "match_key": "gpu:16gb 3 5080 geforce infinity palit rtx",
+  "match_key": "gpu:16gb 3 5080 infinity palit rtx",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5080",
@@ -2120,6 +2332,8 @@
    "memory_type": "GDDR7",
    "brand": "Palit"
   },
+  "source": "Palit - 16GB GeForce RTX5080 INFINITY 3 GDDR7 256bit 3-DP HDMI (NE75080019T2-GB2035S)",
+  "article": "NE75080019T2-GB2031A",
   "flags": [],
   "price": 17846000,
   "currency": "UZS",
@@ -2132,7 +2346,7 @@
   "brand": "ASUS",
   "model": "PA27JCV",
   "name": "ASUS PA27JCV 27\"",
-  "match_key": "monitor:27 asus pa27jcv",
+  "match_key": "monitor:27 60hz asus pa27jcv",
   "specs": {
    "size": 27,
    "resolution": "5120x2880",
@@ -2140,6 +2354,8 @@
    "panel": "IPS",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" PA27JCV ProArt Monitor, IPS, 5mc, 60Hz, 5K (5120 x 2880), HDMI, DisplayPort, Type-C, HDR500, Black (90LM0AL0-B01K70)",
+  "article": "90LM0AL0-B01K70",
   "flags": [],
   "price": 9350000,
   "currency": "UZS",
@@ -2160,6 +2376,8 @@
    "wifi": true,
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM5 MAG B850 TOMAHAWK MAX WIFI DDR5",
+  "article": "911-7E62-002",
   "flags": [],
   "price": 2951000,
   "currency": "UZS",
@@ -2181,6 +2399,8 @@
    "wifi": true,
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun AMD AM5 eSport B850M WiFi6 DDR5",
+  "article": null,
   "flags": [],
   "price": 1659000,
   "currency": "UZS",
@@ -2193,7 +2413,7 @@
   "brand": "ASUS",
   "model": "VG27AQML5A",
   "name": "ASUS TUF Gaming VG27AQML5A 27\"",
-  "match_key": "monitor:27 asus gaming tuf vg27aqml5a",
+  "match_key": "monitor:27 300hz asus tuf vg27aqml5a",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -2201,6 +2421,8 @@
    "panel": "IPS",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" TUF Gaming VG27AQML5A Gaming Monitor, QHD(2560x1440), 300Hz, Fast IPS, 0.3ms, Freesync, G-Sync, ELMB Sync, Black (90LM0BG0-B02971)",
+  "article": "90LM0BG0-B02971",
   "flags": [],
   "price": 4041000,
   "currency": "UZS",
@@ -2213,7 +2435,7 @@
   "brand": "Arktek",
   "model": null,
   "name": "Arktek GeForce GTX 3050 8GB",
-  "match_key": "gpu:3050 8gb arktek geforce gtx",
+  "match_key": "gpu:3050 8gb arktek gtx",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "GTX 3050",
@@ -2221,6 +2443,8 @@
    "memory_type": "GDDR6",
    "brand": "Arktek"
   },
+  "source": "Arktek - 8GB GeForce GTX3050 128Bits GDDR6",
+  "article": "AKN2060SD6S8GH1",
   "flags": [
    "spec_mismatch"
   ],
@@ -2235,13 +2459,15 @@
   "brand": "MSI",
   "model": "912-V535-003",
   "name": "MSI GeForce RTX 5060 Ti SHADOW 2X OC PLUS 16GB",
-  "match_key": "gpu:16gb 2x 5060 geforce msi oc plus rtx shadow ti",
+  "match_key": "gpu:16gb 2x 5060 msi oc plus rtx shadow ti",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5060 Ti",
    "memory": 16,
    "brand": "MSI"
   },
+  "source": "MSI - 16GB GeForce RTX5060Ti SHADOW 2X OC PLUS (912-V535-003)",
+  "article": "912-V535-003",
   "flags": [],
   "price": 9930000,
   "currency": "UZS",
@@ -2254,7 +2480,7 @@
   "brand": "Redmi",
   "model": "G27Q",
   "name": "Redmi G27Q 27\"",
-  "match_key": "monitor:27 g27q redmi",
+  "match_key": "monitor:240hz 27 g27q redmi",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -2262,6 +2488,8 @@
    "panel": "IPS",
    "brand": "Redmi"
   },
+  "source": "Redmi - 27\" G27Q Gaming Monitor, IPS, 240Hz, 1mc, QHD (2560x1440), HDMI+DP, Pivot, HAS (P27QDA-RG) (распродажа)",
+  "article": "P27QDA-RG",
   "flags": [],
   "price": 1872000,
   "currency": "UZS",
@@ -2282,6 +2510,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core Ultra 5-245K, 5.2 GHz, 24MB, oem, LGA 1851, Arrow Lake",
+  "article": "5-245K",
   "flags": [],
   "price": 2275000,
   "currency": "UZS",
@@ -2294,13 +2524,15 @@
   "brand": "ASUS",
   "model": "90MB1NX0-M0EAY0",
   "name": "ASUS ROG STRIX B850-F GAMING NEO DDR5",
-  "match_key": "motherboard:asus b850 ddr5 f gaming neo rog strix",
+  "match_key": "motherboard:asus b850 ddr5 f neo rog strix",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 ROG STRIX B850-F GAMING NEO DDR5 (90MB1NX0-M0EAY0)",
+  "article": "90MB1NX0-M0EAY0",
   "flags": [],
   "price": 4882000,
   "currency": "UZS",
@@ -2313,7 +2545,7 @@
   "brand": "ASUS",
   "model": "90MB1J30-M0EAY0",
   "name": "ASUS TUF GAMING B850-PLUS WIFI7 DDR5",
-  "match_key": "motherboard:asus b850 ddr5 gaming plus tuf wifi7",
+  "match_key": "motherboard:asus b850 ddr5 plus tuf wifi7",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
@@ -2321,6 +2553,8 @@
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 TUF GAMING B850-PLUS WIFI7 DDR5 (90MB1J30-M0EAY0)",
+  "article": "90MB1J30-M0EAY0",
   "flags": [],
   "price": 2856000,
   "currency": "UZS",
@@ -2333,7 +2567,7 @@
   "brand": "HP",
   "model": "532SF",
   "name": "HP 532SF 32\"",
-  "match_key": "monitor:32 532sf hp",
+  "match_key": "monitor:100hz 32 532sf hp",
   "specs": {
    "size": 32,
    "resolution": "1920x1080",
@@ -2341,6 +2575,8 @@
    "panel": "VA",
    "brand": "HP"
   },
+  "source": "HP - 32\" 532SF LED Monitor, VA, 100Hz, 5mc, FHD (1920x1080), HDMI, VGA, Black (94F50AA) (маркировка)",
+  "article": "94F50AA",
   "flags": [],
   "price": 3057000,
   "currency": "UZS",
@@ -2353,7 +2589,7 @@
   "brand": "ASUS",
   "model": "XG27AQDMES",
   "name": "ASUS ROG Strix QD-OLED XG27AQDMES 27\"",
-  "match_key": "monitor:27 asus oled qd rog strix xg27aqdmes",
+  "match_key": "monitor:240hz 27 asus rog strix xg27aqdmes",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -2361,6 +2597,8 @@
    "panel": "OLED",
    "brand": "ASUS"
   },
+  "source": "ASUS - 27\" ROG Strix QD-OLED XG27AQDMES Gaming Monitor, WQHD (2560x1440), 240Hz, 0,03ms, HDR400, Black (90LM0C80-B01171)",
+  "article": "90LM0C80-B01171",
   "flags": [],
   "price": 6008000,
   "currency": "UZS",
@@ -2373,7 +2611,7 @@
   "brand": "Inno3D",
   "model": "N50803-16D7-176068N",
   "name": "Inno3D GeForce RTX 5080 X3 OC 16GB",
-  "match_key": "gpu:16gb 5080 geforce inno3d oc rtx x3",
+  "match_key": "gpu:16gb 5080 inno3d oc rtx x3",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5080",
@@ -2381,6 +2619,8 @@
    "memory_type": "GDDR7",
    "brand": "Inno3D"
   },
+  "source": "Inno3D - 16GB GeForce RTX5080 X3 OC GDDR7 256bit (N50803-16D7-176068N)",
+  "article": "N507T3-16D7X-176068N",
   "flags": [],
   "price": 20761000,
   "currency": "UZS",
@@ -2401,6 +2641,8 @@
    "memory_type": "DDR4",
    "brand": "Gigabyte"
   },
+  "source": "MB Gigabyte AMD AM4 B550M DS3H R2 DDR4",
+  "article": null,
   "flags": [],
   "price": 1031000,
   "currency": "UZS",
@@ -2413,13 +2655,15 @@
   "brand": "MSI",
   "model": null,
   "name": "SSD MSI 240GB SPATIUM S270 SATA 2.5\" (S78-440N070-P83)",
-  "match_key": "ssd:2 240gb 440n070 5 msi p83 s270 s78 sata spatium ssd",
+  "match_key": "ssd:240gb 5 msi s270 spatium",
   "specs": {
    "capacity": 240,
    "interface": "SATA",
    "form_factor": "2.5\"",
    "brand": "MSI"
   },
+  "source": "SSD MSI 240GB SPATIUM S270 SATA 2.5\" (S78-440N070-P83)",
+  "article": "S78-440N070-P83",
   "flags": [],
   "price": 699000,
   "currency": "UZS",
@@ -2432,7 +2676,7 @@
   "brand": "ASUS",
   "model": "90MB1IY0-M0EAY0",
   "name": "ASUS GAMING B850M-PLUS WIFI DDR5",
-  "match_key": "motherboard:asus b850m ddr5 gaming plus wifi",
+  "match_key": "motherboard:asus b850m ddr5 plus wifi",
   "specs": {
    "socket": "AM5",
    "chipset": "B850",
@@ -2441,6 +2685,8 @@
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 GAMING B850M-PLUS WIFI DDR5 (90MB1IY0-M0EAY0)",
+  "article": "90MB1IY0-M0EAY0",
   "flags": [],
   "price": 3057000,
   "currency": "UZS",
@@ -2461,6 +2707,8 @@
    "graphics": true,
    "pack": "OEM"
   },
+  "source": "Intel-Core i5 - 13500, 2.5 GHz, 20MB, oem, LGA1700, Raptor Lake",
+  "article": "i5-13500",
   "flags": [],
   "price": 1766000,
   "currency": "UZS",
@@ -2481,6 +2729,8 @@
    "frequency": 3200,
    "brand": "Hikvision"
   },
+  "source": "Hikvision DDR4 16GB 3200MHz SODIMM",
+  "article": null,
   "flags": [],
   "price": 1078000,
   "currency": "UZS",
@@ -2493,13 +2743,15 @@
   "brand": "Aorus",
   "model": "CO49DQ",
   "name": "Aorus CO49DQ 49\"",
-  "match_key": "monitor:49 aorus co49dq",
+  "match_key": "monitor:144hz 49 aorus co49dq",
   "specs": {
    "size": 49,
    "resolution": "5120x1440",
    "refresh_rate": 144,
    "brand": "Aorus"
   },
+  "source": "Aorus - 49\" CO49DQ Gaming Monitor, 144Hz, 0,03mc, DQHD (5120x1440), 4K, HDMI, DisplayPort, Type-C, USB, RGB, Black (1 штук)",
+  "article": "CO49DQ",
   "flags": [],
   "price": 15298000,
   "currency": "UZS",
@@ -2512,7 +2764,7 @@
   "brand": "Pixel",
   "model": "PXG27Q",
   "name": "Pixel PXG27Q 27\"",
-  "match_key": "monitor:27 pixel pxg27q",
+  "match_key": "monitor:200hz 27 pixel pxg27q",
   "specs": {
    "size": 27,
    "resolution": "2560x1440",
@@ -2520,6 +2772,8 @@
    "panel": "IPS",
    "brand": "Pixel"
   },
+  "source": "Pixel - 27\" PXG27Q V2 Gaming Monitor, IPS, 200Hz OC 210Hz, 1mc, QHD (2560*1440), HDMI, Display port, HAS",
+  "article": "PXG27Q V2",
   "flags": [],
   "price": 1955000,
   "currency": "UZS",
@@ -2532,7 +2786,7 @@
   "brand": "Lenovo",
   "model": "S27-4e",
   "name": "Lenovo ThinkVision S27-4e 27\"",
-  "match_key": "monitor:27 4e lenovo s27 thinkvision",
+  "match_key": "monitor:100hz 27 4e lenovo s27 thinkvision",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -2540,6 +2794,8 @@
    "panel": "IPS",
    "brand": "Lenovo"
   },
+  "source": "Lenovo - 27\" ThinkVision S27-4e Monitor, IPS, 4ms, 100Hz, FHD (1920x1080), HDMI, VGA (64BEKAT1EU) (Маркировка)",
+  "article": "64BEKAT1EU",
   "flags": [],
   "price": 1375000,
   "currency": "UZS",
@@ -2559,6 +2815,8 @@
    "memory_type": "DDR5",
    "brand": "ASUS"
   },
+  "source": "MB ASUS AMD AM5 ROG CROSSHAIR X870E DARK HERO DDR5 (90MB1NT0-M0EAY0)",
+  "article": "90MB1NT0-M0EAY0",
   "flags": [],
   "price": 10416000,
   "currency": "UZS",
@@ -2571,7 +2829,7 @@
   "brand": "ASUS",
   "model": "90YV0L71-M0NA00",
   "name": "ASUS Radeon RX 9070 XT Prime OC Edition 16GB",
-  "match_key": "gpu:16gb 9070 asus edition oc prime radeon rx xt",
+  "match_key": "gpu:16gb 9070 asus edition oc prime rx xt",
   "specs": {
    "vendor": "AMD",
    "chip": "RX 9070 XT",
@@ -2579,6 +2837,8 @@
    "memory_type": "GDDR6",
    "brand": "ASUS"
   },
+  "source": "ASUS - 16GB Radeon RX9070XT Prime OC Edition GDDR6 (90YV0L71-M0NA00)",
+  "article": "90YV0L71-M0NA00",
   "flags": [],
   "price": 8591000,
   "currency": "UZS",
@@ -2591,12 +2851,14 @@
   "brand": "Toshiba",
   "model": "HDWV110UZSVA",
   "name": "HDD Toshiba 1TB Surveillance S300 HDWV110UZSVA 5700 rpm",
-  "match_key": "hdd:1tb 5700 hdd hdwv110uzsva rpm s300 surveillance toshiba",
+  "match_key": "hdd:1tb hdwv110uzsva s300 surveillance toshiba",
   "specs": {
    "capacity": 1000,
    "rpm": 5700,
    "brand": "Toshiba"
   },
+  "source": "HDD 1TB Toshiba Surveillance S300 HDWV110UZSVA 5700Rpm Original OEM",
+  "article": "HDWV110UZSVA",
   "flags": [],
   "price": 1007000,
   "currency": "UZS",
@@ -2609,13 +2871,15 @@
   "brand": "Adlink",
   "model": null,
   "name": "SSD Adlink 512GB SATAIII 2.5\"",
-  "match_key": "ssd:2 5 512gb adlink sataiii ssd",
+  "match_key": "ssd:2 5 512gb adlink",
   "specs": {
    "capacity": 512,
    "interface": "SATA",
    "form_factor": "2.5\"",
    "brand": "Adlink"
   },
+  "source": "SSD Adlink 512GB SATAIII 2.5\"",
+  "article": null,
   "flags": [],
   "price": 628000,
   "currency": "UZS",
@@ -2628,7 +2892,7 @@
   "brand": "Palit",
   "model": "NE7506T019T1-GB2061S",
   "name": "Palit GeForce RTX 5060 Ti INFINITY 3 16GB",
-  "match_key": "gpu:16gb 3 5060 geforce infinity palit rtx ti",
+  "match_key": "gpu:16gb 3 5060 infinity palit rtx ti",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 5060 Ti",
@@ -2636,6 +2900,8 @@
    "memory_type": "GDDR7",
    "brand": "Palit"
   },
+  "source": "Palit - 16GB GeForce RTX5060Ti INFINITY 3 GDDR7 128bit 3-DP HDMI (NE7506T019T1-GB2061S)",
+  "article": null,
   "flags": [],
   "price": 10084000,
   "currency": "UZS",
@@ -2648,7 +2914,7 @@
   "brand": "ASUS",
   "model": "XG248QSG",
   "name": "ASUS ROG Strix XG248QSG 24\"",
-  "match_key": "monitor:24 asus rog strix xg248qsg",
+  "match_key": "monitor:24 610hz asus rog strix xg248qsg",
   "specs": {
    "size": 24,
    "resolution": "1920x1080",
@@ -2656,6 +2922,8 @@
    "panel": "TN",
    "brand": "ASUS"
   },
+  "source": "ASUS - 24\" ROG Strix XG248QSG Ace Esports Gaming Monitor, FHD (1920x1080), 610Hz, Super TN, 0.1ms, DisplayHDR™ 400, Black (90LM0C40-B01371)",
+  "article": "90LM0C40-B01371",
   "flags": [],
   "price": 11980000,
   "currency": "UZS",
@@ -2668,13 +2936,15 @@
   "brand": "ASUS",
   "model": "90MB1EP0-M1EAY0",
   "name": "ASUS ROG STRIX B760-A GAMING WIFI DDR5",
-  "match_key": "motherboard:a asus b760 ddr5 gaming rog strix wifi",
+  "match_key": "motherboard:a asus b760 ddr5 rog strix wifi",
   "specs": {
    "chipset": "B760",
    "memory_type": "DDR5",
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS ROG STRIX B760-A GAMING WIFI DDR5 (90MB1EP0-M1EAY0) (2 штук)",
+  "article": "90MB1EP0-M1EAY0",
   "flags": [],
   "price": 2263000,
   "currency": "UZS",
@@ -2687,13 +2957,15 @@
   "brand": "ASUS",
   "model": "90MB1JG0-M0EAY0",
   "name": "ASUS ROG STRIX B860-F GAMING WIFI DDR5",
-  "match_key": "motherboard:asus b860 ddr5 f gaming rog strix wifi",
+  "match_key": "motherboard:asus b860 ddr5 f rog strix wifi",
   "specs": {
    "chipset": "B860",
    "memory_type": "DDR5",
    "wifi": true,
    "brand": "ASUS"
   },
+  "source": "MB ASUS ROG STRIX B860-F GAMING WIFI DDR5 (90MB1JG0-M0EAY0)",
+  "article": "90MB1JG0-M0EAY0",
   "flags": [],
   "price": 3211000,
   "currency": "UZS",
@@ -2713,6 +2985,8 @@
    "panel": "IPS",
    "brand": "HP"
   },
+  "source": "HP - 23\" EliteDisplay E23 G4 Monitor, IPS, HDMI, 5mc, FHD (1920x1080), Silver (9VF96AA) (распродажа)",
+  "article": "9VF96AA",
   "flags": [],
   "price": 1161000,
   "currency": "UZS",
@@ -2732,6 +3006,8 @@
    "memory_type": "DDR4",
    "brand": "Maxsun"
   },
+  "source": "MB Maxsun Challenger B760M DDR4",
+  "article": "MS-Challenger B760M D4",
   "flags": [],
   "price": 1126000,
   "currency": "UZS",
@@ -2744,7 +3020,7 @@
   "brand": "Redmi",
   "model": "G25",
   "name": "Redmi G25 25\"",
-  "match_key": "monitor:25 g25 redmi",
+  "match_key": "monitor:25 300hz g25 redmi",
   "specs": {
    "size": 25,
    "resolution": "1920x1080",
@@ -2752,6 +3028,8 @@
    "panel": "IPS",
    "brand": "Redmi"
   },
+  "source": "Redmi - 25\" G25 2026 Gaming Monitor, Fast IPS, 300Hz, 1mc, FHD (1920x1080), HDMI+DP, (P25FEA-RG)",
+  "article": "P25FEA-RG",
   "flags": [],
   "price": 1304000,
   "currency": "UZS",
@@ -2764,7 +3042,7 @@
   "brand": "Redmi",
   "model": "G27",
   "name": "Redmi G27 27\"",
-  "match_key": "monitor:27 g27 redmi",
+  "match_key": "monitor:200hz 27 g27 redmi",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -2772,6 +3050,8 @@
    "panel": "IPS",
    "brand": "Redmi"
   },
+  "source": "Redmi - 27\" G27 2025 Gaming Monitor, IPS, 200Hz, 1mc, FHD (1920x1080), HDMI+DP, (P27FDA-RG)",
+  "article": "P27FDA-RG",
   "flags": [],
   "price": 1505000,
   "currency": "UZS",
@@ -2784,7 +3064,7 @@
   "brand": "Lenovo",
   "model": "34W-2c",
   "name": "Lenovo Legion 34W-2c 34\"",
-  "match_key": "monitor:2c 34 34w legion lenovo",
+  "match_key": "monitor:240hz 2c 34 34w legion lenovo",
   "specs": {
    "size": 34,
    "resolution": "3440x1440",
@@ -2792,6 +3072,8 @@
    "panel": "VA",
    "brand": "Lenovo"
   },
+  "source": "Lenovo - 34\" Legion 34W-2c Gaming Monitor, VA, 0.5ms, 240Hz, WQHD (3440x1440), 400 nits, HDMI, DP, Black (68F6GACBEU)",
+  "article": "68F6GACBEU",
   "flags": [],
   "price": 4230000,
   "currency": "UZS",
@@ -2804,7 +3086,7 @@
   "brand": "Titan Army",
   "model": "G49E9R2",
   "name": "Titan Army G49E9R2 49\"",
-  "match_key": "monitor:49 army g49e9r2 titan",
+  "match_key": "monitor:144hz 49 army g49e9r2 titan",
   "specs": {
    "size": 49,
    "resolution": "5120x1440",
@@ -2813,6 +3095,8 @@
    "curved": true,
    "brand": "Titan Army"
   },
+  "source": "Titan Army - 49\" G49E9R2 Curved Gaming Monitor, QD-OLED, 144Hz, 0,03 mc, DQHD (5120x1440), HDMI, Display port, TypeC, HDR400, Black",
+  "article": null,
   "flags": [],
   "price": 10570000,
   "currency": "UZS",
@@ -2825,7 +3109,7 @@
   "brand": "Pixel",
   "model": "PXG27FX",
   "name": "Pixel PXG27FX 27\"",
-  "match_key": "monitor:27 pixel pxg27fx",
+  "match_key": "monitor:27 280hz pixel pxg27fx",
   "specs": {
    "size": 27,
    "resolution": "1920x1080",
@@ -2833,6 +3117,8 @@
    "panel": "IPS",
    "brand": "Pixel"
   },
+  "source": "Pixel - 27\" PXG27FX Gaming Monitor, IPS, 280Hz, 1mc, FHD (1920*1080), HAS, HDMI, Display port",
+  "article": "PXG27FX",
   "flags": [],
   "price": 1398000,
   "currency": "UZS",
@@ -2845,7 +3131,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "SSD Gigabyte 1000GB AORUS Gen4 7300 NVME (AG4731TB)",
-  "match_key": "ssd:1000gb 7300 ag4731tb aorus gen4 gigabyte nvme ssd",
+  "match_key": "ssd:1000gb 7300 aorus gen4 gigabyte",
   "specs": {
    "capacity": 1000,
    "interface": "NVMe",
@@ -2853,6 +3139,8 @@
    "pcie": "4.0",
    "brand": "Gigabyte"
   },
+  "source": "SSD M2 Gigabyte 1000GB AORUS Gen4 7300 NVME (AG4731TB)",
+  "article": "AG4731TB",
   "flags": [],
   "price": 3188000,
   "currency": "UZS",
@@ -2873,6 +3161,8 @@
    "memory_type": "DDR5",
    "brand": "MSI"
   },
+  "source": "MB MSI AMD AM5 PRO B840M-B DDR5",
+  "article": "911-7E76-002",
   "flags": [],
   "price": 1019000,
   "currency": "UZS",
@@ -2885,7 +3175,7 @@
   "brand": "OCPC",
   "model": "OCVN3060G12ZTBK",
   "name": "OCPC GeForce RTX 3060 DUAL 12GB",
-  "match_key": "gpu:12gb 3060 dual geforce ocpc rtx",
+  "match_key": "gpu:12gb 3060 dual ocpc rtx",
   "specs": {
    "vendor": "NVIDIA",
    "chip": "RTX 3060",
@@ -2893,6 +3183,8 @@
    "memory_type": "GDDR6",
    "brand": "OCPC"
   },
+  "source": "OCPC - 12GB GeForce RTX3060 DUAL GDDR6 128bit 3-DP HDMI (OCVN3060G12ZTBK)",
+  "article": "OCVN3060G12ZTBK",
   "flags": [],
   "price": 5072000,
   "currency": "UZS",
@@ -2914,6 +3206,8 @@
    "rgb": true,
    "brand": "Lexar"
   },
+  "source": "Lexar DDR4 8GB 3600MHz RGB",
+  "article": null,
   "flags": [],
   "price": 818000,
   "currency": "UZS",
@@ -2926,7 +3220,7 @@
   "brand": "Gigabyte",
   "model": null,
   "name": "SSD Gigabyte 1000GB AORUS Gen4 7000E M2 NVMe (AG470E1TB)",
-  "match_key": "ssd:1000gb 7000e ag470e1tb aorus gen4 gigabyte m2 nvme ssd",
+  "match_key": "ssd:1000gb 7000e aorus gen4 gigabyte",
   "specs": {
    "capacity": 1000,
    "interface": "NVMe",
@@ -2934,6 +3228,8 @@
    "pcie": "4.0",
    "brand": "Gigabyte"
   },
+  "source": "SSD M2 Gigabyte 1000GB AORUS Gen4 7000E M2 NVMe (AG470E1TB)",
+  "article": "AG470E1TB",
   "flags": [],
   "price": 2690000,
   "currency": "UZS",
@@ -2946,7 +3242,7 @@
   "brand": "Axle",
   "model": null,
   "name": "Axle Radeon RX 580 8GB",
-  "match_key": "gpu:580 8gb axle radeon rx",
+  "match_key": "gpu:580 8gb axle rx",
   "specs": {
    "vendor": "AMD",
    "chip": "RX 580",
@@ -2954,6 +3250,8 @@
    "memory_type": "GDDR5",
    "brand": "Axle"
   },
+  "source": "Axle - 8GB ATI Radeon RX580 256Bit GDDR5",
+  "article": "Axle RX580 8GB GDDR5",
   "flags": [],
   "price": 1398000,
   "currency": "UZS",
@@ -2966,7 +3264,7 @@
   "brand": "BenQ",
   "model": "XL2586X+",
   "name": "BenQ ZOWIE XL2586X+ 25\"",
-  "match_key": "monitor:25 benq xl2586x zowie",
+  "match_key": "monitor:25 600hz benq xl2586x zowie",
   "specs": {
    "size": 25,
    "resolution": "1920x1080",
@@ -2974,6 +3272,8 @@
    "panel": "TN",
    "brand": "BenQ"
   },
+  "source": "BenQ - 25\" ZOWIE XL2586X+ Gaming Monitor, Fast TN, 1mc, 600Hz, FHD(1920x1080), HDMI, DP, HAS, DyAc™2, Black (9H.LN8LB.QBS)",
+  "article": "9H.LN8LB.QBS",
   "flags": [],
   "price": 16673000,
   "currency": "UZS",

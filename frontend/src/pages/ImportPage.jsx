@@ -297,6 +297,10 @@ export default function ImportPage() {
             </div>
           )}
           {parseStats && <p className="text-sm text-slate-500">{t('import.stats', parseStats)}</p>}
+          {/* Shop remarks found in the file ("Оплата только в национальной валюте"): they do not set the currency */}
+          {imp?.stats?.notices?.length > 0 && (
+            <p className="mt-1 text-sm text-amber-800">{t('import.notices', { text: imp.stats.notices.join(' · ') })}</p>
+          )}
           {rows.some((r) => r.flags?.length) && (
             <p className="text-sm text-amber-800">{t('import.flaggedStats', { count: rows.filter((r) => r.flags?.length).length })}</p>
           )}

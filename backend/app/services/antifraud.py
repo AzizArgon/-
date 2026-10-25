@@ -43,6 +43,8 @@ _X99 = re.compile(r"\b(x99|x79|c612)\b", re.I)
 _CHINA_BOARD = re.compile(r"huananzhi|machinist|jingsha|kllisre|atermiter|qiyida|soyo|zsus|jginyue", re.I)
 _KNOWN_BOARD = re.compile(r"\b(asus|msi|gigabyte|asrock|biostar|intel|supermicro)\b", re.I)
 _MINING = re.compile(r"майнинг|mining|майнер|\bminer\b|\bcmp\s?\d{2,3}\s?hx\b|\bp10[246]\b|\bp104-100\b", re.I)
+_NO_MINING = re.compile(r"без\s+майнинга|не\s+(?:был[аио]?\s+)?в\s+майнинге|не\s+майнил\w*|no\s+mining|"
+                        r"never\s+mined|mayningsiz", re.I)
 _NO_LHR = re.compile(r"\b(?:non|no)[\s-]*lhr\b|\bfull[\s-]*hash[\s-]*rate\b", re.I)
 _MINING_GPU = re.compile(r"\brx\s?(470|480|570|580|5700)\b", re.I)
 _MINING_PSU = re.compile(r"для\s+майнинга|mining|\bdps-\d{3,4}|серверн", re.I)
@@ -110,6 +112,7 @@ def _server_hardware(text: str, category: str) -> list[dict]:
 
 
 def _mining(text: str, category: str, condition: str) -> list[dict]:
+    text = _NO_MINING.sub(" ", text)  # "без майнинга" is the opposite
     if _MINING.search(text):
         return [_flag("mining", "warning", "mining_psu" if category == "psu" else "mining_gpu")]
     if category == "psu" and _MINING_PSU.search(text):

@@ -111,11 +111,6 @@ def create_product(db: Session, store: Store, category: Category, brand: str | N
     brand = canonical_brand(brand or "") or None
     name = (name or " ".join(filter(None, [brand, model]))).strip()
     written, name = name, strip_modifiers(category.slug, name)[0] or name  # "LHR" stays a characteristic
-    key = make_match_key(category.slug, name, brand)
-    existing = db.scalar(select(Product).where(Product.match_key == key))
-    if existing is not None:
-        return existing, False
-
     chosen = seller_specs(category.slug, given_specs)
     if brand and "brand" in spec_map(category.slug) and "brand" not in chosen:
         brand_value = _from_value(category.slug, spec_map(category.slug)["brand"], brand)
@@ -130,6 +125,10 @@ def create_product(db: Session, store: Store, category: Category, brand: str | N
         specs[INFERRED] = inferred
     if suspect:
         specs[SUSPECT] = suspect
+    key = make_match_key(category.slug, name, brand, specs)
+    existing = db.scalar(select(Product).where(Product.match_key == key))
+    if existing is not None:
+        return existing, False
     product = Product(
         category=category, brand=brand, model=model, normalized_name=name, match_key=key, specs_json=specs,
         manual_store_id=store.id,

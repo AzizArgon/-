@@ -32,11 +32,11 @@ from app.core.config import settings  # noqa: E402
 from app.db.database import Base  # noqa: E402
 from app.services import ai_parser, importer, text_import  # noqa: E402
 from app.services.antifraud import check_offer  # noqa: E402
-from app.services.catalog import make_match_key  # noqa: E402
+from app.services.catalog import completion_index, make_match_key, unique_completion  # noqa: E402
 from app.services.importer import file_to_markdown, parse_clean_rows  # noqa: E402
 from app.services.price_cleaner import cache_key, clean_markdown  # noqa: E402
 from app.services.rule_parser import parse_by_rules  # noqa: E402
-from app.services.spec_normalizer import SUSPECT, canonical_brand  # noqa: E402
+from app.services.spec_normalizer import SUSPECT, canonical_brand, normalize_specs  # noqa: E402
 
 OLD_CHUNK_ROWS = 250  # Phase 3 version: every row, all cells, 250 rows per request
 BENCH = Path(__file__).resolve().parents[1] / "tests" / "benchmark"
@@ -189,11 +189,12 @@ def run_gshop(recorder: Recorder) -> list[dict]:
     labels = [{**lab, "currency": data["currency"]} for lab in data["items"]]
     started = time.monotonic()
     rows = clean_markdown(file_to_markdown(GSHOP.read_bytes(), GSHOP.name))
-    # Only the labelled sample is parsed (the AI budget); rows are found by the words of the label
+    # Only the labelled sample is parsed (the AI budget); rows are found by the words of the label and the price
     wanted = []
     for r in rows:
         have = _tokens(" ".join(r.cells))
-        if any(len(_tokens(lab["text"]) & have) / max(1, len(_tokens(lab["text"]))) >= 0.8 for lab in labels):
+        if any(len(_tokens(lab["text"]) & have) / max(1, len(_tokens(lab["text"]))) >= 0.8
+               and r.price == lab["price"] for lab in labels):
             wanted.append(r)
     stats: dict = {"file_rows": len(rows)}
     parsed = asyncio.run(_parse(wanted, stats))
@@ -270,8 +271,13 @@ def score_field(field: str, lab: dict, row: dict | None, currency: str):
     if field == "brand":
         return True, bool(got), _brand(got) == _brand(want)
     if field == "model":
+        # The model may be named by its series and number or by the part number: both are right if written
+        # in the clean source row ("ROG STRIX Z890-A GAMING WIFI" or "90MB1I90-M0EAY0")
         a, b = _alnum(want), _alnum(got)
-        return True, bool(got), bool(b) and (a in b or (len(b) >= 3 and b in a))
+        alt = [_alnum(x) for x in (lab.get("name"), lab.get("source"), lab.get("article")) if x]
+        ok = bool(b) and (a in b or (len(b) >= 3 and b in a)
+                          or (len(b) >= 4 and re.search(r"\d", b) is not None and any(b in x for x in alt)))
+        return True, bool(got), ok
     if field == "price":
         return True, got is not None, got is not None and abs(got - want) <= 0.005 * want
     return True, got is not None, got == want
@@ -282,7 +288,7 @@ def check_flags(lab: dict, row: dict | None, currency: str, market: dict) -> dic
     if row is None:
         return {"expected": sorted(expected), "found": [], "info": []}
     full = {**row, "currency": row.get("currency") or currency}
-    key = make_match_key(row.get("category") or "other", row["name"], row.get("brand"))
+    key = make_match_key(row.get("category") or "other", row["name"], row.get("brand"), row.get("specs"))
     flags = check_offer(full, market.get(key), RATE)
     found = {f["type"] for f in flags if f["level"] != "info"} | ({"typo"} if (row.get("specs") or {}).get(SUSPECT) else set())
     info = {f["type"] for f in flags if f["level"] == "info"}
@@ -291,10 +297,13 @@ def check_flags(lab: dict, row: dict | None, currency: str, market: dict) -> dic
 
 def score(results: list[dict]) -> dict:
     market = json.loads((BENCH / "synthetic" / "market.json").read_text(encoding="utf-8"))
+    completions = completion_index(market)  # every reference card of the synthetic set, as in a catalog
     summary = {}
     for res in results:
         fields = {f: {"scored": 0, "filled": 0, "correct": 0} for f in (*FIELDS, "card")}
-        specs = {"keys": 0, "correct": 0, "wrong": 0, "missing": 0, "extra": 0}
+        # guessed = AI values not found in the row: cut by the check (with the label: right / wrong / unknown key)
+        specs = {"keys": 0, "correct": 0, "wrong": 0, "missing": 0, "extra": 0, "ai_values": 0,
+                 "guessed": 0, "guessed_right": 0, "guessed_wrong": 0}
         traps = {"total": 0, "caught": 0, "by_type": {}}
         clean = {"rows": 0, "false_flags": 0, "info_flags": 0}
         errors = []
@@ -311,7 +320,8 @@ def score(results: list[dict]) -> dict:
             if lab.get("match_key"):
                 fields["card"]["scored"] += 1
                 if row:
-                    key = make_match_key(row.get("category") or "other", row["name"], row.get("brand"))
+                    key = make_match_key(row.get("category") or "other", row["name"], row.get("brand"), row.get("specs"))
+                    key = key if key in market else unique_completion(key, completions) or key  # as publishing does
                     fields["card"]["filled"] += 1
                     fields["card"]["correct"] += key == lab["match_key"]
                     if key != lab["match_key"] and len(errors) < 400:
@@ -330,6 +340,14 @@ def score(results: list[dict]) -> dict:
                         errors.append({"id": lab.get("id"), "field": f"spec:{k}", "text": lab.get("text"), "want": v, "got": got_specs[k]})
             if row is not None:
                 specs["extra"] += sum(1 for k in got_specs if k not in want_specs)
+                category = row.get("category") or "other"
+                guesses = {k: v for k, v in (row.get("specs_guess") or {}).items() if k != "brand"}
+                specs["guessed"] += len(guesses)
+                specs["ai_values"] += len(guesses) + (len(got_specs) if row.get("source") in ("ai", "cache") else 0)
+                for k, v in guesses.items():
+                    if k in want_specs:
+                        value = normalize_specs(category, "", {k: v}).get(k)
+                        specs["guessed_right" if _same_value(value, want_specs[k]) else "guessed_wrong"] += 1
             fl = check_flags(lab, row, res["currency"], market)
             if fl["expected"]:
                 traps["total"] += 1
@@ -351,7 +369,8 @@ def score(results: list[dict]) -> dict:
         item = {
             "kind": res["kind"], "labels": len(res["pairs"]), "matched": sum(r is not None for _, r in res["pairs"]),
             "extra_rows": len(res["extra"]), "fields": fields, "specs": specs, "traps": traps, "clean": clean,
-            "stats": {k: st.get(k) for k in ("rows", "rule", "cache", "ai_rows", "requests", "failed_rows", "seconds", "splits")},
+            "stats": {k: st.get(k) for k in ("rows", "rule", "cache", "ai_rows", "requests", "failed_rows", "seconds",
+                                             "splits", "models", "groq_requests")},
             "extra": [{"raw_name": r["raw_name"][:120], "name": r["name"], "price": r["price"]} for r in res["extra"][:30]],
             "errors": errors,
         }

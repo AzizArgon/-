@@ -92,7 +92,7 @@ def load_clean() -> list[dict]:
         specs = {k: v for k, v in parsed["specs"].items() if not k.startswith("_")}
         item = {"source": r.name, "article": r.article, "clean_price": r.price, "category": parsed["category"],
                 "brand": parsed["brand"], "model": parsed["model"], "name": parsed["name"], "specs": specs,
-                "match_key": make_match_key(parsed["category"], parsed["name"], parsed["brand"])}
+                "match_key": make_match_key(parsed["category"], parsed["name"], parsed["brand"], specs)}
         # A real catch already in the clean list (KingBank DDR5/DDR4, GTX 2060 Super) stays expected
         item["flags"] = sorted({f["type"] for f in check_offer(
             {**parsed, "raw_name": r.name, "article": r.article, "price": r.price, "currency": "USD"})})
@@ -111,9 +111,15 @@ def pick(clean: list[dict], rnd: random.Random, n: int) -> list[dict]:
     return chosen[:n]
 
 
-def label(item: dict, text: str, price: float, currency: str, rnd: random.Random) -> dict:
-    keep = ("category", "brand", "model", "name", "match_key", "specs", "flags")
-    return {"text": text, **{k: item[k] for k in keep}, "price": price, "currency": currency, "condition": "new"}
+def label(item: dict, text: str, price: float, currency: str, rnd: random.Random, article: bool = False) -> dict:
+    """The right answer of a dirty row. Expected flags: only what the dirty row itself shows (a slang row without
+    the article "KJXS DDR4" has no visible DDR mismatch any more)."""
+    keep = ("category", "brand", "model", "name", "match_key", "specs", "source", "article")
+    written = {**item, "raw_name": text, "article": item["article"] if article else None, "price": price,
+               "currency": currency}
+    flags = sorted({f["type"] for f in check_offer(written, None, RATE)})
+    return {"text": text, **{k: item[k] for k in keep}, "flags": flags, "price": price, "currency": currency,
+            "condition": "new"}
 
 
 def usd(item: dict, rnd: random.Random) -> int:
@@ -220,7 +226,7 @@ def build(clean: list[dict]) -> None:
     for item in items:
         text = typo(item, rnd)
         prices[text] = usd(item, rnd)
-        labels.append(label(item, text, prices[text], "USD", rnd))
+        labels.append(label(item, text, prices[text], "USD", rnd, article=True))
     below_market(labels[:60], rnd, BELOW_MARKET["s2_typos"], prices)
     wb = openpyxl.Workbook()
     ws = wb.active
@@ -249,7 +255,7 @@ def build(clean: list[dict]) -> None:
             ws.append([p, item["article"], rnd.choice(["", "new", "хит"]), item["source"], rnd.choice(["есть", "в наличии", "+"])])
         else:
             ws2.append([i + 1, "есть", item["source"], p])
-        labels.append(label(item, item["source"], p, "USD", rnd))
+        labels.append(label(item, item["source"], p, "USD", rnd, article=i < len(items) // 2))
     save_xlsx(wb, "s3_columns")
     meta["s3_columns"] = {"file": "s3_columns.xlsx", "currency": "USD", "what": "столбцы в другом порядке, безымянные, лист без шапки"}
     write_labels("s3_columns", labels)
@@ -312,7 +318,7 @@ def build(clean: list[dict]) -> None:
     for i, item in enumerate(below):
         p = uzs(usd(item, rnd))
         ws.append([i + 1, item["source"], item["article"], f"{p:,}".replace(",", " ")])
-        labels.append(label(item, item["source"], p, "UZS", rnd))
+        labels.append(label(item, item["source"], p, "UZS", rnd, article=True))
     save_xlsx(wb, "s5_multitable")
     meta["s5_multitable"] = {"file": "s5_multitable.xlsx", "currency": "UZS",
                              "what": "несколько таблиц на листе (две рядом, одна ниже), цены «1 250 000», «1.250.000 сум»"}

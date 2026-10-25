@@ -16,7 +16,7 @@ from typing import Literal
 import httpx
 from google import genai
 from google.genai import types
-from pydantic import BaseModel, TypeAdapter, ValidationError
+from pydantic import BaseModel, TypeAdapter, ValidationError, field_validator
 
 from app.core.config import settings
 from app.db.seed import CATEGORIES, CATEGORY_SLUGS
@@ -33,6 +33,7 @@ OUTPUT_TOKENS_PER_ROW = 45
 
 
 RiskCode = Literal["spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu"]
+RISK_CODES = set(RiskCode.__args__)
 
 
 class CompactItem(BaseModel):
@@ -47,6 +48,25 @@ class CompactItem(BaseModel):
     p: list[str] = []
     # Anti-Fraud hints: only types, the wording is added by our code
     f: list[RiskCode] = []
+
+    # A model may answer in a slightly different shape (Groq: "p" as an object, an unknown risk code): one odd field
+    # must not throw away the whole chunk of 60-400 rows
+    @field_validator("p", mode="before")
+    @classmethod
+    def _specs_as_list(cls, value):
+        if isinstance(value, dict):
+            return [f"{k}:{v}" for k, v in value.items() if v not in (None, "")]
+        return [str(v) for v in value] if isinstance(value, list) else []
+
+    @field_validator("f", mode="before")
+    @classmethod
+    def _known_risks(cls, value):
+        return [v for v in value if v in RISK_CODES] if isinstance(value, list) else []
+
+    @field_validator("s", mode="before")
+    @classmethod
+    def _known_condition(cls, value):
+        return value if value in ("new", "used", "refurbished") else "new"
 
 
 class GroqAnswer(BaseModel):
@@ -81,7 +101,7 @@ s — состояние: used (б/у) или refurbished (восстановл�
 p — характеристики строками "ключ:значение", ТОЛЬКО ключи из списка для категории ниже и только то, что написано в строке (capacity:16GB, socket:AM5, rgb:ARGB); значение пиши как в строке, без пересчёта; чего нет в строке — не указывай.
 f — подозрения, ТОЛЬКО если они явно видны в строке, обычно не указывай: spec_mismatch (характеристики противоречат друг другу), server_hardware (серверное: Xeon, ECC, китайская X99), mining (после майнинга), used_as_new (признаки б/у при s новом), fake_capacity (неправдоподобный объём, напр. флешка 2TB), noname_psu (БП без бренда).
 Не указывай b и m, если их нет. Не придумывай данные. Противоречия (в названии DDR5, в артикуле DDR4) не исправляй.
-Не-товары (заголовки, примечания, условия) пропусти.
+Не-товары (заголовки, примечания, условия) пропусти. Товар без подходящей категории (коврик, кронштейн, руль, роутер, веб-камера) не пропускай: c — other.
 Категории: {_CATEGORY_LIST}
 Ключи характеристик по категориям:
 {_SPEC_KEYS}

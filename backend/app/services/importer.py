@@ -4,9 +4,11 @@ import asyncio
 import csv
 import io
 import logging
+import re
 import time
 from pathlib import Path
 
+import pdfplumber
 from markitdown import MarkItDown, StreamInfo
 from sqlalchemy import select, update
 from sqlalchemy.orm import Session
@@ -16,12 +18,13 @@ from app.db.database import SessionLocal
 from app.db.models import (
     Category, Condition, Currency, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store, utcnow,
 )
-from app.services.catalog import make_match_key
+from app.services.catalog import completion_index, make_match_key, unique_completion
 from app.services.antifraud import check_offer, market_prices, save_offer_flags
 from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
+from app.services.sheet_blocks import prepare_workbook
 from app.services.text_import import no_rows_reason, text_to_rows
 from app.services.spec_normalizer import (
     canonical_brand, merge_specs, normalize_specs, source_text, strip_modifiers, written_specs,
@@ -30,6 +33,7 @@ from app.services.spec_normalizer import (
 log = logging.getLogger(__name__)
 
 ALLOWED_EXTENSIONS = {".xlsx", ".xls", ".csv", ".pdf"}
+CHIP_VENDORS = {"NVIDIA", "AMD", "Intel"}
 
 
 def normalize_csv(data: bytes) -> bytes:
@@ -51,10 +55,34 @@ def normalize_csv(data: bytes) -> bytes:
     return out.getvalue().encode("utf-8")
 
 
-def file_to_markdown(data: bytes, filename: str) -> str:
+def pdf_to_markdown(data: bytes) -> str | None:
+    """PDF tables row by row (markitdown reads a PDF table column by column: all names, then all prices).
+    Pages without a table give their text lines; None = no table at all, markitdown reads the file."""
+    parts, tables = [], 0
+    with pdfplumber.open(io.BytesIO(data)) as pdf:
+        for page in pdf.pages:
+            found = page.extract_tables()
+            tables += len(found)
+            for table in found:
+                parts += ["| " + " | ".join((c or "").replace("\n", " ") for c in row) + " |" for row in table]
+            if not found:
+                parts += (page.extract_text() or "").splitlines()
+    return "\n".join(parts) if tables else None
+
+
+def file_to_markdown(data: bytes, filename: str, notices: list[str] | None = None) -> str:
+    """notices: shop remarks found in an Excel file ("Оплата только в национальной валюте") — hints, not goods."""
     ext = Path(filename).suffix.lower()
     if ext == ".csv":
         data = normalize_csv(data)
+    elif ext == ".pdf":
+        md = pdf_to_markdown(data)
+        if md is not None:
+            return md
+    elif ext == ".xlsx":
+        data, found = prepare_workbook(data)
+        if notices is not None:
+            notices += found
     result = MarkItDown().convert_stream(io.BytesIO(data), stream_info=StreamInfo(extension=ext, filename=filename))
     return result.text_content
 
@@ -75,6 +103,12 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
     category = p.get("category") or "other"
     if category == "other" and r.category_hint:
         category = r.category_hint
+    brand = canonical_brand(p["brand"]) if p.get("brand") else None  # "T-Force" -> TeamGroup, "SAPPHRIE" -> Sapphire
+    name = strip_modifiers(category, p.get("name") or r.name)[0] or r.name  # "LHR" -> a characteristic
+    if category == "gpu" and brand in CHIP_VENDORS and brand.lower() not in r.raw_name.lower():
+        brand = None  # "RTX 3060" without a card maker: NVIDIA is the chip vendor (a spec), not the brand
+    if brand and p.get("brand") and p["brand"].lower() != brand.lower():
+        name = re.sub(re.escape(p["brand"]), brand, name, flags=re.IGNORECASE)  # the typo is in the name too
     # Only dictionary keys and values reach the product (values are read from the row itself first)
     specs = normalize_specs(category, source_text(r.raw_name, r.article), specs, p.get("brand"))
     return {
@@ -86,9 +120,9 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "cache_key": cache_key(r.ai_text),
         "article": r.article,
         "category": category,
-        "brand": canonical_brand(p["brand"]) if p.get("brand") else None,  # "T-Force" -> TeamGroup
+        "brand": brand,
         "model": p.get("model") or r.article,
-        "name": strip_modifiers(category, p.get("name") or r.name)[0] or r.name,  # "LHR" -> a characteristic
+        "name": name,
         "price": r.price,
         "condition": r.condition or p.get("condition", "new"),
         "note": r.note,
@@ -188,10 +222,10 @@ def flag_rows(db: Session, rows: list[dict], store_id: int, currency: Currency) 
     """Anti-Fraud for preview rows: fills row["flags"]. Market prices come from other stores."""
     rate = get_usd_rate(db)  # cached in the DB for a day
     usd_rate = rate.rate if rate else None
-    keys = {make_match_key(r.get("category") or "other", r["name"], r.get("brand")) for r in rows}
+    keys = {make_match_key(r.get("category") or "other", r["name"], r.get("brand"), r.get("specs")) for r in rows}
     market = market_prices(db, keys, store_id, usd_rate)
     for r in rows:
-        key = make_match_key(r.get("category") or "other", r["name"], r.get("brand"))
+        key = make_match_key(r.get("category") or "other", r["name"], r.get("brand"), r.get("specs"))
         r["flags"] = check_offer({**r, "currency": r.get("currency") or currency.value}, market.get(key), usd_rate)
 
 
@@ -216,8 +250,9 @@ def _progress(import_id: int):
 async def run_import(import_id: int, data: bytes, filename: str) -> None:
     """Background job: fills price_imports.rows_json and reports progress per chunk."""
     try:
+        notices: list[str] = []
         try:
-            md = await asyncio.to_thread(file_to_markdown, data, filename)
+            md = await asyncio.to_thread(file_to_markdown, data, filename, notices)
         except Exception:
             log.exception("Import %s: file can't be read", import_id)
             _set(import_id, status=ImportStatus.failed, error="unreadable_file")
@@ -226,7 +261,7 @@ async def run_import(import_id: int, data: bytes, filename: str) -> None:
         if not rows:
             _set(import_id, status=ImportStatus.failed, error="no_rows")
             return
-        stats: dict = {}
+        stats: dict = {"notices": notices} if notices else {}
         with SessionLocal() as db:
             parsed = await parse_clean_rows(db, rows, stats, _progress(import_id))
         _finish(import_id, parsed, stats)
@@ -300,6 +335,7 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     # One offer per card per store: a new name of a product the store already sells updates that offer
     offers_by_product = {o.product_id: o for o in store_offers}
     products: dict[str, Product] = {}
+    completions: dict[str, dict] = {}  # category -> cards by key without identity values, built when needed
     seen: set[int] = set()
     stats = {"created": 0, "updated": 0, "out_of_stock": 0}
 
@@ -310,10 +346,16 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     flag_rows(db, rows, store.id, imp.currency)
     for r in rows_to_save:
         category = categories.get(r["category"]) or categories["other"]
-        key = make_match_key(category.slug, r["name"], r.get("brand"))
-        product = products.get(key) or db.scalar(select(Product).where(Product.match_key == key))
         # The seller may have changed the category in the preview: specs are normalized again for it
         specs = normalize_specs(category.slug, source_text(r["raw_name"], r.get("article")), r.get("specs"), r.get("brand"))
+        key = make_match_key(category.slug, r["name"], r.get("brand"), specs)
+        product = products.get(key) or db.scalar(select(Product).where(Product.match_key == key))
+        if product is None:
+            if category.slug not in completions:
+                completions[category.slug] = completion_index(
+                    db.scalars(select(Product.match_key).where(Product.category_id == category.id)))
+            done = unique_completion(key, completions[category.slug])
+            product = db.scalar(select(Product).where(Product.match_key == done)) if done else None
         if product is None:
             product = Product(
                 category=category, brand=r.get("brand"), model=r.get("model"),

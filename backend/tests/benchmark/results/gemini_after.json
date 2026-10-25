@@ -1,0 +1,1412 @@
+{
+ "s1_slang": {
+  "kind": "synthetic",
+  "labels": 155,
+  "matched": 155,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 155,
+    "filled": 155,
+    "correct": 155
+   },
+   "brand": {
+    "scored": 155,
+    "filled": 155,
+    "correct": 155
+   },
+   "model": {
+    "scored": 98,
+    "filled": 97,
+    "correct": 88
+   },
+   "price": {
+    "scored": 155,
+    "filled": 155,
+    "correct": 155
+   },
+   "currency": {
+    "scored": 155,
+    "filled": 155,
+    "correct": 155
+   },
+   "condition": {
+    "scored": 155,
+    "filled": 155,
+    "correct": 155
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 139
+   }
+  },
+  "specs": {
+   "keys": 566,
+   "correct": 369,
+   "wrong": 0,
+   "missing": 197,
+   "extra": 21,
+   "ai_values": 452,
+   "guessed": 70,
+   "guessed_right": 63,
+   "guessed_wrong": 6
+  },
+  "traps": {
+   "total": 7,
+   "caught": 7,
+   "by_type": {
+    "spec_mismatch": [
+     4,
+     4
+    ],
+    "server_hardware": [
+     3,
+     3
+    ]
+   }
+  },
+  "clean": {
+   "rows": 148,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 155,
+   "rule": 2,
+   "cache": 0,
+   "ai_rows": 153,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.3,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s1-002",
+    "field": "model",
+    "text": "видяха MSI GeForce RTX 3050 VENTUS 2X XS OC 8г",
+    "want": "912-V809-4287",
+    "got": "GeForce RTX 3050 VENTUS 2X XS OC 8г"
+   },
+   {
+    "id": "s1-009",
+    "field": "card",
+    "text": "ssd External SSD Transcend 2тб ESD360C USB (TS2TESD360C)",
+    "want": "ssd:2tb esd360c external transcend usb",
+    "got": "ssd:2tb esd360c transcend usb"
+   },
+   {
+    "id": "s1-012",
+    "field": "model",
+    "text": "мат. плата асус rog maxmus z890 hero ddr5",
+    "want": "90MB1ID0-M0EAY0",
+    "got": "ROG MAXIMUS Z890 HERO"
+   },
+   {
+    "id": "s1-012",
+    "field": "card",
+    "text": "мат. плата асус rog maxmus z890 hero ddr5",
+    "want": "motherboard:asus ddr5 hero maxmus rog z890",
+    "got": "motherboard:asus ddr5 hero maximus rog z890"
+   },
+   {
+    "id": "s1-019",
+    "field": "model",
+    "text": "видяха палит RTX 5080 INFINITY 3 16г",
+    "want": "NE75080019T2-GB2035S",
+    "got": "RTX 5080 INFINITY 3 16г"
+   },
+   {
+    "id": "s1-028",
+    "field": "card",
+    "text": "моник titan army p245ms 25 дюйм",
+    "want": "monitor:25 420hz army p245ms titan",
+    "got": "monitor:25 army p245ms titan"
+   },
+   {
+    "id": "s1-036",
+    "field": "model",
+    "text": "vga ASUS GeForce RTX 5060 Ti Dual OC 8г",
+    "want": "90YV0MP2-M0NA00",
+    "got": "GeForce RTX 5060 Ti Dual OC 8г"
+   },
+   {
+    "id": "s1-044",
+    "field": "model",
+    "text": "видяха ocpc geforce gtx 3050 8гб",
+    "want": "OCVN3050G8XM",
+    "got": "GeForce GTX 3050 8гб"
+   },
+   {
+    "id": "s1-052",
+    "field": "card",
+    "text": "хард HDD Toshiba 1тб Surveillance S300 HDWV110UZSVA 5700 rpm",
+    "want": "hdd:1tb hdwv110uzsva s300 surveillance toshiba",
+    "got": "hdd:1tb s300 surveillance toshiba"
+   },
+   {
+    "id": "s1-064",
+    "field": "card",
+    "text": "мать ASUS PRIME B760M-A-CSM DDR5 (support 3 monitors)",
+    "want": "motherboard:3 a asus b760m csm ddr5 monitors prime support",
+    "got": "motherboard:a asus b760m csm ddr5 prime"
+   },
+   {
+    "id": "s1-065",
+    "field": "card",
+    "text": "hdd HDD Seagate 10 тб SkyHawk AI ST10000VE001 7200 rpm",
+    "want": "hdd:10tb ai seagate skyhawk st10000ve001",
+    "got": "hdd:10tb ai seagate skyhawk"
+   },
+   {
+    "id": "s1-075",
+    "field": "model",
+    "text": "видеокарта Zotac GeForce RTX 5060 TWIN EDGE OC 8гб",
+    "want": "ZT-B50600H-10M",
+    "got": "GeForce RTX 5060 TWIN EDGE OC 8гб"
+   },
+   {
+    "id": "s1-080",
+    "field": "card",
+    "text": "монитор Redmi G27Q 27 дюйм",
+    "want": "monitor:27 320hz g27q redmi",
+    "got": "monitor:27 g27q redmi"
+   },
+   {
+    "id": "s1-090",
+    "field": "card",
+    "text": "монитор Redmi G27Q 27дюйма",
+    "want": "monitor:240hz 27 g27q redmi",
+    "got": "monitor:27 g27q redmi"
+   },
+   {
+    "id": "s1-100",
+    "field": "model",
+    "text": "vga палит geforce rtx 5060 ti dual 8 гб",
+    "want": "NE7506T019P1-GB2062D",
+    "got": "GeForce RTX 5060 Ti Dual 8 гб"
+   },
+   {
+    "id": "s1-104",
+    "field": "model",
+    "text": "видеокарта MSI RTX 5060 Ti VENTUS 2X PLUS 8гб",
+    "want": "912-V536-050",
+    "got": "RTX 5060 Ti VENTUS 2X PLUS 8гб"
+   },
+   {
+    "id": "s1-119",
+    "field": "card",
+    "text": "hdd hdd toshiba 10tb surveillance s300 hdwt31auzsva 7200 rpm",
+    "want": "hdd:10tb hdwt31auzsva s300 surveillance toshiba",
+    "got": "hdd:10tb s300 surveillance toshiba"
+   },
+   {
+    "id": "s1-124",
+    "field": "card",
+    "text": "хард hdd toshiba 24тб surveillance s300 hdeb034zsa51 7200 rpm",
+    "want": "hdd:24tb hdeb034zsa51 s300 surveillance toshiba",
+    "got": "hdd:24tb s300 surveillance toshiba"
+   },
+   {
+    "id": "s1-129",
+    "field": "card",
+    "text": "винт hdd тошиба 8тб surveillance s300 hdwt380uzsva 7200 rpm",
+    "want": "hdd:8tb hdwt380uzsva s300 surveillance toshiba",
+    "got": "hdd:8tb s300 surveillance toshiba"
+   },
+   {
+    "id": "s1-134",
+    "field": "model",
+    "text": "видяха палит rtx 3060 infinity 2 12гб",
+    "want": "NE63060U19K9-PG190L",
+    "got": "RTX 3060 INFINITY 2 12гб"
+   },
+   {
+    "id": "s1-154",
+    "field": "model",
+    "text": "Kingston DDR5 16GB 3200MHz (KVR32N22S8/16 DDR4)",
+    "want": "KVR32N22S8/16",
+    "got": null
+   }
+  ]
+ },
+ "s2_typos": {
+  "kind": "synthetic",
+  "labels": 154,
+  "matched": 154,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "brand": {
+    "scored": 154,
+    "filled": 153,
+    "correct": 150
+   },
+   "model": {
+    "scored": 103,
+    "filled": 99,
+    "correct": 96
+   },
+   "price": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "currency": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "condition": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 138
+   }
+  },
+  "specs": {
+   "keys": 556,
+   "correct": 534,
+   "wrong": 3,
+   "missing": 19,
+   "extra": 14,
+   "ai_values": 187,
+   "guessed": 24,
+   "guessed_right": 22,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 6,
+   "caught": 6,
+   "by_type": {
+    "price_below_market": [
+     2,
+     2
+    ],
+    "no_lhr": [
+     1,
+     1
+    ],
+    "fake_capacity": [
+     2,
+     2
+    ],
+    "typo": [
+     1,
+     1
+    ]
+   }
+  },
+  "clean": {
+   "rows": 148,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 154,
+   "rule": 110,
+   "cache": 0,
+   "ai_rows": 44,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.3,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s2-013",
+    "field": "card",
+    "text": "Titan Army - 27\" P275MS PLUS+ Gaming Monitr, QD-Mini LED, IPS, 320Hz (overclock 345Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+    "want": "monitor:27 320hz army p275ms titan",
+    "got": "monitor:27 320hz army p275ms plus titan"
+   },
+   {
+    "id": "s2-029",
+    "field": "card",
+    "text": "HP - 27\" 7 Pro 727РQ Monitr, IPS, 5mc, 120Hz, QHD (2560x1440), HDMI+DP, Black-Silver (8J4D8UT) (маркировка)",
+    "want": "monitor:120hz 27 7 hp",
+    "got": "monitor:120hz 27 7 727pq hp pro"
+   },
+   {
+    "id": "s2-030",
+    "field": "spec:chipset",
+    "text": "MB Gigabyte AMD AM5 X870Е AORUS MASTER X ICE DDR5 (1 штук)",
+    "want": "X870E",
+    "got": "X870"
+   },
+   {
+    "id": "s2-035",
+    "field": "card",
+    "text": "Titan Army - 27\" KG277R PLUS Gaming Monitor,Fast IPS,200Hz (overclock 245Hz),1mc,WQHD (2560x1440),HDMI,Display port,HAS,Black",
+    "want": "monitor:200hz 27 army kg277r titan",
+    "got": "monitor:245hz 27 army kg277r plus titan"
+   },
+   {
+    "id": "s2-035",
+    "field": "spec:refresh_rate",
+    "text": "Titan Army - 27\" KG277R PLUS Gaming Monitor,Fast IPS,200Hz (overclock 245Hz),1mc,WQHD (2560x1440),HDMI,Display port,HAS,Black",
+    "want": 200,
+    "got": 245
+   },
+   {
+    "id": "s2-040",
+    "field": "model",
+    "text": "Pixel - 27\" PХG27Q V2 Gaming Monitor, IPS, 200Нz OC 210Hz, 1mc, QHD (2560*1440), HDMI, Display port, HAS",
+    "want": "PXG27Q",
+    "got": "PХG27Q"
+   },
+   {
+    "id": "s2-040",
+    "field": "card",
+    "text": "Pixel - 27\" PХG27Q V2 Gaming Monitor, IPS, 200Нz OC 210Hz, 1mc, QHD (2560*1440), HDMI, Display port, HAS",
+    "want": "monitor:200hz 27 pixel pxg27q",
+    "got": "monitor:210hz 27 pixel pxg27q"
+   },
+   {
+    "id": "s2-040",
+    "field": "spec:refresh_rate",
+    "text": "Pixel - 27\" PХG27Q V2 Gaming Monitor, IPS, 200Нz OC 210Hz, 1mc, QHD (2560*1440), HDMI, Display port, HAS",
+    "want": 200,
+    "got": 210
+   },
+   {
+    "id": "s2-045",
+    "field": "brand",
+    "text": "MB MCI B760 GAMING PLUS WIFI DDR5 LGA1700",
+    "want": "MSI",
+    "got": "MCI"
+   },
+   {
+    "id": "s2-045",
+    "field": "card",
+    "text": "MB MCI B760 GAMING PLUS WIFI DDR5 LGA1700",
+    "want": "motherboard:b760 ddr5 msi plus wifi",
+    "got": "motherboard:b760 ddr5 mci plus wifi"
+   },
+   {
+    "id": "s2-047",
+    "field": "model",
+    "text": "MB ASUS AMD AM5 ROG CROSSHAIR X870E 2026 DDR5 (90MB1РP0-M0EAY0)",
+    "want": "90MB1PP0-M0EAY0",
+    "got": null
+   },
+   {
+    "id": "s2-054",
+    "field": "card",
+    "text": "HP - 27\" EliteDisplay E27k G5 4К Monitr, IPS, HDMI,USB-C, 5mc, UHD (3840x2160), Silver (6N4C4AA)(маркировка)",
+    "want": "monitor:27 e27k elitedisplay hp",
+    "got": "monitor:27 e27k elitedisplay g5 hp"
+   },
+   {
+    "id": "s2-070",
+    "field": "card",
+    "text": "Redmi - 27\" A27Q 2026 Monitr, IPS, 120Hz, 1mc, QHD (2560x1440), HDMI+DP, (P27QDA-RA)",
+    "want": "monitor:120hz 27 a27q redmi",
+    "got": "monitor:120hz 2026 27 a27q redmi"
+   },
+   {
+    "id": "s2-081",
+    "field": "brand",
+    "text": "OPCC - 12Gb GeForce RTX3060 DUAL GDDR6 128bit 3-DP HDMI (OCVN3060G12ZTBK)",
+    "want": "OCPC",
+    "got": "OPCC"
+   },
+   {
+    "id": "s2-081",
+    "field": "card",
+    "text": "OPCC - 12Gb GeForce RTX3060 DUAL GDDR6 128bit 3-DP HDMI (OCVN3060G12ZTBK)",
+    "want": "gpu:12gb 3060 dual ocpc rtx",
+    "got": "gpu:12gb 3060 dual opcc rtx"
+   },
+   {
+    "id": "s2-089",
+    "field": "card",
+    "text": "HP - 14\" S5 Pro 514PN Portable Monitr, IPS, 75Hz, WQXGA (2520x1600), DP, Type-C (B88JWAA)",
+    "want": "monitor:14 75hz hp s5",
+    "got": "monitor:14 514pn 75hz hp portable pro s5"
+   },
+   {
+    "id": "s2-104",
+    "field": "model",
+    "text": "HP - 24\" 524SН LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), VGA+HDMI, Silver Black (94C19AA) (маркировка)",
+    "want": "524SH",
+    "got": "524SН"
+   },
+   {
+    "id": "s2-125",
+    "field": "brand",
+    "text": "GMOC DDR5 16Gb 600МHz RGb",
+    "want": "GMOC",
+    "got": null
+   },
+   {
+    "id": "s2-125",
+    "field": "card",
+    "text": "GMOC DDR5 16Gb 600МHz RGb",
+    "want": "ram:16gb 600mhz ddr5 gmoc rgb",
+    "got": "ram:16gb 6000mhz ddr5 gmoc rgb"
+   },
+   {
+    "id": "s2-138",
+    "field": "brand",
+    "text": "BneQ - 27\" DesignVue PD2706UA 4K Monitor, IPS, 60Hz, 5mc, UHD(3840x2160), HDMI, Type C, KVM, Audio, Pivot, Ergo Stand, Black, Monitor for Mac (9H.LLKLB.QEP)",
+    "want": "BenQ",
+    "got": "BneQ"
+   },
+   {
+    "id": "s2-138",
+    "field": "card",
+    "text": "BneQ - 27\" DesignVue PD2706UA 4K Monitor, IPS, 60Hz, 5mc, UHD(3840x2160), HDMI, Type C, KVM, Audio, Pivot, Ergo Stand, Black, Monitor for Mac (9H.LLKLB.QEP)",
+    "want": "monitor:27 60hz benq designvue pd2706ua",
+    "got": "monitor:27 60hz bneq designvue pd2706ua"
+   },
+   {
+    "id": "s2-142",
+    "field": "model",
+    "text": "Aorus  -  49\" СO49DQ Gaming Monitor, 144Hz, 0,03mc, DQHD (5120x1440), 4K, HDMI, DisplayPort, Type-C, USB, RGB, Black (1 штук)",
+    "want": "CO49DQ",
+    "got": "СO49DQ"
+   },
+   {
+    "id": "s2-144",
+    "field": "card",
+    "text": "HDD 4TВ Toshiba Surveillance S300 HDWT840UZSVA 5400Rpm Original OEM",
+    "want": "hdd:4tb hdwt840uzsva s300 surveillance toshiba",
+    "got": "hdd:4tb s300 surveillance toshiba"
+   },
+   {
+    "id": "s2-151",
+    "field": "model",
+    "text": "Palit RTX 3070 GamingPro 8GB NO LHR",
+    "want": "RTX 3070 GamingPro",
+    "got": null
+   },
+   {
+    "id": "s2-152",
+    "field": "model",
+    "text": "USB флешка Kingston DataTraveler 2TB",
+    "want": "DataTraveler",
+    "got": null
+   },
+   {
+    "id": "s2-153",
+    "field": "model",
+    "text": "SSD M2 Samsung 4TB NVMe 990 Pro",
+    "want": "990 Pro",
+    "got": null
+   }
+  ]
+ },
+ "s3_columns": {
+  "kind": "synthetic",
+  "labels": 150,
+  "matched": 150,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "brand": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "model": {
+    "scored": 88,
+    "filled": 88,
+    "correct": 88
+   },
+   "price": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "currency": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "condition": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 149
+   }
+  },
+  "specs": {
+   "keys": 584,
+   "correct": 582,
+   "wrong": 2,
+   "missing": 0,
+   "extra": 1,
+   "ai_values": 0,
+   "guessed": 0,
+   "guessed_right": 0,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 0,
+   "caught": 0,
+   "by_type": {}
+  },
+  "clean": {
+   "rows": 150,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 150,
+   "rule": 150,
+   "cache": 0,
+   "ai_rows": 0,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.3,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s3-008",
+    "field": "spec:resolution",
+    "text": "Gigabyte - 27\" M27Q2 ICE EK Gaming Monitor, IPS, 200hz, 1mc, QHD (2560х 440), HDMI, DisplayPort, Type-C, USB, White",
+    "want": "2560x1440",
+    "got": "2560x440"
+   },
+   {
+    "id": "s3-023",
+    "field": "card",
+    "text": "SSD Hiksema 128GB SATAIII 2.5\"",
+    "want": "ssd:128gb 2 5 hiksema",
+    "got": "ssd:128gb 2 5 hiksemi"
+   },
+   {
+    "id": "s3-112",
+    "field": "spec:resolution",
+    "text": "Gigabyte - 27\" MO27U2 Gaming Monitor, QD-OLED, 240hz, 0,03mc, UHD (3440 х 1440), HDMI, DisplayPort, Type C, USB, Black",
+    "want": "3840x2160",
+    "got": "3440x1440"
+   }
+  ]
+ },
+ "s4_merged": {
+  "kind": "synthetic",
+  "labels": 150,
+  "matched": 150,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "brand": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "model": {
+    "scored": 91,
+    "filled": 91,
+    "correct": 91
+   },
+   "price": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "currency": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "condition": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 131
+   }
+  },
+  "specs": {
+   "keys": 562,
+   "correct": 561,
+   "wrong": 1,
+   "missing": 0,
+   "extra": 1,
+   "ai_values": 285,
+   "guessed": 14,
+   "guessed_right": 14,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 2,
+   "caught": 2,
+   "by_type": {
+    "spec_mismatch": [
+     2,
+     2
+    ]
+   }
+  },
+  "clean": {
+   "rows": 148,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 150,
+   "rule": 82,
+   "cache": 0,
+   "ai_rows": 68,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.2,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s4-034",
+    "field": "card",
+    "text": "34\" CU34G4/01 Curved Monitor, VA, 0.5mc, 180Hz, UHD (3440x1440), HDMI+DP, Black (распродажа)",
+    "want": "monitor:01 180hz 34 aoc cu34g4",
+    "got": "monitor:01 180hz 34 aoc cu34g4 curved"
+   },
+   {
+    "id": "s4-035",
+    "field": "card",
+    "text": "27\" PA279CRV ProArt Monitor, IPS, 5mc, 60Hz, UHD (3840x2160) 4K, HDMI, DisplayPort, Type-C, HDR400, Black (90LM08E0-B01K70)",
+    "want": "monitor:27 60hz asus pa279crv",
+    "got": "monitor:27 60hz asus pa279crv proart"
+   },
+   {
+    "id": "s4-039",
+    "field": "card",
+    "text": "32\" PA32QCV ProArt OLED Monitor, IPS, 5mc, 60Hz, 6К (6016 x 3384), HDMI, DisplayPort, Type-C, HDR110, Black (90LM0BD0-B01K71)",
+    "want": "monitor:32 60hz asus pa32qcv",
+    "got": "monitor:32 60hz asus pa32qcv proart"
+   },
+   {
+    "id": "s4-040",
+    "field": "card",
+    "text": "34\" ROG Swift OLED PG34WCDN Gaming Curved Monitor, 0.03 ms, 360Hz, UWQHD (3440х1440), G-SYNC, HDR400, Type-C, Black (90LM0CU0-B01971)",
+    "want": "monitor:34 360hz asus pg34wcdn rog swift",
+    "got": "monitor:34 360hz asus curved pg34wcdn rog swift"
+   },
+   {
+    "id": "s4-050",
+    "field": "card",
+    "text": "27\" M27Q2 ICE EK Gaming Monitor, IPS, 200hz, 1mc, QHD (2560х 440), HDMI, DisplayPort, Type-C, USB, White",
+    "want": "monitor:200hz 27 gigabyte m27q2",
+    "got": "monitor:200hz 27 ek gigabyte ice m27q2"
+   },
+   {
+    "id": "s4-050",
+    "field": "spec:resolution",
+    "text": "27\" M27Q2 ICE EK Gaming Monitor, IPS, 200hz, 1mc, QHD (2560х 440), HDMI, DisplayPort, Type-C, USB, White",
+    "want": "2560x1440",
+    "got": "2560x440"
+   },
+   {
+    "id": "s4-053",
+    "field": "card",
+    "text": "32\" 7 Pro 732PK Monitor, IPS, 5mc,UHD (3840 x 2160), HDMI, Type-C; USB hub, DP, Black-Silver (8Y2K9AA) (маркировка)",
+    "want": "monitor:32 7 hp",
+    "got": "monitor:32 7 732pk hp pro"
+   },
+   {
+    "id": "s4-054",
+    "field": "card",
+    "text": "24\" Z24n G3 Monitor, IPS, 4mc, 60Hz, FHD (1920x1080), HDMI, DisplayPort, Silver (1C4Z5AA) (1 штук)",
+    "want": "monitor:24 60hz hp z24n",
+    "got": "monitor:24 60hz g3 hp z24n"
+   },
+   {
+    "id": "s4-055",
+    "field": "card",
+    "text": "27\" S5 Pro 527PQ Monitor, IPS, 5mc, 100Hz, QHD (2560x1440), HDMI+DP, Black (9D9S0UT) (маркировка)",
+    "want": "monitor:100hz 27 hp s5",
+    "got": "monitor:100hz 27 527pq hp pro s5"
+   },
+   {
+    "id": "s4-060",
+    "field": "card",
+    "text": "27\" MAG 274CXF Curved Gaming Monitor, Rapid VA, 0,5mc, 280hz, FHD (1920x1080), HDMI+DP+TypeC, Black (9S6-3CE31T-012)",
+    "want": "monitor:27 274cxf 280hz mag msi",
+    "got": "monitor:27 274cxf 280hz curved mag msi"
+   },
+   {
+    "id": "s4-068",
+    "field": "card",
+    "text": "27\" A27Q 2026 Monitor, IPS, 120Hz, 1mc, QHD (2560x1440), HDMI+DP, (P27QDA-RA)",
+    "want": "monitor:120hz 27 a27q redmi",
+    "got": "monitor:120hz 2026 27 a27q redmi"
+   },
+   {
+    "id": "s4-069",
+    "field": "card",
+    "text": "25\" G25 2026 Gaming Monitor, Fast IPS, 300Hz, 1mc, FHD (1920x1080), HDMI+DP, (P25FEA-RG)",
+    "want": "monitor:25 300hz g25 redmi",
+    "got": "monitor:2026 25 300hz g25 redmi"
+   },
+   {
+    "id": "s4-070",
+    "field": "card",
+    "text": "27\" LS27HG400EIXCI Odyssey G4 LED Monitor, IPS, 300Hz, 1mc, FHD (1920x1080), Height adjustable, HDMI",
+    "want": "monitor:27 300hz ls27hg400eixci samsung",
+    "got": "monitor:27 300hz g4 ls27hg400eixci odyssey samsung"
+   },
+   {
+    "id": "s4-071",
+    "field": "card",
+    "text": "27\" LS27F320GAIXCI S3 S32GF LED Monitor, IPS, 120Hz, 5mc, FHD (1920x1080), HDMI, Black (маркировка)",
+    "want": "monitor:120hz 27 ls27f320gaixci samsung",
+    "got": "monitor:120hz 27 ls27f320gaixci s3 s32gf samsung"
+   },
+   {
+    "id": "s4-072",
+    "field": "card",
+    "text": "27\" KG277R PLUS Gaming Monitor, Fast IPS, 200Hz (overclock 245Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+    "want": "monitor:200hz 27 army kg277r titan",
+    "got": "monitor:200hz 27 army kg277r plus titan"
+   },
+   {
+    "id": "s4-073",
+    "field": "card",
+    "text": "27\" KG277S PLUS Gaming Monitor, Fast IPS, 240Hz (overclock 275Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+    "want": "monitor:240hz 27 army kg277s titan",
+    "got": "monitor:240hz 27 army kg277s plus titan"
+   },
+   {
+    "id": "s4-074",
+    "field": "card",
+    "text": "25\" KG257H PRO Gaming Monitor, Fast IPS, 340Hz, 1mc, FHD (1920x1080), HDMI, Display port, HAS, Black",
+    "want": "monitor:25 340hz army kg257h titan",
+    "got": "monitor:25 340hz army kg257h pro titan"
+   },
+   {
+    "id": "s4-075",
+    "field": "card",
+    "text": "32\" P326MV MAX Gaming Monitor, QD-Mini LED, IPS, 1mc, 320Hz @ FHD (1920*1080), 160Hz @ UHD (3840x2160), HDMI, DP, TypeC, HAS, Black",
+    "want": "monitor:32 320hz army p326mv titan",
+    "got": "monitor:32 320hz army max p326mv titan"
+   },
+   {
+    "id": "s4-076",
+    "field": "card",
+    "text": "27\" P275MS PLUS Gaming Monitor, QD-Mini LED, IPS, 240Hz (overclock 275hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black",
+    "want": "monitor:240hz 27 army p275ms titan",
+    "got": "monitor:240hz 27 army p275ms plus titan"
+   },
+   {
+    "id": "s4-142",
+    "field": "card",
+    "text": "SSD Hiksema 512GB SATAIII 2.5\"",
+    "want": "ssd:2 5 512gb hiksema",
+    "got": "ssd:2 5 512gb hiksemi"
+   }
+  ]
+ },
+ "s5_multitable": {
+  "kind": "synthetic",
+  "labels": 150,
+  "matched": 150,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "brand": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "model": {
+    "scored": 88,
+    "filled": 88,
+    "correct": 88
+   },
+   "price": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "currency": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "condition": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   }
+  },
+  "specs": {
+   "keys": 579,
+   "correct": 578,
+   "wrong": 1,
+   "missing": 0,
+   "extra": 0,
+   "ai_values": 0,
+   "guessed": 0,
+   "guessed_right": 0,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 1,
+   "caught": 1,
+   "by_type": {
+    "spec_mismatch": [
+     1,
+     1
+    ]
+   }
+  },
+  "clean": {
+   "rows": 149,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 150,
+   "rule": 150,
+   "cache": 0,
+   "ai_rows": 0,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.3,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s5-008",
+    "field": "spec:resolution",
+    "text": "Gigabyte - 27\" MO27U2 Gaming Monitor, QD-OLED, 240hz, 0,03mc, UHD (3440 х 1440), HDMI, DisplayPort, Type C, USB, Black",
+    "want": "3840x2160",
+    "got": "3440x1440"
+   }
+  ]
+ },
+ "s6_csv_cp1251": {
+  "kind": "synthetic",
+  "labels": 154,
+  "matched": 154,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "brand": {
+    "scored": 154,
+    "filled": 152,
+    "correct": 154
+   },
+   "model": {
+    "scored": 92,
+    "filled": 92,
+    "correct": 92
+   },
+   "price": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "currency": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 154
+   },
+   "condition": {
+    "scored": 154,
+    "filled": 154,
+    "correct": 153
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 149
+   }
+  },
+  "specs": {
+   "keys": 568,
+   "correct": 568,
+   "wrong": 0,
+   "missing": 0,
+   "extra": 9,
+   "ai_values": 9,
+   "guessed": 2,
+   "guessed_right": 0,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 5,
+   "caught": 5,
+   "by_type": {
+    "price_below_market": [
+     1,
+     1
+    ],
+    "typo": [
+     1,
+     1
+    ],
+    "noname_psu": [
+     1,
+     1
+    ],
+    "mining": [
+     2,
+     2
+    ]
+   }
+  },
+  "clean": {
+   "rows": 149,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 154,
+   "rule": 150,
+   "cache": 0,
+   "ai_rows": 4,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.1,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s6-080",
+    "field": "card",
+    "text": "SSD Hiksema 1TB SATAIII 2.5\"",
+    "want": "ssd:1tb 2 5 hiksema",
+    "got": "ssd:1tb 2 5 hiksemi"
+   },
+   {
+    "id": "s6-153",
+    "field": "condition",
+    "text": "Видеокарта Sapphire RX 580 8GB после майнинга",
+    "want": "used",
+    "got": "new"
+   }
+  ]
+ },
+ "s7_pdf": {
+  "kind": "synthetic",
+  "labels": 150,
+  "matched": 150,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "brand": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "model": {
+    "scored": 95,
+    "filled": 95,
+    "correct": 95
+   },
+   "price": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "currency": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "condition": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   },
+   "card": {
+    "scored": 150,
+    "filled": 150,
+    "correct": 150
+   }
+  },
+  "specs": {
+   "keys": 576,
+   "correct": 575,
+   "wrong": 1,
+   "missing": 0,
+   "extra": 0,
+   "ai_values": 0,
+   "guessed": 0,
+   "guessed_right": 0,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 1,
+   "caught": 1,
+   "by_type": {
+    "spec_mismatch": [
+     1,
+     1
+    ]
+   }
+  },
+  "clean": {
+   "rows": 149,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 150,
+   "rule": 150,
+   "cache": 0,
+   "ai_rows": 0,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.7,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "s7-008",
+    "field": "spec:resolution",
+    "text": "Gigabyte - 28\" M28U-AE Gaming Monitor, IPS, 144hz, 1mc, UHD (3440 х 1440), HDMI, DisplayPort, Type C, USB, Black (распродажа)",
+    "want": "3840x2160",
+    "got": "3440x1440"
+   }
+  ]
+ },
+ "gshop": {
+  "kind": "gshop",
+  "labels": 70,
+  "matched": 70,
+  "extra_rows": 14,
+  "fields": {
+   "category": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 70
+   },
+   "brand": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 69
+   },
+   "model": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 69
+   },
+   "price": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 70
+   },
+   "currency": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 70
+   },
+   "condition": {
+    "scored": 70,
+    "filled": 70,
+    "correct": 70
+   },
+   "card": {
+    "scored": 0,
+    "filled": 0,
+    "correct": 0
+   }
+  },
+  "specs": {
+   "keys": 88,
+   "correct": 83,
+   "wrong": 0,
+   "missing": 5,
+   "extra": 11,
+   "ai_values": 141,
+   "guessed": 47,
+   "guessed_right": 7,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 0,
+   "caught": 0,
+   "by_type": {}
+  },
+  "clean": {
+   "rows": 70,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 84,
+   "rule": 0,
+   "cache": 0,
+   "ai_rows": 84,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 3.4,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [
+   {
+    "raw_name": "ПРОЦЕССОРНЫЕ КУЛЕРА THERMALTAKE | Thermaltake Riing Silent 12 Pro Red TDP 170W/1xFan/PWM/1400rpm/AMD,INTEL",
+    "name": "Кулер для процессора Thermaltake Riing Silent 12 Pro Red",
+    "price": 48.0
+   },
+   {
+    "raw_name": "КЛАВИАТУРЫ | Razer BlackwidowV3 Mini HyperSpeed Yellow Switches",
+    "name": "Клавиатура Razer BlackwidowV3 Mini HyperSpeed Yellow",
+    "price": 180.0
+   },
+   {
+    "raw_name": "БЕСПРОВОДНЫЕ МЫШКИ | Logitech Signature M650 L Left Off-White",
+    "name": "Мышь Logitech Signature M650 L Left Off-White",
+    "price": 40.0
+   },
+   {
+    "raw_name": "KEYCHRON / КЛАВИАТУРЫ | Keychron K8 RGB Hot-Swap, Gateron Brown [K8J3]",
+    "name": "Клавиатура Keychron K8 RGB Hot-Swap",
+    "price": 95.0
+   },
+   {
+    "raw_name": "KEYCHRON / КЛАВИАТУРЫ | Keychron K8 RGB Hot-Swap, Gateron Red [K8J1]",
+    "name": "Клавиатура Keychron K8 RGB Hot-Swap",
+    "price": 95.0
+   },
+   {
+    "raw_name": "KEYCAPS | Glorious PBT Nebula KeyCaps [US ANSI]",
+    "name": "Комплект кейкапов Glorious PBT Nebula KeyCaps",
+    "price": 49.0
+   },
+   {
+    "raw_name": "KEYCAPS | Glorious PBT Caribbean Ocean KeyCaps [US ANSI]",
+    "name": "Комплект кейкапов Glorious PBT Caribbean Ocean KeyCaps",
+    "price": 49.0
+   },
+   {
+    "raw_name": "KEYCAPS | Glorious PBT Olive KeyCaps [US ANSI]",
+    "name": "Комплект кейкапов Glorious PBT Olive KeyCaps",
+    "price": 49.0
+   },
+   {
+    "raw_name": "KEYCAPS | Glorious PBT Rain Forest KeyCaps [US ANSI]",
+    "name": "Комплект кейкапов Glorious PBT Rain Forest KeyCaps",
+    "price": 49.0
+   },
+   {
+    "raw_name": "STEELSERIES / МЫШКИ | SteelSeries Aerox 3 Ghost Wireless Sensor SteelSeries TrueMove Air 100-18000dpi",
+    "name": "Мышь SteelSeries Aerox 3 Ghost Wireless",
+    "price": 109.0
+   },
+   {
+    "raw_name": "НАУШНИКИ | SteelSeries Arctis Nova 1 Black, White 20–22,000 Hz\\93 dBSPL\\36 Ohm",
+    "name": "Наушники SteelSeries Arctis Nova 1",
+    "price": 63.0
+   },
+   {
+    "raw_name": "НАУШНИКИ | SteelSeries Arctis Nova 1P Black, White 20–22,000 Hz\\93 dBSPL\\36 Ohm",
+    "name": "Наушники SteelSeries Arctis Nova 1P",
+    "price": 63.0
+   },
+   {
+    "raw_name": "ПЕРИФЕРИЯ AKKO / КЛАВИАТУРЫ | Akko 3087DS Mirror of the Sky CS Radiant Red, RU, Blue",
+    "name": "Клавиатура Akko 3087DS Mirror of the Sky",
+    "price": 80.0
+   },
+   {
+    "raw_name": "КЛАВИАТУРЫ | 2E Gaming KG370 RGB White, Gateron Blue",
+    "name": "Клавиатура 2E Gaming KG370",
+    "price": 62.0
+   }
+  ],
+  "errors": [
+   {
+    "id": null,
+    "field": "model",
+    "text": "Cooler Master MWE 1050W Gold V2 FM",
+    "want": "MWE 1050 Gold V2",
+    "got": "MWE 1050W Gold V2 FM"
+   },
+   {
+    "id": null,
+    "field": "brand",
+    "text": "2E Gaming KG370 RGB White, Gateron Brown",
+    "want": "2E",
+    "got": "2E Gaming"
+   }
+  ]
+ },
+ "posts": {
+  "kind": "posts",
+  "labels": 31,
+  "matched": 31,
+  "extra_rows": 0,
+  "fields": {
+   "category": {
+    "scored": 31,
+    "filled": 31,
+    "correct": 31
+   },
+   "brand": {
+    "scored": 31,
+    "filled": 26,
+    "correct": 31
+   },
+   "model": {
+    "scored": 27,
+    "filled": 27,
+    "correct": 26
+   },
+   "price": {
+    "scored": 31,
+    "filled": 31,
+    "correct": 31
+   },
+   "currency": {
+    "scored": 31,
+    "filled": 31,
+    "correct": 31
+   },
+   "condition": {
+    "scored": 31,
+    "filled": 31,
+    "correct": 31
+   },
+   "card": {
+    "scored": 0,
+    "filled": 0,
+    "correct": 0
+   }
+  },
+  "specs": {
+   "keys": 79,
+   "correct": 79,
+   "wrong": 0,
+   "missing": 0,
+   "extra": 19,
+   "ai_values": 116,
+   "guessed": 18,
+   "guessed_right": 5,
+   "guessed_wrong": 0
+  },
+  "traps": {
+   "total": 0,
+   "caught": 0,
+   "by_type": {}
+  },
+  "clean": {
+   "rows": 31,
+   "false_flags": 0,
+   "info_flags": 0
+  },
+  "stats": {
+   "rows": 31,
+   "rule": 0,
+   "cache": 0,
+   "ai_rows": 31,
+   "requests": 0,
+   "failed_rows": 0,
+   "seconds": 0.0,
+   "splits": null,
+   "models": null,
+   "groq_requests": null
+  },
+  "extra": [],
+  "errors": [
+   {
+    "id": "p-13",
+    "field": "model",
+    "text": "T-Force Delta RGB",
+    "want": "T-Force Delta RGB",
+    "got": "DELTA RGB Black"
+   }
+  ],
+  "no_model": [
+   {
+    "id": "p-23",
+    "rows": 0,
+    "reason": "no_model"
+   },
+   {
+    "id": "p-24",
+    "rows": 0,
+    "reason": "no_model"
+   },
+   {
+    "id": "p-25",
+    "rows": 0,
+    "reason": "no_model"
+   },
+   {
+    "id": "p-26",
+    "rows": 0,
+    "reason": "no_model"
+   }
+  ]
+ },
+ "_run": {
+  "config": "gemini",
+  "tag": "after",
+  "live_requests": 0,
+  "replayed_rows": 384,
+  "not_recorded_rows": 0,
+  "seconds": 7.3,
+  "date": "2026-10-26 01:17"
+ }
+}

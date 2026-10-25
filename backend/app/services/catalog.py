@@ -22,24 +22,95 @@ TYPE_WORDS = {
     "внешний", "компьютерный", "компьютерная", "моноблок", "системный", "ибп", "источник", "бесперебойного",
     "проектор", "принтер", "мфу", "роутер", "маршрутизатор", "веб", "камера", "колонки", "акустика", "флешка",
     "для", "и", "с", "в",
+    # Phase 7: words that describe, not identify — one store writes them, another does not
+    "gaming", "geforce", "radeon", "ssd", "hdd", "nvme", "sata", "sataiii", "sata3", "desktop",
+    "проц", "видюха", "видяха", "озу", "оперативка", "мать", "материнка", "моник", "винт", "ссд",
+    "дюйм", "дюйма", "дюймов", "inch",
 }
 UNITS = r"gb|tb|mb|ghz|mhz|hz|w|va|mm|ms|mah|lm"
+_RU_UNITS = (("гб", "gb"), ("тб", "tb"), ("мб", "mb"), ("мгц", "mhz"), ("ггц", "ghz"), ("гц", "hz"), ("вт", "w"))
+# Characteristics an AI name or a long store name adds to the model: clocks, refresh rate, resolution, panel,
+# video memory type and bus, response time, spindle speed, the M.2 slot. They are kept in specs, not in the key
+_DESCRIPTORS = re.compile(
+    r"\d+(?:[.,]\d+)?\s*ghz\b|(?<![\w.])\d{2,3}\s*hz\b|\b\d{3,4}\s*[x×х*]\s*\d{3,4}\b"
+    r"|\b(?:full\s*hd|fhd|wqhd|qhd|uhd|4k|2k|hd)\b|\b(?:fast\s+)?(?:ips|va|tn|qd-?oled|oled)\b"
+    r"|\bgddr\d\w*\b|\b\d{2,4}\s*-?\s*bits?\b|\b\d+(?:[.,]\d+)?\s*ms\b|\b\d{4,5}\s*rpm\b|\bm\.?\s?2\b"
+    r"|\blga\s?-?\d{4}\b|\bam[345]\b"  # the socket follows from the chipset / CPU model
+    r"|\bsata\s*(?:iii|ii|3|2)\b|\([\w./-]*\d[\w./-]*\)"  # "SATA III"; a part number in brackets "(TS2TESD360C)"
+)
+# Cyrillic letters typed inside a Latin code ("PХG27Q", "АМ4", "LGА1700") look the same and are the same
+_LOOKALIKES = str.maketrans("авекмнорстухі", "abekmhopctyxi")
+_MIXED_CODE = re.compile(r"[a-zа-я0-9]*(?:[a-z0-9][а-я]|[а-я][a-z0-9])[a-zа-я0-9]*")
+_GPU_CHIP = re.compile(r"\b(rtx|gtx|gt|rx|arc\s*[ab])\s*-?\s*(\d{3,4})\s*(ti\s*super|ti|super|xtx|xt|gre)?(?![a-z0-9])")
+# Code names of CPU generations ("Raptor Lake", "Granite Ridge"): the model number already says it
+_CPU_CODENAMES = re.compile(
+    r"\b(?:alder|raptor|arrow|comet|rocket|coffee|kaby|meteor|lunar|ice)\s+lake\b|\b(?:granite|dragon)\s+r(?:idge|ange)\b"
+    r"|\b(?:raphael|vermeer|cezanne|matisse|picasso|renoir|phoenix|hawk\s+point)\b"
+    r"|\b\d+\s*mb\b"  # cache size: "Core i9-14900K 33MB"
+)
+# Values that tell two products apart, read from the seller's row even when a name leaves them out
+# ("Gigabyte B860M Gaming" with "DDR5" in the row is not the DDR4 board; "i5-12400F" written "OEM")
+# (the same monitor name with 240 Hz and 320 Hz is two models)
+IDENTITY_SPECS = {"motherboard": ("memory_type",), "cpu": ("pack",), "ram": ("type",), "monitor": ("refresh_rate",)}
 PAGE_SIZE = 24
 NUMBER_FACET_VALUES = 12  # numbers (capacity, diagonal) are offered by their most popular values
 
 
-def make_match_key(category: str, name: str, brand: str | None = None) -> str:
+def make_match_key(category: str, name: str, brand: str | None = None, specs: dict | None = None) -> str:
     """Same product from different stores -> same key: brand + model words, any order.
 
-    Type words ("Процессор", "Видеокарта") are dropped, other words stay ("беспроводная"), so the rule parser name
-    "Intel Core i5-12400F OEM" and the AI name "Процессор Intel Core i5-12400F OEM" match.
+    Type words ("Процессор", "Видеокарта") and descriptions (clocks, "IPS", "1920x1080", "GDDR7") are dropped,
+    other words stay ("беспроводная"), so the rule parser name "Intel Core i5-12400F OEM" and the AI name
+    "Процессор Intel Core i5-12400F OEM" match. Identity specs of the row (DDR5 of a board, OEM of a CPU) are added.
     """
     # Modifiers ("LHR", "ver 5.30", "коробки нет") are kept as characteristics, not as model words
     text = f"{brand or ''} {strip_modifiers(category, name)[0]}".lower().replace("ё", "е")
+    text = _MIXED_CODE.sub(lambda m: m[0].translate(_LOOKALIKES), text)
+    text = _GPU_CHIP.sub(lambda m: " ".join(filter(None, m.groups())), text)  # "RTX5060Ti" == "RTX 5060 Ti"
+    for ru, en in _RU_UNITS:
+        text = re.sub(rf"(\d)\s*{ru}\b", rf"\1{en}", text)  # "16 ГБ" == "16GB"
+    text = _DESCRIPTORS.sub(" ", text)
+    if category == "cpu":
+        text = _CPU_CODENAMES.sub(" ", text)
+    if category == "ram":
+        text = re.sub(r"\b(\d{4})\b(?!\s*mhz)", r"\1mhz", text)  # "DDR4 3200" == "DDR4 3200MHz"
     text = re.sub(rf"(\d)\s+({UNITS})\b", r"\1\2", text)  # "16 GB" == "16GB"
     tokens = re.findall(r"[a-zа-я0-9]+", text)
-    words = sorted({t for t in tokens if t not in TYPE_WORDS} or set(tokens))
-    return f"{category}:{' '.join(words)}"
+    words = {t for t in tokens if t not in TYPE_WORDS} or set(tokens)
+    for key in IDENTITY_SPECS.get(category, ()):
+        value = (specs or {}).get(key)
+        if isinstance(value, str):
+            words |= set(re.findall(r"[a-zа-я0-9]+", value.lower()))
+        elif isinstance(value, (int, float)) and not isinstance(value, bool):
+            words.add(f"{value:g}{(spec_map(category)[key].unit or '').lower()}")  # 240 -> "240hz"
+    return f"{category}:{' '.join(sorted(words))}"
+
+
+# Key words that come from IDENTITY_SPECS
+_IDENTITY_WORD = {"motherboard": r"ddr\d", "cpu": r"oem|box", "ram": r"ddr\d", "monitor": r"\d+hz"}
+
+
+def split_identity(key: str) -> tuple[str, frozenset[str]]:
+    """"monitor:27 army kg277s titan 240hz" -> ("monitor:27 army kg277s titan", {"240hz"})."""
+    category, _, words = key.partition(":")
+    pattern = _IDENTITY_WORD.get(category)
+    ident = {w for w in words.split() if pattern and re.fullmatch(pattern, w)}
+    return f"{category}:{' '.join(w for w in words.split() if w not in ident)}", frozenset(ident)
+
+
+def completion_index(keys) -> dict[str, list[str]]:
+    index: dict[str, list[str]] = {}
+    for key in keys:
+        index.setdefault(split_identity(key)[0], []).append(key)
+    return index
+
+
+def unique_completion(key: str, index: dict[str, list[str]]) -> str | None:
+    """A row that does not say an identity value ("Titan Army KG277S 27\"" without "240Hz") goes to the card that
+    has it, but only if that card is the only one: "Redmi G27Q" with 240 Hz and 320 Hz cards stays apart."""
+    base, ident = split_identity(key)
+    found = [k for k in index.get(base, []) if ident < split_identity(k)[1]]
+    return found[0] if len(found) == 1 else None
 
 
 def rebuild_match_keys(db: Session) -> dict:
@@ -50,7 +121,7 @@ def rebuild_match_keys(db: Session) -> dict:
     for p in sorted(products, key=lambda p: p.id):
         slug = p.category.slug if p.category else "other"
         p.normalized_name = strip_modifiers(slug, p.normalized_name)[0] or p.normalized_name
-        key = make_match_key(slug, p.normalized_name, p.brand)
+        key = make_match_key(slug, p.normalized_name, p.brand, p.specs_json)
         keeper = by_key.get(key)
         if keeper is None:
             p.match_key = key

@@ -100,7 +100,7 @@ LAPTOP_STORAGE = [(
 )]
 SCREEN = [(r"/\s*(\d{2}(?:[.,]\d)?)\s*(?:\"|”|''|\s+(?:[\d.]+k|fhd|qhd|uhd|hd|wuxga|wqxga|wqhd|oled|ips|led|lcd|\d{3,4}\s*[x×]))",
            lambda m: _number(m[1]))]
-REFRESH = [(r"(\d{2,3})\s*(?:hz|гц)\b", lambda m: int(m[1]))]
+REFRESH = [(r"(?<![\d.,])(\d{2,4})\s*(?:hz|гц)\b", lambda m: int(m[1]))]
 EXTERNAL = [(r"\bext\b|external|внешн|portable|портатив", True)]
 
 RULES: dict[str, dict[str, list]] = {
@@ -224,7 +224,11 @@ BRAND_CASE = {b.lower(): b for b in (
     "Samsung", "Deepcool", "Corsair", "Kingston", "ADATA", "Lexar", "Palit", "Sapphire", "Zotac", "PNY", "Inno3D",
     "Redragon", "AULA", "Defender", "Thermaltake", "Lian Li", "Jonsbo", "Montech", "ID-Cooling", "Xiaomi", "Edifier",
     "G.Skill", "TeamGroup", "Patriot", "Crucial", "Axle", "Hitachi", "Seagate",
+    "Sapphire", "ASRock", "Biostar", "Toshiba", "Transcend", "Thermalright", "Cooler Master", "Logitech", "Razer",
+    "HyperX", "SteelSeries", "BenQ", "Philips", "ViewSonic", "Maxsun", "Peladin", "Arktek", "KingBank", "Netac",
+    "Apacer", "Hiksemi", "OCPC", "Acer",
 )}
+BRAND_TYPO_MIN_LEN = 5  # "SAPPHRIE", "ASSUS", "Lexsar" -> a known brand; short names ("MCI") are left as written
 # A series written as the brand: T-Force is a line of TeamGroup
 BRAND_ALIASES = {"t-force": "TeamGroup", "tforce": "TeamGroup", "t force": "TeamGroup"}
 
@@ -236,6 +240,19 @@ def _squash(text: str) -> str:
 def _shape(text: str) -> str:
     """How it was written, without the numbers: "16GB" and "8GB" are one spelling, "16 ГБ" is another."""
     return re.sub(r"\d+(?:[.,]\d+)?", "N", text.strip())
+
+
+# The first rule wins wherever it is ("Кулер MSI CORELIQUID" is liquid); among the others the kind named first:
+# "Кулер AG300 ... Заводская термопаста" is a cooler, "Термопаста MX-4 для кулера" is a paste
+FIRST_MENTIONED = {("cooling", "type")}
+
+
+def _apply_first(rules: list, text: str) -> tuple[object, str] | None:
+    found = _apply(rules[:1], text)
+    if found:
+        return found
+    hits = [(m.start(), value, m[0]) for pattern, value in rules[1:] if (m := re.search(pattern, text, re.IGNORECASE))]
+    return (min(hits)[1], min(hits)[2]) if hits else None
 
 
 def _apply(rules: list, text: str) -> tuple[object, str] | None:
@@ -327,6 +344,17 @@ def valid(spec: Spec, value) -> bool:
     return isinstance(value, str) and (spec.values is None or value in spec.values)
 
 
+def _one_slip(a: str, b: str) -> bool:
+    if a == b or abs(len(a) - len(b)) > 1:
+        return False
+    if len(a) == len(b):
+        diff = [i for i in range(len(a)) if a[i] != b[i]]
+        return len(diff) == 1 or (len(diff) == 2 and diff[1] == diff[0] + 1 and a[diff[0]] == b[diff[1]]
+                                  and a[diff[1]] == b[diff[0]])
+    short, long_ = (a, b) if len(a) < len(b) else (b, a)
+    return any(long_[:i] + long_[i + 1:] == short for i in range(len(long_)))
+
+
 def canonical_brand(brand: str) -> str | None:
     brand = re.sub(r"\s+", " ", brand or "").strip()
     if not brand or brand.lower() in ("noname", "no name", "unknown"):
@@ -335,6 +363,11 @@ def canonical_brand(brand: str) -> str | None:
         return BRAND_ALIASES[brand.lower()]
     if brand.lower() in BRAND_CASE:
         return BRAND_CASE[brand.lower()]
+    # A typo is one slip: a letter replaced, added, dropped or two neighbours swapped. "Apacer" is not "Acer",
+    # "Vissonic" is not "ViewSonic"
+    close = [b for b in BRAND_CASE if _one_slip(brand.lower(), b)] if len(brand) >= BRAND_TYPO_MIN_LEN else []
+    if len(close) == 1:
+        return BRAND_CASE[close[0]]
     return brand.title() if brand.isupper() and len(brand) > 4 else brand
 
 
@@ -358,7 +391,7 @@ def extract(category: str, text: str, trace: dict | None = None) -> dict:
     result: dict = {}
     seen: dict[str, str] = {}
     for key, rules in RULES.get(category, {}).items():
-        found = _apply(rules, text)
+        found = (_apply_first if (category, key) in FIRST_MENTIONED else _apply)(rules, text)
         if found:
             result[key], seen[key] = found
     if category == "ram":
