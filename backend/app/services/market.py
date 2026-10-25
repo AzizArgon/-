@@ -41,6 +41,11 @@ class MarketData:
     offer_usd: dict[int, float] = field(default_factory=dict)  # in-stock offer -> its USD price now
     offers: list[tuple[int, int, int, str]] = field(default_factory=list)  # (offer, product, store, condition)
     category: dict[int, str] = field(default_factory=dict)  # product -> category slug
+    # Stores whose prices are invented (scripts/seed_demo.py history is_demo): the pages say "includes demo data"
+    demo_stores: set[int] = field(default_factory=set)
+
+    def has_demo(self, key) -> bool:
+        return any(s in self.demo_stores for s in self.per_store.get(key, {}))
 
     def now(self, key) -> float | None:
         values = self.series.get(key)
@@ -83,10 +88,13 @@ def build_market(db: Session, today: date) -> MarketData:
     ).all()
     slugs = dict(db.execute(select(Category.id, Category.slug)).all())
     history: dict[int, list[tuple[date, float]]] = {}
-    for offer_id, price, currency, at in db.execute(
-        select(PriceHistory.offer_id, PriceHistory.price, PriceHistory.currency, PriceHistory.recorded_at)
-        .order_by(PriceHistory.recorded_at)
+    demo_offers: set[int] = set()
+    for offer_id, price, currency, at, is_demo in db.execute(
+        select(PriceHistory.offer_id, PriceHistory.price, PriceHistory.currency, PriceHistory.recorded_at,
+               PriceHistory.is_demo).order_by(PriceHistory.recorded_at)
     ):
+        if is_demo:
+            demo_offers.add(offer_id)
         usd = rates.usd(price, currency, at.date())
         if usd is not None:
             history.setdefault(offer_id, []).append((at.date(), usd))
@@ -98,6 +106,8 @@ def build_market(db: Session, today: date) -> MarketData:
             continue
         cond = condition.value if isinstance(condition, Condition) else condition
         md.offers.append((offer_id, product_id, store_id, cond))
+        if offer_id in demo_offers:
+            md.demo_stores.add(store_id)
         md.offer_usd[offer_id] = usd_now
         md.category[product_id] = slugs.get(category_id, "other")
         points = history.get(offer_id, [])
@@ -182,6 +192,7 @@ def product_market(db: Session, product_id: int, today: date | None = None) -> d
             series = md.series.get(key) or []
             result["conditions"][cond] = {
                 "stores": md.stores.get(key, 0),
+                "includes_demo": md.has_demo(key),
                 "market_usd": round(market, 2) if market is not None else None,
                 "change": change(md, key),
                 "series": [{"date": d.isoformat(), "usd": round(v, 2)} for d, v in zip(md.dates, series)
@@ -248,7 +259,7 @@ def movers(db: Session, md: MarketData, days: int = HISTORY_DAYS, limit: int = 8
 
 
 def popular_with_archive(db: Session, md: MarketData, limit: int = 10) -> list[dict]:
-    """"≈ 2023 -> now" for popular products that are both in an old price list and on the market now."""
+    """"Then (old price list) -> now" for popular products that are both in an old price list and on the market now."""
     candidates = [pid for (pid, cond), v in md.series.items() if cond == "new" and v[-1] is not None]
     archive = _archive(db, candidates)
     ranked = sorted(archive, key=lambda pid: (-md.stores[(pid, "new")], -md.now((pid, "new"))))[:limit]

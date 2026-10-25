@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
-import { IndexSection, MarketLabel, ProductLink } from '../components/Market'
+import { DemoNote, IndexSection, MarketLabel, ProductLink } from '../components/Market'
 import api, { errorKey } from '../services/api'
 import { formatPrice, roundSum } from '../services/format'
 
@@ -34,7 +34,7 @@ export default function SellerAnalyticsPage() {
       </div>
 
       <section className="rounded-xl border border-slate-200 bg-white p-6">
-        <h2 className="text-lg font-semibold">{t('market.positionTitle')}</h2>
+        <h2 className="flex items-center gap-2 text-lg font-semibold">{t('market.positionTitle')} <DemoNote show={data.includes_demo} /></h2>
         <p className="mt-1 text-sm text-slate-500">{t('market.positionHint')}</p>
         <div className="mt-4 grid grid-cols-4 gap-4">
           {['below', 'at', 'above'].map((k) => (
@@ -88,7 +88,7 @@ export default function SellerAnalyticsPage() {
         )}
       </section>
 
-      <IndexSection indices={data.indices} period={period} onPeriod={setPeriod} />
+      <IndexSection indices={data.indices} period={period} onPeriod={setPeriod} demo={data.includes_demo} />
     </div>
   )
 }

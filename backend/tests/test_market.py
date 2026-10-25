@@ -170,3 +170,16 @@ def test_product_market_has_archive_point_without_build_only_prices(db):
     assert result["archive"]["price_usd"] == 155 and result["archive"]["store"] == "Gshop"
     assert result["conditions"]["new"]["market_usd"] == 105
     assert result["conditions"]["new"]["change"] is None  # history of one day only
+
+
+def test_demo_history_marks_its_stores(db):
+    s = _stores(db, 3)
+    p, real = _product(db, "Kingston Fury 16GB"), _product(db, "Lexar Ares 32GB")
+    demo = _offer(db, p, s[0], 100)
+    demo.price_history[0].is_demo = True
+    _offer(db, p, s[1], 110)
+    _offer(db, real, s[1], 50)
+    _offer(db, real, s[2], 52)
+    md = market.build_market(db, TODAY)
+    assert md.demo_stores == {s[0].id}
+    assert md.has_demo((p.id, "new")) and not md.has_demo((real.id, "new"))

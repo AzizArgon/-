@@ -82,7 +82,7 @@ class Store(Base):
     address: Mapped[str | None] = mapped_column(String(255))
     district: Mapped[str | None] = mapped_column(String(128))
     is_verified: Mapped[bool] = mapped_column(Boolean, default=False)
-    # Archive source (an old price list of a shop, e.g. Gshop 2023): its prices go only to the price history
+    # Archive source (an old price list of a shop, e.g. Gshop, Dec 2022): its prices go only to the price history
     is_archive: Mapped[bool] = mapped_column(Boolean, default=False, server_default="0")
 
     owner: Mapped[User] = relationship(back_populates="stores")

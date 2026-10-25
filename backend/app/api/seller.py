@@ -186,4 +186,4 @@ def market_analytics(period: str = Query("quarter", pattern=f"^({'|'.join(PERIOD
     store = _require_store(db, user)
     md = market_data(db)
     return {"indices": index_table(md, period), "position": seller_position(db, md, store.id),
-            "missing": missing_popular(db, md, store.id), **usd_rate_info(db)}
+            "missing": missing_popular(db, md, store.id), "includes_demo": bool(md.demo_stores), **usd_rate_info(db)}

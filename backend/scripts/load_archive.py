@@ -3,7 +3,7 @@
 The price date is taken from the file metadata (last saved), unless given. Re-running updates the same rows.
 Usage (from backend/):
   .venv/Scripts/python.exe scripts/load_archive.py "F:/claudy/samples/old_store_2023.xlsx" --store Gshop
-  .venv/Scripts/python.exe scripts/load_archive.py <file> --store Gshop --date 2023-06-15
+  .venv/Scripts/python.exe scripts/load_archive.py <file> --store Gshop --date 2022-12-08
   .venv/Scripts/python.exe scripts/load_archive.py --store Gshop --delete
 """
 

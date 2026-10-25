@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ErrorText } from '../components/AuthForm'
-import { IndexSection, PctText, ProductLink } from '../components/Market'
+import { DemoNote, IndexSection, PctText, ProductLink } from '../components/Market'
 import api, { errorKey } from '../services/api'
-import { formatPrice, roundSum } from '../services/format'
+import { formatMonthYear, formatPrice, roundSum } from '../services/format'
 
-function Movers({ title, items, sum }) {
+function Movers({ title, items, sum, demo }) {
   const { t } = useTranslation()
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-6">
-      <h2 className="text-lg font-semibold">{title}</h2>
+      <h2 className="flex items-center gap-2 text-lg font-semibold">{title} <DemoNote show={demo} /></h2>
       {items.length === 0 ? <p className="mt-3 text-sm text-slate-500">{t('market.notEnoughData')}</p> : (
         <ul className="mt-3 grid gap-1.5 text-sm">
           {items.map((m) => (
@@ -38,6 +38,7 @@ export default function MarketPage() {
 
   if (error) return <ErrorText>{error}</ErrorText>
   if (!data) return null
+  const then = data.archive[0] ? formatMonthYear(data.archive[0].archive.date) : ''
   const sum = (usd) => (data.usd_rate ? `≈ ${formatPrice(roundSum(usd * data.usd_rate), 'UZS')}` : formatPrice(usd, 'USD'))
 
   return (
@@ -46,19 +47,19 @@ export default function MarketPage() {
         <h1 className="text-2xl font-semibold tracking-tight">{t('market.pageTitle')}</h1>
         <p className="mt-1 text-slate-500">{t('market.pageHint')}</p>
       </div>
-      <IndexSection indices={data.indices} period={period} onPeriod={setPeriod} />
+      <IndexSection indices={data.indices} period={period} onPeriod={setPeriod} demo={data.includes_demo} />
       <div className="grid grid-cols-2 gap-6">
-        <Movers title={t('market.moversUp')} items={data.movers.up} sum={sum} />
-        <Movers title={t('market.moversDown')} items={data.movers.down} sum={sum} />
+        <Movers title={t('market.moversUp')} items={data.movers.up} sum={sum} demo={data.includes_demo} />
+        <Movers title={t('market.moversDown')} items={data.movers.down} sum={sum} demo={data.includes_demo} />
       </div>
       <section className="rounded-xl border border-slate-200 bg-white p-6">
-        <h2 className="text-lg font-semibold">{t('market.archiveTitle')}</h2>
-        <p className="mt-1 text-sm text-slate-500">{t('market.archiveHint')}</p>
+        <h2 className="flex items-center gap-2 text-lg font-semibold">{t('market.archiveTitle', { date: then })} <DemoNote show={data.includes_demo} /></h2>
+        <p className="mt-1 text-sm text-slate-500">{t('market.archiveHint', { date: then })}</p>
         <table className="mt-4 w-full text-sm">
           <thead className="text-left text-slate-500">
             <tr>
               <th className="py-1 font-normal">{t('market.table.product')}</th>
-              <th className="py-1 text-right font-normal">{t('market.archiveShort')}</th>
+              <th className="py-1 text-right font-normal">{then}</th>
               <th className="py-1 text-right font-normal">{t('market.table.now')}</th>
               <th className="py-1 text-right font-normal">{t('market.table.change')}</th>
             </tr>
@@ -80,7 +81,7 @@ export default function MarketPage() {
             ))}
           </tbody>
         </table>
-        <p className="mt-3 text-xs text-slate-400">{t('market.archiveNote')}</p>
+        <p className="mt-3 text-xs text-slate-400">{t('market.archiveNote', { date: then })}</p>
       </section>
     </div>
   )

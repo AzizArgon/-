@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link } from 'react-router-dom'
 import LineChart, { SERIES_COLORS } from './LineChart'
-import { formatDayMonth, formatPrice, roundSum } from '../services/format'
+import { formatDayMonth, formatMonthYear, formatPrice, roundSum } from '../services/format'
 
 export const PERIODS = ['week', 'month', 'quarter']
 // Categories drawn on the index chart, each always in its own colour (colour follows the category)
@@ -18,6 +18,17 @@ const PCT_COLOR = (v) => (v > 0.5 ? 'text-rose-700' : v < -0.5 ? 'text-emerald-7
 
 export function PctText({ value }) {
   return <span className={`font-medium ${PCT_COLOR(value)}`}>{formatPct(value)}</span>
+}
+
+// Small mark where numbers are computed with the invented demo stores; the hint explains it
+export function DemoNote({ show }) {
+  const { t } = useTranslation()
+  if (!show) return null
+  return (
+    <span title={t('market.demoHint')} className="cursor-help whitespace-nowrap rounded border border-dashed border-slate-300 px-1.5 py-0.5 text-xs font-normal text-slate-500">
+      {t('market.demoNote')}
+    </span>
+  )
 }
 
 // "ниже рынка на 8%" / "по рынку" / "выше рынка на 12%"
@@ -41,7 +52,7 @@ export function ChangePhrase({ change }) {
   return <span>{t(`market.change.${key}`, { period, pct: formatPct(Math.abs(change.pct)).replace('+', '') })}</span>
 }
 
-// Product card: market price chart (median, in sums by today's rate), the change phrase, the ≈ 2023 point
+// Product card: market price chart (median, in sums by today's rate), the change phrase, the old price list point
 export function ProductMarket({ market, usdRate }) {
   const { t } = useTranslation()
   const info = market?.conditions?.new
@@ -49,11 +60,11 @@ export function ProductMarket({ market, usdRate }) {
   const toSum = (usd) => (usdRate ? roundSum(usd * usdRate) : usd)
   const chart = useMemo(() => {
     if (!info || info.series.length < 2) return null
-    const labels = [...(archive ? [t('market.archiveShort')] : []), ...info.series.map((p) => formatDayMonth(p.date))]
+    const labels = [...(archive ? [formatMonthYear(archive.date)] : []), ...info.series.map((p) => formatDayMonth(p.date))]
     const pad = archive ? [null] : []
     const datasets = [{ label: t('market.marketPrice'), color: SERIES_COLORS[0], data: [...pad, ...info.series.map((p) => toSum(p.usd))] }]
     if (archive) {
-      datasets.push({ label: t('market.archiveLabel', { store: archive.store }), color: SERIES_COLORS[1], points: 5,
+      datasets.push({ label: t('market.archiveLabel', { store: archive.store, date: formatMonthYear(archive.date) }), color: SERIES_COLORS[1], points: 5,
         data: [toSum(archive.price_usd), ...info.series.map(() => null)] })
     }
     return { labels, datasets }
@@ -63,7 +74,7 @@ export function ProductMarket({ market, usdRate }) {
   return (
     <div className="mt-6 max-w-3xl rounded-xl border border-slate-200 bg-white p-5">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 className="text-lg font-semibold">{t('market.productTitle')}</h2>
+        <h2 className="flex items-center gap-2 text-lg font-semibold">{t('market.productTitle')} <DemoNote show={info?.includes_demo} /></h2>
         {info?.market_usd != null && (
           <p className="text-sm text-slate-600">
             {t('market.marketNow', { stores: info.stores })}: <b>≈ {formatValue(toSum(info.market_usd))}</b>
@@ -81,7 +92,7 @@ export function ProductMarket({ market, usdRate }) {
       )}
       {archive && (
         <p className="mt-2 text-sm text-slate-600">
-          {t('market.archiveLine', { store: archive.store })}: {archive.price_uzs != null && <>{formatPrice(archive.price_uzs, 'UZS')} · </>}
+          {t('market.archiveLine', { store: archive.store, date: formatMonthYear(archive.date) })}: {archive.price_uzs != null && <>{formatPrice(archive.price_uzs, 'UZS')} · </>}
           {formatPrice(archive.price_usd, 'USD')}
           {info?.market_usd != null && <> · {t('market.sinceArchive')} <PctText value={(info.market_usd / archive.price_usd - 1) * 100} /></>}
         </p>
@@ -91,7 +102,7 @@ export function ProductMarket({ market, usdRate }) {
 }
 
 // Category index: period switch, chart of the main categories, table of all of them
-export function IndexSection({ indices, period, onPeriod }) {
+export function IndexSection({ indices, period, onPeriod, demo }) {
   const { t } = useTranslation()
   const chart = useMemo(() => {
     const cats = CHART_CATEGORIES.filter((c) => indices.series[c])
@@ -106,7 +117,7 @@ export function IndexSection({ indices, period, onPeriod }) {
   return (
     <section className="rounded-xl border border-slate-200 bg-white p-6">
       <div className="flex items-center justify-between gap-4">
-        <h2 className="text-lg font-semibold">{t('market.indexTitle')}</h2>
+        <h2 className="flex items-center gap-2 text-lg font-semibold">{t('market.indexTitle')} <DemoNote show={demo} /></h2>
         <div className="flex rounded-md border border-slate-300 bg-white p-0.5 text-sm">
           {PERIODS.map((p) => (
             <button key={p} onClick={() => onPeriod(p)}
