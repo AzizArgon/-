@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine, event
+from sqlalchemy import create_engine, event, inspect, text
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, sessionmaker
 
@@ -33,10 +33,26 @@ def get_db():
         db.close()
 
 
+def add_missing_columns() -> None:
+    """create_all makes only new tables: new columns of old tables are added here (no Alembic)."""
+    existing = inspect(engine)
+    with engine.begin() as conn:
+        for table in Base.metadata.sorted_tables:
+            if not existing.has_table(table.name):
+                continue
+            have = {c["name"] for c in existing.get_columns(table.name)}
+            for col in table.columns:
+                if col.name in have:
+                    continue
+                default = f" DEFAULT '{col.server_default.arg}'" if col.server_default is not None else ""
+                conn.execute(text(f"ALTER TABLE {table.name} ADD COLUMN {col.name} {col.type.compile(engine.dialect)}{default}"))
+
+
 def init_db():
     from app.db import models  # noqa: F401  (register models on Base.metadata)
 
     Base.metadata.create_all(bind=engine)
+    add_missing_columns()
 
     from app.db.seed import seed_categories
 

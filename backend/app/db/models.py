@@ -111,6 +111,8 @@ class Product(Base):
     # Lowercased brand+model used to merge the same product from different stores
     match_key: Mapped[str] = mapped_column(String(512), index=True)
     specs_json: Mapped[dict] = mapped_column(JSON, default=dict)
+    # Set when a seller created the card by hand (not from a price list): to be moderated later
+    manual_store_id: Mapped[int | None] = mapped_column(ForeignKey("stores.id", ondelete="SET NULL"))
 
     category: Mapped[Category | None] = relationship(back_populates="products")
     offers: Mapped[list["Offer"]] = relationship(back_populates="product")
@@ -172,6 +174,9 @@ class PriceImport(Base):
     id: Mapped[int] = mapped_column(primary_key=True)
     store_id: Mapped[int] = mapped_column(ForeignKey("stores.id", ondelete="CASCADE"), index=True)
     filename: Mapped[str] = mapped_column(String(255))
+    # Where the rows came from: a price list file, a pasted text (Telegram post) or one offer added by hand.
+    # Only a file is the full price list: missing items become "out of stock" only after a file
+    source: Mapped[str] = mapped_column(String(16), default="file", server_default="file")
     currency: Mapped[Currency] = mapped_column(str_enum(Currency))
     status: Mapped[ImportStatus] = mapped_column(str_enum(ImportStatus), default=ImportStatus.processing)
     chunks_total: Mapped[int] = mapped_column(Integer, default=0)

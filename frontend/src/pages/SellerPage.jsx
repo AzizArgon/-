@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
+import AddFromCatalog from '../components/AddFromCatalog'
 import { ErrorText } from '../components/AuthForm'
 import api, { errorKey } from '../services/api'
 
@@ -61,12 +62,27 @@ function StoreForm({ store, onSaved }) {
   )
 }
 
-function UploadBox() {
+function CurrencyChoice({ currency, onChange, label }) {
+  const { t } = useTranslation()
+  return (
+    <div className="mt-4 flex items-center gap-4">
+      <span className="text-sm text-slate-600">{t(label)}</span>
+      {CURRENCIES.map((c) => (
+        <label key={c} className="flex items-center gap-1.5 text-sm">
+          <input type="radio" name="currency" checked={currency === c} onChange={() => onChange(c)} />
+          {c}
+        </label>
+      ))}
+    </div>
+  )
+}
+
+function UploadBox({ defaultCurrency }) {
   const { t } = useTranslation()
   const navigate = useNavigate()
   const inputRef = useRef(null)
   const [file, setFile] = useState(null)
-  const [currency, setCurrency] = useState('USD')
+  const [currency, setCurrency] = useState(defaultCurrency)
   const [dragging, setDragging] = useState(false)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState('')
@@ -93,8 +109,7 @@ function UploadBox() {
   }
 
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-6">
-      <h2 className="text-lg font-semibold">{t('upload.title')}</h2>
+    <div>
       <div
         onClick={() => inputRef.current.click()}
         onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
@@ -108,15 +123,7 @@ function UploadBox() {
         <input ref={inputRef} type="file" accept={ACCEPT} hidden
           onChange={(e) => e.target.files[0] && setFile(e.target.files[0])} />
       </div>
-      <div className="mt-4 flex items-center gap-4">
-        <span className="text-sm text-slate-600">{t('upload.currency')}</span>
-        {CURRENCIES.map((c) => (
-          <label key={c} className="flex items-center gap-1.5 text-sm">
-            <input type="radio" name="currency" checked={currency === c} onChange={() => setCurrency(c)} />
-            {c}
-          </label>
-        ))}
-      </div>
+      <CurrencyChoice currency={currency} onChange={setCurrency} label="upload.currency" />
       <div className="mt-4"><ErrorText>{error}</ErrorText></div>
       <button
         onClick={onSubmit} disabled={!file || busy}
@@ -128,14 +135,35 @@ function UploadBox() {
   )
 }
 
-function ImportHistory() {
+const METHODS = ['file', 'text', 'catalog']
+
+// Three ways to add goods side by side, with a hint when each one is handy
+function AddGoods({ defaultCurrency, onAdded }) {
   const { t } = useTranslation()
-  const [items, setItems] = useState([])
+  const [method, setMethod] = useState('file')
+  return (
+    <div className="rounded-xl border border-slate-200 bg-white p-6">
+      <h2 className="text-lg font-semibold">{t('manual.title')}</h2>
+      <div className="mt-4 grid grid-cols-3 gap-3">
+        {METHODS.map((m) => (
+          <button key={m} type="button" onClick={() => setMethod(m)}
+            className={`rounded-lg border p-3 text-left transition ${
+              method === m ? 'border-slate-900 bg-slate-50' : 'border-slate-200 hover:border-slate-400'}`}>
+            <p className="font-medium">{t(`manual.method.${m}`)}</p>
+            <p className="mt-1 text-xs text-slate-500">{t(`manual.methodHint.${m}`)}</p>
+          </button>
+        ))}
+      </div>
+      <div className="mt-6">
+        {method === 'file' && <UploadBox defaultCurrency={defaultCurrency} />}
+        {method === 'catalog' && <AddFromCatalog defaultCurrency={defaultCurrency} onAdded={onAdded} />}
+      </div>
+    </div>
+  )
+}
 
-  useEffect(() => {
-    api.get('/imports').then((res) => setItems(res.data)).catch(() => {})
-  }, [])
-
+function ImportHistory({ items }) {
+  const { t } = useTranslation()
   return (
     <div className="rounded-xl border border-slate-200 bg-white p-6">
       <h2 className="text-lg font-semibold">{t('upload.history')}</h2>
@@ -143,8 +171,13 @@ function ImportHistory() {
       <ul className="mt-2 divide-y divide-slate-100">
         {items.map((imp) => (
           <li key={imp.id} className="flex items-center justify-between py-2 text-sm">
-            <Link to={`/seller/imports/${imp.id}`} className="font-medium hover:underline">{imp.filename}</Link>
-            <span className="text-slate-500">
+            <span className="min-w-0 truncate">
+              <span className="mr-2 rounded bg-slate-100 px-1.5 py-0.5 text-xs text-slate-600">{t(`manual.source.${imp.source}`)}</span>
+              {imp.source === 'manual'
+                ? <span className="font-medium">{imp.filename}</span>
+                : <Link to={`/seller/imports/${imp.id}`} className="font-medium hover:underline">{imp.filename}</Link>}
+            </span>
+            <span className="shrink-0 pl-3 text-slate-500">
               {imp.currency} · {new Date(imp.created_at).toLocaleString('ru-RU')} · {t(`import.status.${imp.status}`)}
             </span>
           </li>
@@ -156,17 +189,27 @@ function ImportHistory() {
 
 export default function SellerPage() {
   const [store, setStore] = useState(undefined)
+  const [imports, setImports] = useState(null)
 
   useEffect(() => {
     api.get('/stores/me').then((res) => setStore(res.data)).catch(() => setStore(null))
   }, [])
 
+  const loadImports = () => api.get('/imports').then((res) => setImports(res.data)).catch(() => setImports([]))
+  useEffect(() => {
+    if (store) loadImports()
+  }, [store?.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
   if (store === undefined) return null
+  // Without a store profile goods can't be added in any way
+  if (!store) return <StoreForm store={store} onSaved={setStore} />
+  if (imports === null) return null
   return (
     <div className="grid gap-6">
+      {/* The currency the seller chose last time is the default everywhere */}
+      <AddGoods defaultCurrency={imports[0]?.currency || 'USD'} onAdded={loadImports} />
+      <ImportHistory items={imports} />
       <StoreForm store={store} onSaved={setStore} />
-      {store && <UploadBox />}
-      {store && <ImportHistory />}
     </div>
   )
 }

@@ -72,6 +72,7 @@ class ImportOut(BaseModel):
 
     id: int
     filename: str
+    source: str = "file"  # file / text / manual
     currency: str
     status: str
     chunks_total: int
@@ -97,6 +98,31 @@ class PublishRequest(BaseModel):
 
 class CheckResult(BaseModel):
     flags: list[list[FlagOut]]
+
+
+class TextImportIn(BaseModel):
+    """A pasted post (e.g. from Telegram); rows without a currency get `currency`."""
+
+    text: str = Field(min_length=3, max_length=20000)
+    currency: Literal["USD", "UZS"]
+
+
+class OfferIn(BaseModel):
+    product_id: int
+    price: float = Field(gt=0)
+    currency: Literal["USD", "UZS"]
+    condition: Literal["new", "used", "refurbished"] = "new"
+    is_in_stock: bool = True
+    # The store already has an offer on this card: False -> 409 with it, True -> update its price
+    replace: bool = False
+
+
+class ProductIn(BaseModel):
+    category: str
+    brand: str | None = Field(default=None, max_length=128)
+    model: str | None = Field(default=None, max_length=255)
+    name: str | None = Field(default=None, max_length=512)
+    specs: dict[str, bool | int | float | str | None] = {}
 
 
 class PublishResult(BaseModel):

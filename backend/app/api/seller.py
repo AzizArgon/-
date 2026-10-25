@@ -1,12 +1,15 @@
-from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, UploadFile, status
+from fastapi import APIRouter, BackgroundTasks, Depends, File, Form, HTTPException, Query, UploadFile, status
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.api.deps import require_role
 from app.db.database import get_db
-from app.db.models import Currency, ImportStatus, PriceImport, Store, User
-from app.schemas.seller import CheckResult, ImportDetail, ImportOut, PublishRequest, PublishResult, StoreIn, StoreOut
+from app.db.models import Category, Condition, Currency, ImportStatus, PriceImport, Product, Store, User
+from app.schemas.seller import (
+    CheckResult, ImportDetail, ImportOut, OfferIn, ProductIn, PublishRequest, PublishResult, StoreIn, StoreOut,
+)
 from app.services.importer import ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import
+from app.services.manual import create_product, product_brief, save_offer, store_offer, suggest_products
 
 router = APIRouter(tags=["seller"])
 
@@ -117,3 +120,40 @@ def retry_import(
     db.commit()
     background.add_task(retry_failed_rows, imp.id)
     return imp
+
+
+@router.get("/seller/catalog-search")
+def catalog_search(q: str = Query("", max_length=200), user: User = Depends(seller_only),
+                   db: Session = Depends(get_db)):
+    """"Find in the catalog": suggestions with key specs and the store's own offer on the card, if any."""
+    return suggest_products(db, _require_store(db, user), q)
+
+
+@router.post("/seller/offers", status_code=status.HTTP_201_CREATED)
+def add_offer(data: OfferIn, user: User = Depends(seller_only), db: Session = Depends(get_db)):
+    """"I have it too, here is my price". An existing offer is never duplicated: 409 unless `replace`."""
+    store = _require_store(db, user)
+    product = db.get(Product, data.product_id)
+    if product is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Product not found")
+    existing = store_offer(db, store, product)
+    if existing is not None and not data.replace:
+        raise HTTPException(status.HTTP_409_CONFLICT, {"code": "offer_exists", "product": product_brief(product, existing)})
+    return save_offer(db, store, product, data.price, Currency(data.currency), Condition(data.condition),
+                      data.is_in_stock)
+
+
+@router.post("/seller/products", status_code=status.HTTP_201_CREATED)
+def add_product(data: ProductIn, user: User = Depends(seller_only), db: Session = Depends(get_db)):
+    """"Not in the catalog": a new card by the dictionary. The same card already exists -> 409 with it."""
+    store = _require_store(db, user)
+    category = db.scalar(select(Category).where(Category.slug == data.category))
+    if category is None:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Unknown category")
+    if not (data.name or data.model or "").strip():
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, "Name or model required")
+    product, created = create_product(db, store, category, data.brand, data.model, data.name, data.specs)
+    if not created:
+        raise HTTPException(status.HTTP_409_CONFLICT, {
+            "code": "product_exists", "product": product_brief(product, store_offer(db, store, product))})
+    return product_brief(product)

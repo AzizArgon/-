@@ -99,6 +99,19 @@ def _search_stem(word: str) -> str:
     return word[:-2] if len(word) >= 6 else word[:-1] if len(word) >= 4 else word
 
 
+def search_filter(query, q: str):
+    """Every word of the search must be in the name, the match key or the category name (query joins Category)."""
+    for word in q.lower().split()[:8]:
+        # py_lower: SQLite lower() knows only ASCII, Russian words need Python's.
+        # Category name too: "процессор i5" must find "Intel Core i5-12400F" without the type word
+        like = f"%{_search_stem(word)}%"
+        query = query.where(or_(
+            func.py_lower(Product.normalized_name).like(like), Product.match_key.like(like),
+            func.py_lower(Category.name).like(like),
+        ))
+    return query
+
+
 def _usd_price(usd_rate: float | None):
     """SQL expression: offer price in USD (UZS divided by the CBU rate)."""
     return case((Offer.currency == Currency.UZS, Offer.price / (usd_rate or 1e18)), else_=Offer.price)
@@ -174,14 +187,7 @@ def _base_query(usd_rate, q, category, price_min, price_max, in_stock):
         select(Product, stats.c.min_usd, stats.c.offers)
         .join(stats, stats.c.product_id == Product.id).outerjoin(Product.category)
     )
-    for word in q.lower().split()[:8]:
-        # py_lower: SQLite lower() knows only ASCII, Russian words need Python's.
-        # Category name too: "процессор i5" must find "Intel Core i5-12400F" without the type word
-        like = f"%{_search_stem(word)}%"
-        query = query.where(or_(
-            func.py_lower(Product.normalized_name).like(like), Product.match_key.like(like),
-            func.py_lower(Category.name).like(like),
-        ))
+    query = search_filter(query, q)
     if category:
         query = query.where(Category.slug == category)
     if price_min is not None:
