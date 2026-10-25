@@ -21,7 +21,7 @@ POSTS = json.loads((Path(__file__).parent / "fixtures" / "telegram_posts.json").
 
 @pytest.mark.parametrize("post", POSTS, ids=lambda p: p["text"].splitlines()[1][:20])
 def test_posts_are_cleaned_and_priced_per_line(post):
-    rows = text_to_rows(post["text"], post["default_currency"])
+    rows = text_to_rows(post["text"])
     assert [[r.name, r.price, r.currency, r.currency_check] for r in rows] == post["expected"]
     assert all(r.is_in_stock for r in rows)
 
@@ -30,21 +30,21 @@ def test_posts_are_cleaned_and_priced_per_line(post):
     ("Монитор 27 LG 1.2 млн", 1_200_000, "UZS", False),
     ("Кулер — 280 тыс. сум", 280_000, "UZS", False),
     ("Корпус Zalman $40", 40, "USD", False),
-    ("Мышь G102 - 25", 25, "UZS", True),  # no currency: the default one, the seller is asked to check
+    ("Мышь G102 - 25", 25, "USD", True),  # no currency: a small number is dollars, the seller is asked to check
     ("Мышь G102 25 sum", 25, "UZS", False),
     ("ddr4-3200 16gb", None, None, False),  # a frequency, not a price
 ])
 def test_find_price(line, price, currency, check):
-    assert find_price(line, "UZS")[:3] == (price, currency, check)
+    assert find_price(line)[:3] == (price, currency, check)
 
 
 def test_adverts_and_contacts_are_not_products():
     text = "🔥 Акция!\nДоставка по городу 30 000 сум\nтел 90-123-45-67\n#пк\nhttps://t.me/shop\ni3 12100f — 80$"
-    assert [r.name for r in text_to_rows(text, "USD")] == ["i3 12100f"]
+    assert [r.name for r in text_to_rows(text)] == ["i3 12100f"]
 
 
 def test_price_on_the_next_line():
-    rows = text_to_rows("Монитор Samsung 24\"\nЦена: 1 300 000 сум", "USD")
+    rows = text_to_rows("Монитор Samsung 24\"\nЦена: 1 300 000 сум")
     assert [(r.name, r.price, r.currency) for r in rows] == [("Монитор Samsung 24\"", 1_300_000, "UZS")]
 
 
@@ -80,7 +80,7 @@ def recorded_ai(monkeypatch):
 
 def _parse(db, post, answer):
     answer[:] = post["ai"]
-    return asyncio.run(parse_clean_rows(db, text_to_rows(post["text"], post["default_currency"]), {}))
+    return asyncio.run(parse_clean_rows(db, text_to_rows(post["text"]), {}))
 
 
 def test_pipeline_keeps_currency_per_line(db, recorded_ai):
@@ -147,7 +147,7 @@ def test_card_post_is_one_product(db, recorded_ai, post):
 
 
 def test_bilingual_card_keeps_one_language_and_skips_adverts():
-    row = text_to_rows(CARDS[0]["text"], "UZS")[0]
+    row = text_to_rows(CARDS[0]["text"])[0]
     assert row.price == 950_000 and row.condition == "used"
     assert not any("Holati" in c or "Hajmi" in c or "Доставка" in c or "Фергане" in c or "@" in c for c in row.cells)
     assert row.cells[0].startswith("Комплект оперативной памяти Corsair")
@@ -156,7 +156,7 @@ def test_bilingual_card_keeps_one_language_and_skips_adverts():
 @pytest.mark.parametrize("line, price", [("Цена: 950.000 сум", 950_000), ("Narxi: 950 000 so'm", 950_000),
                                          ("Narxi: 1.250.000 so’m", 1_250_000), ("Монитор 1.2 млн", 1_200_000)])
 def test_sum_thousand_separators(line, price):
-    assert find_price(line, "UZS")[:2] == (price, "UZS")
+    assert find_price(line)[:2] == (price, "UZS")
 
 
 def test_uzbek_words():
@@ -165,11 +165,11 @@ def test_uzbek_words():
 
 
 def test_list_is_not_a_card():
-    assert len(text_to_rows(POSTS[2]["text"], "USD")) == 3  # "Цена:" on its own line is still a list
+    assert len(text_to_rows(POSTS[2]["text"])) == 3  # "Цена:" on its own line is still a list
 
 
 def test_any_layout_with_one_price_is_one_card():
-    row, = text_to_rows(CARDS[3]["text"], "UZS")
+    row, = text_to_rows(CARDS[3]["text"])
     assert (row.price, row.currency, row.category_hint) == (190, "USD", "ram")
     assert row.name.startswith("Trident Z Royal DDR4 32GB")
     text = " ".join(row.cells).lower()
@@ -178,4 +178,90 @@ def test_any_layout_with_one_price_is_one_card():
 
 @pytest.mark.parametrize("line", ["Цена : 190 У.Е", "Цена: 190 у.е.", "190 уе", "190 USD"])
 def test_dollar_spellings(line):
-    assert find_price(line, "UZS")[:2] == (190, "USD")
+    assert find_price(line)[:2] == (190, "USD")
+
+
+BENCH_POSTS = json.loads((Path(__file__).parent / "benchmark" / "posts" / "posts.json").read_text(encoding="utf-8"))["posts"]
+
+
+@pytest.mark.parametrize("post", BENCH_POSTS, ids=lambda p: p["id"])
+def test_benchmark_posts_code_fields(post):
+    """Price, currency, condition and "model not specified" are read by code: checked on every labelled post."""
+    from app.services.text_import import no_rows_reason
+    rows = text_to_rows(post["text"])
+    if post["expected"] == "no_model":
+        assert rows == [] and no_rows_reason(post["text"]) == "no_model"
+        return
+    got = [(r.price, r.currency, r.condition, r.currency_check) for r in rows]
+    assert got == [(e["price"], e["currency"], e["condition"], e.get("currency_check", False)) for e in post["expected"]]
+
+
+def test_telegram_copy_is_split_into_posts_without_service_lines():
+    text = ("[25.10.2026 17:58] Продавец 1:\nПереслано из PC Store\n[ 3 фото ]\n\nAMD Ryzen 5 5600\nЦЕНА: 120$\n"
+            "[25.10.2026 19:11] Продавец 2: [ 2 фото ]\n\nKingston Fury DDR4 16GB\nЦена: 40$")
+    rows = text_to_rows(text)
+    assert [(r.name, r.price) for r in rows] == [("AMD Ryzen 5 5600", 120), ("Kingston Fury DDR4 16GB", 40)]
+    assert not any("фото" in c or "Переслано" in c or "Продавец" in c for r in rows for c in r.cells)
+
+
+@pytest.mark.parametrize("text, price, note", [
+    ("AMD Ryzen 5 5600\nЦЕНА:120У.Е. 115У.Е.", 115, "ЦЕНА:120У.Е. 115У.Е"),  # old -> new
+    ("Intel Core i5-3330\n💵 Цена: 15$\n🔥 Подписчикам 13$🔥", 15, "Подписчикам 13$"),  # regular + discount
+    ("Монитор LG 24GN60R\nОпт: 100$\nРозница: 110$", 110, "Опт: 100$"),  # wholesale is a note
+])
+def test_two_prices_are_one_product(text, price, note):
+    row, = text_to_rows(text)
+    assert (row.price, row.note) == (price, note)
+
+
+@pytest.mark.parametrize("line, price, currency", [
+    ("Цена 140.000", 140_000, "UZS"), ("Цена 140", 140, "USD"), ("Narxi: 1 250 000", 1_250_000, "UZS")])
+def test_price_without_currency_by_size(line, price, currency):
+    assert find_price(line)[:3] == (price, currency, True)
+
+
+@pytest.mark.parametrize("line", ["Тел: 903339966", "+998999957866", "6pin 100 ват", "⚡ 192-bit", "Furmark 10 minut 68-69°",
+                                  "8/16", "32мб кеш", "Осталось 1шт"])
+def test_noise_numbers_are_not_prices(line):
+    assert text_to_rows(f"AMD Ryzen 7 8700F\n{line}") == []
+
+
+@pytest.mark.parametrize("text, condition", [
+    ("б/у", "used"), ("бу, рабочая", "used"), ("used", "used"), ("ishlatilgan", "used"), ("Холати: ишлатилган", "used"),
+    ("новый", "new"), ("в плёнке", "new"), ("запечатан", "new"), ("yangi", "new"), ("Состояние новое, openbox", "new_openbox"),
+    ("open box", "new_openbox"), ("коробка вскрыта", "new_openbox"), ("восстановленный", "refurbished"),
+    ("Полностью обслужена, не шумит", "unknown"), ("полностью рабочий", "unknown"), ("Holati zor", "unknown"),
+    ("Гарантия неделя, Furmark 10 минут", "unknown"), ("как новая", "unknown"),
+])
+def test_condition_only_from_explicit_words(text, condition):
+    from app.services.text_import import condition_of
+    assert condition_of(text) == condition
+
+
+def test_compared_model_is_not_a_second_product():
+    row, = text_to_rows("Процессор\nAMD Ryzen 5 5600\n6/12\nПизже i5-12400f\nЦЕНА:115$")
+    assert row.name == "AMD Ryzen 5 5600" and not any("12400" in c for c in row.cells)
+
+
+def test_uzbek_cyrillic_words():
+    row, = text_to_rows("Axle Gtx 1650 Super 4gb\nҲолати: янги\nНархи 99$")
+    assert (row.price, row.currency, row.condition) == (99, "USD", "new")
+
+
+def test_disk_in_terabytes_is_hdd_and_t_force_is_teamgroup():
+    from app.services.spec_normalizer import canonical_brand
+    row, = text_to_rows("3 tb Hitachi\nЦена: 42$")
+    assert row.category_hint == "hdd"
+    assert canonical_brand("T-Force") == "TeamGroup" and canonical_brand("Axle") == "Axle"
+
+
+@pytest.mark.parametrize("text, reason", [
+    ("Топовая видюха, пишите в лс", "no_model"), ("Продаю комп, цена договорная", "no_model"),
+    ("RTX 3060 Ventus 12GB, торг", "no_prices")])
+def test_no_rows_reason(text, reason):
+    from app.services.text_import import no_rows_reason
+    assert text_to_rows(text) == [] and no_rows_reason(text) == reason
+
+
+def test_card_without_model_is_not_a_product():
+    assert text_to_rows("Продаю видеокарту, состояние отличное\nЦена: 150$") == []

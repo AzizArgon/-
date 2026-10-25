@@ -9,7 +9,7 @@ import NewProductForm from './NewProductForm'
 import Price from './Price'
 
 const CURRENCIES = ['USD', 'UZS']
-const CONDITIONS = ['new', 'used', 'refurbished']
+const CONDITIONS = ['new', 'new_openbox', 'used', 'refurbished']
 const input = 'w-full rounded-md border border-slate-300 px-3 py-2 outline-none focus:border-slate-900'
 
 function ProductLine({ product, rate }) {

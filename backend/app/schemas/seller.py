@@ -50,7 +50,7 @@ class PreviewRow(BaseModel):
     model: str | None = None
     name: str = Field(min_length=1, max_length=512)
     price: float | None = Field(default=None, ge=0)
-    condition: Literal["new", "used", "refurbished"] = "new"
+    condition: Literal["new", "new_openbox", "used", "refurbished", "unknown"] = "new"
     # Dictionary values ("DDR5", 16, true) + "_inferred": {key: rule} for values added by inference rules
     # + "_suspect": {key: number} for numbers outside their plausible range (a typo?)
     specs: dict[str, bool | int | float | str | dict[str, str | int | float]] = {}
@@ -60,6 +60,8 @@ class PreviewRow(BaseModel):
     # Pasted text: the currency of this line (None = the import's one); check = not written, default was taken
     currency: Literal["USD", "UZS"] | None = None
     currency_check: bool = False
+    # The seller's words next to the price: "Подписчикам 13$", "(только в сборках)"
+    note: str | None = Field(default=None, max_length=500)
     # Anti-Fraud: AI hints (types only) and the resulting flags
     ai_risks: list[str] = []
     flags: list[FlagOut] = []
@@ -115,7 +117,7 @@ class OfferIn(BaseModel):
     product_id: int
     price: float = Field(gt=0)
     currency: Literal["USD", "UZS"]
-    condition: Literal["new", "used", "refurbished"] = "new"
+    condition: Literal["new", "new_openbox", "used", "refurbished", "unknown"] = "new"
     is_in_stock: bool = True
     # The store already has an offer on this card: False -> 409 with it, True -> update its price
     replace: bool = False

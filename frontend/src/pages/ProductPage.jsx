@@ -41,6 +41,7 @@ function OfferRow({ offer, usdRate, rateDate, market }) {
           </p>
           <p className="text-sm text-slate-500">{[store.district, store.address].filter(Boolean).join(', ')}</p>
           <p className="mt-1 text-xs text-slate-400" title={offer.raw_name}>{offer.raw_name}</p>
+          {offer.note && <p className="mt-1 text-sm text-slate-600">{offer.note}</p>}
           <p className="mt-1 text-sm">
             <span className={offer.is_in_stock ? 'text-emerald-700' : 'text-slate-500'}>
               {t(offer.is_in_stock ? 'product.inStock' : 'product.outOfStock')}

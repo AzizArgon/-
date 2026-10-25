@@ -27,6 +27,8 @@ class Condition(str, enum.Enum):
     new = "new"
     used = "used"
     refurbished = "refurbished"
+    new_openbox = "new_openbox"  # new, the box was opened
+    unknown = "unknown"  # a post did not say: the seller is asked to choose
 
 
 class Currency(str, enum.Enum):
@@ -132,6 +134,8 @@ class Offer(Base):
     currency: Mapped[Currency] = mapped_column(str_enum(Currency), default=Currency.USD)
     is_in_stock: Mapped[bool] = mapped_column(Boolean, default=True)
     condition: Mapped[Condition] = mapped_column(str_enum(Condition), default=Condition.new)
+    # The seller's own words next to the price: "Подписчикам 13$", "(только в сборках)"
+    note: Mapped[str | None] = mapped_column(Text)
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=utcnow, onupdate=utcnow)
 
     product: Mapped[Product] = relationship(back_populates="offers")

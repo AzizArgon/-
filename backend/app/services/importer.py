@@ -22,8 +22,10 @@ from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
-from app.services.text_import import text_to_rows
-from app.services.spec_normalizer import merge_specs, normalize_specs, source_text, strip_modifiers, written_specs
+from app.services.text_import import no_rows_reason, text_to_rows
+from app.services.spec_normalizer import (
+    canonical_brand, merge_specs, normalize_specs, source_text, strip_modifiers, written_specs,
+)
 
 log = logging.getLogger(__name__)
 
@@ -84,11 +86,12 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "cache_key": cache_key(r.ai_text),
         "article": r.article,
         "category": category,
-        "brand": p.get("brand"),
+        "brand": canonical_brand(p["brand"]) if p.get("brand") else None,  # "T-Force" -> TeamGroup
         "model": p.get("model") or r.article,
         "name": strip_modifiers(category, p.get("name") or r.name)[0] or r.name,  # "LHR" -> a characteristic
         "price": r.price,
         "condition": r.condition or p.get("condition", "new"),
+        "note": r.note,
         "specs": specs,
         "specs_guess": guessed,
         "is_in_stock": r.is_in_stock,
@@ -235,9 +238,9 @@ async def run_import(import_id: int, data: bytes, filename: str) -> None:
 async def run_text_import(import_id: int, text: str, currency: Currency) -> None:
     """Background job for a pasted post: the same pipeline from the cleanup on, without a file."""
     try:
-        rows = text_to_rows(text, currency.value)
+        rows = text_to_rows(text)
         if not rows:
-            _set(import_id, status=ImportStatus.failed, error="no_prices")
+            _set(import_id, status=ImportStatus.failed, error=no_rows_reason(text))
             return
         stats: dict = {}
         with SessionLocal() as db:
@@ -260,6 +263,7 @@ async def retry_failed_rows(import_id: int) -> None:
                     name=r["name"], article=r.get("article"), price=r.get("price"),
                     is_in_stock=r.get("is_in_stock", False), ai_text=r.get("ai_text") or r["name"],
                     currency=r.get("currency"), currency_check=r.get("currency_check", False),
+                    condition=r.get("condition") if imp.source == "text" else None, note=r.get("note"),
                 )
                 for r in rows if r.get("source") == "failed"
             ]
@@ -340,6 +344,7 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         offer.price = price
         offer.currency = currency
         offer.condition = Condition(r.get("condition") or "new")
+        offer.note = r.get("note")
         offer.is_in_stock = in_stock
         offer.updated_at = utcnow()  # the price list confirmed this offer: freshness for "recommended"
         save_offer_flags(offer, r["flags"])

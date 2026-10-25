@@ -7,6 +7,8 @@ import Price from '../components/Price'
 import { formatDayMonth, formatPrice } from '../services/format'
 import { formatSpec, fromUrlValue, specLabel, specsLine, urlValue } from '../services/specs'
 
+const CONDITIONS = ['new', 'new_openbox', 'used', 'refurbished', 'unknown']
+
 const SEARCH_DELAY_MS = 300
 const VISIBLE_VALUES = 8
 const SPEC_PREFIX = 'f_' // spec filters in the address: ?category=ram&f_type=DDR5,DDR4&f_form_factor=SODIMM
@@ -173,6 +175,10 @@ export default function CatalogPage() {
           <input type="number" min="0" value={params.get('price_max') || ''} placeholder={t('catalog.priceMax')}
             onChange={(e) => setParam('price_max', e.target.value)} className={`${inputClass} w-36`} step="100000" />
         </label>
+        <select value={params.get('condition') || ''} onChange={(e) => setParam('condition', e.target.value, true)} className={inputClass}>
+          <option value="">{t('catalog.anyCondition')}</option>
+          {CONDITIONS.map((c) => <option key={c} value={c}>{t(`condition.${c}`)}</option>)}
+        </select>
         <label className="flex items-center gap-2 py-2 text-sm">
           <input type="checkbox" checked={!params.get('all')} onChange={(e) => setParam('all', e.target.checked ? '' : '1', true)} />
           {t('catalog.inStockOnly')}

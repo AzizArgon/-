@@ -132,3 +132,16 @@ def test_spec_filters_and_counts(db):
     assert facet(search(), "type") == {"DDR4": 1, "DDR5": 3}
     assert search(capacity="8,16", type="DDR4")["total"] == 1  # "or" inside a filter, "and" between filters
     assert both["items"][0]["specs"][0] == {"key": "type", "kind": "choice", "unit": None, "value": "DDR5"}
+
+
+def test_condition_filter_and_seller_note(db):
+    a, b = _store(db, "a@example.com"), _store(db, "b@example.com")
+    gpu = lambda price, condition, note=None: {**_row(1, "MSI RTX 3060 Ventus 12GB", price), "category": "gpu",  # noqa: E731
+                                              "brand": "MSI", "condition": condition, "note": note}
+    publish_import(db, _import(db, a), a, [gpu(300, "new_openbox", "Подписчикам 290$")])
+    publish_import(db, _import(db, b), b, [gpu(200, "unknown")])
+    cheapest = lambda c: search_products(db, 12_000, condition=c)["items"][0]["min_price_usd"]  # noqa: E731
+    assert cheapest(None) == 200 and cheapest("new_openbox") == 300
+    assert search_products(db, 12_000, condition="used")["items"] == []
+    card = product_card(db, db.scalar(select(Product)).id, 12_000)
+    assert {o["note"] for o in card["offers"]} == {"Подписчикам 290$", None}

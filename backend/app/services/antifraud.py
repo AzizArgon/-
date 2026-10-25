@@ -30,6 +30,8 @@ LEVEL_ORDER = {"info": 0, "warning": 1, "danger": 2}
 MARKET_MIN_OFFERS = 2
 MARKET_WARNING = 0.6
 MARKET_DANGER = 0.4
+NEW = ("new", "new_openbox")  # an opened box is still sold as new
+USED = ("used", "refurbished")  # "unknown" (a post did not say) is neither
 
 _DDR = re.compile(r"(?<![a-z])(?:ddr)\s?([2-5])(?!\d)", re.I)  # GDDR6 / LPDDR5 are not matched
 _DDR_COMBO = re.compile(r"ddr\s?[2-5]\s*(?:/|\\|и|and|or|или)\s*ddr\s?[2-5]", re.I)
@@ -112,7 +114,7 @@ def _mining(text: str, category: str, condition: str) -> list[dict]:
         return [_flag("mining", "warning", "mining_psu" if category == "psu" else "mining_gpu")]
     if category == "psu" and _MINING_PSU.search(text):
         return [_flag("mining", "warning", "mining_server_psu")]
-    if category == "gpu" and condition != "new" and _MINING_GPU.search(text):
+    if category == "gpu" and condition in USED and _MINING_GPU.search(text):
         return [_flag("mining", "info", "mining_used_series")]
     return []
 
@@ -124,7 +126,7 @@ def _no_lhr(text: str, category: str) -> list[dict]:
 
 def _used_as_new(text: str, condition: str) -> list[dict]:
     used = _USED.search(text)
-    if condition == "new" and used:
+    if condition in NEW and used:
         return [_flag("used_as_new", "danger", "used_as_new", word=used.group(0))]
     return []
 
@@ -187,7 +189,7 @@ def check_offer(row: dict, market_usd: list[float] | None = None, usd_rate: floa
     found = {f["type"] for f in flags}
     for risk in row.get("ai_risks") or []:
         # The AI already marked used goods as used: that is honest, not a flag
-        if risk == "used_as_new" and condition != "new":
+        if risk == "used_as_new" and condition not in NEW:
             continue
         if risk in AI_TYPES and risk not in found:
             flags.append(_flag(risk, "info", f"ai_{risk}", "ai"))

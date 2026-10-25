@@ -208,9 +208,9 @@ def run_posts(recorder: Recorder) -> list[dict]:
     started = time.monotonic()
     all_rows, owner, reasons = [], {}, {}
     for p in posts:
-        rows = text_import.text_to_rows(p["text"], p["default_currency"])
+        rows = text_import.text_to_rows(p["text"])
         if not rows:
-            reasons[p["id"]] = getattr(text_import, "no_rows_reason", lambda t: "no_prices")(p["text"])
+            reasons[p["id"]] = text_import.no_rows_reason(p["text"])
         for r in rows:
             r.row = len(all_rows) + 1  # one AI request for all posts: ids must be unique
             owner[r.row] = p["id"]

@@ -10,11 +10,11 @@ import { specsText, useSpecDictionary } from '../services/specs'
 const PAGE_SIZE = 50
 const POLL_MS = 2000
 const CHECK_DELAY_MS = 600
-const CONDITIONS = ['new', 'used', 'refurbished']
+const CONDITIONS = ['new', 'new_openbox', 'used', 'refurbished', 'unknown']
 
 // Rows the seller should look at: no price, unknown category, no brand or an Anti-Fraud warning
 const isFlagged = (r) => (r.flags || []).some((f) => f.level !== 'info')
-const needsAttention = (r) => r.source === 'failed' || r.currency_check || Boolean(r.specs?._suspect) || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
+const needsAttention = (r) => r.source === 'failed' || r.currency_check || r.condition === 'unknown' || Boolean(r.specs?._suspect) || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
 const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
@@ -147,6 +147,7 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
                   <span className={SOURCE_STYLE[r.source] || ''}>{t(`import.source.${r.source || 'ai'}`)}</span>
                   {' · '}{t('import.original')}: {r.raw_name}
                 </p>
+                {r.note && <p className="truncate px-1.5 text-xs text-slate-600" title={r.note}>{t('import.note')}: {r.note}</p>}
                 <Specs category={r.category} specs={r.specs} guess={r.specs_guess} />
                 <Flags flags={r.flags} />
               </td>
@@ -175,6 +176,7 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
                 <select className={cellInput} disabled={readOnly} value={r.condition} onChange={(e) => edit(r.row, 'condition', e.target.value)}>
                   {CONDITIONS.map((c) => <option key={c} value={c}>{t(`condition.${c}`)}</option>)}
                 </select>
+                {r.condition === 'unknown' && <p className="px-1.5 text-xs text-amber-800">{t('import.checkCondition')}</p>}
               </td>
               <td className={`px-3 py-2.5 align-top ${r.is_in_stock ? 'text-emerald-700' : 'text-slate-400'}`}>
                 {t(r.is_in_stock ? 'import.inStock' : 'import.outOfStock')}

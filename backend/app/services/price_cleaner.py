@@ -52,6 +52,7 @@ class CleanRow:
     currency_check: bool = False
     condition: str | None = None  # a card post with "Состояние: Б/У": read by code, wins over the AI
     category_hint: str | None = None  # a post tag (#RAM): taken when the AI could not tell the category
+    note: str | None = None  # the seller's words next to the price: "Подписчикам 13$", "(только в сборках)"
 
     @property
     def raw_name(self) -> str:

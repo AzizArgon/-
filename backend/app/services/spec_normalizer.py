@@ -223,8 +223,10 @@ BRAND_CASE = {b.lower(): b for b in (
     "ASUS", "MSI", "Gigabyte", "HP", "LG", "AOC", "AMD", "Intel", "NVIDIA", "Lenovo", "Acer", "Dell", "Apple",
     "Samsung", "Deepcool", "Corsair", "Kingston", "ADATA", "Lexar", "Palit", "Sapphire", "Zotac", "PNY", "Inno3D",
     "Redragon", "AULA", "Defender", "Thermaltake", "Lian Li", "Jonsbo", "Montech", "ID-Cooling", "Xiaomi", "Edifier",
-    "G.Skill", "TeamGroup", "Patriot", "Crucial",
+    "G.Skill", "TeamGroup", "Patriot", "Crucial", "Axle", "Hitachi", "Seagate",
 )}
+# A series written as the brand: T-Force is a line of TeamGroup
+BRAND_ALIASES = {"t-force": "TeamGroup", "tforce": "TeamGroup", "t force": "TeamGroup"}
 
 
 def _squash(text: str) -> str:
@@ -329,6 +331,8 @@ def canonical_brand(brand: str) -> str | None:
     brand = re.sub(r"\s+", " ", brand or "").strip()
     if not brand or brand.lower() in ("noname", "no name", "unknown"):
         return None
+    if brand.lower() in BRAND_ALIASES:
+        return BRAND_ALIASES[brand.lower()]
     if brand.lower() in BRAND_CASE:
         return BRAND_CASE[brand.lower()]
     return brand.title() if brand.isupper() and len(brand) > 4 else brand

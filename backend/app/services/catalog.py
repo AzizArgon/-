@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from sqlalchemy import case, func, or_, select
 from sqlalchemy.orm import Session, selectinload
 
-from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Product, Store
+from app.db.models import Category, Condition, Currency, FlagLevel, FlagStatus, Offer, Product, Store
 from app.services.exchange import to_usd, to_uzs
 from app.services.spec_dictionary import CARD_SPECS, NUMBER, YESNO, Spec, spec_map, specs_of
 from app.services.spec_inference import INFERABLE
@@ -177,11 +177,13 @@ def _spec_sql(spec: Spec, selected: list):
     return value.in_(selected)
 
 
-def _base_query(usd_rate, q, category, price_min, price_max, in_stock):
+def _base_query(usd_rate, q, category, price_min, price_max, in_stock, condition=None):
     usd = _usd_price(usd_rate)
     offer_filter = [Offer.price.is_not(None)]
     if in_stock:
         offer_filter.append(Offer.is_in_stock.is_(True))
+    if condition:
+        offer_filter.append(Offer.condition == condition)
     stats = (
         select(Offer.product_id, func.min(usd).label("min_usd"), func.count(Offer.id).label("offers"))
         .where(*offer_filter).group_by(Offer.product_id).subquery()
@@ -210,13 +212,13 @@ def card_specs(category: str, specs: dict) -> list[dict]:
 def search_products(
     db: Session, usd_rate: float | None, q: str = "", category: str | None = None,
     price_min: float | None = None, price_max: float | None = None, in_stock: bool = True, page: int = 1,
-    spec_filters: dict[str, list] | None = None,
+    spec_filters: dict[str, list] | None = None, condition: Condition | None = None,
 ) -> dict:
     """Catalog page: products with the lowest USD price and the number of offers.
 
     With a category, also its spec filters ("facets") with product counts per value.
     """
-    query, stats = _base_query(usd_rate, q, category, price_min, price_max, in_stock)
+    query, stats = _base_query(usd_rate, q, category, price_min, price_max, in_stock, condition)
     spec_filters = spec_filters or {}
     facets = spec_facets(db, query, category, spec_filters) if category else []
     specs = spec_map(category) if category else {}
@@ -323,7 +325,7 @@ def product_card(db: Session, product_id: int, usd_rate: float | None, sort: str
         offers.append({
             "id": o.id, "raw_name": o.raw_name, "price": o.price, "currency": o.currency.value,
             "price_usd": to_usd(o.price, o.currency, usd_rate), "price_uzs": to_uzs(o.price, o.currency, usd_rate),
-            "is_in_stock": o.is_in_stock, "condition": o.condition.value, "updated_at": o.updated_at,
+            "is_in_stock": o.is_in_stock, "condition": o.condition.value, "note": o.note, "updated_at": o.updated_at,
             "store": {"id": store.id, "name": store.name, "is_verified": store.is_verified, "phone": store.phone,
                       "telegram": store.telegram, "address": store.address, "district": store.district},
             "flags": [{"type": f.type, "level": f.level.value, "reason_key": f.reason_key, "params": f.params,

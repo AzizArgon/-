@@ -384,7 +384,7 @@
       "expected": {
         "name": "G.Skill Trident Z Royal DDR4 32GB (2x16GB) 3200MHz CL18",
         "category": "ram",
-        "condition": "new",
+        "condition": "unknown",
         "price": 190,
         "currency": "USD",
         "specs": {
