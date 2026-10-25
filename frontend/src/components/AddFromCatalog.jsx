@@ -5,6 +5,7 @@ import api, { errorKey } from '../services/api'
 import { specsLine } from '../services/specs'
 import { ErrorText } from './AuthForm'
 import Flags from './Flags'
+import NewProductForm from './NewProductForm'
 import Price from './Price'
 
 const CURRENCIES = ['USD', 'UZS']
@@ -104,6 +105,7 @@ export default function AddFromCatalog({ defaultCurrency, onAdded }) {
   const [chosen, setChosen] = useState(null)
   const [done, setDone] = useState(null)
   const [rate, setRate] = useState(null)
+  const [creating, setCreating] = useState(false)
 
   useEffect(() => {
     api.get('/rates/usd').then((res) => setRate(res.data)).catch(() => {})
@@ -121,6 +123,7 @@ export default function AddFromCatalog({ defaultCurrency, onAdded }) {
 
   const choose = (product) => {
     setChosen(product)
+    setCreating(false)
     setDone(null)
   }
 
@@ -140,10 +143,15 @@ export default function AddFromCatalog({ defaultCurrency, onAdded }) {
             ))}
           </ul>
         )}
-        {found.q === q && q.trim().length >= 2 && items.length === 0 && !chosen && !done && (
+        {found.q === q && q.trim().length >= 2 && items.length === 0 && !chosen && !done && !creating && (
           <p className="mt-2 text-sm text-slate-500">{t('manual.nothingFound')}</p>
         )}
       </div>
+      {!chosen && !creating && (
+        <button type="button" onClick={() => { setCreating(true); setDone(null) }}
+          className="mt-3 text-sm text-slate-600 underline hover:text-slate-900">{t('manual.notInCatalog')}</button>
+      )}
+      {creating && <NewProductForm initialName={q} onCreated={choose} onCancel={() => setCreating(false)} />}
       {chosen && (
         <OfferForm key={`${chosen.id}-${Boolean(chosen.my_offer)}`} product={chosen} rate={rate}
           defaultCurrency={defaultCurrency} onConflict={setChosen}
