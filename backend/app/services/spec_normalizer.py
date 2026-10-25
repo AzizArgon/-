@@ -103,7 +103,7 @@ EXTERNAL = [(r"\bext\b|external|внешн|portable|портатив", True)]
 
 RULES: dict[str, dict[str, list]] = {
     "ram": {
-        "type": [(r"(?<![a-z])ddr([345])(?![0-9])", _ddr)],
+        "type": [(r"(?<![a-zа-я])(?:ddr|ддр)([345])(?![0-9])", _ddr)],  # "ддр4" in Telegram posts
         "form_factor": [(r"so-?\s?dimm?|sodim|для ноутбук|notebook|laptop", "SODIMM"),
                         (r"\b(?:u|long)?dimm\b|для пк|desktop", "DIMM")],
         "frequency": [(r"(\d{4})\s*(?:mhz|мгц|mt/s)|ddr\d-(\d{4})", lambda m: int(_first(m[1], m[2])))],

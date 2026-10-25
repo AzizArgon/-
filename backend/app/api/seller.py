@@ -7,8 +7,12 @@ from app.db.database import get_db
 from app.db.models import Category, Condition, Currency, ImportStatus, PriceImport, Product, Store, User
 from app.schemas.seller import (
     CheckResult, ImportDetail, ImportOut, OfferIn, ProductIn, PublishRequest, PublishResult, StoreIn, StoreOut,
+    TextImportIn,
 )
-from app.services.importer import ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import
+from app.services.importer import (
+    ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import, run_text_import,
+)
+from app.services.text_import import text_title
 from app.services.manual import create_product, product_brief, save_offer, store_offer, suggest_products
 
 router = APIRouter(tags=["seller"])
@@ -74,6 +78,19 @@ async def upload_price(
     db.refresh(imp)
     # Parsing takes minutes: the client polls GET /imports/{id} for progress
     background.add_task(run_import, imp.id, data, filename)
+    return imp
+
+
+@router.post("/imports/text", response_model=ImportOut, status_code=status.HTTP_202_ACCEPTED)
+def paste_text(data: TextImportIn, background: BackgroundTasks, user: User = Depends(seller_only),
+               db: Session = Depends(get_db)):
+    """"Paste as text": a Telegram post goes through the same pipeline and preview as a file."""
+    store = _require_store(db, user)
+    imp = PriceImport(store_id=store.id, filename=text_title(data.text), source="text", currency=Currency(data.currency))
+    db.add(imp)
+    db.commit()
+    db.refresh(imp)
+    background.add_task(run_text_import, imp.id, data.text, imp.currency)
     return imp
 
 

@@ -14,7 +14,7 @@ const CONDITIONS = ['new', 'used', 'refurbished']
 
 // Rows the seller should look at: no price, unknown category, no brand or an Anti-Fraud warning
 const isFlagged = (r) => (r.flags || []).some((f) => f.level !== 'info')
-const needsAttention = (r) => r.source === 'failed' || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
+const needsAttention = (r) => r.source === 'failed' || r.currency_check || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
 const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
@@ -93,9 +93,12 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
         .catch(() => {}), CHECK_DELAY_MS)
   }
 
+  const perRowCurrency = rows.some((r) => r.currency)
+
   const edit = (rowId, field, value) => {
     const next = { ...rows.find((r) => r.row === rowId), [field]: value }
     if (field === 'price') next.is_in_stock = value != null
+    if (field === 'currency') next.currency_check = false // the seller looked at it
     setRows(rows.map((r) => (r.row === rowId ? next : r)))
     recheck(next)
   }
@@ -122,7 +125,8 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
             <th className="w-[34%] px-3 py-2 font-medium">{t('import.col.name')}</th>
             <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.brand')}</th>
             <th className="w-[15%] px-3 py-2 font-medium">{t('import.col.category')}</th>
-            <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.price')}, {currency}</th>
+            {/* Pasted text: every line has its own currency, shown in the cell */}
+            <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.price')}{!perRowCurrency && `, ${currency}`}</th>
             <th className="w-[13%] px-3 py-2 font-medium">{t('import.col.condition')}</th>
             <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.stock')}</th>
             <th className="w-[5%]" />
@@ -153,7 +157,14 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
               <td className="px-2 py-1.5 align-top">
                 <input className={cellInput} disabled={readOnly} type="number" min="0" step="any" value={r.price ?? ''}
                   onChange={(e) => edit(r.row, 'price', e.target.value === '' ? null : Number(e.target.value))} />
-                <ConvertedPrice price={r.price} currency={currency} rate={rate} />
+                {r.currency && (
+                  <select disabled={readOnly} value={r.currency} onChange={(e) => edit(r.row, 'currency', e.target.value)}
+                    className={`${cellInput} mt-1 ${r.currency_check ? 'border-amber-400 bg-amber-50' : ''}`}>
+                    {['USD', 'UZS'].map((c) => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                )}
+                {r.currency_check && <p className="px-1.5 text-xs text-amber-800">{t('import.checkCurrency')}</p>}
+                <ConvertedPrice price={r.price} currency={r.currency || currency} rate={rate} />
               </td>
               <td className="px-2 py-1.5 align-top">
                 <select className={cellInput} disabled={readOnly} value={r.condition} onChange={(e) => edit(r.row, 'condition', e.target.value)}>

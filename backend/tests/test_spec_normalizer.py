@@ -173,3 +173,7 @@ def test_every_inference_has_a_hint_text():
     from pathlib import Path
     ru = json.loads((Path(__file__).parents[2] / "frontend/src/locales/ru.json").read_text(encoding="utf-8"))
     assert {r.rule_id for r in INFERENCES} <= set(ru["specs"]["inferred"])
+
+
+def test_cyrillic_ddr_from_posts():
+    assert normalize_specs("ram", "озу 16гб ддр4 3200")["type"] == "DDR4"

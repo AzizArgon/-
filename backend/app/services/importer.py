@@ -22,6 +22,7 @@ from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
+from app.services.text_import import text_to_rows
 from app.services.spec_normalizer import merge_specs, normalize_specs, source_text, written_specs
 
 log = logging.getLogger(__name__)
@@ -89,6 +90,8 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "specs": specs,
         "specs_guess": guessed,
         "is_in_stock": r.is_in_stock,
+        "currency": r.currency,  # pasted text: per line; None = the currency of the whole import
+        "currency_check": r.currency_check,
         "ai_risks": p.get("risks") or [],  # Anti-Fraud hints from the AI, checked after the rules
         "source": source,  # cache / rule / ai / failed
     }
@@ -184,7 +187,7 @@ def flag_rows(db: Session, rows: list[dict], store_id: int, currency: Currency) 
     market = market_prices(db, keys, store_id, usd_rate)
     for r in rows:
         key = make_match_key(r.get("category") or "other", r["name"], r.get("brand"))
-        r["flags"] = check_offer({**r, "currency": currency.value}, market.get(key), usd_rate)
+        r["flags"] = check_offer({**r, "currency": r.get("currency") or currency.value}, market.get(key), usd_rate)
 
 
 def _finish(import_id: int, rows: list[dict], stats: dict) -> None:
@@ -218,6 +221,19 @@ async def run_import(import_id: int, data: bytes, filename: str) -> None:
         _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
 
 
+async def run_text_import(import_id: int, text: str, currency: Currency) -> None:
+    """Background job for a pasted post: the same pipeline from the cleanup on, without a file."""
+    try:
+        rows = text_to_rows(text, currency.value)
+        stats: dict = {}
+        with SessionLocal() as db:
+            parsed = await parse_clean_rows(db, rows, stats, _progress(import_id))
+        _finish(import_id, parsed, stats)
+    except Exception as e:  # never leave an import stuck in "processing"
+        log.exception("Text import %s failed", import_id)
+        _set(import_id, status=ImportStatus.failed, error=str(e)[:500])
+
+
 async def retry_failed_rows(import_id: int) -> None:
     """Parses again only the rows that failed (e.g. after the AI quota ran out)."""
     try:
@@ -229,6 +245,7 @@ async def retry_failed_rows(import_id: int) -> None:
                     row=r["row"], sheet=r.get("sheet", ""), section=r.get("section", ""), cells=[r["raw_name"]],
                     name=r["name"], article=r.get("article"), price=r.get("price"),
                     is_in_stock=r.get("is_in_stock", False), ai_text=r.get("ai_text") or r["name"],
+                    currency=r.get("currency"), currency_check=r.get("currency_check", False),
                 )
                 for r in rows if r.get("source") == "failed"
             ]
@@ -258,9 +275,12 @@ def fail_stale_imports() -> None:
 
 
 def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]) -> dict:
-    """Creates/updates offers. Store offers missing from the file become "out of stock"."""
+    """Creates/updates offers. Store offers missing from a file become "out of stock" (not after pasted text)."""
     categories = {c.slug: c for c in db.scalars(select(Category))}
-    offers_by_raw = {o.raw_name: o for o in db.scalars(select(Offer).where(Offer.store_id == store.id))}
+    store_offers = db.scalars(select(Offer).where(Offer.store_id == store.id)).all()
+    offers_by_raw = {o.raw_name: o for o in store_offers}
+    # One offer per card per store: a new name of a product the store already sells updates that offer
+    offers_by_product = {o.product_id: o for o in store_offers}
     products: dict[str, Product] = {}
     seen: set[int] = set()
     stats = {"created": 0, "updated": 0, "out_of_stock": 0}
@@ -288,9 +308,10 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
 
         price = r.get("price")
         in_stock = price is not None and r.get("is_in_stock", True)
-        offer = offers_by_raw.get(r["raw_name"])
+        offer = offers_by_raw.get(r["raw_name"]) or (offers_by_product.get(product.id) if product.id else None)
         if offer is not None and offer.id in seen:
             continue  # duplicate within this file: the first priced row is kept
+        currency = Currency(r["currency"]) if r.get("currency") else imp.currency
         price_changed = True
         if offer is None:
             offer = Offer(store=store, raw_name=r["raw_name"])
@@ -298,21 +319,23 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
             offers_by_raw[r["raw_name"]] = offer
             stats["created"] += 1
         else:
-            price_changed = offer.price != price or offer.currency != imp.currency
+            price_changed = offer.price != price or offer.currency != currency
             stats["updated"] += 1
         offer.product = product
         offer.price = price
-        offer.currency = imp.currency
+        offer.currency = currency
         offer.condition = Condition(r.get("condition") or "new")
         offer.is_in_stock = in_stock
         offer.updated_at = utcnow()  # the price list confirmed this offer: freshness for "recommended"
         save_offer_flags(offer, r["flags"])
         if price is not None and price_changed:
-            offer.price_history.append(PriceHistory(price=price, currency=imp.currency))
+            offer.price_history.append(PriceHistory(price=price, currency=currency))
         db.flush()
         seen.add(offer.id)
+        offers_by_product.setdefault(product.id, offer)
 
-    for offer in offers_by_raw.values():
+    # Only a full price list file says "everything else is sold out"; a pasted post lists just a few goods
+    for offer in offers_by_raw.values() if imp.source == "file" else ():
         if offer.id not in seen and offer.is_in_stock:
             offer.is_in_stock = False
             stats["out_of_stock"] += 1

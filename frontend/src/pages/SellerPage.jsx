@@ -135,6 +135,41 @@ function UploadBox({ defaultCurrency }) {
   )
 }
 
+// "Paste as text": a Telegram post goes through the same parsing and preview as a file
+function TextBox({ defaultCurrency }) {
+  const { t } = useTranslation()
+  const navigate = useNavigate()
+  const [text, setText] = useState('')
+  const [currency, setCurrency] = useState(defaultCurrency)
+  const [busy, setBusy] = useState(false)
+  const [error, setError] = useState('')
+
+  const onSubmit = async () => {
+    setError('')
+    setBusy(true)
+    try {
+      const res = await api.post('/imports/text', { text, currency })
+      navigate(`/seller/imports/${res.data.id}`)
+    } catch (err) {
+      setError(t(errorKey(err)))
+      setBusy(false)
+    }
+  }
+
+  return (
+    <div>
+      <textarea value={text} rows={10} placeholder={t('manual.textPlaceholder')} onChange={(e) => setText(e.target.value)}
+        className="w-full rounded-md border border-slate-300 px-3 py-2 font-mono text-sm outline-none focus:border-slate-900" />
+      <CurrencyChoice currency={currency} onChange={setCurrency} label="manual.textCurrency" />
+      <div className="mt-4"><ErrorText>{error}</ErrorText></div>
+      <button onClick={onSubmit} disabled={text.trim().length < 3 || busy}
+        className="rounded-md bg-slate-900 px-4 py-2 text-white hover:bg-slate-700 disabled:opacity-50">
+        {busy ? t('auth.loading') : t('upload.submit')}
+      </button>
+    </div>
+  )
+}
+
 const METHODS = ['file', 'text', 'catalog']
 
 // Three ways to add goods side by side, with a hint when each one is handy
@@ -156,6 +191,7 @@ function AddGoods({ defaultCurrency, onAdded }) {
       </div>
       <div className="mt-6">
         {method === 'file' && <UploadBox defaultCurrency={defaultCurrency} />}
+        {method === 'text' && <TextBox defaultCurrency={defaultCurrency} />}
         {method === 'catalog' && <AddFromCatalog defaultCurrency={defaultCurrency} onAdded={onAdded} />}
       </div>
     </div>

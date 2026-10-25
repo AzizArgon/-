@@ -47,6 +47,9 @@ class CleanRow:
     price: float | None = None
     is_in_stock: bool = False
     ai_text: str = ""  # what the AI gets: name and other text cells, no price/specs/stock
+    # Pasted text only: every line has its own currency; True = none was written, the default one was taken
+    currency: str | None = None
+    currency_check: bool = False
 
     @property
     def raw_name(self) -> str:

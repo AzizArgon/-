@@ -56,6 +56,9 @@ class PreviewRow(BaseModel):
     # AI specs not found in the row text: shown to the seller, never saved to the product
     specs_guess: dict[str, str] = {}
     is_in_stock: bool = True
+    # Pasted text: the currency of this line (None = the import's one); check = not written, default was taken
+    currency: Literal["USD", "UZS"] | None = None
+    currency_check: bool = False
     # Anti-Fraud: AI hints (types only) and the resulting flags
     ai_risks: list[str] = []
     flags: list[FlagOut] = []

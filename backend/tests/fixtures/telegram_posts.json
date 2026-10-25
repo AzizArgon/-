@@ -1,0 +1,63 @@
+{
+  "note": "Telegram-style posts for 'paste as text'. expected = what code reads (name, price, currency, check currency); ai = recorded AI items for the rows (row ids per post), so tests make no live requests.",
+  "posts": [
+    {
+      "default_currency": "UZS",
+      "text": "🔥 Новое поступление!\ni5 12400f б/у — 110$\nrtx 3060 12gb новая 290$\nозу 16гб ддр4 3200 - 35 у.е.\nSSD 1TB Samsung 980 — 1 250 000 сум\n📍 Чиланзар, тел +998 90 123 45 67",
+      "expected": [
+        ["i5 12400f б/у", 110, "USD", false],
+        ["rtx 3060 12gb новая", 290, "USD", false],
+        ["озу 16гб ддр4 3200", 35, "USD", false],
+        ["SSD 1TB Samsung 980", 1250000, "UZS", false]
+      ],
+      "ai": [
+        {"i": 1, "c": "cpu", "b": "Intel", "m": "Core i5-12400F", "n": "Intel Core i5-12400F", "s": "used", "p": ["socket:LGA1700"]},
+        {"i": 2, "c": "gpu", "b": "NVIDIA", "m": "RTX 3060", "n": "NVIDIA GeForce RTX 3060 12GB", "p": ["memory:12GB"]},
+        {"i": 3, "c": "ram", "m": "DDR4 16GB 3200MHz", "n": "Оперативная память DDR4 16GB 3200MHz", "p": ["type:DDR4", "capacity:16GB", "frequency:3200MHz"]},
+        {"i": 4, "c": "ssd", "b": "Samsung", "m": "980", "n": "SSD Samsung 980 1TB", "p": ["capacity:1TB"]}
+      ]
+    },
+    {
+      "default_currency": "UZS",
+      "text": "✅ Sotuvda bor!\nRyzen 5 5600 box — 1.6 mln so'm\nRX 6600 8gb б/у 2 100 000 сум\nKingston Fury 32gb ddr5 6000 — 1 450 тыс сум\n📞 +998 93 555 12 34\n#kompyuter #toshkent",
+      "expected": [
+        ["Ryzen 5 5600 box", 1600000, "UZS", false],
+        ["RX 6600 8gb б/у", 2100000, "UZS", false],
+        ["Kingston Fury 32gb ddr5 6000", 1450000, "UZS", false]
+      ],
+      "ai": [
+        {"i": 1, "c": "cpu", "b": "AMD", "m": "Ryzen 5 5600", "n": "AMD Ryzen 5 5600 BOX", "p": ["socket:AM4"]},
+        {"i": 2, "c": "gpu", "b": "AMD", "m": "RX 6600", "n": "AMD Radeon RX 6600 8GB", "s": "used", "p": ["memory:8GB"]},
+        {"i": 3, "c": "ram", "b": "Kingston", "m": "Fury DDR5 32GB 6000MHz", "n": "Kingston Fury DDR5 32GB 6000MHz", "p": ["type:DDR5", "capacity:32GB"]}
+      ]
+    },
+    {
+      "default_currency": "USD",
+      "text": "⚡️ АКЦИЯ ⚡️\nМонитор Samsung 24\" 75Hz\nЦена: 1 300 000 сум\nКлавиатура Logitech K120 — 9\nМышь A4Tech OP-720 - 5$\nДоставка по городу 30 000 сум\nАдрес: Юнусабад 4",
+      "expected": [
+        ["Монитор Samsung 24\" 75Hz", 1300000, "UZS", false],
+        ["Клавиатура Logitech K120", 9, "USD", true],
+        ["Мышь A4Tech OP-720", 5, "USD", false]
+      ],
+      "ai": [
+        {"i": 1, "c": "monitor", "b": "Samsung", "m": "24\" 75Hz", "n": "Монитор Samsung 24\" 75Hz", "p": ["size:24", "refresh_rate:75Hz"]},
+        {"i": 2, "c": "keyboard", "b": "Logitech", "m": "K120", "n": "Клавиатура Logitech K120", "p": ["connection:wired"]},
+        {"i": 3, "c": "mouse", "b": "A4Tech", "m": "OP-720", "n": "Мышь A4Tech OP-720", "p": []}
+      ]
+    },
+    {
+      "default_currency": "UZS",
+      "text": "Срочно продаю!\nНоутбук Lenovo IdeaPad 3 i3-1115G4 8/256 — $350\nВидеокарта GTX 1660 Super б/у 140 долларов\nБП Cougar 600W 80+ Bronze 45 у.е\nПишите в личку @seller_uz",
+      "expected": [
+        ["Ноутбук Lenovo IdeaPad 3 i3-1115G4 8/256", 350, "USD", false],
+        ["Видеокарта GTX 1660 Super б/у", 140, "USD", false],
+        ["БП Cougar 600W 80+ Bronze", 45, "USD", false]
+      ],
+      "ai": [
+        {"i": 1, "c": "laptop", "b": "Lenovo", "m": "IdeaPad 3 i3-1115G4", "n": "Ноутбук Lenovo IdeaPad 3 i3-1115G4 8/256GB", "p": ["ram:8GB", "storage:256GB"]},
+        {"i": 2, "c": "gpu", "b": "NVIDIA", "m": "GTX 1660 Super", "n": "NVIDIA GeForce GTX 1660 Super", "s": "used", "p": []},
+        {"i": 3, "c": "psu", "b": "Cougar", "m": "600W Bronze", "n": "Блок питания Cougar 600W 80+ Bronze", "p": ["power:600W", "certification:Bronze"]}
+      ]
+    }
+  ]
+}
