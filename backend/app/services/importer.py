@@ -14,9 +14,11 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.db.database import SessionLocal
 from app.db.models import (
-    Category, Condition, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store,
+    Category, Condition, Currency, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store,
 )
+from app.services.antifraud import check_offer, market_prices, save_offer_flags
 from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
+from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
 
@@ -61,12 +63,14 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "specs": specs,
         "specs_guess": guessed,
         "is_in_stock": r.is_in_stock,
+        "ai_risks": p.get("risks") or [],  # Anti-Fraud hints from the AI, checked after the rules
         "source": source,  # cache / rule / ai / failed
     }
 
 
 def _cache_data(row: dict) -> dict:
     data = {k: row.get(k) for k in ("category", "brand", "model", "name", "condition")}
+    data["risks"] = row.get("ai_risks") or row.get("risks") or []
     # Guesses stay in the cache: they are re-checked against the row text every time
     data["specs"] = {**(row.get("specs_guess") or {}), **(row.get("specs") or {})}
     return data
@@ -146,10 +150,25 @@ async def parse_clean_rows(db: Session, rows: list[CleanRow], stats: dict, on_pr
     return [result[k] for k in sorted(result)]
 
 
+def flag_rows(db: Session, rows: list[dict], store_id: int, currency: Currency) -> None:
+    """Anti-Fraud for preview rows: fills row["flags"]. Market prices come from other stores."""
+    rate = get_usd_rate(db)  # cached in the DB for a day
+    usd_rate = rate.rate if rate else None
+    keys = {make_match_key(r.get("category") or "other", r["name"]) for r in rows}
+    market = market_prices(db, keys, store_id, usd_rate)
+    for r in rows:
+        key = make_match_key(r.get("category") or "other", r["name"])
+        r["flags"] = check_offer({**r, "currency": currency.value}, market.get(key), usd_rate)
+
+
 def _finish(import_id: int, rows: list[dict], stats: dict) -> None:
     if not rows:
         _set(import_id, status=ImportStatus.failed, error="empty_file", stats_json=stats)
         return
+    with SessionLocal() as db:
+        imp = db.get(PriceImport, import_id)
+        flag_rows(db, rows, imp.store_id, imp.currency)
+    stats["flagged"] = sum(bool(r["flags"]) for r in rows)
     failed = stats.get("failed_rows", 0)
     error = f"{'ai_quota' if stats.get('quota_hit') else 'rows_failed'}:{failed}" if failed else None
     _set(import_id, status=ImportStatus.ready, rows_json=rows, error=error, stats_json=stats)
@@ -229,6 +248,8 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     # The same item listed twice in one file: a row without a price must not overwrite a priced one
     priced = {r["raw_name"] for r in rows if r.get("price") is not None}
     rows_to_save = [r for r in rows if r.get("price") is not None or r["raw_name"] not in priced]
+    # Flags are checked again: the seller may have changed category, condition or price
+    flag_rows(db, rows, store.id, imp.currency)
     for r in rows_to_save:
         category = categories.get(r["category"]) or categories["other"]
         key = make_match_key(category.slug, r["name"])
@@ -260,6 +281,7 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         offer.currency = imp.currency
         offer.condition = Condition(r.get("condition") or "new")
         offer.is_in_stock = in_stock
+        save_offer_flags(offer, r["flags"])
         if price is not None and price_changed:
             offer.price_history.append(PriceHistory(price=price, currency=imp.currency))
         db.flush()

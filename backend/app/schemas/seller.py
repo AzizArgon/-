@@ -29,6 +29,15 @@ class CategoryOut(BaseModel):
     mxik_code: str | None
 
 
+class FlagOut(BaseModel):
+    """Anti-Fraud flag: soft wording, the reason is shown to the buyer as is."""
+
+    type: str
+    level: Literal["info", "warning", "danger"]
+    reason: str
+    source: Literal["rule", "ai"]
+
+
 class PreviewRow(BaseModel):
     """One parsed row in the editable preview table."""
 
@@ -45,6 +54,9 @@ class PreviewRow(BaseModel):
     # AI specs not found in the row text: shown to the seller, never saved to the product
     specs_guess: dict[str, str] = {}
     is_in_stock: bool = True
+    # Anti-Fraud: AI hints (types only) and the resulting flags
+    ai_risks: list[str] = []
+    flags: list[FlagOut] = []
     # Filled by the parser: where the row came from and how to find it in the parse cache
     sheet: str = ""
     article: str | None = None
@@ -79,6 +91,10 @@ class ImportDetail(ImportOut):
 
 class PublishRequest(BaseModel):
     rows: list[PreviewRow]
+
+
+class CheckResult(BaseModel):
+    flags: list[list[FlagOut]]
 
 
 class PublishResult(BaseModel):

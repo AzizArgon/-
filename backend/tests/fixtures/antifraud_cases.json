@@ -17,8 +17,141 @@
         "type": "spec_mismatch",
         "level": "warning",
         "source": "rule",
-        "reason_contains": ["DDR5", "DDR4"]
+        "reason_contains": [
+          "DDR5",
+          "DDR4"
+        ]
       }
     ]
+  },
+  {
+    "id": "gtx_3050_does_not_exist",
+    "description": "GTX 3050 не существует: у серии 30xx только RTX. Покупатель может получить не ту карту.",
+    "source": "Реальный прайс Age Computers, раздел видеокарт",
+    "row": {
+      "category": "gpu",
+      "raw_name": "OCPC - 8GB GeForce GTX3050 128Bits GDDR6 (OCVN3050G8XM)",
+      "name": "OCPC GeForce GTX 3050 8GB",
+      "brand": "OCPC",
+      "price": 230,
+      "currency": "USD"
+    },
+    "expected_flags": [
+      {
+        "type": "spec_mismatch",
+        "level": "warning",
+        "source": "rule",
+        "reason_contains": [
+          "GTX 3050",
+          "RTX"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "x99_xeon_kit",
+    "description": "Китайская плата X99 + серверный Xeon под видом обычного комплекта.",
+    "source": "Тестовый «грязный» прайс (проверка Groq, фаза 3.3)",
+    "row": {
+      "category": "motherboard",
+      "raw_name": "Комплект X99 + Xeon 2666v3 мать+проц",
+      "name": "Материнская плата X99 + процессор Xeon 2666v3",
+      "price": 75,
+      "currency": "USD"
+    },
+    "expected_flags": [
+      {
+        "type": "server_hardware",
+        "level": "warning",
+        "source": "rule",
+        "reason_contains": [
+          "X99",
+          "Xeon"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "ssd_2tb_flash_drive",
+    "description": "Флешка на 2 ТБ по низкой цене — почти всегда поддельный объём.",
+    "source": "Тестовый «грязный» прайс (проверка Groq, фаза 3.3)",
+    "row": {
+      "category": "flash",
+      "raw_name": "SSD 2TB флешка USB 3.0",
+      "name": "Флешка SSD 2TB USB 3.0",
+      "price": 12,
+      "currency": "USD"
+    },
+    "expected_flags": [
+      {
+        "type": "fake_capacity",
+        "level": "danger",
+        "source": "rule",
+        "reason_contains": [
+          "2 ТБ",
+          "подделк"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "used_marked_as_new",
+    "description": "В строке «б/у», а состояние выставлено «новый».",
+    "source": "Тестовый «грязный» прайс",
+    "row": {
+      "category": "gpu",
+      "raw_name": "б/у видюха gtx 1660 super 6gb",
+      "name": "Видеокарта GeForce GTX 1660 Super 6GB",
+      "condition": "new",
+      "price": 95,
+      "currency": "USD"
+    },
+    "expected_flags": [
+      {
+        "type": "used_as_new",
+        "level": "danger",
+        "source": "rule",
+        "reason_contains": [
+          "б/у"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "noname_psu",
+    "description": "Блок питания без бренда.",
+    "source": "Тестовый «грязный» прайс (проверка Groq, фаза 3.3)",
+    "row": {
+      "category": "psu",
+      "raw_name": "БП 500W noname",
+      "name": "Блок питания Noname 500W",
+      "brand": "Noname",
+      "price": 14,
+      "currency": "USD"
+    },
+    "expected_flags": [
+      {
+        "type": "noname_psu",
+        "level": "warning",
+        "source": "rule",
+        "reason_contains": [
+          "без бренда"
+        ]
+      }
+    ]
+  },
+  {
+    "id": "clean_rows_have_no_flags",
+    "description": "Аккуратные строки без подвохов: правила не должны ничего находить.",
+    "source": "Реальный прайс Age Computers",
+    "row": {
+      "category": "ram",
+      "raw_name": "Lexar DDR4 8GB 3200MHz",
+      "name": "Lexar DDR4 8GB 3200MHz",
+      "brand": "Lexar",
+      "price": 58,
+      "currency": "USD"
+    },
+    "expected_flags": []
   }
 ]

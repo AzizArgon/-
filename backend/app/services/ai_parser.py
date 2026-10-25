@@ -31,8 +31,11 @@ CHARS_PER_TOKEN = 3.5
 OUTPUT_TOKENS_PER_ROW = 45
 
 
+RiskCode = Literal["spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu"]
+
+
 class CompactItem(BaseModel):
-    """Short keys keep the answer small: i=row, c=category, b=brand, m=model, n=name, s=condition, p=specs."""
+    """Short keys keep the answer small: i=row, c=category, b=brand, m=model, n=name, s=condition, p=specs, f=risks."""
 
     i: int
     c: str
@@ -41,6 +44,8 @@ class CompactItem(BaseModel):
     n: str
     s: Literal["new", "used", "refurbished"] = "new"
     p: list[str] = []
+    # Anti-Fraud hints: only types, the wording is added by our code
+    f: list[RiskCode] = []
 
 
 class GroqAnswer(BaseModel):
@@ -58,12 +63,13 @@ i — id; c — категория (slug из списка); b — бренд; m
 n — чистое название в стиле "Тип Бренд Модель параметры" на русском (как "Блок питания Aerocool KCAS Plus 600W"); не переводи на английский; исправь опечатки и сленг; убери пометки магазина ("распродажа", "акция"); если в строке комплект — перечисли все его части (плата + процессор);
 s — состояние: used (б/у) или refurbished (восстановленный); для новых не указывай;
 p — 2–5 ключевых характеристик строками "ключ:значение" (socket:AM5, capacity:1TB).
+f — подозрения, ТОЛЬКО если они явно видны в строке, обычно не указывай: spec_mismatch (характеристики противоречат друг другу), server_hardware (серверное: Xeon, ECC, китайская X99), mining (после майнинга), used_as_new (признаки б/у при s новом), fake_capacity (неправдоподобный объём, напр. флешка 2TB), noname_psu (БП без бренда).
 Не указывай b и m, если их нет. Не придумывай данные. Противоречия (в названии DDR5, в артикуле DDR4) не исправляй.
 Не-товары (заголовки, примечания, условия) пропусти.
 Категории: {_CATEGORY_LIST}
 """
 
-GROQ_FORMAT = 'Ответ — JSON-объект {"items": [ ... ]} с объектами из ключей i, c, b, m, n, s, p.'
+GROQ_FORMAT = 'Ответ — JSON-объект {"items": [ ... ]} с объектами из ключей i, c, b, m, n, s, p, f.'
 
 
 class QuotaExhausted(RuntimeError):
@@ -207,6 +213,7 @@ def _to_dicts(items: list[CompactItem]) -> list[dict]:
             "name": it.n,
             "condition": it.s,
             "specs": {k.strip(): v.strip() for k, v in specs.items()},
+            "risks": list(dict.fromkeys(it.f)),
         })
     return result
 

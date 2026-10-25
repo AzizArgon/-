@@ -5,8 +5,8 @@ from sqlalchemy.orm import Session
 from app.api.deps import require_role
 from app.db.database import get_db
 from app.db.models import Currency, ImportStatus, PriceImport, Store, User
-from app.schemas.seller import ImportDetail, ImportOut, PublishRequest, PublishResult, StoreIn, StoreOut
-from app.services.importer import ALLOWED_EXTENSIONS, publish_import, retry_failed_rows, run_import
+from app.schemas.seller import CheckResult, ImportDetail, ImportOut, PublishRequest, PublishResult, StoreIn, StoreOut
+from app.services.importer import ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import
 
 router = APIRouter(tags=["seller"])
 
@@ -93,6 +93,15 @@ def publish(import_id: int, data: PublishRequest, user: User = Depends(seller_on
     if imp.status != ImportStatus.ready:
         raise HTTPException(status.HTTP_409_CONFLICT, "Import is not ready to publish")
     return publish_import(db, imp, store, [r.model_dump() for r in data.rows])
+
+
+@router.post("/imports/{import_id}/check", response_model=CheckResult)
+def check_rows(import_id: int, data: PublishRequest, user: User = Depends(seller_only), db: Session = Depends(get_db)):
+    """Anti-Fraud for rows the seller just edited in the preview (rules only, no AI request)."""
+    store, imp = _my_import(db, user, import_id)
+    rows = [r.model_dump() for r in data.rows]
+    flag_rows(db, rows, store.id, imp.currency)
+    return {"flags": [r["flags"] for r in rows]}
 
 
 @router.post("/imports/{import_id}/retry", response_model=ImportOut, status_code=status.HTTP_202_ACCEPTED)

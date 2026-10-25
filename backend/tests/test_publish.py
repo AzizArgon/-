@@ -73,3 +73,32 @@ def test_duplicate_row_without_price_does_not_erase_price(db):
     publish_import(db, _import(db, store), store, rows)
     offer = db.scalar(select(Offer).where(Offer.raw_name == "Jonsbo Fan HF2-120B Black"))
     assert offer.price == 10 and offer.is_in_stock is True
+
+
+def test_publish_saves_flags_and_keeps_dismissed_ones_closed(db):
+    from app.db.models import FlagStatus
+
+    store = _store(db, "flags@example.com")
+    raw = "KingBank DDR5 8GB 6000MHz Silver Heatsink | KJXS DDR4 6000MHz 8GB UDIMM"
+    row = _row(1, "KingBank DDR5 8GB 6000MHz", 140, raw=raw)
+    publish_import(db, _import(db, store), store, [dict(row, ai_risks=["server_hardware"])])
+    offer = db.scalar(select(Offer).where(Offer.raw_name == raw))
+    assert {(f.type, f.source.value) for f in offer.fraud_flags} == {("spec_mismatch", "rule"), ("server_hardware", "ai")}
+
+    # The admin dismissed the AI hint: the next upload must not raise it again
+    hint = next(f for f in offer.fraud_flags if f.type == "server_hardware")
+    hint.status = FlagStatus.dismissed
+    db.commit()
+    publish_import(db, _import(db, store), store, [dict(row, ai_risks=["server_hardware"])])
+    assert sorted((f.type, f.status.value) for f in offer.fraud_flags) == [
+        ("server_hardware", "dismissed"), ("spec_mismatch", "active"),
+    ]
+
+
+def test_price_far_below_other_stores_is_flagged(db):
+    a, b, c = (_store(db, f"{n}@example.com") for n in "abc")
+    for store, price in ((a, 60), (b, 62)):
+        publish_import(db, _import(db, store), store, [_row(1, "Lexar DDR4 8GB 3200MHz", price)])
+    publish_import(db, _import(db, c), c, [_row(1, "Lexar DDR4 8GB 3200MHz", 20)])
+    cheap = db.scalar(select(Offer).where(Offer.store_id == c.id))
+    assert [(f.type, f.level.value) for f in cheap.fraud_flags] == [("price_below_market", "danger")]

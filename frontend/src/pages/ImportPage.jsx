@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
@@ -6,10 +6,18 @@ import api, { errorKey } from '../services/api'
 
 const PAGE_SIZE = 50
 const POLL_MS = 2000
+const CHECK_DELAY_MS = 600
 const CONDITIONS = ['new', 'used', 'refurbished']
 
-// Rows the seller should look at: no price, unknown category or no brand
-const needsAttention = (r) => r.source === 'failed' || r.price == null || r.category === 'other' || !r.brand
+// Rows the seller should look at: no price, unknown category, no brand or an Anti-Fraud warning
+const isFlagged = (r) => (r.flags || []).some((f) => f.level !== 'info')
+const needsAttention = (r) => r.source === 'failed' || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
+const FLAG_STYLE = {
+  info: 'border-sky-200 bg-sky-50 text-sky-800',
+  warning: 'border-amber-300 bg-amber-50 text-amber-900',
+  danger: 'border-red-300 bg-red-50 text-red-800',
+}
+const FLAG_ICON = { info: 'ℹ', warning: '⚠', danger: '⛔' }
 const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
@@ -47,30 +55,58 @@ function Specs({ specs, guess }) {
   )
 }
 
-function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
+// Anti-Fraud badges: the type is short, the soft explanation comes from the server
+function Flags({ flags }) {
+  const { t } = useTranslation()
+  if (!flags?.length) return null
+  return (
+    <div className="mt-1 grid gap-1 px-1.5">
+      {flags.map((f) => (
+        <p key={f.type} className={`rounded border px-2 py-1 text-xs ${FLAG_STYLE[f.level]}`}>
+          <span className="font-medium">{FLAG_ICON[f.level]} {t(`flags.type.${f.type}`)}</span>
+          {f.source === 'ai' && <span className="opacity-70"> ({t('flags.ai')})</span>}
+          {' — '}{f.reason}
+        </p>
+      ))}
+    </div>
+  )
+}
+
+function PreviewTable({ importId, rows, setRows, categories, currency, readOnly }) {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [onlyIssues, setOnlyIssues] = useState(false)
+  const [onlyFlagged, setOnlyFlagged] = useState(false)
+  const timers = useRef({})
   const [page, setPage] = useState(1)
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
     return rows.filter((r) =>
       (!onlyIssues || needsAttention(r)) &&
+      (!onlyFlagged || r.flags?.length > 0) &&
       (!q || r.name.toLowerCase().includes(q) || r.raw_name.toLowerCase().includes(q)))
-  }, [rows, query, onlyIssues])
+  }, [rows, query, onlyIssues, onlyFlagged])
 
   const pages = Math.max(1, Math.ceil(visible.length / PAGE_SIZE))
   const current = Math.min(page, pages)
   const pageRows = visible.slice((current - 1) * PAGE_SIZE, current * PAGE_SIZE)
 
-  const edit = (rowId, field, value) =>
-    setRows(rows.map((r) => {
-      if (r.row !== rowId) return r
-      const next = { ...r, [field]: value }
-      if (field === 'price') next.is_in_stock = value != null
-      return next
-    }))
+  // An edited row is checked by the Anti-Fraud rules again (no AI request)
+  const recheck = (row) => {
+    clearTimeout(timers.current[row.row])
+    timers.current[row.row] = setTimeout(() =>
+      api.post(`/imports/${importId}/check`, { rows: [row] })
+        .then((res) => setRows((prev) => prev.map((r) => (r.row === row.row ? { ...r, flags: res.data.flags[0] } : r))))
+        .catch(() => {}), CHECK_DELAY_MS)
+  }
+
+  const edit = (rowId, field, value) => {
+    const next = { ...rows.find((r) => r.row === rowId), [field]: value }
+    if (field === 'price') next.is_in_stock = value != null
+    setRows(rows.map((r) => (r.row === rowId ? next : r)))
+    recheck(next)
+  }
 
   return (
     <div className="rounded-xl border border-slate-200 bg-white">
@@ -81,6 +117,10 @@ function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
         <label className="flex items-center gap-1.5">
           <input type="checkbox" checked={onlyIssues} onChange={(e) => { setOnlyIssues(e.target.checked); setPage(1) }} />
           {t('import.onlyIssues')}
+        </label>
+        <label className="flex items-center gap-1.5">
+          <input type="checkbox" checked={onlyFlagged} onChange={(e) => { setOnlyFlagged(e.target.checked); setPage(1) }} />
+          {t('import.onlyFlagged')}
         </label>
         <span className="ml-auto text-slate-500">{t('import.rows', { count: visible.length })}</span>
       </div>
@@ -107,6 +147,7 @@ function PreviewTable({ rows, setRows, categories, currency, readOnly }) {
                   {' · '}{t('import.original')}: {r.raw_name}
                 </p>
                 <Specs specs={r.specs} guess={r.specs_guess} />
+                <Flags flags={r.flags} />
               </td>
               <td className="px-2 py-1.5 align-top">
                 <input className={cellInput} disabled={readOnly} value={r.brand ?? ''}
@@ -243,11 +284,14 @@ export default function ImportPage() {
             </div>
           )}
           {parseStats && <p className="text-sm text-slate-500">{t('import.stats', parseStats)}</p>}
+          {rows.some((r) => r.flags?.length) && (
+            <p className="text-sm text-amber-800">{t('import.flaggedStats', { count: rows.filter((r) => r.flags?.length).length })}</p>
+          )}
           <p className="text-sm text-slate-500">{t('import.hint')}</p>
         </>
       )}
       {(imp?.status === 'ready' || imp?.status === 'published') && rows.length > 0 && (
-        <PreviewTable rows={rows} setRows={setRows} categories={categories}
+        <PreviewTable importId={id} rows={rows} setRows={setRows} categories={categories}
           currency={imp.currency} readOnly={imp.status !== 'ready'} />
       )}
     </div>

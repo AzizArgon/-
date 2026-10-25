@@ -5,13 +5,16 @@ from pathlib import Path
 
 import pytest
 
+from app.services.antifraud import check_offer
+
 CASES = json.loads((Path(__file__).parent / "fixtures" / "antifraud_cases.json").read_text(encoding="utf-8"))
 
 
 @pytest.mark.parametrize("case", CASES, ids=[c["id"] for c in CASES])
 def test_antifraud_case(case):
-    antifraud = pytest.importorskip("app.services.antifraud", reason="Anti-Fraud is not implemented yet")
-    flags = antifraud.check_offer(case["row"])
+    flags = check_offer(case["row"])
+    if not case["expected_flags"]:
+        assert flags == []
     for expected in case["expected_flags"]:
         match = [f for f in flags if f["type"] == expected["type"]]
         assert match, f"expected flag {expected['type']}"
