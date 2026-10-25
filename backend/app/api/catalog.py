@@ -1,8 +1,8 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, status
+from fastapi import APIRouter, Depends, HTTPException, Query, Request, status
 from sqlalchemy.orm import Session
 
 from app.db.database import get_db
-from app.services.catalog import product_card, search_products
+from app.services.catalog import parse_spec_filters, product_card, search_products
 from app.services.exchange import get_usd_rate
 
 router = APIRouter(prefix="/catalog", tags=["catalog"])
@@ -16,6 +16,7 @@ def _rate(db: Session) -> tuple[float | None, str | None]:
 
 @router.get("/products")
 def list_products(
+    request: Request,
     q: str = Query("", max_length=200),
     category: str | None = None,
     price_min: float | None = Query(None, ge=0),
@@ -24,10 +25,16 @@ def list_products(
     page: int = Query(1, ge=1),
     db: Session = Depends(get_db),
 ):
-    """Catalog with search and filters. The price filter is in UZS (shown to buyers), compared in USD inside."""
+    """Catalog with search and filters. The price filter is in UZS (shown to buyers), compared in USD inside.
+
+    Spec filters of the chosen category: `f_<key>=v1,v2` ("or" inside one filter, "and" between filters),
+    e.g. `?category=ram&f_type=DDR5&f_form_factor=SODIMM`. The answer has `facets`: filters with counts.
+    """
     usd_rate, rate_date = _rate(db)
     to_usd = lambda uzs: uzs / usd_rate if uzs is not None and usd_rate else None  # noqa: E731
-    result = search_products(db, usd_rate, q.strip(), category, to_usd(price_min), to_usd(price_max), in_stock, page)
+    spec_filters = parse_spec_filters(category, dict(request.query_params))
+    result = search_products(db, usd_rate, q.strip(), category, to_usd(price_min), to_usd(price_max), in_stock, page,
+                             spec_filters)
     return {**result, "usd_rate": usd_rate, "usd_rate_date": rate_date}
 
 

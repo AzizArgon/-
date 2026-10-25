@@ -3,7 +3,9 @@ from datetime import timedelta
 from sqlalchemy import select
 
 from app.db.models import Category, Currency, FlagLevel, FlagSource, FraudFlag, Offer, Product, utcnow
-from app.services.catalog import make_match_key, product_card, rebuild_match_keys, rebuild_specs, search_products
+from app.services.catalog import (
+    make_match_key, parse_spec_filters, product_card, rebuild_match_keys, rebuild_specs, search_products,
+)
 from app.services.exchange import to_uzs
 from app.services.importer import publish_import
 from tests.test_publish import _import, _row, _store, db  # noqa: F401  (db is a fixture)
@@ -109,3 +111,24 @@ def test_rebuild_specs_from_store_rows(db):
     assert product.specs_json == {"type": "DDR5", "form_factor": "SODIMM", "capacity": 16, "frequency": 6000,
                                   "modules": 2, "brand": "Kingston"}
     assert rebuild_specs(db, demo_store_ids={demo.id})["changed"] == 0  # stable on a second run
+
+
+def test_spec_filters_and_counts(db):
+    store = _store(db, "a@example.com")
+    ram = lambda n, raw: {**_row(n, raw, 40), "category": "ram"}  # noqa: E731
+    publish_import(db, _import(db, store), store, [
+        ram(1, "Lexar DDR5 16GB 5600MHz SODIMM"), ram(2, "Lexar DDR5 8 ГБ 4800 МГц SO-DIMM"),
+        ram(3, "Kingston DDR5 2x8GB 6000MHz"), ram(4, "Kingston DDR4 16GB 3200MHz"),
+    ])
+    search = lambda **f: search_products(  # noqa: E731
+        db, 12_000, category="ram", spec_filters=parse_spec_filters("ram", {f"f_{k}": v for k, v in f.items()}))
+    facet = lambda r, key: {v["value"]: v["count"] for v in next(x for x in r["facets"] if x["key"] == key)["values"]}  # noqa: E731
+
+    both = search(type="DDR5", form_factor="SODIMM")
+    assert sorted(i["name"] for i in both["items"]) == ["Lexar DDR5 16GB 5600MHz SODIMM", "Lexar DDR5 8 ГБ 4800 МГц SO-DIMM"]
+    # Counts take the OTHER filters into account; values with zero products are not offered
+    assert facet(both, "type") == {"DDR5": 2}
+    assert facet(search(type="DDR5"), "capacity") == {8: 1, 16: 2}
+    assert facet(search(), "type") == {"DDR4": 1, "DDR5": 3}
+    assert search(capacity="8,16", type="DDR4")["total"] == 1  # "or" inside a filter, "and" between filters
+    assert both["items"][0]["specs"][0] == {"key": "type", "kind": "choice", "unit": None, "value": "DDR5"}

@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Product, Store
 from app.services.exchange import to_usd, to_uzs
+from app.services.spec_dictionary import CARD_SPECS, NUMBER, YESNO, Spec, spec_map, specs_of
 from app.services.spec_normalizer import normalize_specs
 
 # Type words some stores add and others don't ("Процессор ...", "... Motherboard"): not part of the model
@@ -23,6 +24,7 @@ TYPE_WORDS = {
 }
 UNITS = r"gb|tb|mb|ghz|mhz|hz|w|va|mm|ms|mah|lm"
 PAGE_SIZE = 24
+NUMBER_FACET_VALUES = 12  # numbers (capacity, diagonal) are offered by their most popular values
 
 
 def make_match_key(category: str, name: str, brand: str | None = None) -> str:
@@ -113,11 +115,51 @@ def _cheapest_offers(db: Session, product_ids: list[int], usd_rate: float | None
     return result
 
 
-def search_products(
-    db: Session, usd_rate: float | None, q: str = "", category: str | None = None,
-    price_min: float | None = None, price_max: float | None = None, in_stock: bool = True, page: int = 1,
-) -> dict:
-    """Catalog page: products with the lowest USD price and the number of offers."""
+def parse_spec_filters(category: str | None, raw: dict[str, str]) -> dict[str, list]:
+    """URL "f_type=DDR5,DDR4&f_ecc=1" -> {"type": ["DDR5", "DDR4"], "ecc": [True]}. Unknown keys are ignored."""
+    if not category:
+        return {}
+    specs = spec_map(category)
+    result: dict[str, list] = {}
+    for name, text in raw.items():
+        spec = specs.get(name.removeprefix("f_")) if name.startswith("f_") else None
+        if spec is None:
+            continue
+        values = []
+        for part in filter(None, (v.strip() for v in text.split(","))):
+            if spec.kind == NUMBER:
+                try:
+                    values.append(float(part))
+                except ValueError:
+                    continue
+            elif spec.kind == YESNO:
+                values.append(part in ("1", "true", "yes"))
+            else:
+                values.append(part)
+        if values:
+            result[spec.key] = values
+    return result
+
+
+def _matches(spec: Spec, value, selected: list) -> bool:
+    """Several values of one filter = "or"; "at least" filters (refresh rate, power) = from the smallest."""
+    if value is None:
+        return False
+    if spec.at_least:
+        return value >= min(selected)
+    return value in selected
+
+
+def _spec_sql(spec: Spec, selected: list):
+    value = func.json_extract(Product.specs_json, f"$.{spec.key}")
+    if spec.at_least:
+        return value >= min(selected)
+    if spec.kind == YESNO:
+        return value.in_([1 if v else 0 for v in selected])  # JSON true/false -> 1/0 in SQLite
+    return value.in_(selected)
+
+
+def _base_query(usd_rate, q, category, price_min, price_max, in_stock):
     usd = _usd_price(usd_rate)
     offer_filter = [Offer.price.is_not(None)]
     if in_stock:
@@ -144,6 +186,31 @@ def search_products(
         query = query.where(stats.c.min_usd >= price_min)
     if price_max is not None:
         query = query.where(stats.c.min_usd <= price_max)
+    return query, stats
+
+
+def card_specs(category: str, specs: dict) -> list[dict]:
+    """Key characteristics for the catalog tile, in dictionary order: DDR5 · 16 GB · 6000 MHz."""
+    by_key = spec_map(category)
+    return [{"key": k, "kind": by_key[k].kind, "unit": by_key[k].unit, "value": specs[k]}
+            for k in CARD_SPECS.get(category, ()) if k in specs and k in by_key]
+
+
+def search_products(
+    db: Session, usd_rate: float | None, q: str = "", category: str | None = None,
+    price_min: float | None = None, price_max: float | None = None, in_stock: bool = True, page: int = 1,
+    spec_filters: dict[str, list] | None = None,
+) -> dict:
+    """Catalog page: products with the lowest USD price and the number of offers.
+
+    With a category, also its spec filters ("facets") with product counts per value.
+    """
+    query, stats = _base_query(usd_rate, q, category, price_min, price_max, in_stock)
+    spec_filters = spec_filters or {}
+    facets = spec_facets(db, query, category, spec_filters) if category else []
+    specs = spec_map(category) if category else {}
+    for key, selected in spec_filters.items():
+        query = query.where(_spec_sql(specs[key], selected))
 
     total = db.scalar(select(func.count()).select_from(query.subquery()))
     rows = db.execute(
@@ -152,15 +219,56 @@ def search_products(
         .offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE)
     ).all()
     cheapest = _cheapest_offers(db, [p.id for p, _, _ in rows], usd_rate, in_stock)
-    items = [
-        {"id": p.id, "name": p.normalized_name, "brand": p.brand, "category": p.category.slug if p.category else "other",
-         "min_price_usd": round(min_usd, 2) if min_usd is not None else None, "offers": n,
-         # The cheapest offer as the seller wrote it: the page shows "≈" only for a converted currency
-         "min_price": cheapest[p.id].price if p.id in cheapest else None,
-         "min_currency": cheapest[p.id].currency.value if p.id in cheapest else None}
-        for p, min_usd, n in rows
-    ]
-    return {"items": items, "total": total, "page": page, "page_size": PAGE_SIZE}
+    items = []
+    for p, min_usd, n in rows:
+        slug = p.category.slug if p.category else "other"
+        items.append({
+            "id": p.id, "name": p.normalized_name, "brand": p.brand, "category": slug,
+            "min_price_usd": round(min_usd, 2) if min_usd is not None else None, "offers": n,
+            # The cheapest offer as the seller wrote it: the page shows "≈" only for a converted currency
+            "min_price": cheapest[p.id].price if p.id in cheapest else None,
+            "min_currency": cheapest[p.id].currency.value if p.id in cheapest else None,
+            "specs": card_specs(slug, p.specs_json or {}),
+        })
+    return {"items": items, "total": total, "page": page, "page_size": PAGE_SIZE, "facets": facets}
+
+
+def spec_facets(db: Session, query, category: str, spec_filters: dict[str, list]) -> list[dict]:
+    """Filters of a category with the number of products per value.
+
+    A count answers "how many products will I see if I tick this too": it takes the search, the price, stock and
+    all OTHER selected filters into account (several ticks inside one filter are "or"). Zero counts are hidden.
+    """
+    rows = [specs or {} for specs in db.scalars(query.with_only_columns(Product.specs_json))]
+    by_key = spec_map(category)
+    facets = []
+    for spec in specs_of(category):
+        others = [(by_key[k], v) for k, v in spec_filters.items() if k != spec.key]
+        counts: dict = {}
+        for specs in rows:
+            value = specs.get(spec.key)
+            if value is None or not all(_matches(s, specs.get(s.key), v) for s, v in others):
+                continue
+            counts[value] = counts.get(value, 0) + 1
+        selected = spec_filters.get(spec.key, [])
+        if not counts and not selected:
+            continue
+        if spec.kind == NUMBER:
+            values = sorted(counts, key=lambda v: -counts[v])
+            if not spec.at_least:
+                values = values[:NUMBER_FACET_VALUES]
+            values = sorted(set(values) | {v for v in selected if v in counts})
+        elif spec.kind == YESNO:
+            values = [v for v in (True, False) if v in counts]
+        elif spec.values:
+            values = [v for v in spec.values if v in counts]
+        else:
+            values = sorted(counts, key=lambda v: (-counts[v], str(v)))
+        facets.append({
+            "key": spec.key, "kind": spec.kind, "unit": spec.unit, "at_least": spec.at_least,
+            "values": [{"value": v, "count": counts[v]} for v in values], "selected": selected,
+        })
+    return facets
 
 
 def _age_bucket(updated_at: datetime) -> int:
@@ -215,5 +323,9 @@ def product_card(db: Session, product_id: int, usd_rate: float | None, sort: str
         "id": product.id, "name": product.normalized_name, "brand": product.brand, "model": product.model,
         "category": product.category.slug if product.category else "other",
         "mxik_code": product.category.mxik_code if product.category else None,
-        "specs": product.specs_json or {}, "usd_rate": usd_rate, "offers": offers,
+        # Specs in dictionary order, with units for the page: [{"key": "capacity", "value": 16, "unit": "GB"}]
+        "specs": [{"key": s.key, "kind": s.kind, "unit": s.unit, "value": (product.specs_json or {})[s.key]}
+                  for s in specs_of(product.category.slug if product.category else "other")
+                  if s.key in (product.specs_json or {})],
+        "usd_rate": usd_rate, "offers": offers,
     }
