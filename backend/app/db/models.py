@@ -155,7 +155,9 @@ class FraudFlag(Base):
     offer_id: Mapped[int] = mapped_column(ForeignKey("offers.id", ondelete="CASCADE"), index=True)
     type: Mapped[str] = mapped_column(String(64))
     level: Mapped[FlagLevel] = mapped_column(str_enum(FlagLevel))
-    reason: Mapped[str] = mapped_column(Text)
+    # Translation key (flags.reason.<key> in the frontend) + its parameters: texts stay out of the DB
+    reason_key: Mapped[str] = mapped_column(String(64))
+    params: Mapped[dict] = mapped_column(JSON, default=dict)
     source: Mapped[FlagSource] = mapped_column(str_enum(FlagSource))
     status: Mapped[FlagStatus] = mapped_column(str_enum(FlagStatus), default=FlagStatus.active)
 

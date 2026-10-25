@@ -4,7 +4,8 @@ Rules look only at what the seller really wrote: the original row, the article a
 confirmed by the row text. AI guesses (specs_guess) never take part. Wording is soft on purpose:
 a flag is a reason to ask the seller, not an accusation.
 
-Every flag: {"type", "level" (info / warning / danger), "reason", "source" (rule / ai)}.
+Every flag: {"type", "level" (info / warning / danger), "reason_key", "params", "source" (rule / ai)}.
+The text itself lives in the frontend translations: flags.reason.<reason_key> with {{params}}.
 """
 
 import re
@@ -17,17 +18,9 @@ from app.db.models import Currency, FlagLevel, FlagSource, FlagStatus, FraudFlag
 from app.services.exchange import to_usd
 
 TYPES = ("spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu", "price_below_market")
+# AI only names the type; the wording is ours (reason_key "ai_<type>"), so it stays soft
+AI_TYPES = set(TYPES) - {"price_below_market"}
 LEVEL_ORDER = {"info": 0, "warning": 1, "danger": 2}
-
-# AI only names the type; the wording is ours, so it stays soft and the same every time
-AI_REASONS = {
-    "spec_mismatch": "ИИ заметил, что характеристики в строке, возможно, противоречат друг другу. Уточните у продавца.",
-    "server_hardware": "ИИ заметил признаки серверного железа. Уточните у продавца, подойдёт ли оно для обычного ПК.",
-    "mining": "ИИ заметил признаки того, что товар мог использоваться для майнинга. Уточните у продавца.",
-    "used_as_new": "ИИ заметил признаки б/у или восстановленного товара. Уточните состояние у продавца.",
-    "fake_capacity": "ИИ заметил, что заявленный объём, возможно, не соответствует реальному. Уточните у продавца.",
-    "noname_psu": "ИИ заметил, что блок питания, возможно, без известного бренда. Уточните у продавца.",
-}
 
 # Market price check: at least this many offers from other stores, prices in USD
 MARKET_MIN_OFFERS = 2
@@ -53,8 +46,8 @@ _NONAME = re.compile(r"no\s?-?name|ноунейм|без\s+бренда|noname",
 _WATTS = re.compile(r"(\d{3,4})\s*(?:w|вт)\b", re.I)
 
 
-def _flag(type_: str, level: str, reason: str, source: str = "rule") -> dict:
-    return {"type": type_, "level": level, "reason": reason, "source": source}
+def _flag(type_: str, level: str, reason_key: str, source: str = "rule", **params) -> dict:
+    return {"type": type_, "level": level, "reason_key": reason_key, "params": params, "source": source}
 
 
 def _text(row: dict) -> str:
@@ -74,71 +67,55 @@ def _usd(row: dict, usd_rate: float | None) -> float | None:
 
 def _spec_mismatch(text: str) -> list[dict]:
     flags = []
-    gens = sorted({g for g in _DDR.findall(text)})
+    gens = sorted(set(_DDR.findall(text)))
     if len(gens) > 1 and not _DDR_COMBO.search(text):
-        names = " и ".join(f"DDR{g}" for g in gens)
-        flags.append(_flag(
-            "spec_mismatch", "warning",
-            f"В описании одновременно указаны {names}. Возможно, это ошибка в прайсе — уточните у продавца "
-            "тип памяти: модули разных поколений не взаимозаменяемы.",
-        ))
+        flags.append(_flag("spec_mismatch", "warning", "ddr_mismatch", gens=", ".join(f"DDR{g}" for g in gens)))
     for line, num in _GPU_MODEL.findall(text):
-        n = int(num)
         line = line.upper()
         # GTX ended with the 16xx series; RTX started with 20xx
-        if (line == "GTX" and n >= 2000) or (line == "RTX" and n < 2000):
+        if (line == "GTX" and int(num) >= 2000) or (line == "RTX" and int(num) < 2000):
             other = "RTX" if line == "GTX" else "GTX"
-            flags.append(_flag(
-                "spec_mismatch", "warning",
-                f"Видеокарты {line} {num} не существует (возможно, имелась в виду {other} {num}). "
-                "Уточните у продавца точную модель.",
-            ))
+            flags.append(_flag("spec_mismatch", "warning", "gpu_nonexistent", model=f"{line} {num}", suggestion=f"{other} {num}"))
             break
     return flags
 
 
 def _server_hardware(text: str, category: str) -> list[dict]:
-    xeon, china, x99 = _XEON.search(text), _CHINA_BOARD.search(text), _X99.search(text)
-    parts = []
-    if xeon:
-        parts.append("процессор Xeon — серверный, такие часто продаются б/у после работы в дата-центрах")
-    if china or (x99 and not _KNOWN_BOARD.search(text)):
-        parts.append("плата на чипсете X99/X79 — обычно китайская сборка под серверные процессоры, гарантия и BIOS бывают ненадёжны")
-    if category in ("ram", "other") and _ECC.search(text):
-        parts.append("память ECC/REG — серверная, в обычных платах может не заработать")
-    elif not parts and category in ("cpu", "motherboard") and _SERVER_SOCKET.search(text):
-        parts.append(f"сокет LGA{_SERVER_SOCKET.search(text).group(1)} — серверная/старая платформа")
-    if not parts:
+    xeon, x99 = _XEON.search(text), _X99.search(text)
+    china_board = _CHINA_BOARD.search(text) or (x99 and not _KNOWN_BOARD.search(text))
+    socket = _SERVER_SOCKET.search(text) if category in ("cpu", "motherboard") else None
+    params = {}
+    if xeon and x99 and category != "cpu":  # "Xeon ... для X99" is just a CPU, not a kit
+        key = "server_kit"
+    elif xeon:
+        key = "server_xeon"
+    elif china_board:
+        key = "server_board"
+    elif category in ("ram", "other") and _ECC.search(text):
+        key = "server_ecc"
+    elif socket:
+        key, params = "server_socket", {"socket": f"LGA{socket.group(1)}"}
+    else:
         return []
     # A Xeon in a workstation is normal: just inform
     level = "info" if category in ("desktop", "laptop") else "warning"
-    if xeon and x99:
-        parts = ["комплект X99 + Xeon — китайская плата и серверный процессор, часто б/у"]
-    reason = "Возможно, это серверное железо: " + "; ".join(parts) + ". Уточните у продавца состояние и совместимость."
-    return [_flag("server_hardware", level, reason)]
+    return [_flag("server_hardware", level, key, **params)]
 
 
 def _mining(text: str, category: str, condition: str) -> list[dict]:
     if _MINING.search(text):
-        if category == "psu":
-            return [_flag("mining", "warning", "Возможно, это блок питания для майнинг-ферм или серверный: "
-                          "обычно без нужных разъёмов и шумный. Уточните у продавца.")]
-        return [_flag("mining", "warning", "В описании есть признаки майнинга: карта могла долго работать под нагрузкой. "
-                      "Уточните у продавца историю и гарантию.")]
+        return [_flag("mining", "warning", "mining_psu" if category == "psu" else "mining_gpu")]
     if category == "psu" and _MINING_PSU.search(text):
-        return [_flag("mining", "warning", "Возможно, это серверный блок питания или БП для майнинга. "
-                      "Уточните у продавца, подходит ли он для обычного ПК.")]
+        return [_flag("mining", "warning", "mining_server_psu")]
     if category == "gpu" and condition != "new" and _MINING_GPU.search(text):
-        return [_flag("mining", "info", "Б/у видеокарты этой серии часто продаются после майнинга. "
-                      "Уточните у продавца, где карта использовалась.")]
+        return [_flag("mining", "info", "mining_used_series")]
     return []
 
 
 def _used_as_new(text: str, condition: str) -> list[dict]:
-    if condition == "new" and _USED.search(text):
-        word = _USED.search(text).group(0)
-        return [_flag("used_as_new", "danger", f"Товар отмечен как новый, но в описании есть «{word}». "
-                      "Возможно, он б/у или восстановленный — уточните у продавца.")]
+    used = _USED.search(text)
+    if condition == "new" and used:
+        return [_flag("used_as_new", "danger", "used_as_new", word=used.group(0))]
     return []
 
 
@@ -148,12 +125,10 @@ def _fake_capacity(text: str, category: str, price_usd: float | None) -> list[di
         return []
     if category == "flash" or _FLASH.search(text):
         if gb >= 1024:
-            return [_flag("fake_capacity", "danger", f"Флешка или карта памяти на {gb / 1024:g} ТБ — такие часто оказываются "
-                          "подделкой: реальный объём намного меньше. Проверьте накопитель программой (например, H2testw) при покупке.")]
+            return [_flag("fake_capacity", "danger", "flash_capacity", tb=round(gb / 1024, 1))]
         return []
     if category == "ssd" and price_usd and gb >= 240 and price_usd / (gb / 1024) < 25:
-        return [_flag("fake_capacity", "warning", f"Цена около ${price_usd / (gb / 1024):.0f} за ТБ — подозрительно низкая для SSD. "
-                      "Возможно, реальный объём меньше заявленного — уточните у продавца.")]
+        return [_flag("fake_capacity", "warning", "ssd_cheap", per_tb=round(price_usd / (gb / 1024)))]
     return []
 
 
@@ -163,13 +138,11 @@ def _noname_psu(row: dict, text: str, category: str, price_usd: float | None) ->
     watts = max((int(w) for w in _WATTS.findall(text)), default=0)
     brand = (row.get("brand") or "").strip()
     if _NONAME.search(text) or _NONAME.search(brand):
-        return [_flag("noname_psu", "warning", "Блок питания без бренда: реальная мощность может быть ниже заявленной, "
-                      "защиты часто нет. Уточните у продавца модель и сертификат.")]
+        return [_flag("noname_psu", "warning", "psu_noname")]
     if watts >= 500 and price_usd and price_usd < 20:
-        return [_flag("noname_psu", "warning", f"Блок питания на {watts} Вт за ${price_usd:.0f} — подозрительно дёшево. "
-                      "Возможно, реальная мощность ниже заявленной.")]
+        return [_flag("noname_psu", "warning", "psu_cheap", watts=watts, price=round(price_usd))]
     if not brand:
-        return [_flag("noname_psu", "info", "Бренд блока питания не указан. Уточните у продавца производителя.")]
+        return [_flag("noname_psu", "info", "psu_no_brand")]
     return []
 
 
@@ -181,8 +154,8 @@ def _price_below_market(price_usd: float | None, market_usd: list[float] | None)
     if ratio >= MARKET_WARNING:
         return []
     level = "danger" if ratio < MARKET_DANGER else "warning"
-    return [_flag("price_below_market", level, f"Цена на {(1 - ratio) * 100:.0f}% ниже средней по рынку (${mid:.0f} у "
-                  f"{len(market_usd)} магазинов). Возможно, это ошибка или товар отличается — уточните у продавца.")]
+    return [_flag("price_below_market", level, "below_market",
+                  percent=round((1 - ratio) * 100), median=round(mid), count=len(market_usd))]
 
 
 def check_offer(row: dict, market_usd: list[float] | None = None, usd_rate: float | None = None) -> list[dict]:
@@ -205,8 +178,8 @@ def check_offer(row: dict, market_usd: list[float] | None = None, usd_rate: floa
         # The AI already marked used goods as used: that is honest, not a flag
         if risk == "used_as_new" and condition != "new":
             continue
-        if risk in AI_REASONS and risk not in found:
-            flags.append(_flag(risk, "info", AI_REASONS[risk], "ai"))
+        if risk in AI_TYPES and risk not in found:
+            flags.append(_flag(risk, "info", f"ai_{risk}", "ai"))
             found.add(risk)
     return sorted(flags, key=lambda f: -LEVEL_ORDER[f["level"]])
 
@@ -235,6 +208,9 @@ def save_offer_flags(offer: Offer, flags: list[dict]) -> None:
     kept = [f for f in offer.fraud_flags if f.status != FlagStatus.active]
     closed = {f.type for f in kept}
     offer.fraud_flags = kept + [
-        FraudFlag(type=f["type"], level=FlagLevel(f["level"]), reason=f["reason"], source=FlagSource(f["source"]))
+        FraudFlag(
+            type=f["type"], level=FlagLevel(f["level"]), reason_key=f["reason_key"], params=f["params"],
+            source=FlagSource(f["source"]),
+        )
         for f in flags if f["type"] not in closed
     ]

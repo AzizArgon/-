@@ -17,7 +17,8 @@
         "type": "spec_mismatch",
         "level": "warning",
         "source": "rule",
-        "reason_contains": [
+        "reason_key": "ddr_mismatch",
+        "params_contain": [
           "DDR5",
           "DDR4"
         ]
@@ -41,9 +42,10 @@
         "type": "spec_mismatch",
         "level": "warning",
         "source": "rule",
-        "reason_contains": [
+        "reason_key": "gpu_nonexistent",
+        "params_contain": [
           "GTX 3050",
-          "RTX"
+          "RTX 3050"
         ]
       }
     ]
@@ -64,10 +66,7 @@
         "type": "server_hardware",
         "level": "warning",
         "source": "rule",
-        "reason_contains": [
-          "X99",
-          "Xeon"
-        ]
+        "reason_key": "server_kit"
       }
     ]
   },
@@ -87,9 +86,9 @@
         "type": "fake_capacity",
         "level": "danger",
         "source": "rule",
-        "reason_contains": [
-          "2 ТБ",
-          "подделк"
+        "reason_key": "flash_capacity",
+        "params_contain": [
+          "2"
         ]
       }
     ]
@@ -111,7 +110,8 @@
         "type": "used_as_new",
         "level": "danger",
         "source": "rule",
-        "reason_contains": [
+        "reason_key": "used_as_new",
+        "params_contain": [
           "б/у"
         ]
       }
@@ -134,9 +134,7 @@
         "type": "noname_psu",
         "level": "warning",
         "source": "rule",
-        "reason_contains": [
-          "без бренда"
-        ]
+        "reason_key": "psu_noname"
       }
     ]
   },

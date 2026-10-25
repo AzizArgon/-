@@ -1,5 +1,9 @@
+import csv
+import io
+
 import pytest
 
+from app.services.importer import file_to_markdown
 from app.services.price_cleaner import cache_key, clean_markdown, parse_price
 
 SAMPLE = """## CPU, DDR, HDD
@@ -79,3 +83,18 @@ def test_second_price_column_is_used_when_wholesale_is_empty():
     rows = clean_markdown(md)
     # wholesale preferred, retail as fallback, a barcode is never a price
     assert [r.price for r in rows] == [10, 11, 15, None]
+
+
+@pytest.mark.parametrize("delimiter", [";", "\t", ","])
+def test_csv_delimiter_is_detected(delimiter):
+    out = io.StringIO()
+    csv.writer(out, delimiter=delimiter).writerows([
+        ["Наименование", "Артикул", "Цена"],
+        ["Lexar DDR4 8GB 3200MHz", "LD4AU008G", "1 250,50"],
+        ["Мышь Logitech G102", "910-005808", "21"],
+    ])
+    data = out.getvalue().encode("cp1251")  # Excel in Russian locale saves cp1251
+    rows = clean_markdown(file_to_markdown(data, "price.csv"))
+    assert [(r.name, r.article, r.price) for r in rows] == [
+        ("Lexar DDR4 8GB 3200MHz", "LD4AU008G", 1250.5), ("Мышь Logitech G102", "910-005808", 21),
+    ]

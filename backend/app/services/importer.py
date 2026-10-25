@@ -1,6 +1,7 @@
 """Price list import: file -> markitdown -> cleanup -> cache / rules / AI -> preview -> publish."""
 
 import asyncio
+import csv
 import io
 import logging
 import re
@@ -27,8 +28,29 @@ log = logging.getLogger(__name__)
 ALLOWED_EXTENSIONS = {".xlsx", ".xls", ".csv", ".pdf"}
 
 
+def normalize_csv(data: bytes) -> bytes:
+    """markitdown reads only comma CSV in UTF-8; Excel often saves ";" and cp1251. Rewrite to that."""
+    for encoding in ("utf-8-sig", "cp1251"):
+        try:
+            text = data.decode(encoding)
+            break
+        except UnicodeDecodeError:
+            continue
+    else:
+        return data
+    try:
+        dialect = csv.Sniffer().sniff(text[:8192], delimiters=",;	|")
+    except csv.Error:
+        return data  # one column or unclear: leave as is
+    out = io.StringIO()
+    csv.writer(out).writerows(csv.reader(io.StringIO(text), dialect))
+    return out.getvalue().encode("utf-8")
+
+
 def file_to_markdown(data: bytes, filename: str) -> str:
     ext = Path(filename).suffix.lower()
+    if ext == ".csv":
+        data = normalize_csv(data)
     result = MarkItDown().convert_stream(io.BytesIO(data), stream_info=StreamInfo(extension=ext, filename=filename))
     return result.text_content
 

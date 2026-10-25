@@ -55,7 +55,7 @@ function Specs({ specs, guess }) {
   )
 }
 
-// Anti-Fraud badges: the type is short, the soft explanation comes from the server
+// Anti-Fraud badges: the server sends a reason key + params, the soft text is in the translations
 function Flags({ flags }) {
   const { t } = useTranslation()
   if (!flags?.length) return null
@@ -65,7 +65,7 @@ function Flags({ flags }) {
         <p key={f.type} className={`rounded border px-2 py-1 text-xs ${FLAG_STYLE[f.level]}`}>
           <span className="font-medium">{FLAG_ICON[f.level]} {t(`flags.type.${f.type}`)}</span>
           {f.source === 'ai' && <span className="opacity-70"> ({t('flags.ai')})</span>}
-          {' — '}{f.reason}
+          {' — '}{t(`flags.reason.${f.reason_key}`, f.params)}
         </p>
       ))}
     </div>

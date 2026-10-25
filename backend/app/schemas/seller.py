@@ -30,11 +30,12 @@ class CategoryOut(BaseModel):
 
 
 class FlagOut(BaseModel):
-    """Anti-Fraud flag: soft wording, the reason is shown to the buyer as is."""
+    """Anti-Fraud flag: the soft text is the frontend translation flags.reason.<reason_key> with params."""
 
     type: str
     level: Literal["info", "warning", "danger"]
-    reason: str
+    reason_key: str
+    params: dict[str, str | int | float] = {}
     source: Literal["rule", "ai"]
 
 
