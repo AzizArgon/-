@@ -1,0 +1,6002 @@
+{
+"оперативка GMOC DDR4 16гб 3200 SODIMM": {
+"category": "ram",
+"brand": "GMOC",
+"model": null,
+"name": "Оперативная память GMOC DDR4 16GB 3200 SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "3200"
+},
+"risks": []
+},
+"видяха MSI GeForce RTX 3050 VENTUS 2X XS OC 8г": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GeForce RTX 3050 VENTUS 2X XS OC 8г",
+"name": "Видеокарта MSI GeForce RTX 3050 VENTUS 2X XS OC 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3050",
+"memory": "8GB"
+},
+"risks": []
+},
+"видяха peladin gtx 1650 4гб": {
+"category": "gpu",
+"brand": "Peladin",
+"model": "gtx 1650 4гб",
+"name": "Видеокарта Peladin GTX 1650 4GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 1650",
+"memory": "4GB"
+},
+"risks": []
+},
+"mb гигабайт b860m gaming wifi6 ddr5 lga1851": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "b860m gaming wifi6 ddr5 lga1851",
+"name": "Материнская плата Gigabyte B860M GAMING WIFI6 LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "B860",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "wifi6"
+},
+"risks": []
+},
+"мон. ASUS ROG Strix OLED PG27AQWP-G 27\"": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "ROG Strix OLED PG27AQWP-G",
+"name": "Монитор ASUS ROG Strix OLED PG27AQWP-G 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"panel": "OLED"
+},
+"risks": []
+},
+"cpu core i5-13400f tray": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i5-13400f",
+"name": "Процессор Intel Core i5-13400F OEM",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"pack": "OEM"
+},
+"risks": []
+},
+"ram Lexar DDR4 8gb 3200mhz": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR4 8GB 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"монитор гигабайт gs27fc2 27\"": {
+"category": "monitor",
+"brand": "Gigabyte",
+"model": "gs27fc2",
+"name": "Монитор Gigabyte GS27FC2 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"ssd External SSD Transcend 2тб ESD360C USB (TS2TESD360C)": {
+"category": "ssd",
+"brand": "Transcend",
+"model": "ESD360C USB (TS2TESD360C)",
+"name": "Накопитель SSD Transcend ESD360C 2TB USB",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"external": "true"
+},
+"risks": []
+},
+"озу lexar ddr5 16gb 4800мгц sodimm": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 16GB 4800MHz SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "4800MHz"
+},
+"risks": []
+},
+"мать ASUS ROG STRIX Z890-A GAMING WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX Z890-A GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX Z890-A GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мат. плата асус rog maxmus z890 hero ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG MAXIMUS Z890 HERO",
+"name": "Материнская плата ASUS ROG MAXIMUS Z890 HERO",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"моник BenQ DesignVue PD3205UA 32\"": {
+"category": "monitor",
+"brand": "BenQ",
+"model": "DesignVue PD3205UA",
+"name": "Монитор BenQ DesignVue PD3205UA 32\"",
+"condition": "new",
+"specs": {
+"size": "32"
+},
+"risks": []
+},
+"монитор HP 524da 24\"": {
+"category": "monitor",
+"brand": "HP",
+"model": "524da",
+"name": "Монитор HP 524da 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"материнка msi mag b850m mortar wifi ddr5": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MAG B850M MORTAR WIFI",
+"name": "Материнская плата MSI MAG B850M MORTAR WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"mb асус X870 MAX GAMING WIFI7 W DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "X870 MAX GAMING WIFI7 W",
+"name": "Материнская плата ASUS X870 MAX GAMING WIFI7 W",
+"condition": "new",
+"specs": {
+"chipset": "X870",
+"memory_type": "DDR5",
+"wifi": "WIFI7"
+},
+"risks": []
+},
+"оперативная память kingbank ddr5 8г 6000mhz silver heatsink": {
+"category": "ram",
+"brand": "Kingbank",
+"model": null,
+"name": "Оперативная память Kingbank DDR5 8GB 6000MHz Silver Heatsink",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "8GB",
+"frequency": "6000MHz"
+},
+"risks": []
+},
+"процессор intel core ultra 7 265k oem": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core Ultra 7 265K",
+"name": "Процессор Intel Core Ultra 7 265K OEM",
+"condition": "new",
+"specs": {
+"series": "Core Ultra 7",
+"pack": "OEM"
+},
+"risks": []
+},
+"видяха палит RTX 5080 INFINITY 3 16г": {
+"category": "gpu",
+"brand": "Palit",
+"model": "RTX 5080 INFINITY 3 16г",
+"name": "Видеокарта Palit RTX 5080 INFINITY 3 16GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5080",
+"memory": "16GB"
+},
+"risks": []
+},
+"твердотельник ssd lexar 2tb nvme lnm610": {
+"category": "ssd",
+"brand": "Lexar",
+"model": "LNM610",
+"name": "Накопитель SSD Lexar LNM610 2TB NVMe",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"interface": "NVMe",
+"form_factor": "M.2"
+},
+"risks": []
+},
+"материнка asus rog strix b850-e gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX B850-E GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX B850-E GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"моник titan army kg277s 27дюйма": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "KG277S",
+"name": "Монитор Titan Army KG277S 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"видюха гигабайт Radeon RX 9070 XT GAMING 16gb": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "Radeon RX 9070 XT GAMING 16gb",
+"name": "Видеокарта Gigabyte Radeon RX 9070 XT GAMING 16GB",
+"condition": "new",
+"specs": {
+"vendor": "AMD",
+"chip": "Radeon RX 9070 XT",
+"memory": "16GB"
+},
+"risks": []
+},
+"мать asus rog strix z890-h gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX Z890-H GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX Z890-H GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"озу Crucial DDR4 8gb 3200 SODIMM": {
+"category": "ram",
+"brand": "Crucial",
+"model": null,
+"name": "Оперативная память Crucial DDR4 8GB 3200 SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "8GB",
+"frequency": "3200"
+},
+"risks": []
+},
+"твердотельник SSD гигабайт 500гб Gen4 400E NVMe (G440E500G)": {
+"category": "ssd",
+"brand": "Gigabyte",
+"model": "G440E500G",
+"name": "Накопитель SSD Gigabyte Gen4 400E 500GB NVMe (G440E500G)",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"монитор Acer Nitro VG270K 27\"": {
+"category": "monitor",
+"brand": "Acer",
+"model": "Nitro VG270K",
+"name": "Монитор Acer Nitro VG270K 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"моник titan army p245ms 25 дюйм": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "P245MS",
+"name": "Монитор Titan Army P245MS 25\"",
+"condition": "new",
+"specs": {
+"size": "25"
+},
+"risks": []
+},
+"процессор Core i5-12400F OEM": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i5-12400F",
+"name": "Процессор Intel Core i5-12400F OEM",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"pack": "OEM"
+},
+"risks": []
+},
+"твердотельник SSD гигабайт 2000 гб AORUS Gen4 7000E M2 NVMe (AG470E2 тб)": {
+"category": "ssd",
+"brand": "Gigabyte",
+"model": "AG470E2 тб",
+"name": "Накопитель SSD Gigabyte AORUS Gen4 7000E 2000GB M.2 NVMe (AG470E2 тб)",
+"condition": "new",
+"specs": {
+"capacity": "2000GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"моник Lenovo Legion 34W-2c 34\"": {
+"category": "monitor",
+"brand": "Lenovo",
+"model": "Legion 34W-2c",
+"name": "Монитор Lenovo Legion 34W-2c 34\"",
+"condition": "new",
+"specs": {
+"size": "34"
+},
+"risks": []
+},
+"мать MSI PRO B850-P WIFI DDR5": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "PRO B850-P WIFI",
+"name": "Материнская плата MSI PRO B850-P WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мон. самсунг LS24AG320NEXXS 24дюйма": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS24AG320NEXXS",
+"name": "Монитор Samsung LS24AG320NEXXS 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"мон. ASUS ROG Swift OLED PG34WCDN 34\"": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "ROG Swift OLED PG34WCDN",
+"name": "Монитор ASUS ROG Swift OLED PG34WCDN 34\"",
+"condition": "new",
+"specs": {
+"size": "34",
+"panel": "OLED"
+},
+"risks": []
+},
+"материнка Gigabyte B860M DS3H DDR5 LGA1851": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B860M DS3H",
+"name": "Материнская плата Gigabyte B860M DS3H LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "B860",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"vga ASUS GeForce RTX 5060 Ti Dual OC 8г": {
+"category": "gpu",
+"brand": "ASUS",
+"model": "GeForce RTX 5060 Ti Dual OC 8г",
+"name": "Видеокарта ASUS GeForce RTX 5060 Ti Dual OC 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060 Ti",
+"memory": "8GB"
+},
+"risks": []
+},
+"мат. плата ASUS ROG STRIX B860-A GAMING WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX B860-A GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX B860-A GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B860",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"проц amd ryzen 5 5600x oem": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 5 5600X",
+"name": "Процессор AMD Ryzen 5 5600X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 5",
+"pack": "OEM"
+},
+"risks": []
+},
+"мать гигабайт B860M AORUS ELITE WIFI6E ICE DDR5 LGA1851": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B860M AORUS ELITE WIFI6E ICE",
+"name": "Материнская плата Gigabyte B860M AORUS ELITE WIFI6E ICE LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "B860",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WIFI6E"
+},
+"risks": []
+},
+"мат. плата maxsun challenger b760m wifi ddr4": {
+"category": "motherboard",
+"brand": "Maxsun",
+"model": "Challenger B760M WIFI",
+"name": "Материнская плата Maxsun Challenger B760M WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B760",
+"form_factor": "mATX",
+"memory_type": "DDR4",
+"wifi": "true"
+},
+"risks": []
+},
+"моник msi mpg 242r 24 дюйм": {
+"category": "monitor",
+"brand": "MSI",
+"model": "MPG 242R",
+"name": "Монитор MSI MPG 242R 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"камень Core i5 14600K OEM": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i5 14600K",
+"name": "Процессор Intel Core i5 14600K OEM",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"pack": "OEM"
+},
+"risks": []
+},
+"мон. Lenovo ThinkVision S24-4e 24\"": {
+"category": "monitor",
+"brand": "Lenovo",
+"model": "ThinkVision S24-4e",
+"name": "Монитор Lenovo ThinkVision S24-4e 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"видяха ocpc geforce gtx 3050 8гб": {
+"category": "gpu",
+"brand": "OCPC",
+"model": "GeForce GTX 3050 8гб",
+"name": "Видеокарта OCPC GeForce GTX 3050 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 3050",
+"memory": "8GB"
+},
+"risks": []
+},
+"мон. samsung ls27bg400epxuz 27дюйма": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS27BG400EPXUZ",
+"name": "Монитор Samsung LS27BG400EPXUZ 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"монитор BenQ PD3205U 32дюйма": {
+"category": "monitor",
+"brand": "BenQ",
+"model": "PD3205U",
+"name": "Монитор BenQ PD3205U 32\"",
+"condition": "new",
+"specs": {
+"size": "32"
+},
+"risks": []
+},
+"mb ASUS ROG STRIX Z890-E GAMING WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX Z890-E GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX Z890-E GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мон. titan army x256k 25 дюйм": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "X256K",
+"name": "Монитор Titan Army X256K 25\"",
+"condition": "new",
+"specs": {
+"size": "25"
+},
+"risks": []
+},
+"мать асус tuf gaming b850m-e wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "TUF GAMING B850M-E WIFI",
+"name": "Материнская плата ASUS TUF GAMING B850M-E WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"моник лж 45GX900A-B 45\"": {
+"category": "monitor",
+"brand": "LG",
+"model": "45GX900A-B",
+"name": "Монитор LG 45GX900A-B 45\"",
+"condition": "new",
+"specs": {
+"size": "45"
+},
+"risks": []
+},
+"монитор premier 24prm120ledm 24дюйма": {
+"category": "monitor",
+"brand": "Premier",
+"model": "24PRM120LEDM",
+"name": "Монитор Premier 24PRM120LEDM 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"хард HDD Toshiba 1тб Surveillance S300 HDWV110UZSVA 5700 rpm": {
+"category": "hdd",
+"brand": "Toshiba",
+"model": "HDWV110UZSVA",
+"name": "Жесткий диск Toshiba Surveillance S300 1TB (HDWV110UZSVA)",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"rpm": "5700rpm"
+},
+"risks": []
+},
+"мон. benq zowie xl2546x+ 25 дюйм": {
+"category": "monitor",
+"brand": "BenQ",
+"model": "Zowie XL2546X+",
+"name": "Монитор BenQ Zowie XL2546X+ 25\"",
+"condition": "new",
+"specs": {
+"size": "25"
+},
+"risks": []
+},
+"mb асус GAMING B850M-PLUS WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "GAMING B850M-PLUS WIFI",
+"name": "Материнская плата ASUS GAMING B850M-PLUS WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"ссд ssd adlink 512г sataiii 2.5\"": {
+"category": "ssd",
+"brand": "Adlink",
+"model": null,
+"name": "Накопитель SSD Adlink 512GB SATA3 2.5\"",
+"condition": "new",
+"specs": {
+"capacity": "512GB",
+"interface": "SATA",
+"form_factor": "2.5\""
+},
+"risks": []
+},
+"камень амд Ryzen 7 9700X OEM": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 9700X",
+"name": "Процессор AMD Ryzen 7 9700X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"pack": "OEM"
+},
+"risks": []
+},
+"ссд ssd lexar 512 гб nvme lnm780": {
+"category": "ssd",
+"brand": "Lexar",
+"model": "LNM780",
+"name": "Накопитель SSD Lexar LNM780 512GB NVMe",
+"condition": "new",
+"specs": {
+"capacity": "512GB",
+"interface": "NVMe",
+"form_factor": "M.2"
+},
+"risks": []
+},
+"mb gigabyte x870 gaming wf6 ddr5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "X870 GAMING WF6",
+"name": "Материнская плата Gigabyte X870 GAMING WF6",
+"condition": "new",
+"specs": {
+"chipset": "X870",
+"memory_type": "DDR5",
+"wifi": "WF6"
+},
+"risks": []
+},
+"видеокарта axle radeon rx 580 8 гб": {
+"category": "gpu",
+"brand": "Axle",
+"model": "Radeon RX 580 8 гб",
+"name": "Видеокарта Axle Radeon RX 580 8GB",
+"condition": "new",
+"specs": {
+"vendor": "AMD",
+"chip": "Radeon RX 580",
+"memory": "8GB"
+},
+"risks": []
+},
+"моник Gigabyte GO27Q24G 27дюйма": {
+"category": "monitor",
+"brand": "Gigabyte",
+"model": "GO27Q24G",
+"name": "Монитор Gigabyte GO27Q24G 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"ссд ssd adlink 1tb sataiii 2.5\"": {
+"category": "ssd",
+"brand": "Adlink",
+"model": null,
+"name": "Накопитель SSD Adlink 1TB SATA3 2.5\"",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "SATA",
+"form_factor": "2.5\""
+},
+"risks": []
+},
+"камень интел core i3-12100f oem": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i3-12100f",
+"name": "Процессор Intel Core i3-12100F OEM",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"pack": "OEM"
+},
+"risks": []
+},
+"mb asus rog maximus z890 hero btf ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG MAXIMUS Z890 HERO BTF",
+"name": "Материнская плата ASUS ROG MAXIMUS Z890 HERO BTF",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"мать ASUS PRIME B760M-A-CSM DDR5 (support 3 monitors)": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "PRIME B760M-A-CSM",
+"name": "Материнская плата ASUS PRIME B760M-A-CSM",
+"condition": "new",
+"specs": {
+"chipset": "B760",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"hdd HDD Seagate 10 тб SkyHawk AI ST10000VE001 7200 rpm": {
+"category": "hdd",
+"brand": "Seagate",
+"model": "ST10000VE001",
+"name": "Жесткий диск Seagate SkyHawk AI 10TB (ST10000VE001)",
+"condition": "new",
+"specs": {
+"capacity": "10TB",
+"rpm": "7200rpm"
+},
+"risks": []
+},
+"монитор gigabyte mo27q2a 27 дюйм": {
+"category": "monitor",
+"brand": "Gigabyte",
+"model": "MO27Q2A",
+"name": "Монитор Gigabyte MO27Q2A 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"мать MSI PRO B760M-E DDR5 LGA1700": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "PRO B760M-E",
+"name": "Материнская плата MSI PRO B760M-E LGA1700",
+"condition": "new",
+"specs": {
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"монитор lenovo legion 32q-2c 32\"": {
+"category": "monitor",
+"brand": "Lenovo",
+"model": "Legion 32Q-2c",
+"name": "Монитор Lenovo Legion 32Q-2c 32\"",
+"condition": "new",
+"specs": {
+"size": "32"
+},
+"risks": []
+},
+"озу Apacer DDR4 8gb 3200MHZ": {
+"category": "ram",
+"brand": "Apacer",
+"model": null,
+"name": "Оперативная память Apacer DDR4 8GB 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"мат. плата asus rog strix z890-f gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX Z890-F GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX Z890-F GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мать maxsun b550m gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "Maxsun",
+"model": "B550M GAMING WIFI",
+"name": "Материнская плата Maxsun B550M GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B550",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мон. lg 34u640b-b 34 дюйм": {
+"category": "monitor",
+"brand": "LG",
+"model": "34U640B-B",
+"name": "Монитор LG 34U640B-B 34\"",
+"condition": "new",
+"specs": {
+"size": "34"
+},
+"risks": []
+},
+"материнка асус ROG CROSSHAIR X870E EXTREME DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG CROSSHAIR X870E EXTREME",
+"name": "Материнская плата ASUS ROG CROSSHAIR X870E EXTREME",
+"condition": "new",
+"specs": {
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"камень амд Ryzen 7 7700 OEM": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 7700",
+"name": "Процессор AMD Ryzen 7 7700 OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"pack": "OEM"
+},
+"risks": []
+},
+"видеокарта Zotac GeForce RTX 5060 TWIN EDGE OC 8гб": {
+"category": "gpu",
+"brand": "Zotac",
+"model": "GeForce RTX 5060 TWIN EDGE OC 8гб",
+"name": "Видеокарта Zotac GeForce RTX 5060 TWIN EDGE OC 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060",
+"memory": "8GB"
+},
+"risks": []
+},
+"ссд SSD Lexar 512gb NVMe LNM620": {
+"category": "ssd",
+"brand": "Lexar",
+"model": "LNM620",
+"name": "Накопитель SSD Lexar LNM620 512GB NVMe",
+"condition": "new",
+"specs": {
+"capacity": "512GB",
+"interface": "NVMe",
+"form_factor": "M.2"
+},
+"risks": []
+},
+"материнка MSI MAG B650 TOMAHAWK WIFI DDR5": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MAG B650 TOMAHAWK WIFI",
+"name": "Материнская плата MSI MAG B650 TOMAHAWK WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B650",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"mb гигабайт B860 GAMING X WIFI6E DDR5 LGA1851": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B860 GAMING X WIFI6E",
+"name": "Материнская плата Gigabyte B860 GAMING X WIFI6E LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "B860",
+"memory_type": "DDR5",
+"wifi": "WIFI6E"
+},
+"risks": []
+},
+"моник hp omen 27s 27дюйма": {
+"category": "monitor",
+"brand": "HP",
+"model": "Omen 27s",
+"name": "Монитор HP Omen 27s 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"монитор Redmi G27Q 27 дюйм": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "G27Q",
+"name": "Монитор Redmi G27Q 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"vga MSI GeForce RTX 5060 VENTUS 2X OC V1 8gb": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GeForce RTX 5060 VENTUS 2X OC V1 8gb",
+"name": "Видеокарта MSI GeForce RTX 5060 VENTUS 2X OC V1 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060",
+"memory": "8GB"
+},
+"risks": []
+},
+"моник asus rog strix xg27acs 27 дюйм": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "ROG Strix XG27ACS",
+"name": "Монитор ASUS ROG Strix XG27ACS 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"проц Intel Core i7-14700KF OEM": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i7-14700KF",
+"name": "Процессор Intel Core i7-14700KF OEM",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"pack": "OEM"
+},
+"risks": []
+},
+"твердотельник SSD Lexar 4 тб NVMe LNQ780": {
+"category": "ssd",
+"brand": "Lexar",
+"model": "LNQ780",
+"name": "Накопитель SSD Lexar LNQ780 4TB NVMe",
+"condition": "new",
+"specs": {
+"capacity": "4TB",
+"interface": "NVMe",
+"form_factor": "M.2"
+},
+"risks": []
+},
+"монитор premier 27prm120ledm 27 дюйм": {
+"category": "monitor",
+"brand": "Premier",
+"model": "27PRM120LEDM",
+"name": "Монитор Premier 27PRM120LEDM 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"монитор MSI MAG 274QPF 27 дюйм": {
+"category": "monitor",
+"brand": "MSI",
+"model": "MAG 274QPF",
+"name": "Монитор MSI MAG 274QPF 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"ram Adata DDR5 16gb 5600 SODIMM": {
+"category": "ram",
+"brand": "Adata",
+"model": null,
+"name": "Оперативная память Adata DDR5 16GB 5600 SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "5600"
+},
+"risks": []
+},
+"ssd ssd lexar 1тб nvme lnq780": {
+"category": "ssd",
+"brand": "Lexar",
+"model": "LNQ780",
+"name": "Накопитель SSD Lexar LNQ780 1TB NVMe",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "NVMe",
+"form_factor": "M.2"
+},
+"risks": []
+},
+"процессор Core Ultra 5 245KF OEM": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core Ultra 5 245KF",
+"name": "Процессор Intel Core Ultra 5 245KF OEM",
+"condition": "new",
+"specs": {
+"series": "Core Ultra 5",
+"pack": "OEM"
+},
+"risks": []
+},
+"монитор Redmi G27Q 27дюйма": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "G27Q",
+"name": "Монитор Redmi G27Q 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"моник Samsung LS27F430UAIXCI 27 дюйм": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS27F430UAIXCI",
+"name": "Монитор Samsung LS27F430UAIXCI 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"mb ASUS TUF GAMING Z890-PLUS WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "TUF GAMING Z890-PLUS WIFI",
+"name": "Материнская плата ASUS TUF GAMING Z890-PLUS WIFI",
+"condition": "new",
+"specs": {
+"chipset": "Z890",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"ссд ssd lexar 512г sata iii": {
+"category": "ssd",
+"brand": "Lexar",
+"model": null,
+"name": "Накопитель SSD Lexar 512GB SATA3",
+"condition": "new",
+"specs": {
+"capacity": "512GB",
+"interface": "SATA"
+},
+"risks": []
+},
+"материнка Gigabyte B850M FORCE WF6E DDR5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B850M FORCE WF6E",
+"name": "Материнская плата Gigabyte B850M FORCE WF6E",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WF6E"
+},
+"risks": []
+},
+"монитор Titan Army P40UG 40 дюйм": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "P40UG",
+"name": "Монитор Titan Army P40UG 40\"",
+"condition": "new",
+"specs": {
+"size": "40"
+},
+"risks": []
+},
+"мон. асус rog strix xg27acmes-w 27дюйма": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "ROG Strix XG27ACMES-W",
+"name": "Монитор ASUS ROG Strix XG27ACMES-W 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"проц Intel Core i7 12700 OEM": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i7 12700",
+"name": "Процессор Intel Core i7 12700 OEM",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"pack": "OEM"
+},
+"risks": []
+},
+"mb гигабайт b850m eagle wf6e ddr5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B850M EAGLE WF6E",
+"name": "Материнская плата Gigabyte B850M EAGLE WF6E",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WF6E"
+},
+"risks": []
+},
+"mb Maxsun B650M I-CAFE DDR5": {
+"category": "motherboard",
+"brand": "Maxsun",
+"model": "B650M I-CAFE",
+"name": "Материнская плата Maxsun B650M I-CAFE",
+"condition": "new",
+"specs": {
+"chipset": "B650",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"vga палит geforce rtx 5060 ti dual 8 гб": {
+"category": "gpu",
+"brand": "Palit",
+"model": "GeForce RTX 5060 Ti Dual 8 гб",
+"name": "Видеокарта Palit GeForce RTX 5060 Ti Dual 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060 Ti",
+"memory": "8GB"
+},
+"risks": []
+},
+"моник Samsung LS27HG400EIXCI 27\"": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS27HG400EIXCI",
+"name": "Монитор Samsung LS27HG400EIXCI 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"моник ASUS TUF Gaming VG27AQM5A 27дюйма": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "TUF Gaming VG27AQM5A",
+"name": "Монитор ASUS TUF Gaming VG27AQM5A 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"монитор hp elitedisplay e27k 27\"": {
+"category": "monitor",
+"brand": "HP",
+"model": "EliteDisplay E27k",
+"name": "Монитор HP EliteDisplay E27k 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"видеокарта MSI RTX 5060 Ti VENTUS 2X PLUS 8гб": {
+"category": "gpu",
+"brand": "MSI",
+"model": "RTX 5060 Ti VENTUS 2X PLUS 8гб",
+"name": "Видеокарта MSI RTX 5060 Ti VENTUS 2X PLUS 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060 Ti",
+"memory": "8GB"
+},
+"risks": []
+},
+"мать мси mpg b550-a pro ddr4": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MPG B550-A PRO",
+"name": "Материнская плата MSI MPG B550-A PRO",
+"condition": "new",
+"specs": {
+"chipset": "B550",
+"memory_type": "DDR4"
+},
+"risks": []
+},
+"моник HP S5 27 дюйм": {
+"category": "monitor",
+"brand": "HP",
+"model": "S5",
+"name": "Монитор HP S5 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"мон. ASUS TUF Gaming VG249QM1A 24 дюйм": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "TUF Gaming VG249QM1A",
+"name": "Монитор ASUS TUF Gaming VG249QM1A 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"mb MSI B860M GAMING PLUS WIFI DDR5 LGA1851": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "B860M GAMING PLUS WIFI",
+"name": "Материнская плата MSI B860M GAMING PLUS WIFI LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "B860",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мать асус rog strix b760-a gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX B760-A GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX B760-A GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B760",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мон. titan army kg257h 25 дюйм": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "KG257H",
+"name": "Монитор Titan Army KG257H 25\"",
+"condition": "new",
+"specs": {
+"size": "25"
+},
+"risks": []
+},
+"мать MSI PRO B650M-P DDR5": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "PRO B650M-P",
+"name": "Материнская плата MSI PRO B650M-P",
+"condition": "new",
+"specs": {
+"chipset": "B650",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"материнка gigabyte x870e aorus elite x ddr5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "X870E AORUS ELITE X",
+"name": "Материнская плата Gigabyte X870E AORUS ELITE X",
+"condition": "new",
+"specs": {
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"ram lexar ddr5 8gb 6000мгц": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 8GB 6000MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "8GB",
+"frequency": "6000MHz"
+},
+"risks": []
+},
+"мать ASUS ROG STRIX X870-F GAMING WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX X870-F GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX X870-F GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "X870",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"камень Core i5-12400 oem": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i5-12400",
+"name": "Процессор Intel Core i5-12400 OEM",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"pack": "OEM"
+},
+"risks": []
+},
+"озу Lexar DDR5 8г 5600мгц": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 8GB 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "8GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"мат. плата MSI B760M GAMING PLUS WIFI DDR5 LGA1700": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "B760M GAMING PLUS WIFI",
+"name": "Материнская плата MSI B760M GAMING PLUS WIFI LGA1700",
+"condition": "new",
+"specs": {
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"моник гигабайт GS27F2 27дюйма": {
+"category": "monitor",
+"brand": "Gigabyte",
+"model": "GS27F2",
+"name": "Монитор Gigabyte GS27F2 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"hdd hdd toshiba 10tb surveillance s300 hdwt31auzsva 7200 rpm": {
+"category": "hdd",
+"brand": "Toshiba",
+"model": "HDWT31AUZSVA",
+"name": "Жесткий диск Toshiba Surveillance S300 10TB (HDWT31AUZSVA)",
+"condition": "new",
+"specs": {
+"capacity": "10TB",
+"rpm": "7200rpm"
+},
+"risks": []
+},
+"проц intel core i3-14100f oem": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i3-14100f",
+"name": "Процессор Intel Core i3-14100F OEM",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"pack": "OEM"
+},
+"risks": []
+},
+"видюха Arktek GeForce GTX 3050 8 гб": {
+"category": "gpu",
+"brand": "Arktek",
+"model": "GeForce GTX 3050 8 гб",
+"name": "Видеокарта Arktek GeForce GTX 3050 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 3050",
+"memory": "8GB"
+},
+"risks": []
+},
+"материнка gigabyte z890 aorus master ddr5 lga1851": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z890 AORUS MASTER",
+"name": "Материнская плата Gigabyte Z890 AORUS MASTER LGA1851",
+"condition": "new",
+"specs": {
+"socket": "LGA1851",
+"chipset": "Z890",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"мат. плата gigabyte x870e aero x wood ddr5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "X870E AERO X WOOD",
+"name": "Материнская плата Gigabyte X870E AERO X WOOD",
+"condition": "new",
+"specs": {
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"хард hdd toshiba 24тб surveillance s300 hdeb034zsa51 7200 rpm": {
+"category": "hdd",
+"brand": "Toshiba",
+"model": "HDEB034ZSA51",
+"name": "Жесткий диск Toshiba Surveillance S300 24TB (HDEB034ZSA51)",
+"condition": "new",
+"specs": {
+"capacity": "24TB",
+"rpm": "7200rpm"
+},
+"risks": []
+},
+"монитор Titan Army X276T 27\"": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "X276T",
+"name": "Монитор Titan Army X276T 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"mb мси meg x870e godlike ddr5": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MEG X870E GODLIKE",
+"name": "Материнская плата MSI MEG X870E GODLIKE",
+"condition": "new",
+"specs": {
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"монитор ASUS ROG Strix QD-OLED XG27AQDMES 27\"": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "ROG Strix QD-OLED XG27AQDMES",
+"name": "Монитор ASUS ROG Strix QD-OLED XG27AQDMES 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"panel": "OLED"
+},
+"risks": []
+},
+"материнка asus rog crosshair x870e dark hero ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG CROSSHAIR X870E DARK HERO",
+"name": "Материнская плата ASUS ROG CROSSHAIR X870E DARK HERO",
+"condition": "new",
+"specs": {
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"винт hdd тошиба 8тб surveillance s300 hdwt380uzsva 7200 rpm": {
+"category": "hdd",
+"brand": "Toshiba",
+"model": "HDWT380UZSVA",
+"name": "Жесткий диск Toshiba Surveillance S300 8TB (HDWT380UZSVA)",
+"condition": "new",
+"specs": {
+"capacity": "8TB",
+"rpm": "7200rpm"
+},
+"risks": []
+},
+"mb asus rog strix b850-f gaming neo ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX B850-F GAMING NEO",
+"name": "Материнская плата ASUS ROG STRIX B850-F GAMING NEO",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"mb асус rog strix b650e-f gaming wifi ddr5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "ROG STRIX B650E-F GAMING WIFI",
+"name": "Материнская плата ASUS ROG STRIX B650E-F GAMING WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B650E",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"видеокарта ASUS Radeon RX 9070 XT Prime OC Edition 16gb": {
+"category": "gpu",
+"brand": "ASUS",
+"model": "Radeon RX 9070 XT Prime OC Edition 16gb",
+"name": "Видеокарта ASUS Radeon RX 9070 XT Prime OC Edition 16GB",
+"condition": "new",
+"specs": {
+"vendor": "AMD",
+"chip": "Radeon RX 9070 XT",
+"memory": "16GB"
+},
+"risks": []
+},
+"материнка maxsun esport b850m wifi6 ddr5": {
+"category": "motherboard",
+"brand": "Maxsun",
+"model": "eSport B850M WIFI6",
+"name": "Материнская плата Maxsun eSport B850M WIFI6",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WIFI6"
+},
+"risks": []
+},
+"видяха палит rtx 3060 infinity 2 12гб": {
+"category": "gpu",
+"brand": "Palit",
+"model": "RTX 3060 INFINITY 2 12гб",
+"name": "Видеокарта Palit RTX 3060 INFINITY 2 12GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060",
+"memory": "12GB"
+},
+"risks": []
+},
+"материнка мси B760 GAMING PLUS WIFI DDR5 LGA1700": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "B760 GAMING PLUS WIFI",
+"name": "Материнская плата MSI B760 GAMING PLUS WIFI LGA1700",
+"condition": "new",
+"specs": {
+"socket": "LGA1700",
+"chipset": "B760",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"проц интел core ultra 5 225 oem": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core Ultra 5 225",
+"name": "Процессор Intel Core Ultra 5 225 OEM",
+"condition": "new",
+"specs": {
+"series": "Core Ultra 5",
+"pack": "OEM"
+},
+"risks": []
+},
+"твердотельник ssd lexar 2tb sata iii": {
+"category": "ssd",
+"brand": "Lexar",
+"model": null,
+"name": "Накопитель SSD Lexar 2TB SATA3",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"interface": "SATA"
+},
+"risks": []
+},
+"мон. Lenovo Legion 27Q-10 27\"": {
+"category": "monitor",
+"brand": "Lenovo",
+"model": "Legion 27Q-10",
+"name": "Монитор Lenovo Legion 27Q-10 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"мон. pixel pxg27fy 27\"": {
+"category": "monitor",
+"brand": "Pixel",
+"model": "PXG27FY",
+"name": "Монитор Pixel PXG27FY 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"мать ASUS PROART B850-CREATOR WIFI NEO DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "PROART B850-CREATOR WIFI NEO",
+"name": "Материнская плата ASUS PROART B850-CREATOR WIFI NEO",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"мон. самсунг LS24D300GAIXCI 24\"": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS24D300GAIXCI",
+"name": "Монитор Samsung LS24D300GAIXCI 24\"",
+"condition": "new",
+"specs": {
+"size": "24"
+},
+"risks": []
+},
+"мать Gigabyte B850M EAGLE WF6E ICE DDR5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B850M EAGLE WF6E ICE",
+"name": "Материнская плата Gigabyte B850M EAGLE WF6E ICE",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WF6E"
+},
+"risks": []
+},
+"мат. плата Gigabyte B760M H DDR4 LGA1700": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B760M H",
+"name": "Материнская плата Gigabyte B760M H LGA1700",
+"condition": "new",
+"specs": {
+"socket": "LGA1700",
+"chipset": "B760",
+"form_factor": "mATX",
+"memory_type": "DDR4"
+},
+"risks": []
+},
+"твердотельник SSD Patriot 1тб SATA III P210": {
+"category": "ssd",
+"brand": "Patriot",
+"model": "P210",
+"name": "Накопитель SSD Patriot P210 1TB SATA3",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "SATA"
+},
+"risks": []
+},
+"монитор ASUS TUF Gaming VG27AQML5A 27\"": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "TUF Gaming VG27AQML5A",
+"name": "Монитор ASUS TUF Gaming VG27AQML5A 27\"",
+"condition": "new",
+"specs": {
+"size": "27"
+},
+"risks": []
+},
+"мать гигабайт b850m aorus elite wf6e ddr5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B850M AORUS ELITE WF6E",
+"name": "Материнская плата Gigabyte B850M AORUS ELITE WF6E",
+"condition": "new",
+"specs": {
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WF6E"
+},
+"risks": []
+},
+"твердотельник SSD мси 240г SPATIUM S270 SATA 2.5дюйма (S78-440N070-P83)": {
+"category": "ssd",
+"brand": "MSI",
+"model": "S78-440N070-P83",
+"name": "Накопитель SSD MSI SPATIUM S270 240GB SATA 2.5\" (S78-440N070-P83)",
+"condition": "new",
+"specs": {
+"capacity": "240GB",
+"interface": "SATA",
+"form_factor": "2.5\""
+},
+"risks": []
+},
+"твердотельник ssd gigabyte 512 гб gen3 nvme (g3nvme512g)": {
+"category": "ssd",
+"brand": "Gigabyte",
+"model": "G3NVME512G",
+"name": "Накопитель SSD Gigabyte Gen3 512GB NVMe (G3NVME512G)",
+"condition": "new",
+"specs": {
+"capacity": "512GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"оперативка Crucial DDR4 16гб 3200 SODIMM": {
+"category": "ram",
+"brand": "Crucial",
+"model": null,
+"name": "Оперативная память Crucial DDR4 16GB 3200 SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "3200"
+},
+"risks": []
+},
+"мать ASUS TUF GAMING B650-E WIFI DDR5": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "TUF GAMING B650-E WIFI",
+"name": "Материнская плата ASUS TUF GAMING B650-E WIFI",
+"condition": "new",
+"specs": {
+"chipset": "B650",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"Процессор Intel Core i9 (Xeon E5-2696 v3) 18 ядер 36 потоков LGA2011-3": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Xeon E5-2696 v3",
+"name": "Процессор Intel Xeon E5-2696 v3",
+"condition": "new",
+"specs": {
+"socket": "LGA2011-3",
+"cores": "18",
+"threads": "36"
+},
+"risks": [
+"spec_mismatch",
+"server_hardware"
+]
+},
+"MB Huananzhi X99-TF + Xeon E5-2670v3 комплект": {
+"category": "motherboard",
+"brand": "Huananzhi",
+"model": "X99-TF",
+"name": "Комплект Материнская плата Huananzhi X99-TF + Процессор Intel Xeon E5-2670 v3",
+"condition": "new",
+"specs": {
+"chipset": "X99"
+},
+"risks": [
+"server_hardware"
+]
+},
+"Видеокарта MSI GTX 3060 Ventus 12GB": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GTX 3060 Ventus 12GB",
+"name": "Видеокарта MSI GTX 3060 Ventus 12GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 3060",
+"memory": "12GB"
+},
+"risks": [
+"spec_mismatch"
+]
+},
+"MSI - 8Gb GeForce RTХ5060Ti VENTUS 2X PLUS (912-V536-050) | 912-V536-003": {
+"category": "gpu",
+"brand": "MSI",
+"model": "912-V536-050",
+"name": "Видеокарта MSI GeForce RTX 5060 Ti VENTUS 2X PLUS 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060 Ti",
+"memory": "8"
+},
+"risks": []
+},
+"Teamgroup DDR5 64GB 6000MНz (32*2) RGB": {
+"category": "ram",
+"brand": "TeamGroup",
+"model": null,
+"name": "Оперативная память TeamGroup DDR5 64GB (2x32GB) 6000MHz RGB",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "64GB",
+"frequency": "6000MHz",
+"modules": "2",
+"rgb": "RGB"
+},
+"risks": []
+},
+"MB MSI AMD AM5 MAG В850M MORTAR WIFI DDR5 | 911-7E61-001": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "911-7E61-001",
+"name": "Материнская плата MSI MAG B850M MORTAR WIFI",
+"condition": "new",
+"specs": {
+"socket": "AM5",
+"chipset": "B850",
+"form_factor": "mATX",
+"memory_type": "DDR5",
+"wifi": "WIFI"
+},
+"risks": []
+},
+"Titan Army - 27\" P275MS PLUS+ Gaming Monitr, QD-Mini LED, IPS, 320Hz (overclock 345Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "P275MS PLUS+",
+"name": "Монитор Titan Army P275MS PLUS+ 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "320Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Pixel - 27\" PXG27F Gaming Monitr, IPS, 200Hz, 1mc, FHD (1920*1080), HDMI, Display port | PXG27F": {
+"category": "monitor",
+"brand": "Pixel",
+"model": "PXG27F",
+"name": "Монитор Pixel PXG27F 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "1920x1080",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"MB ASSUS AMD AM5 PROART В650-CREATOR DDR5 (90MB1C40-M0EAY0) | 90MB1C40-M0EAY0": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "90MB1C40-M0EAY0",
+"name": "Материнская плата ASUS PROART B650-CREATOR",
+"condition": "new",
+"specs": {
+"socket": "AM5",
+"chipset": "B650",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"Lexar DDR5 16GВ 5600МHz SODIMM": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 16GB SODIMM 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"HP - 27\" 7 Pro 727РQ Monitr, IPS, 5mc, 120Hz, QHD (2560x1440), HDMI+DP, Black-Silver (8J4D8UT) (маркировка) | 8J4D8UT": {
+"category": "monitor",
+"brand": "HP",
+"model": "8J4D8UT",
+"name": "Монитор HP 7 Pro 727PQ 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"MB Gigabyte AMD AM5 X870Е AORUS MASTER X ICE DDR5 (1 штук) | GA-X870E-A-MASTER-X-ICE": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "GA-X870E-A-MASTER-X-ICE",
+"name": "Материнская плата Gigabyte X870E AORUS MASTER X ICE",
+"condition": "new",
+"specs": {
+"socket": "AM5",
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"Preimer - 27\" 27PRM120LEDM Frameless Monitor,IPS,120Hz,FHD (1920x1080),VGA+HDMI (без рамки) Black | 27PRM120LEDM": {
+"category": "monitor",
+"brand": "Premier",
+"model": "27PRM120LEDM",
+"name": "Монитор Premier 27PRM120LEDM 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "1920x1080",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"PNY - 8GB GeForce RТX5060 GDDR7 128bit HDMI DP (VCG50608DFXB81) | VCG50608DFXP81": {
+"category": "gpu",
+"brand": "PNY",
+"model": "VCG50608DFXP81",
+"name": "Видеокарта PNY GeForce RTX 5060 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060",
+"memory": "8",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"Arous - 27\" FO27Q5P Gaming Monitr, QD-OLED, 500Hz, 0,03mc, QHD (2560x1440), 2K, HDR1000, HDMI, DisplayPort, Type-C, USB, RGb, Black | FO27Q5P": {
+"category": "monitor",
+"brand": "AORUS",
+"model": "FO27Q5P",
+"name": "Монитор AORUS FO27Q5P 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "500Hz",
+"panel": "OLED"
+},
+"risks": []
+},
+"Titan Army - 27\" KG277R PLUS Gaming Monitor,Fast IPS,200Hz (overclock 245Hz),1mc,WQHD (2560x1440),HDMI,Display port,HAS,Black": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": "KG277R PLUS",
+"name": "Монитор Titan Army KG277R PLUS 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Remdi - 27\" X27A Desktop Monitor,IPS,120Hz,6mc,FHD (1920x1080),HDMI+DP,(P27FDA-RAX) | P27FDA-RAX": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "P27FDA-RAX",
+"name": "Монитор Redmi Desktop Monitor X27A 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "1920x1080",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"ASUS - 8Gb GeForce RТX5060 DUAL OC GDDR7 (90YV0N12-M0NA00) | 90YV0N12-M0NA00": {
+"category": "gpu",
+"brand": "ASUS",
+"model": "90YV0N12-M0NA00",
+"name": "Видеокарта ASUS DUAL OC GeForce RTX 5060 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060",
+"memory": "8",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"Intell-Core i7 - 12700, 3.2 GHz, 25MB, oem, LGA1700, Alder Lake | i7-12700": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i7-12700",
+"name": "Процессор Intel Core i7-12700",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Intell-Core i3 - 14100, 3.5 Ггц, 12MB, oem, LGA1700, Raptor Lake | i3-14100": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i3-14100",
+"name": "Процессор Intel Core i3-14100",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"HP - 27\" EliteDisplay E27k G5 4К Monitr, IPS, HDMI,USB-C, 5mc, UHD (3840x2160), Silver (6N4C4AA)(маркировка) | 6N4C4AA": {
+"category": "monitor",
+"brand": "HP",
+"model": "6N4C4AA",
+"name": "Монитор HP EliteDisplay E27k G5 4K 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "3840x2160",
+"panel": "IPS"
+},
+"risks": []
+},
+"Redmi - 27\" A27Q 2026 Monitr, IPS, 120Hz, 1mc, QHD (2560x1440), HDMI+DP, (P27QDA-RA) | P27QDA-RA": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "P27QDA-RA",
+"name": "Монитор Redmi A27Q 2026 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"MB Gigabyte AMD AM5 В650M S2H DDR5": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": null,
+"name": "Материнская плата Gigabyte B650M S2H",
+"condition": "new",
+"specs": {
+"socket": "AM5",
+"chipset": "B650",
+"form_factor": "mATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"AOC - 25\" 25G50Z Gaming Monitr, IPS, 0,3mc, 260Hz, FHD (1920x1080), HDMI+DP, Black (распродажа) | 25G50Z": {
+"category": "monitor",
+"brand": "AOC",
+"model": "25G50Z",
+"name": "Монитор AOC 25G50Z 25\"",
+"condition": "new",
+"specs": {
+"size": "25",
+"resolution": "1920x1080",
+"refresh_rate": "260Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Intel-Core i7 - 14700K, 3.4 GHz, 33MВ, oem, LGA1700, Raptor Lake | i7-14700K": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i7-14700K",
+"name": "Процессор Intel Core i7-14700K",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen™ 9 Granite Ridge 9900X3D - 4.4 Ghz, 12 cores/24 threads, GPU, АМ5, (100-000001368), oem | 100-000001368": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-000001368",
+"name": "Процессор AMD Ryzen 9 9900X3D",
+"condition": "new",
+"specs": {
+"series": "Ryzen 9",
+"socket": "AM5",
+"cores": "12",
+"threads": "24",
+"graphics": "GPU",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen™ 7 Granite Ridge 9800X3D - 4.7 Ghz, 8 cores/16 threads, GPU, АM5, (100-000001084), oem | 100-000001084": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-000001084",
+"name": "Процессор AMD Ryzen 7 9800X3D",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"socket": "AM5",
+"cores": "8",
+"threads": "16",
+"graphics": "GPU",
+"pack": "OEM"
+},
+"risks": []
+},
+"HP - 14\" S5 Pro 514PN Portable Monitr, IPS, 75Hz, WQXGA (2520x1600), DP, Type-C (B88JWAA) | B88JWAA": {
+"category": "monitor",
+"brand": "HP",
+"model": "B88JWAA",
+"name": "Монитор HP S5 Pro 514PN Portable 14\"",
+"condition": "new",
+"specs": {
+"size": "14",
+"resolution": "2520x1600",
+"refresh_rate": "75Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"ASUS - 27\" TUF Gaming VG279QM Gaming Monitr, Fast IPS, 280Нz, 1ms, FHD (1920x1080), HDR400, Black (90LM05H0-B03370) (распродажа) | 90LM05H0-B03370": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "90LM05H0-B03370",
+"name": "Монитор ASUS TUF Gaming VG279QM 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "1920x1080",
+"refresh_rate": "280Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Lexar DDR5 8GB 5600MНz": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 8GB 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "8GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"ASUS - 27\" ROG Strix XG27AСS Gaming Monitor,QHD (2560x1440),180Hz,1ms,Fast IPS,USB Type-C,G-Sync,HDR,Black (90LM09Q0-B01170) | 90LM09Q0-B01170": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "90LM09Q0-B01170",
+"name": "Монитор ASUS ROG Strix XG27ACS 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "180Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"ASSUS - 34\" ROG Strix QD-OLED XG34WCDG Gaming Monitr, 175Hz, UWQHD (3440*1440), 0.03ms, G-SYNC, DisplayHDR™ 400, Black (90LM0B70-B01171) | 90LM0B70-B01171": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "90LM0B70-B01171",
+"name": "Монитор ASUS ROG Strix QD-OLED XG34WCDG 34\"",
+"condition": "new",
+"specs": {
+"size": "34",
+"resolution": "3440x1440",
+"refresh_rate": "175Hz"
+},
+"risks": []
+},
+"ASUS - 27\" ROG Strix QD-OLED XG27ACDNG Gaming Monitr, QHD (2560x1440), 360Hz, 0,03ms, Fast IPS, USB HUB, G-Sync, HDR, Aura Sync (90LM0AN0-B01970) | 90LM0AN0-B01970": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "90LM0AN0-B01970",
+"name": "Монитор ASUS ROG Strix QD-OLED XG27ACDNG 27\"",
+"condition": "new",
+"specs": {
+"size": "27",
+"resolution": "2560x1440",
+"refresh_rate": "360Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"MB ASUS AMD AM5 ROG STRIX Х870E-E GAMING NEO DDR5 (90MB1P20-M0EAY0) | 90MB1P20-M0EAY0": {
+"category": "motherboard",
+"brand": "ASUS",
+"model": "90MB1P20-M0EAY0",
+"name": "Материнская плата ASUS ROG STRIX X870E-E GAMING NEO",
+"condition": "new",
+"specs": {
+"socket": "AM5",
+"chipset": "X870E",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"AMD Ryzen™ 7 Raphael 7700X - 4.5 GHz,8 cores/16 threads,GPU,АM5 (100-000000591),oem | 100-000000591": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-000000591",
+"name": "Процессор AMD Ryzen 7 7700X",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"socket": "AM5",
+"cores": "8",
+"threads": "16",
+"graphics": "GPU",
+"pack": "OEM"
+},
+"risks": []
+},
+"GMOC DDR5 16Gb 600МHz RGb": {
+"category": "ram",
+"brand": null,
+"model": null,
+"name": "Оперативная память GMOC DDR5 16GB 6000MHz RGB",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "16GB",
+"rgb": "RGB"
+},
+"risks": []
+},
+"Crucial DDR4 8GВ 3200MHz SODIMM | CT8G4SFRA32A": {
+"category": "ram",
+"brand": "Crucial",
+"model": "CT8G4SFRA32A",
+"name": "Оперативная память Crucial DDR4 8GB SODIMM 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"Intell-Core i5 - 13500, 2.5 Ггц, 20MB, oem, LGA1700, Raptor Lake | i5-13500": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i5-13500",
+"name": "Процессор Intel Core i5-13500",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"ASUS - 8GB GeForce RTХ5060Ti Dual OC GDDR7 (90YV0MP2-M0NA00)": {
+"category": "gpu",
+"brand": "ASUS",
+"model": "90YV0MP2-M0NA00",
+"name": "Видеокарта ASUS Dual OC GeForce RTX 5060 Ti 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 5060 Ti",
+"memory": "8",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"Pixel - 25\" PXG25FP Gaming Monitr, IPS, 400Hz OC 420Hz, 1mc, FHD (1920*1080), HDMI, Display port, HAS, Black | PXG25FP": {
+"category": "monitor",
+"brand": "Pixel",
+"model": "PXG25FP",
+"name": "Монитор Pixel PXG25FP 25\"",
+"condition": "new",
+"specs": {
+"size": "25",
+"resolution": "1920x1080",
+"refresh_rate": "400Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Redmi - 24\" A24 Desktop Monitor,IPS,100Hz,6mc,FHD (1920x1080),HDMI+DP,(P24FBB-RA) | P24FBB-RA": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "P24FBB-RA",
+"name": "Монитор Redmi Desktop Monitor A24 24\"",
+"condition": "new",
+"specs": {
+"size": "24",
+"resolution": "1920x1080",
+"refresh_rate": "100Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"Intel-Core i7 - 13700, 2.1 GHz, 24MВ, oem, LGA1700, Raptor Lake | i7-13700": {
+"category": "cpu",
+"brand": "Intel",
+"model": "i7-13700",
+"name": "Процессор Intel Core i7-13700",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"HDD 4TВ Toshiba Surveillance S300 HDWT840UZSVA 5400Rpm Original OEM | HDWT840UZSVA": {
+"category": "hdd",
+"brand": "Toshiba",
+"model": "HDWT840UZSVA",
+"name": "Жесткий диск Toshiba Surveillance S300 4TB",
+"condition": "new",
+"specs": {
+"capacity": "4TB",
+"rpm": "5400rpm"
+},
+"risks": []
+},
+"Adata DDR5 16GB 5600MНz SODIMM": {
+"category": "ram",
+"brand": "ADATA",
+"model": null,
+"name": "Оперативная память ADATA DDR5 16GB SODIMM 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"Alxe - 8GB GeForce RТX3050 128Bits GDDR6 | Axle RTX3050 8GB GDDR6": {
+"category": "gpu",
+"brand": "Axle",
+"model": "Axle RTX3050 8GB GDDR6",
+"name": "Видеокарта Axle GeForce RTX 3050 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3050",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Palit RTX 3070 GamingPro 8GB NO LHR": {
+"category": "gpu",
+"brand": "Palit",
+"model": null,
+"name": "Видеокарта Palit GeForce RTX 3070 GamingPro 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3070",
+"memory": "8",
+"revision": "Full Hash Rate"
+},
+"risks": []
+},
+"USB флешка Kingston DataTraveler 2TB": {
+"category": "flash",
+"brand": "Kingston",
+"model": null,
+"name": "Флешка USB Kingston DataTraveler 2TB",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"type": "usb"
+},
+"risks": [
+"fake_capacity"
+]
+},
+"Ryzen™ 7 Granite Ridge 9800X3D - 4.7 Ghz, 8 cores/16 threads, GPU, AM5, (100-000001084), oem | AMD": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-000001084",
+"name": "Процессор AMD Ryzen 7 Granite Ridge 9800X3D 4.7 GHz",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"socket": "AM5",
+"cores": "8",
+"threads": "16",
+"graphics": "true",
+"pack": "OEM"
+},
+"risks": []
+},
+"Ryzen™ 7 Granite Ridge 9850X3D - 4.7 Ghz, 8 cores/16 threads, GPU, AM5, (100-000001973), oem": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-000001973",
+"name": "Процессор AMD Ryzen 7 Granite Ridge 9850X3D 4.7 GHz",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"socket": "AM5",
+"cores": "8",
+"threads": "16",
+"graphics": "true",
+"pack": "OEM"
+},
+"risks": []
+},
+"Ryzen™ 5 Raphael 7600X - 4.7 GHz, 6 cores/12 threads, GPU, AM5 (100-100000593), oem": {
+"category": "cpu",
+"brand": "AMD",
+"model": "100-100000593",
+"name": "Процессор AMD Ryzen 5 Raphael 7600X 4.7 GHz",
+"condition": "new",
+"specs": {
+"series": "Ryzen 5",
+"socket": "AM5",
+"cores": "6",
+"threads": "12",
+"graphics": "true",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i9 - 14900K, 3.2 GHz, 33MB, oem, LGA1700, Raptor Lake | Intel": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i9 14900K 3.2 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i9",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i3 - 13100, 3.4 GHz, 12MB, oem, LGA1700, Raptor Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i3 13100 3.4 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i5 - 12400F, 2.7 GHz, 18MB, oem, LGA1700, Alder Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i5 12400F 2.7 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i7 - 12700K, 3.6 GHz, 25MB, oem, LGA1700, Alder Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i7 12700K 3.6 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i7 - 13700, 2.1 GHz, 24MB, oem, LGA1700, Raptor Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i7 13700 2.1 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i7 - 12700F, 3.2 GHz, 25MB, oem, LGA1700, Alder Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i7 12700F 3.2 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i3 - 14100, 3.5 GHz, 12MB, oem, LGA1700, Raptor Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i3 14100 3.5 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core Ultra 5-245KF, 5.2 GHz, 24MB, oem, LGA 1851, Arrow Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core Ultra 5-245KF 5.2 GHz",
+"condition": "new",
+"specs": {
+"socket": "LGA 1851",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i5 - 13400, 2.5 GHz, 20MB, oem, LGA1700, Raptor Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i5 13400 2.5 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i3 - 14100F, 2.5 GHz, 12MB, oem, LGA1700, Raptor Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i3 14100F 2.5 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"Core i3 - 12100F, 3.3 GHz, 12MB, oem, LGA1700, Alder Lake": {
+"category": "cpu",
+"brand": "Intel",
+"model": null,
+"name": "Процессор Intel Core i3 12100F 3.3 GHz",
+"condition": "new",
+"specs": {
+"series": "Core i3",
+"socket": "LGA1700",
+"pack": "OEM"
+},
+"risks": []
+},
+"16GB GeForce RTX5060Ti Dual GDDR7 (90YV0MH0-M0NA00) | ASUS": {
+"category": "gpu",
+"brand": "ASUS",
+"model": "90YV0MH0-M0NA00",
+"name": "Видеокарта ASUS GeForce RTX 5060 Ti Dual 16GB GDDR7",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060 Ti",
+"memory": "16GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"8GB GeForce RTX5060 DUAL OC GDDR7 (90YV0N12-M0NA00)": {
+"category": "gpu",
+"brand": null,
+"model": "90YV0N12-M0NA00",
+"name": "Видеокарта GeForce RTX 5060 DUAL OC 8GB GDDR7",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060",
+"memory": "8GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"8GB GeForce GTX3050 128Bits GDDR6 | Arktek": {
+"category": "gpu",
+"brand": "Arktek",
+"model": null,
+"name": "Видеокарта Arktek GeForce GTX 3050 8GB GDDR6 128Bits",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce GTX 3050",
+"memory": "8GB",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"16GB GeForce RTX5070Ti WINDFORCE OC V2 GV-N507TWF3OCV2-16GD | Gigabyte": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GV-N507TWF3OCV2-16GD",
+"name": "Видеокарта Gigabyte GeForce RTX 5070 Ti WINDFORCE OC V2 16GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5070 Ti",
+"memory": "16GB"
+},
+"risks": []
+},
+"8GB GeForce RTX5060 WINDFORCE OC GV-N5060WF2OC-8GD": {
+"category": "gpu",
+"brand": null,
+"model": "GV-N5060WF2OC-8GD",
+"name": "Видеокарта GeForce RTX 5060 WINDFORCE OC 8GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060",
+"memory": "8GB"
+},
+"risks": []
+},
+"8GB GeForce RTX5060 TWIN X2 OC V2 GDDR7 128bit (N50602-08D7-198072N) | Inno3D": {
+"category": "gpu",
+"brand": "Inno3D",
+"model": "N50602-08D7-198072N",
+"name": "Видеокарта Inno3D GeForce RTX 5060 TWIN X2 OC V2 8GB GDDR7 128bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060",
+"memory": "8GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"12GB GeForce RTX5070 TWIN X2 GDDR7 192bit (N50702-12D7-195064N)": {
+"category": "gpu",
+"brand": null,
+"model": "N50702-12D7-195064N",
+"name": "Видеокарта GeForce RTX 5070 TWIN X2 12GB GDDR7 192bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5070",
+"memory": "12GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"16GB GeForce RTX5080 GAMING TRIO OC (912-V531-005) | MSI": {
+"category": "gpu",
+"brand": "MSI",
+"model": "912-V531-005",
+"name": "Видеокарта MSI GeForce RTX 5080 GAMING TRIO OC 16GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5080",
+"memory": "16GB"
+},
+"risks": []
+},
+"8GB GeForce GTX2060 Super 256Bits GDDR6 (OCVN2060G6XE2K) | OCPC": {
+"category": "gpu",
+"brand": "OCPC",
+"model": "OCVN2060G6XE2K",
+"name": "Видеокарта OCPC GeForce GTX 2060 Super 8GB GDDR6 256Bits",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce GTX 2060 Super",
+"memory": "8GB",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"12GB GeForce RTX5070 INFINITY 3 OC GDDR7 192bit 3-DP HDMI (NE75070S19K9-GB2050S) | Palit": {
+"category": "gpu",
+"brand": "Palit",
+"model": "NE75070S19K9-GB2050S",
+"name": "Видеокарта Palit GeForce RTX 5070 INFINITY 3 OC 12GB GDDR7 192bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5070",
+"memory": "12GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"12GB GeForce RTX5070 INFINITY 3 GDDR7 192bit 3-DP HDMI (NE75070019K9-GB2050S)": {
+"category": "gpu",
+"brand": null,
+"model": "NE75070019K9-GB2050S",
+"name": "Видеокарта GeForce RTX 5070 INFINITY 3 12GB GDDR7 192bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5070",
+"memory": "12GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"16GB GeForce RTX5060Ti INFINITY 3 GDDR7 128bit 3-DP HDMI (NE7506T019T1-GB2061S)": {
+"category": "gpu",
+"brand": null,
+"model": "NE7506T019T1-GB2061S",
+"name": "Видеокарта GeForce RTX 5060 Ti INFINITY 3 16GB GDDR7 128bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060 Ti",
+"memory": "16GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"16GB GeForce RTX5080 INFINITY 3 GDDR7 256bit 3-DP HDMI (NE75080019T2-GB2035S)": {
+"category": "gpu",
+"brand": null,
+"model": "NE75080019T2-GB2035S",
+"name": "Видеокарта GeForce RTX 5080 INFINITY 3 16GB GDDR7 256bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5080",
+"memory": "16GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"8GB GeForce RTX5060Ti TWIN EDGE GDDR7 128bit HDMI 3-DP (ZT-B50610H-10M) | Zotac": {
+"category": "gpu",
+"brand": "Zotac",
+"model": "ZT-B50610H-10M",
+"name": "Видеокарта Zotac GeForce RTX 5060 Ti TWIN EDGE 8GB GDDR7 128bit",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GeForce RTX 5060 Ti",
+"memory": "8GB",
+"memory_type": "GDDR7"
+},
+"risks": []
+},
+"34\" CU34G4/01 Curved Monitor, VA, 0.5mc, 180Hz, UHD (3440x1440), HDMI+DP, Black (распродажа) | AOC": {
+"category": "monitor",
+"brand": "AOC",
+"model": "CU34G4/01",
+"name": "Монитор AOC CU34G4/01 Curved 34\" VA 180Hz UHD 3440x1440",
+"condition": "new",
+"specs": {
+"size": "34\"",
+"resolution": "3440x1440",
+"refresh_rate": "180Hz",
+"panel": "VA",
+"curved": "true"
+},
+"risks": []
+},
+"27\" PA279CRV ProArt Monitor, IPS, 5mc, 60Hz, UHD (3840x2160) 4K, HDMI, DisplayPort, Type-C, HDR400, Black (90LM08E0-B01K70) | ASUS": {
+"category": "monitor",
+"brand": "ASUS",
+"model": "90LM08E0-B01K70",
+"name": "Монитор ASUS PA279CRV ProArt 27\" IPS 60Hz UHD 3840x2160 4K",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "3840x2160",
+"refresh_rate": "60Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" ROG Strix OLED XG27AQDPG Gaming Monitor, QHD (2560 x 1440) 2K, 500Hz, 0,03ms, USB Type-C, HDR, Black (90LM0C50-B01971)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0C50-B01971",
+"name": "Монитор ROG Strix OLED XG27AQDPG Gaming 27\" QHD 2560x1440 2K 500Hz",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "500Hz",
+"panel": "OLED"
+},
+"risks": []
+},
+"24\" TUF Gaming VG249QM1A Gaming Monitor, FHD (1920x1080), Fast IPS, 270Hz, 1ms (GTG), FreeSync, G-Sync, Black (90LM06J0-B02370) (распродажа)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM06J0-B02370",
+"name": "Монитор TUF Gaming VG249QM1A Gaming 24\" FHD 1920x1080 Fast IPS 270Hz",
+"condition": "new",
+"specs": {
+"size": "24\"",
+"resolution": "1920x1080",
+"refresh_rate": "270Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" TUF Gaming VG279Q3A Gaming Monitor, FHD(1920x1080), 180Hz, Fast IPS, 1ms (GTG), FreeSync, G-Sync, Black (90LM0990-B01170)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0990-B01170",
+"name": "Монитор TUF Gaming VG279Q3A Gaming 27\" FHD 1920x1080 Fast IPS 180Hz",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "180Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"32\" PA32QCV ProArt OLED Monitor, IPS, 5mc, 60Hz, 6К (6016 x 3384), HDMI, DisplayPort, Type-C, HDR110, Black (90LM0BD0-B01K71)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0BD0-B01K71",
+"name": "Монитор PA32QCV ProArt OLED 32\" IPS 60Hz 6K 6016x3384",
+"condition": "new",
+"specs": {
+"size": "32\"",
+"resolution": "6016 x 3384",
+"refresh_rate": "60Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"34\" ROG Swift OLED PG34WCDN Gaming Curved Monitor, 0.03 ms, 360Hz, UWQHD (3440х1440), G-SYNC, HDR400, Type-C, Black (90LM0CU0-B01971)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0CU0-B01971",
+"name": "Монитор ROG Swift OLED PG34WCDN Gaming Curved 34\" 360Hz UWQHD 3440х1440",
+"condition": "new",
+"specs": {
+"size": "34\"",
+"resolution": "3440х1440",
+"refresh_rate": "360Hz",
+"panel": "OLED",
+"curved": "true"
+},
+"risks": []
+},
+"27\" TUF Gaming VG27AQM5A Gaming Monitor, QHD(2560x1440), 300Hz, Fast IPS, 0.3ms, ELMB Sync, Sterio, Black (90LM0BG0-B01971)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0BG0-B01971",
+"name": "Монитор TUF Gaming VG27AQM5A Gaming 27\" QHD 2560x1440 Fast IPS 300Hz",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "300Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" TUF Gaming VG279QM5A Gaming Monitor, FHD (1920x1080), Fast-IPS, 240Hz, 0.3ms, G-SYNC®, AMD FreeSync™ Black (90LM0B80-B01171)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0B80-B01171",
+"name": "Монитор TUF Gaming VG279QM5A Gaming 27\" FHD 1920x1080 Fast-IPS 240Hz",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "240Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"34\" ROG Strix QD-OLED XG34WCDG Gaming Monitor, 175Hz, UWQHD (3440*1440), 0.03ms, G-SYNC, DisplayHDR™ 400, Black (90LM0B70-B01171)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0B70-B01171",
+"name": "Монитор ROG Strix QD-OLED XG34WCDG Gaming 34\" 175Hz UWQHD 3440x1440",
+"condition": "new",
+"specs": {
+"size": "34\"",
+"resolution": "3440*1440",
+"refresh_rate": "175Hz",
+"panel": "OLED"
+},
+"risks": []
+},
+"27\" ROG Strix QD-OLED XG27ACDMS Gaming Monitor, QHD (2560x1440), 280Hz, 0,03ms, USB Type-C, HDR400, Black (90LM0B60-B01371)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM0B60-B01371",
+"name": "Монитор ROG Strix QD-OLED XG27ACDMS Gaming 27\" QHD 2560x1440 280Hz",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "280Hz",
+"panel": "OLED"
+},
+"risks": []
+},
+"25\" ROG Strix XG259QNS eSports Gaming Monitor, FHD (1920x1080), 380Hz, Fast IPS, 0,3ms, HDR, Black (90LM09M0-B01370)": {
+"category": "monitor",
+"brand": null,
+"model": "90LM09M0-B01370",
+"name": "Монитор ROG Strix XG259QNS eSports Gaming 25\" FHD 1920x1080 Fast IPS 380Hz",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920x1080",
+"refresh_rate": "380Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" Nitro VG270U Gaming Monitor, IPS, 200Hz, 0,5mc, WQHD (2560x1440), HDMI+DP, Audio, Black (UM.HV0SS.102) | Acer": {
+"category": "monitor",
+"brand": "Acer",
+"model": "UM.HV0SS.102",
+"name": "Монитор Acer Nitro VG270U Gaming 27\" IPS 200Hz WQHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" FO27Q5P Gaming Monitor, QD-OLED, 500Hz, 0,03mc, QHD (2560x1440), 2K, HDR1000, HDMI, DisplayPort, Type-C, USB, RGB, Black | Aorus": {
+"category": "monitor",
+"brand": "Aorus",
+"model": null,
+"name": "Монитор Aorus FO27Q5P Gaming 27\" QD-OLED 500Hz QHD 2560x1440 2K",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "500Hz",
+"panel": "OLED"
+},
+"risks": []
+},
+"32\" DesignVue PD3205UA 4K Monitor, IPS, 60Hz, 5mc, UHD(3840x2160), HDMI, Type C, Audio, Pivot, Ergo Stand, Black, Monitor for Mac (9H.LKGLA.TPP) | BenQ": {
+"category": "monitor",
+"brand": "BenQ",
+"model": "9H.LKGLA.TPP",
+"name": "Монитор BenQ DesignVue PD3205UA 4K 32\" IPS 60Hz UHD 3840x2160",
+"condition": "new",
+"specs": {
+"size": "32\"",
+"resolution": "3840x2160",
+"refresh_rate": "60Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" S2725DSM Monitor, IPS, 144Hz, 1mc, QHD (2560x1440), HDMI, DP, Audio, Pivot, White | Dell": {
+"category": "monitor",
+"brand": "Dell",
+"model": null,
+"name": "Монитор Dell S2725DSM 27\" IPS 144Hz QHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "144Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" M27Q2 ICE EK Gaming Monitor, IPS, 200hz, 1mc, QHD (2560х 440), HDMI, DisplayPort, Type-C, USB, White | Gigabyte": {
+"category": "monitor",
+"brand": "Gigabyte",
+"model": null,
+"name": "Монитор Gigabyte M27Q2 ICE EK Gaming 27\" IPS 200Hz QHD 2560х440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560х 440",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" GS25F2A Gaming Monitor, IPS, 240hz, 1mc, FHD (1920x1080), HDMI, DisplayPort, Speaker, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор GS25F2A Gaming 25\" IPS 240Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920x1080",
+"refresh_rate": "240Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"24\" 524SH LED Monitor, IPS, 100Hz, 5mc, FHD (1920x1080), VGA+HDMI, Silver Black (94C19AA) (маркировка) | HP": {
+"category": "monitor",
+"brand": "HP",
+"model": "94C19AA",
+"name": "Монитор HP 524SH LED 24\" IPS 100Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "24\"",
+"resolution": "1920x1080",
+"refresh_rate": "100Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"32\" 7 Pro 732PK Monitor, IPS, 5mc,UHD (3840 x 2160), HDMI, Type-C; USB hub, DP, Black-Silver (8Y2K9AA) (маркировка)": {
+"category": "monitor",
+"brand": null,
+"model": "8Y2K9AA",
+"name": "Монитор 7 Pro 732PK 32\" IPS UHD 3840x2160",
+"condition": "new",
+"specs": {
+"size": "32\"",
+"resolution": "3840 x 2160",
+"panel": "IPS"
+},
+"risks": []
+},
+"24\" Z24n G3 Monitor, IPS, 4mc, 60Hz, FHD (1920x1080), HDMI, DisplayPort, Silver (1C4Z5AA) (1 штук)": {
+"category": "monitor",
+"brand": null,
+"model": "1C4Z5AA",
+"name": "Монитор Z24n G3 24\" IPS 60Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "24\"",
+"resolution": "1920x1080",
+"refresh_rate": "60Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" S5 Pro 527PQ Monitor, IPS, 5mc, 100Hz, QHD (2560x1440), HDMI+DP, Black (9D9S0UT) (маркировка)": {
+"category": "monitor",
+"brand": null,
+"model": "9D9S0UT",
+"name": "Монитор S5 Pro 527PQ 27\" IPS 100Hz QHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "100Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"29\" 29WP500-B Ultra Wide LED Monitor, IPS, 5mc, 75Hz, UWHD (2560 x 1080), HDMI, AMD FreeSync | LG": {
+"category": "monitor",
+"brand": "LG",
+"model": null,
+"name": "Монитор LG 29WP500-B Ultra Wide LED 29\" IPS 75Hz UWHD 2560x1080",
+"condition": "new",
+"specs": {
+"size": "29\"",
+"resolution": "2560 x 1080",
+"refresh_rate": "75Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"32\" Legion 32Q-2c Gaming Monitor, VA, 0.5ms, 240Hz, QHD (2560x1440), 400 nits, HDMI, DP, Black (68F5GACBEU) | Lenovo": {
+"category": "monitor",
+"brand": "Lenovo",
+"model": "68F5GACBEU",
+"name": "Монитор Lenovo Legion 32Q-2c Gaming 32\" VA 240Hz QHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "32\"",
+"resolution": "2560x1440",
+"refresh_rate": "240Hz",
+"panel": "VA"
+},
+"risks": []
+},
+"27\" Legion 27Q-10 Gaming Monitor, IPS, 0,5mc, 240Hz, QHD (2560x1440), HDMI+DP, Black (68C6GAC4EU) (распродажа)": {
+"category": "monitor",
+"brand": null,
+"model": "68C6GAC4EU",
+"name": "Монитор Legion 27Q-10 Gaming 27\" IPS 240Hz QHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "240Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"24\" MAG 244F Gaming Monitor, IPS, 0,5mc, 200hz, FHD (1920x1080), HDMI+DP, Black (9S6-3BC41H-011) | MSI": {
+"category": "monitor",
+"brand": "MSI",
+"model": "9S6-3BC41H-011",
+"name": "Монитор MSI MAG 244F Gaming 24\" IPS 200Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "24\"",
+"resolution": "1920x1080",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" MAG 274CXF Curved Gaming Monitor, Rapid VA, 0,5mc, 280hz, FHD (1920x1080), HDMI+DP+TypeC, Black (9S6-3CE31T-012)": {
+"category": "monitor",
+"brand": null,
+"model": "9S6-3CE31T-012",
+"name": "Монитор MAG 274CXF Curved Gaming 27\" Rapid VA 280Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "280Hz",
+"panel": "VA",
+"curved": "true"
+},
+"risks": []
+},
+"27\" MAG 272F Gaming Monitor, IPS, 0,5mc, 200hz, FHD (1920x1080), HDMI+DP, Black (9S6-3CE51T-007) (Маркировка)": {
+"category": "monitor",
+"brand": null,
+"model": "9S6-3CE51T-007",
+"name": "Монитор MAG 272F Gaming 27\" IPS 200Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" PXG25FP Gaming Monitor, IPS, 400Hz OC 420Hz, 1mc, FHD (1920*1080), HDMI, Display port, HAS, Black | Pixel": {
+"category": "monitor",
+"brand": "Pixel",
+"model": null,
+"name": "Монитор Pixel PXG25FP Gaming 25\" IPS 400Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920*1080",
+"refresh_rate": "400Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" PXG27FY Gaming Monitor, IPS, 520Hz, 1mc, FHD (1920*1080), HDMI, Display port, HAS": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор PXG27FY Gaming 27\" IPS 520Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920*1080",
+"refresh_rate": "520Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" PXG25FX Gaming Monitor, IPS, 300Hz, 1mc, FHD (1920*1080), HAS Stand, HDMI+DP, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор PXG25FX Gaming 25\" IPS 300Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920*1080",
+"refresh_rate": "300Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" PXG25FXI Gaming Monitor, IPS, 300Hz, 1mc, FHD (1920*1080), VGA+HDMI, Black, Fixed stand": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор PXG25FXI Gaming 25\" IPS 300Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920*1080",
+"refresh_rate": "300Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" X27A Desktop Monitor, IPS, 120Hz, 6mc, FHD (1920x1080), HDMI+DP, (P27FDA-RAX) | Redmi": {
+"category": "monitor",
+"brand": "Redmi",
+"model": "P27FDA-RAX",
+"name": "Монитор Redmi X27A Desktop 27\" IPS 120Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" G27 (XG27G) Gaming Monitor, IPS, 180Hz, 1mc, FHD (1920x1080), HDMI+DP, (P27FBA-RX)": {
+"category": "monitor",
+"brand": null,
+"model": "P27FBA-RX",
+"name": "Монитор G27 (XG27G) Gaming 27\" IPS 180Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "180Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" A27Q 2026 Monitor, IPS, 120Hz, 1mc, QHD (2560x1440), HDMI+DP, (P27QDA-RA)": {
+"category": "monitor",
+"brand": null,
+"model": "P27QDA-RA",
+"name": "Монитор A27Q 2026 27\" IPS 120Hz QHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" G25 2026 Gaming Monitor, Fast IPS, 300Hz, 1mc, FHD (1920x1080), HDMI+DP, (P25FEA-RG)": {
+"category": "monitor",
+"brand": null,
+"model": "P25FEA-RG",
+"name": "Монитор G25 2026 Gaming 25\" Fast IPS 300Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920x1080",
+"refresh_rate": "300Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" LS27HG400EIXCI Odyssey G4 LED Monitor, IPS, 300Hz, 1mc, FHD (1920x1080), Height adjustable, HDMI | Samsung": {
+"category": "monitor",
+"brand": "Samsung",
+"model": "LS27HG400EIXCI",
+"name": "Монитор Samsung Odyssey G4 LS27HG400EIXCI LED 27\" IPS 300Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "300Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" LS27F320GAIXCI S3 S32GF LED Monitor, IPS, 120Hz, 5mc, FHD (1920x1080), HDMI, Black (маркировка)": {
+"category": "monitor",
+"brand": null,
+"model": "LS27F320GAIXCI",
+"name": "Монитор S3 S32GF LS27F320GAIXCI LED 27\" IPS 120Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "1920x1080",
+"refresh_rate": "120Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" KG277R PLUS Gaming Monitor, Fast IPS, 200Hz (overclock 245Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black | Titan Army": {
+"category": "monitor",
+"brand": "Titan Army",
+"model": null,
+"name": "Монитор Titan Army KG277R PLUS Gaming 27\" Fast IPS 200Hz WQHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "200Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" KG277S PLUS Gaming Monitor, Fast IPS, 240Hz (overclock 275Hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор KG277S PLUS Gaming 27\" Fast IPS 240Hz WQHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "240Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"25\" KG257H PRO Gaming Monitor, Fast IPS, 340Hz, 1mc, FHD (1920x1080), HDMI, Display port, HAS, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор KG257H PRO Gaming 25\" Fast IPS 340Hz FHD 1920x1080",
+"condition": "new",
+"specs": {
+"size": "25\"",
+"resolution": "1920x1080",
+"refresh_rate": "340Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"32\" P326MV MAX Gaming Monitor, QD-Mini LED, IPS, 1mc, 320Hz @ FHD (1920*1080), 160Hz @ UHD (3840x2160), HDMI, DP, TypeC, HAS, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор P326MV MAX Gaming 32\" QD-Mini LED IPS 320Hz FHD 1920x1080 / 160Hz UHD 3840x2160",
+"condition": "new",
+"specs": {
+"size": "32\"",
+"resolution": "3840x2160",
+"refresh_rate": "320Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"27\" P275MS PLUS Gaming Monitor, QD-Mini LED, IPS, 240Hz (overclock 275hz), 1mc, WQHD (2560x1440), HDMI, Display port, HAS, Black": {
+"category": "monitor",
+"brand": null,
+"model": null,
+"name": "Монитор P275MS PLUS Gaming 27\" QD-Mini LED IPS 240Hz WQHD 2560x1440",
+"condition": "new",
+"specs": {
+"size": "27\"",
+"resolution": "2560x1440",
+"refresh_rate": "240Hz",
+"panel": "IPS"
+},
+"risks": []
+},
+"DDR4 8GB 3200MHZ | Apacer": {
+"category": "ram",
+"brand": "Apacer",
+"model": null,
+"name": "Оперативная память Apacer DDR4 8GB 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "DIMM",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"DDR4 16GB 3200MHz SODIMM | GMOC": {
+"category": "ram",
+"brand": "GMOC",
+"model": null,
+"name": "Оперативная память GMOC DDR4 16GB 3200MHz SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"DDR5 16GB 5600MHz | Hiksemi": {
+"category": "ram",
+"brand": "Hiksemi",
+"model": null,
+"name": "Оперативная память Hiksemi DDR5 16GB 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "DIMM",
+"capacity": "16GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"DDR4 16GB 3200MHz SODIMM | Hikvision": {
+"category": "ram",
+"brand": "Hikvision",
+"model": null,
+"name": "Оперативная память Hikvision DDR4 16GB 3200MHz SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "16GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"DDR5 16GB 5600MHz Silver Heatsink | KingBank": {
+"category": "ram",
+"brand": "KingBank",
+"model": null,
+"name": "Оперативная память KingBank DDR5 16GB 5600MHz Silver Heatsink",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "DIMM",
+"capacity": "16GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"DDR5 8GB 5600MHz SODIMM | Lexar": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar DDR5 8GB 5600MHz SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "8GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"DDR5 32GB 5600MHz SODIMM": {
+"category": "ram",
+"brand": null,
+"model": null,
+"name": "Оперативная память DDR5 32GB 5600MHz SODIMM",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "SODIMM",
+"capacity": "32GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"DDR4 8GB 3200MHz": {
+"category": "ram",
+"brand": null,
+"model": null,
+"name": "Оперативная память DDR4 8GB 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "DIMM",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"DDR5 8GB 5600MHz": {
+"category": "ram",
+"brand": null,
+"model": null,
+"name": "Оперативная память DDR5 8GB 5600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"form_factor": "DIMM",
+"capacity": "8GB",
+"frequency": "5600MHz"
+},
+"risks": []
+},
+"DDR4 8GB 3200MHz | Team": {
+"category": "ram",
+"brand": "Team",
+"model": null,
+"name": "Оперативная память Team DDR4 8GB 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "DIMM",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"Монитор LG 24\" 24GN60R IPS 1440Hz": {
+"category": "monitor",
+"brand": "LG",
+"model": "24GN60R",
+"name": "Монитор LG 24GN60R 24\" IPS 1440Hz",
+"condition": "new",
+"specs": {
+"size": "24",
+"refresh_rate": "1440",
+"panel": "IPS"
+},
+"risks": [
+"spec_mismatch"
+]
+},
+"Блок питания Noname 600W": {
+"category": "psu",
+"brand": null,
+"model": null,
+"name": "Блок питания Noname 600W",
+"condition": "new",
+"specs": {
+"power": "600W"
+},
+"risks": [
+"noname_psu"
+]
+},
+"Видеокарта Sapphire RX 580 8GB после майнинга": {
+"category": "gpu",
+"brand": "Sapphire",
+"model": "RX 580 8GB",
+"name": "Видеокарта Sapphire RX 580 8GB",
+"condition": "new",
+"specs": {
+"vendor": "AMD",
+"chip": "RX 580",
+"memory": "8"
+},
+"risks": [
+"mining"
+]
+},
+"Видеокарта P106-100 6GB без видеовыходов": {
+"category": "gpu",
+"brand": null,
+"model": "P106-100 6GB",
+"name": "Видеокарта P106-100 6GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "P106-100",
+"memory": "6"
+},
+"risks": [
+"mining"
+]
+},
+"Intel Core i7-12700 12C\\20T 2.1-4,9 GHz, 20M LGA1700, Alder Lake | JONSBO V9 Silver Mini-Tower\\Micro-ATX,Mini-ITX\\Стекло\\Алюминий\\Б.П.SFX | LG": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i7-12700",
+"name": "Процессор Intel Core i7-12700",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"cores": "12",
+"threads": "20"
+},
+"risks": []
+},
+"Intel Core i7-12700K 12C\\20T 2.7-5,0 GHz, 20M LGA1700, Alder Lake | JONSBO U4 PLUS Silver Midi-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 24\" IPS 24MK430H, 1920Х1080, 50-75HZ, IPS LED Monitor FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i7-12700K",
+"name": "Процессор Intel Core i7-12700K",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"cores": "12",
+"threads": "20"
+},
+"risks": []
+},
+"Intel Core i9-12900 16C\\24T 2.4-5,1 GHz, 30M LGA1700, Alder Lake | JONSBO C3-Plus Silver Midi-Tower\\mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 24\" IPS 24MK600, 1920*1080, IPS LED Monitor, 50-75HZ, Free+E21Sync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i9-12900",
+"name": "Процессор Intel Core i9-12900",
+"condition": "new",
+"specs": {
+"series": "Core i9",
+"socket": "LGA1700",
+"cores": "16",
+"threads": "24"
+},
+"risks": []
+},
+"Intel Core i9-12900KF 16C\\24T 3.2-5,2 GHz, 30M LGA1700, Alder Lake | JONSBO D30 Silver Mini-Tower\\mATX,Mini-ITX,Mini-DTX\\Стекло\\Алюминий\\Б.П. ATX | LG 27MK400H 1920*1080, TN, 50-75HZ, 2ms, FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i9-12900KF",
+"name": "Процессор Intel Core i9-12900KF",
+"condition": "new",
+"specs": {
+"series": "Core i9",
+"socket": "LGA1700",
+"cores": "16",
+"threads": "24"
+},
+"risks": []
+},
+"Intel Core i9-12900K 16C\\24T 2.4-5,2 GHz, 30M LGA1700, Alder Lake | JONSBO D40 Silver Midi-Tower\\ATX,mATX\\Стекло\\Алюминий\\Б.П. ATX | LG 27MP500-B 1920*1080, IPS, LED Monitor, 50-75HZ, FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i9-12900K",
+"name": "Процессор Intel Core i9-12900K",
+"condition": "new",
+"specs": {
+"series": "Core i9",
+"socket": "LGA1700",
+"cores": "16",
+"threads": "24"
+},
+"risks": []
+},
+"Intel Core i5-13600K 14C\\20T 2.6-5,1 GHz, 24M LGA1700, Raptor Lake | JONSBO U5 Black Midi-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 27\" IPS 27MK600, 1920X1080, 56-75Hz, IPS LED Monitor FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i5-13600K",
+"name": "Процессор Intel Core i5-13600K",
+"condition": "new",
+"specs": {
+"series": "Core i5",
+"socket": "LGA1700",
+"cores": "14",
+"threads": "20"
+},
+"risks": []
+},
+"Intel Core i7-13700KF 16C\\24T 3.4-5,4 GHz, 30M LGA1700, Raptor Lake | JONSBO U5 Silver Midi-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG UltraGear 24GL600F-B 1920*1080, TN, 144HZ, 1ms, FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i7-13700KF",
+"name": "Процессор Intel Core i7-13700KF",
+"condition": "new",
+"specs": {
+"series": "Core i7",
+"socket": "LGA1700",
+"cores": "16",
+"threads": "24"
+},
+"risks": []
+},
+"Intel Core i9-13900K 24C\\32T 3.0-5,8 GHz, 36M LGA1700, Raptor Lake | JONSBO UMX4W Black Midi-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 29\" LG 29WP500-B 2560*1080, IPS LED Monitor, 40-75HZ, FreeSync, HDMI": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i9-13900K",
+"name": "Процессор Intel Core i9-13900K",
+"condition": "new",
+"specs": {
+"series": "Core i9",
+"socket": "LGA1700",
+"cores": "24",
+"threads": "32"
+},
+"risks": []
+},
+"ПРОЦЕССОРЫ AMD | JONSBO UMX4W Silver Midi-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 29\" LG 29WN600 2560*1080, IPS LED Monitor, 40-75HZ, FreeSync, HDMI": null,
+"AMD Ryzen 5 5600X 3,7-4,6 GHZ 6 cores/12 threads no GPU/32mb Cache (tray) | JONSBO UMX6-G Silver Midi-Tower\\ATX,EATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX | LG 34\" LG 34WP500-B 2560*1080, IPS LED Monitor, 40-75HZ, FreeSync, HDMI": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 5 5600X",
+"name": "Процессор AMD Ryzen 5 5600X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 5",
+"cores": "6",
+"threads": "12",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen 7 5700G 3,8-4,6 GHZ 8 cores/16 threads/Vega 8/16mb Cache (tray) | JONSBO MOD3 Black Full-Tower\\ATX,EATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX (Только в сборках) | DELL": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 5700G",
+"name": "Процессор AMD Ryzen 7 5700G OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"cores": "8",
+"threads": "16",
+"graphics": "true",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen 7 5700X 3,4-4,6 GHZ 8 cores/16 threads no GPU/32mb Cache (tray) | JONSBO MOD3 Grey Full-Tower\\ATX,EATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX (Только в сборках) | Dell Alienware AW2521HF 24.5\"\\1920x1080\\240Hz\\LED\\IPS\\1ms\\NVIDIA G-SYNC Compatible, AMD FreeSync Premium\\HDMI, DisplayPort": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 5700X",
+"name": "Процессор AMD Ryzen 7 5700X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"cores": "8",
+"threads": "16",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen 7 5800X 3,8-4,7 GHZ 8 cores/16 threads no GPU/32mb Cache (tray) | JONSBO TR03-G Black Full-Tower\\ATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX (Только в сборках) | Alienware AW2523HF 24.5 IPS\\OLED\\1920x1080\\360Hz\\1ms\\NVIDIA G-SYNC Compatible, AMD FreeSync Premium\\HDMI, DisplayPort\\HDMI, DisplayPort": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 5800X",
+"name": "Процессор AMD Ryzen 7 5800X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 7",
+"cores": "8",
+"threads": "16",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen 9 5900X 3,7-4,8 GHZ 12 cores/24 threads no GPU/64mb Cache (tray) | JONSBO TR03-G Silver Full-Tower\\ATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX (Только в сборках) | HP": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 9 5900X",
+"name": "Процессор AMD Ryzen 9 5900X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 9",
+"cores": "12",
+"threads": "24",
+"pack": "OEM"
+},
+"risks": []
+},
+"AMD Ryzen 9 5950X 3,4-4,9 GHZ 16 cores/32 threads no GPU/64mb Cache (tray) | JONSBO MOD5 Black Full-Tower\\ATX,mATX,Mini-ITX\\Стекло\\Алюминий\\Б.П. ATX (Только в сборках) | HP V27i 27\" 1920Х1080\\60HZ\\IPS\\LED Monitor\\HDMI, VGA (D-sub)": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 9 5950X",
+"name": "Процессор AMD Ryzen 9 5950X OEM",
+"condition": "new",
+"specs": {
+"series": "Ryzen 9",
+"cores": "16",
+"threads": "32",
+"pack": "OEM"
+},
+"risks": []
+},
+"Gigabyte B660M GAMING AC DDR4 | Cooler Master MB511D Cталь\\пластик\\Fan 1x120mm | Xiaomi 24 1C 24\"\\IPS\\LED\\1920X1080\\60HZ\\6MS\\HDMI, VGA (D-sub)": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B660M GAMING AC DDR4",
+"name": "Материнская плата Gigabyte B660M GAMING AC DDR4",
+"condition": "new",
+"specs": {
+"memory_type": "DDR4",
+"wifi": "true"
+},
+"risks": []
+},
+"Gigabyte B660M GAMING X DDR4 LGA 1700 mATX | Cooler Master MasterBox MB511 ARGB Cталь\\Закаленное стекло\\Fan 4x120mm | Xiaomi Mi Surface Display 34\" \\VA\\WLED\\3440X1440\\144HZ\\4MS\\G-Sync, FreeSync Premium\\HDMI, DP, AUDIO": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B660M GAMING X DDR4",
+"name": "Материнская плата Gigabyte B660M GAMING X DDR4",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "mATX",
+"memory_type": "DDR4"
+},
+"risks": []
+},
+"Gigabyte B660 DS3H AX DDR4 LGA 1700 mATX | Cooler Master MasterBox MB500 ARGB Cталь\\Закаленное стекло\\Fan 3x120mm | МОНИТОРЫ GIGABYTE AORUS": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B660 DS3H AX DDR4",
+"name": "Материнская плата Gigabyte B660 DS3H AX DDR4",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "mATX",
+"memory_type": "DDR4",
+"wifi": "true"
+},
+"risks": []
+},
+"Gigabyte Z690 AORUS ELITE AX DDR5 LGA 1700 ATX | Cooler Master Cosmos C700P Black Edition\\ARGB\\Сталь, закаленное стекло\\Fan 3x140mm | AORUS CV27 (CV27F-EK) Gaming Monitor curved, 165hz, FHD 1920x1080, VA LED, 1ms": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z690 AORUS ELITE AX DDR5",
+"name": "Материнская плата Gigabyte Z690 AORUS ELITE AX DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"Gigabyte Z690M AORUS ELITE AX DDR4 LGA 1700 mATX | Cooler Master HAF 700 EVO ARGB\\Сталь, закаленное стекло\\Fan 3x120mm, 2x200mm | AORUS CV27Q (CV27Q-EK) Gaming Monitor curved, 165hz, 2560 x 1440 (QHD), VA LED, 1ms": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z690M AORUS ELITE AX DDR4",
+"name": "Материнская плата Gigabyte Z690M AORUS ELITE AX DDR4",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "mATX",
+"memory_type": "DDR4",
+"wifi": "true"
+},
+"risks": []
+},
+"Gigabyte B660 AORUS MASTER DDR5 LGA 1700 ATX | Cooler Master Cosmos C700M ARGB\\Сталь, закаленное стекло\\Fan 4x120mm | GIGABYTE G34WQC A EK 3‎‎4\"VA 1500R\\1‎44Гц\\3‎‎440 x 1440\\VESA Display HDR400\\HDMI 2.0 x2, 2 Display port 1.4\\": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "B660 AORUS MASTER DDR5",
+"name": "Материнская плата Gigabyte B660 AORUS MASTER DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"Gigabyte Z690 AORUS PRO DDR5 LGA 1700 ATX | Gamdias Aura GC1 сталь, стекло, пластик\\RGB\\4x120mm Fan | Gigabyte M34WQ-EK IPS\\144Hz\\3440x1440\\HDMI 2.0, DisplayPort 1.4(DSC),USB Type-C x1": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z690 AORUS PRO DDR5",
+"name": "Материнская плата Gigabyte Z690 AORUS PRO DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"Gigabyte Z690 AORUS ULTRA DDR5 LGA 1700 ATX | GAMDIAS Talos E3 Black сталь, стекло, пластик\\RGB\\2x120mm Fans | Gigabyte M28U-EK SS IPS\\144Hz\\3840x2160\\HDMI 2.1, DisplayPort 1.4(DSC),USB Type-C x1": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z690 AORUS ULTRA DDR5",
+"name": "Материнская плата Gigabyte Z690 AORUS ULTRA DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"Gigabyte Z690 AORUS MASTER DDR5 LGA 1700 ATX | ARGUS M2 сталь\\закаленное стекло\\подсветка RGB no fans | MSI Modern MD241P Ultramarine IPS\\75hz\\FHD 1920x1080\\5ms\\HDMI, Type-C": {
+"category": "motherboard",
+"brand": "Gigabyte",
+"model": "Z690 AORUS MASTER DDR5",
+"name": "Материнская плата Gigabyte Z690 AORUS MASTER DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5"
+},
+"risks": []
+},
+"MSI B660 PRO A LGA 1700 DDR4 | Sharkoon TK4 RGB сталь, стекло, пластик 4x120mm Fan RGB | 32\" MSI Optix G32C4 Curverd VA LED\\1920x1080\\165Гц\\1мс\\AMD FreeSync\\HDMI, DisplayPort": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "PRO B660-A DDR4",
+"name": "Материнская плата MSI PRO B660-A DDR4",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"memory_type": "DDR4"
+},
+"risks": []
+},
+"MSI MPG Z690 EDGE Wi-Fi LGA 1700 DDR5 ATX | Sharkoon ELITE SHARK CA300T White, Black сталь, стекло, пластик 4x120mm Fan RGB | BenQ PD2700Q 27\"\\2560x1440\\60Гц\\4 мс\\IPS\\100% sRGB/Rec.709\\Min DisplayPort,DisplayPort,HDMI,USB Downstream,USB Upstream": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MPG Z690 EDGE WIFI",
+"name": "Материнская плата MSI MPG Z690 EDGE WIFI DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"MSI MPG Z690 FORCE Wi-Fi LGA 1700 DDR5 ATX | КОРПУСА DEEPCOOL | BenQ PD2700U 27\"\\3840x2160\\60Гц\\5 мс\\IPS\\100% sRGB/Rec.709\\Min DisplayPort,DisplayPort,HDMI,USB Downstream,USB Upstream": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "MPG Z690 FORCE WIFI",
+"name": "Материнская плата MSI MPG Z690 FORCE WIFI DDR5",
+"condition": "new",
+"specs": {
+"socket": "LGA 1700",
+"form_factor": "ATX",
+"memory_type": "DDR5",
+"wifi": "true"
+},
+"risks": []
+},
+"MSI A520M-A PRO AM4 Socet DDR4 Micro-ATX 236x200 | DEEPCOOL MATREXX 55 V3 ADD-RGB WH сталь, стекло, пластик\\RGB\\No Fans | BenQ PD3200U 32\"\\3840x2160\\16:9\\60Гц\\4 мс\\IPS\\100% sRGB/Rec. 709\\DisplayPort, Mini DisplayPort, HDMI (2 шт)": {
+"category": "motherboard",
+"brand": "MSI",
+"model": "A520M-A PRO",
+"name": "Материнская плата MSI A520M-A PRO",
+"condition": "new",
+"specs": {
+"socket": "AM4",
+"form_factor": "mATX",
+"memory_type": "DDR4"
+},
+"risks": []
+},
+"GigaByte - 4GB GTX1650 D6 1xFAN GDDR6/128bit/CC 1635MHz/CudaCores 896/mc12000 | Thermaltake S300 TG SNOW": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GTX 1650 D6",
+"name": "Видеокарта Gigabyte GTX 1650 D6 4GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 1650",
+"memory": "4",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Gigabyte GeForce RTX 3050 EAGLE 8G\\2xFAN GDDR6/128bit/CC 1777MHz/Cores 2560/mc14000/PciEx4.0 | Thermaltake View 31 TG ARGB": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3050 EAGLE 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3050 EAGLE 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3050",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Gigabyte GeForce RTX 3050 Gaming OC 8G\\2xFAN GDDR6/128bit/CC 1822MHz/Cores 2560/mc14000/PciEx4.0 | Thermaltake Level 20 RS ARGB": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3050 Gaming OC 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3050 Gaming OC 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3050",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"AORUS GeForce RTX 3060 ELITE 12G 3xFan\\GDDR6\\192bit\\cc1867\\CudaCores3584\\mc15000/PciEx4.0 | Thermaltake Core P3 TG": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "AORUS GeForce RTX 3060 ELITE 12G",
+"name": "Видеокарта Gigabyte AORUS GeForce RTX 3060 ELITE 12G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060",
+"memory": "12",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"GeForce RTX 3060 Ti Vision OC 8G GDDR6\\256bit\\CC 1755\\CudaCores 4864\\mc14000\\PciEx4.0\\3xFan\\PCI-E 4.0 | Thermaltake View 51 TG ARGB": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3060 Ti Vision OC 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3060 Ti Vision OC 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060 Ti",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Gigabyte GeForce RTX 3060Ti GAMING OC PRO 8G GDDR6\\256bit\\CC 1770\\CudaCores 4864\\mc14000PciEx4.0\\3xFan\\PCI-E 4.0 | Thermaltake View 51 TG ARGB SNOW": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3060Ti GAMING OC PRO 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3060 Ti GAMING OC PRO 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060 Ti",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Gigabyte GeForce RTX 3070 VISION OC 8G 256bit\\GDDR6\\cc 1815\\CudaCores 5888\\mc14000\\PciEx4.0 | Cougar MX440-G RGB сталь, стекло, пластик\\RGB\\3x120mm Fan": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3070 VISION OC 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3070 VISION OC 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3070",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"GIGABYTE GeForce RTX 3070 MASTER 8G GDDR6\\256Bit\\CC1845Mhz\\CudaCores 5888\\mc14000Mhz\\PciEx4.0 | Cougar MX440 Mesh RGB сталь, стекло, пластик\\RGB\\3x120mm Fan": {
+"category": "gpu",
+"brand": "Gigabyte",
+"model": "GeForce RTX 3070 MASTER 8G",
+"name": "Видеокарта Gigabyte GeForce RTX 3070 MASTER 8G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3070",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"MSI GeForce RTX 3080 Ti GAMING X TRIO 12G 3xFAN GDDR6X/384bit/CC 1770MHz/Cores 10240/mc19000/PciEx4.0 | Corsair SF600 80 PLUS Platinum SFX(Только в сборках)": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GeForce RTX 3080 Ti GAMING X TRIO 12G",
+"name": "Видеокарта MSI GeForce RTX 3080 Ti GAMING X TRIO 12G",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3080 Ti",
+"memory": "12",
+"memory_type": "GDDR6X"
+},
+"risks": []
+},
+"MSI GeForce RTX 4080 16GB GAMING X TRIO 3xFAN GDDR6X/256bit/CC2595MHz/Cores 9728/mc22400/PciEx4.0 (только в сборках временно) | Corsair HX850 80 PLUS PLATINUM": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GeForce RTX 4080 16GB GAMING X TRIO",
+"name": "Видеокарта MSI GeForce RTX 4080 16GB GAMING X TRIO",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 4080",
+"memory": "16",
+"memory_type": "GDDR6X"
+},
+"risks": []
+},
+"ВИДЕОКАРТЫ MSI AMD | Corsair HX1000 80 PLUS PLATINUM": null,
+"MSI Radeon RX 6600 Armor 8G 2X OC 2xFAN GDDR6 8Gb/128bit/sp1792/cc2044Mhz/mc14000 \\PciEx4.0 | Corsair HX1200 80 PLUS PLATINUM": {
+"category": "gpu",
+"brand": "MSI",
+"model": "Radeon RX 6600 Armor 8G 2X OC",
+"name": "Видеокарта MSI Radeon RX 6600 Armor 8G 2X OC",
+"condition": "new",
+"specs": {
+"vendor": "AMD",
+"chip": "RX 6600",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"INNO3D GeForce RTX 3070 Ti iCHILL X4 8G OC 4xFAN GDDR6X/256bit/CC1830 MHz/CudaCores 6144/mc14000 | Cooler Master MWE 850W Gold V2 FM": {
+"category": "gpu",
+"brand": "INNO3D",
+"model": "GeForce RTX 3070 Ti iCHILL X4 8G OC",
+"name": "Видеокарта INNO3D GeForce RTX 3070 Ti iCHILL X4 8G OC",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3070 Ti",
+"memory": "8",
+"memory_type": "GDDR6X"
+},
+"risks": []
+},
+"INNO3D GeForce RTX 3080 iChill X3 10G OC 3xFAN GDDR6X/320bit/CC1770 MHz/CudaCores 8704/mc19000 | Cooler Master MWE 1050W Gold V2 FM": {
+"category": "gpu",
+"brand": "INNO3D",
+"model": "GeForce RTX 3080 iChill X3 10G OC",
+"name": "Видеокарта INNO3D GeForce RTX 3080 iChill X3 10G OC",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3080",
+"memory": "10",
+"memory_type": "GDDR6X"
+},
+"risks": []
+},
+"INNO3D GeForce RTX 3090 iChill X4 24G OC 4xFAN GDDR6X/384bit/CC1755 MHz/CudaCores 10496/mc19500 | Cooler Master MWE 1250W Gold V2 FM": {
+"category": "gpu",
+"brand": "INNO3D",
+"model": "GeForce RTX 3090 iChill X4 24G OC",
+"name": "Видеокарта INNO3D GeForce RTX 3090 iChill X4 24G OC",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3090",
+"memory": "24",
+"memory_type": "GDDR6X"
+},
+"risks": []
+},
+"Palit GeForce RTX 3050 Dual 8Gb\\2xFAN GDDR6/128bit/CC 1777MHz/Cores 2560/mc14000/PciEx4.0 | Thermaltake ВОЛГА 1000W 80 PLUS Gold": {
+"category": "gpu",
+"brand": "Palit",
+"model": "GeForce RTX 3050 Dual 8Gb",
+"name": "Видеокарта Palit GeForce RTX 3050 Dual 8Gb",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3050",
+"memory": "8",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"CRUCIAL 1x8Gb DDR4 3200MHZ CL22 | Enermax ELC-LTTRTO360-TBP": {
+"category": "ram",
+"brand": "Crucial",
+"model": null,
+"name": "Оперативная память Crucial 8GB DDR4 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "8GB",
+"frequency": "3200MHz",
+"modules": "1"
+},
+"risks": []
+},
+"Lexar SO-DIMM DDR4 8GB 2666MHz | MSI MAG CORELIQUID P240 2x120mm Fan\\500 ~ 2000 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700": {
+"category": "ram",
+"brand": "Lexar",
+"model": null,
+"name": "Оперативная память Lexar SODIMM DDR4 8GB 2666MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "8GB",
+"frequency": "2666MHz"
+},
+"risks": []
+},
+"Lexar Hades 16GB (2*8GB 3600MHZ CL16) | MSI MAG CORELIQUID C280 2x140mm Fan\\500 ~ 1800 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700": {
+"category": "ram",
+"brand": "Lexar",
+"model": "Hades",
+"name": "Оперативная память Lexar Hades 16GB (2x8GB) DDR4 3600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3600MHz",
+"modules": "2"
+},
+"risks": []
+},
+"Lexar Hades 32GB (2*16GB) 3600MHz | MSI MAG CORELIQUID 360R V2 3x120mm ARGB Fan\\500 ~ 1800 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM intel 1700 compatible": {
+"category": "ram",
+"brand": "Lexar",
+"model": "Hades",
+"name": "Оперативная память Lexar Hades 32GB (2x16GB) DDR4 3600MHz",
+"condition": "new",
+"specs": {
+"capacity": "32GB",
+"frequency": "3600MHz",
+"modules": "2"
+},
+"risks": []
+},
+"ОПЕРАТИВНАЯ ПАМЯТЬ G.Skill | MSI MAG CORELIQUID C360 3x120mm Fan\\500 ~ 2000 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700": null,
+"G.Skill Ripjaws 16GB DDR4 (2*8GB 3600MHz CL14) | MSI MPG CORELIQUID K360 3x120mm Fan\\500 ~ 2000 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700": {
+"category": "ram",
+"brand": "G.Skill",
+"model": "Ripjaws",
+"name": "Оперативная память G.Skill Ripjaws 16GB (2x8GB) DDR4 3600MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3600MHz",
+"modules": "2"
+},
+"risks": []
+},
+"ОПЕРАТИВНАЯ ПАМЯТЬ CORSAIR | MSI MEG CORELIQUID S360 3x120mm Fan\\500 ~ 2000 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700": null,
+"Corsair Vengeance RGB RS 16GB 2*8GB 3600MHz CL18 | Lian Li Galahad 360 AIO Black 360mm RGB water/liquid CPU Cooler , Closed Loop": {
+"category": "ram",
+"brand": "Corsair",
+"model": "Vengeance RGB RS",
+"name": "Оперативная память Corsair Vengeance RGB RS 16GB (2x8GB) 3600MHz",
+"condition": "new",
+"specs": {
+"capacity": "16GB",
+"frequency": "3600MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Corsair Vengeance RGB RT 16GB (2*8GB 3200MHz CL16) | Lian Li Galahad 360 AIO White 360mm RGB water/liquid CPU Cooler , Closed Loop": {
+"category": "ram",
+"brand": "Corsair",
+"model": "Vengeance RGB RT",
+"name": "Оперативная память Corsair Vengeance RGB RT 16GB (2x8GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "16GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Corsair Vengeance RGB RT White 16GB DDR4 (2*8GB 3200MHz CL16) | Lian Li Galahad AIO 360 ARGB Black Uni Fan SL120 Edition ARGB water/liquid CPU Cooler , Closed Loop": {
+"category": "ram",
+"brand": "Corsair",
+"model": "Vengeance RGB RT White",
+"name": "Оперативная память Corsair Vengeance RGB RT White 16GB (2x8GB) DDR4 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Corsair Vengeance RGB RS 16GB (2*8GB 3200MHz CL16) | Lian Li Galahad AIO 360 ARGB White Uni Fan SL120 Edition ARGB water/liquid CPU Cooler , Closed Loop": {
+"category": "ram",
+"brand": "Corsair",
+"model": "Vengeance RGB RS",
+"name": "Оперативная память Corsair Vengeance RGB RS 16GB (2x8GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "16GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Corsair VENGEANCE RGB PRO 16GB (2x8GB) DDR4 3000MHz 15-17-17-36 black | КОРПУСНЫЕ ВЕНТИЛЯТОРЫ LIAN LI": {
+"category": "ram",
+"brand": "Corsair",
+"model": "VENGEANCE RGB PRO",
+"name": "Оперативная память Corsair VENGEANCE RGB PRO 16GB (2x8GB) DDR4 3000MHz Black",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3000MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Kingston Fury Beast RGB 8GB (1*8GB 3200MHz CL16) | JONSBO TW4-240 ARGB Ver 2.0 AMD,Intel\\\\Pump 2500 RPM\\Fan 800–1 800RPM\\2x120mm Fan\\71 CFM\\35.7 дБ\\TDP 250W": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury Beast RGB",
+"name": "Оперативная память Kingston Fury Beast RGB 8GB (1x8GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "8GB",
+"frequency": "3200MHz",
+"modules": "1",
+"rgb": "true"
+},
+"risks": []
+},
+"Kingston Fury Beast RGB 16GB (2*8GB 3200MHz CL16) | JONSBO TW4-360 Color AMD,Intel\\Pump 2600 RPM\\Fan 700–1 800RPM\\3x120mm Fan\\66.81 CFM\\30. дБ\\TDP350W": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury Beast RGB",
+"name": "Оперативная память Kingston Fury Beast RGB 16GB (2x8GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "16GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Kingston Fury Beast 16GB RGB Special Edition White (2*8GB 3200MHz CL16) | JONSBO TW4-360 ARGB Ver 2.0 AMD,Intel\\Pump 2600 RPM\\Fan 200–1 800RPM\\2x120mm Fan\\55.6 CFM\\22.5 дБ\\TDP 350W": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury Beast RGB Special Edition White",
+"name": "Оперативная память Kingston Fury Beast 16GB RGB Special Edition White (2x8GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "16GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Kingston Fury Beast RGB 32GB (2*16GB 3200MHz CL16) | ПРОЦЕССОРНЫЕ КУЛЕРА JONSBO": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury Beast RGB",
+"name": "Оперативная память Kingston Fury Beast RGB 32GB (2x16GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "32GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"Kingston Fury Beast 32GB RGB Special Edition White (2*16GB 3200MHz CL16) | JONSBO CR-1200 Black TDP 95W/1xFan/PWM/2300rpm/AMD,INTEL": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury Beast RGB Special Edition White",
+"name": "Оперативная память Kingston Fury Beast 32GB RGB Special Edition White (2x16GB) 3200MHz",
+"condition": "new",
+"specs": {
+"capacity": "32GB",
+"frequency": "3200MHz",
+"modules": "2",
+"rgb": "true"
+},
+"risks": []
+},
+"AORUS NVMe Gen4 500GB M.2 3D TLC Toshiba BiCS4\\PCI-E 4.0 x4\\max.write 2500mb/s\\max.read 5000mb/s | SE-214-XT ARGB TDP 150W/1xFan/PWM/2200rpm/AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Gigabyte",
+"model": "AORUS NVMe Gen4 500GB",
+"name": "SSD-накопитель Gigabyte AORUS NVMe Gen4 500GB M.2",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"AORUS NVMe Gen4 1TB M.2 3D TLC Toshiba BiCS4\\PCI-E 4.0 x4\\max.write 4400mb/s\\max.read 5000mb/s | SE-224-XT Basic TDP 180W/1xFan/PWM/1800rpm/AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Gigabyte",
+"model": "AORUS NVMe Gen4 1TB",
+"name": "SSD-накопитель Gigabyte AORUS NVMe Gen4 1TB M.2",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"MSI SSD | SE-224-XT ARGB Duet TDP 180W/2xFan/PWM/700-1500rpm/AMD,INTEL 1700": null,
+"MSI Spatium M390 500GB M.2 NVMe PHISON E15T\\3D NAND\\PCIe Gen3x4, NVMe 1.4\\\\max.write 2300mb/s\\max.read 3300mb/s | SE-234-ARGB V2 TDP 200W/RGB/1xFan/PWM/2000rpm/AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "MSI",
+"model": "Spatium M390 500GB",
+"name": "SSD-накопитель MSI Spatium M390 500GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Crucial BX500 240 GB SATA III TLC 3D NAND\\max.write 500mb/s\\max.read 540mb/s | ID-Cooling PINKFLOW 240 ARGB \\TDP 250W\\Pump Speed2100\\26.4dBA\\2xFanx120mm\\AMD,INTEL": {
+"category": "ssd",
+"brand": "Crucial",
+"model": "BX500",
+"name": "SSD-накопитель Crucial BX500 240 GB SATA III",
+"condition": "new",
+"specs": {
+"capacity": "240GB",
+"interface": "SATA"
+},
+"risks": []
+},
+"Crucial BX500 500GB SATA III TLC 3D NAND\\max.write 500mb/s\\max.read 540mb/s | ID-Cooling ICEFLOW 240 ARGB \\TDP 250W\\Pump Speed 900~2000\\31.5dBA\\2xFanx120mm\\AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Crucial",
+"model": "BX500",
+"name": "SSD-накопитель Crucial BX500 500GB SATA III",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "SATA"
+},
+"risks": []
+},
+"Crucial BX500 1TB SATA III TLC 3D NAND\\max.write 500mb/s\\max.read 540mb/s | ID-Cooling ZOOMFLOW 360X ARGB \\TDP 350W\\Pump Speed ~2100\\26.4dBA\\3xFanx120mm\\AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Crucial",
+"model": "BX500",
+"name": "SSD-накопитель Crucial BX500 1TB SATA III",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "SATA"
+},
+"risks": []
+},
+"Samsung 980 250GB M.2 NVMe Samsung V-NAND 3-bit MLC\\max.write 1300mb/s\\max.read 2900mb/s PCI-E 3.0 4x | ID-Cooling PINKFLOW 240 Diamond Edition \\TDP 250W\\Pump Speed ~2100\\25dBA\\2xFanx120mm\\AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980",
+"name": "SSD-накопитель Samsung 980 250GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "250GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 970 Evo Plus 250GB M.2 NVMe V-NAND 3-bit MLC\\max.write 2300mb/s\\max.read 3500mb/s PCI-E 3.0 4x | ID-Cooling PINKFLOW 240 Diamond Purple \\TDP 250W\\Pump Speed ~2100\\25dBA\\2xFanx120mm\\AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "970 Evo Plus",
+"name": "SSD-накопитель Samsung 970 Evo Plus 250GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "250GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 980 PRO 250GB M.2 NVMe V-NAND 3-bit MLC\\max.write 2700mb/s\\max.read 6400mb/s PCI-E 4.0 4x | ID-Cooling PINKFLOW 360 ARGB \\TDP 350W\\Pump Speed2100\\26.4dBA\\3xFanx120mm\\AMD,INTEL 1700": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980 PRO",
+"name": "SSD-накопитель Samsung 980 PRO 250GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "250GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"Samsung 980 500GB M.2 NVMe V-NAND 3-bit MLC\\max.write 2600mb/s\\max.read 3100mb/s PCI-E 3.0 4x | КОРПУСНЫЕ ВЕНТИЛЯТОРЫ ID-COOLING": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980",
+"name": "SSD-накопитель Samsung 980 500GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 970 Evo Plus 500GB M.2 NVMe V-NAND 3-bit MLC\\max.write 3200mb/s\\max.read 3500mb/s PCI-E 3.0 4x | XF-12025-RGB-120×120×25mm(PWM)/Hydraulic Bearing/700~1800±10%RPM/RGB": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "970 Evo Plus",
+"name": "SSD-накопитель Samsung 970 Evo Plus 500GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 980 PRO 500GB M.2 NVMe V-NAND 3-bit MLC\\max.write 5000mb/s\\max.read 6900mb/s PCI-E 4.0 4x | TF-12025-ARGB 120×120×25mm/Hydraulic Bearing/700~1500±10%RPM": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980 PRO",
+"name": "SSD-накопитель Samsung 980 PRO 500GB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"Samsung 980 1TB M.2 NVMe V-NAND 3-bit MLC\\max.write 3000mb/s\\max.read 3500mb/s PCI-E 3.0 4x | ZF-12025-ARGB-120×120×25mm(PWM)/2Ball Bearing/900~2000±10%RPM/ARGB": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980",
+"name": "SSD-накопитель Samsung 980 1TB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 970 Evo Plus 1TB M.2 NVMe V-NAND 3-bit MLC\\max.write 3300mb/s\\max.read 3500mb/s PCI-E 3.0 4x | DF-12025-RGB-120×120×25mm(PWM)/2Ball Bearing/900~2000±10%RPM/ARGB": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "970 Evo Plus",
+"name": "SSD-накопитель Samsung 970 Evo Plus 1TB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "1TB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 970 Evo Plus 2TB M.2 NVMe V-NAND 3-bit MLC\\max.write 3300mb/s\\max.read 3500mb/s PCI-E 3.0 4x | DEEPCOOL ICE EDGE MINI FS V2.0 100W/1xFan/PWM/2200rpm/INTEL/AMD": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "970 Evo Plus",
+"name": "SSD-накопитель Samsung 970 Evo Plus 2TB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Samsung 980 PRO 2TB M.2 NVMe V-NAND 3-bit MLC\\max.write 5000mb/s\\max.read 7000mb/s PCI-E 4.0 4x | DEEPCOOL ICE BLADE 100 100W/1xFan/PWM/2200rpm/INTEL": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980 PRO",
+"name": "SSD-накопитель Samsung 980 PRO 2TB M.2 NVMe",
+"condition": "new",
+"specs": {
+"capacity": "2TB",
+"interface": "NVMe",
+"form_factor": "M.2",
+"pcie": "4.0"
+},
+"risks": []
+},
+"Kingston NV1 NVME 250GBPCI-E 3.0 x4\\3bitTLC\\3DNAND\\max.write 1100mb/s\\max.read 2100mb/s | Thermaltake Riing Silent 12 Pro Blue TDP 170W/1xFan/PWM/1400rpm/AMD,INTEL": {
+"category": "ssd",
+"brand": "Kingston",
+"model": "NV1",
+"name": "SSD-накопитель Kingston NV1 NVME 250GB",
+"condition": "new",
+"specs": {
+"capacity": "250GB",
+"interface": "NVMe",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Kingston NV1 NVME 500GB PCI-E 3.0 x4\\3bitTLC\\3DNAND\\max.write 1700mb/s\\max.read 2100mb/s | Thermaltake Riing Silent 12 Pro Red TDP 170W/1xFan/PWM/1400rpm/AMD,INTEL": {
+"category": "ssd",
+"brand": "Kingston",
+"model": "NV1",
+"name": "SSD-накопитель Kingston NV1 NVME 500GB",
+"condition": "new",
+"specs": {
+"capacity": "500GB",
+"interface": "NVMe",
+"pcie": "3.0"
+},
+"risks": []
+},
+"Elgato Wave Pop Filter | Glorious Element Air Mouse Pad | Boyi PBT 60% Keycpas White": {
+"category": "other",
+"brand": "Elgato",
+"model": "Wave Pop Filter",
+"name": "Поп-фильтр Elgato Wave Pop Filter",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"AverMedia Live Streamer Cam PW313 Full HD 1080P Streaming Webcam, Privacy Shutter, Dual Microphone, 360 Degree Swivel Design | Glorious Element Fire Mouse Pad | МЫШКИ": {
+"category": "other",
+"brand": "AVerMedia",
+"model": "PW313",
+"name": "Веб-камера AVerMedia Live Streamer Cam PW313 Full HD 1080P",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"КАРТА ВИДЕО ЗАХВАТА | Glorious Element Ice Mouse Pad | ZEUS E3 + NYX E1 Optical Sensor 1200-3600Dpi (Gaming mouse+mousepad)": null,
+"AVerMedia AM310 USB Microphone for Recording, Streaming or Podcasting | Glorious 3XL Extended White | КЛАВИАТУРЫ": {
+"category": "other",
+"brand": "AVerMedia",
+"model": "AM310",
+"name": "Микрофон AVerMedia AM310 USB",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"AORUS H5 Gaming Headset 32Ω\\20Hz~20KHz\\100 ± 3dB at 1KHz\\USB2.0, 3.5mm/ 3 ring Mic 3.5mm /3 ring Audio | Glorious Model O Wireless - Matte White Glorious BAMF Sensor\\400-19000dpi | HEBE M2 RGB 32 Ом\\119 дБ\\USB\\20-20000Гц\\7.1": {
+"category": "headphones",
+"brand": "Gigabyte",
+"model": "AORUS H5",
+"name": "Наушники AORUS H5 Gaming Headset",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"gaming": "true"
+},
+"risks": []
+},
+"ПЕРИФЕРИЯ RAZER | Glorious Model D Wireless Matte White, Black Glorious BAMF Sensor\\400-19000dpi | HEBE P1A RGB 32 Ом\\119 дБ\\USB\\20-20000Гц\\7.1": null,
+"Blackshark V2 + USB Mic Enhancer CourageJD Ed. | Glorious Aura Keycaps v2 White, Black | Mouse MG330 LED USB Black Optical Sensor 1200-6400Dpi": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Blackshark V2",
+"name": "Наушники Razer Blackshark V2 + USB Mic Enhancer CourageJD Ed.",
+"condition": "new",
+"specs": {
+"gaming": "true"
+},
+"risks": []
+},
+"Razer Nari Essential 20 – 20000 Гц\\107 дБ\\32 Ом\\стерео | Glorious Aura Keycaps | Mouse MG340 LED USB Black Optical Sensor 1200-3200Dpi": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Nari Essential",
+"name": "Наушники Razer Nari Essential",
+"condition": "new",
+"specs": {
+"gaming": "true"
+},
+"risks": []
+},
+"Razer Kraken Quartz gaming headset 12-28000Гц\\32Ом\\109дБ | Glorious PBT Nebula KeyCaps [US ANSI] | 2E Gaming HyperSpeed Lite RGB Retro PixArt 3325 800 – 7600 DPI": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Kraken Quartz",
+"name": "Наушники Razer Kraken Quartz gaming headset",
+"condition": "new",
+"specs": {
+"gaming": "true"
+},
+"risks": []
+},
+"Razer Kraken Tournament Edition 32Ом\\12-28000 (Black, Green) | Glorious PBT Caribbean Ocean KeyCaps [US ANSI] | 2E Gaming HyperSpeed Lite RGB Black PixArt 3325 800 – 7600 DPI": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Kraken Tournament Edition",
+"name": "Наушники Razer Kraken Tournament Edition",
+"condition": "new",
+"specs": {
+"gaming": "true"
+},
+"risks": []
+},
+"RAZER HAMMERHEAD BT Bluetooth Wireless in-Ear Bluetooth 4.1\\32Ом\\20–20000Гц\\116 дБ | Glorious PBT Olive KeyCaps [US ANSI] | 2E Gaming HyperDrive Lite RGB (Black, White) PixArt3327\\1200-10000DPI\\USB": {
+"category": "headphones",
+"brand": "Razer",
+"model": "HAMMERHEAD BT",
+"name": "Наушники Razer HAMMERHEAD BT Bluetooth Wireless in-Ear",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"RAZER OPUS X (Mercury, Green) aptX, AAC\\mini-Jack (3.5 мм) Bluetooth v 4.2\\10 – 20000 Гц\\ | Glorious PBT Rain Forest KeyCaps [US ANSI] | 2E Gaming MG340 WL, RGB Black PixArt3325\\1000-5000DPI\\Wireless + USB": {
+"category": "headphones",
+"brand": "Razer",
+"model": "OPUS X",
+"name": "Наушники Razer OPUS X",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Razer Barracuda X Multi-Platform Wireless Headset 7.1\\32 Ом\\20 – 20000 Гц\\96 дБ\\mini-Jack(3.5мм)/радиоканал/USB C—передатчик /USB A | Glorious PBT Pastel KeyCaps [US ANSI] | 2E Gaming HyperDrive Pro RGB (Black, White) PixArt3389\\800-16000DPI\\USB": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Barracuda X",
+"name": "Наушники Razer Barracuda X Multi-Platform Wireless Headset",
+"condition": "new",
+"specs": {
+"connection": "wireless",
+"gaming": "true"
+},
+"risks": []
+},
+"Razer Kraken V3 RGB 20-20000Hz\\96dB\\32Om\\USB | Glorious Aura Keycaps v2 Black | 2E Gaming HyperSpeed Pro RGB Retro PixArt 3389 1000 – 16000 DPI": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Kraken V3 RGB",
+"name": "Наушники Razer Kraken V3 RGB",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"rgb": "true"
+},
+"risks": []
+},
+"RAZER Blackshark V2 PRO Wireless 32 Ом\\12 – 28000 Гц\\micro-Jack (2.5 мм) wireless | Varmilo VA87M Moonlight Cherry MX Red | 2E Gaming KG370 68Key RGB Gateron Red Black\\USB": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Blackshark V2 PRO Wireless",
+"name": "Наушники Razer Blackshark V2 PRO Wireless",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Razer Barracuda Black 32 Ом\\20 - 20000 Гц\\Bluetooth, USB-C | Varmilo VA87M Sea Melody, Cherry MX Red | 2E Gaming KG370 68Key RGB Gateron Red White\\USB\\": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Barracuda Black",
+"name": "Наушники Razer Barracuda Black",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Razer Kraken Kitty Edition USB\\RGB\\7.1\\20-20000 Гц | Varmilo VA108M Moonlight, Cherry MX Black | 2E Gaming KG370 RGB Black, Gateron Blue": {
+"category": "headphones",
+"brand": "Razer",
+"model": "Kraken Kitty Edition",
+"name": "Наушники Razer Kraken Kitty Edition USB",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"rgb": "true"
+},
+"risks": []
+},
+"МЫШКИ | Varmilo MA87M V2 CMYK, EC Rose V2,RU | 2E Gaming KG370 RGB White, Gateron Brown": null,
+"Razer Deathadder Essential (Black, White) сенсор оптический 100-7200 dpi | Varmilo MA87M V2 CMYK, EC Sakura V2,RU | 2E Gaming KG370 RGB White, Gateron Blue": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Deathadder Essential",
+"name": "Мышь Razer Deathadder Essential",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Viper Mini PixArt PMW3359 400-8500 DPI | Varmilo VA108M Summit, Cherry MX Brown | 2E Gaming KG380 RGB White, Gateron Brown": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Viper Mini",
+"name": "Мышь Razer Viper Mini",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Abyssus Essential Pixart PMW3339DB-TZV1 100–7200dpi | Varmilo VA108M Moonlight, Cherry MX Blue | МИКРОФОНЫ": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Abyssus Essential",
+"name": "Мышь Razer Abyssus Essential",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"RAZER DEATHADDER V2 Mini Ultra-Lightweight Ergonomic Gaming Mouse сенсор оптический светодиодный 400-8500DPI | Varmilo VA108M Moonlight, Cherry MX Brown | 2E Gaming MG-001 USB, 3.5 mm jack\\-58 (+/-2)дБ\\100-10000Гц\\22 Ом\\Всенаправленный": {
+"category": "mouse",
+"brand": "Razer",
+"model": "DEATHADDER V2 Mini",
+"name": "Мышь Razer DEATHADDER V2 Mini Ultra-Lightweight Ergonomic Gaming Mouse",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"gaming": "true"
+},
+"risks": []
+},
+"Razer DeathAdder Elite Pixart PMW3389 100–16000dpi | Varmilo VA108M Moonlight, Cherry MX Red | 2E Gaming Microphone Kodama KIT USB\\-36 (+/-2)дБ\\18-21000Гц\\200 0м\\Кардиоидный": {
+"category": "mouse",
+"brand": "Razer",
+"model": "DeathAdder Elite",
+"name": "Мышь Razer DeathAdder Elite",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Basilisk Mercury White Razer 5G\\100-16000 dpi\\USB | Varmilo VA108M Sakura, Cherry MX Blue | 2E Gaming Mouse Pad Speed\\Control M Black": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Basilisk Mercury White",
+"name": "Мышь Razer Basilisk Mercury White",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"color": "White"
+},
+"risks": []
+},
+"Razer Basilisk Quartz Pink 5G\\100-16000 dpi\\USB | Varmilo VA108M Sakura, Cherry MX Red | 2E Gaming Mouse Pad Speed\\Control L Black": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Basilisk Quartz Pink",
+"name": "Мышь Razer Basilisk Quartz Pink",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Lancehead Tournament Edition Quartz Pink PixArt PMW3389 100 – 16000dpi | Varmilo VA108M Sea Melody, Cherry MX Blue | 2E Gaming Mouse Pad Speed\\Control XL Black": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Lancehead Tournament Edition Quartz Pink",
+"name": "Мышь Razer Lancehead Tournament Edition Quartz Pink",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Orochi V2 (Black, White)18000 DPI\\Bluetooth / радио\\USB\\ | Varmilo VA108M Summit, Cherry MX Red | 2E Gaming Mouse Pad Speed\\Control XXL Black": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Orochi V2",
+"name": "Мышь Razer Orochi V2",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Razer Mamba Elite Razer 5G 100 – 16000dpi | Varmilo VA108M Sea Melody, Cherry MX Silent Red | 2Е Game controller universal wireless Gaming C04 WL Black 2E-UWGC-C04": {
+"category": "mouse",
+"brand": "Razer",
+"model": "Mamba Elite",
+"name": "Мышь Razer Mamba Elite",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer DeathAdder V2 - HALO Infinite Ed. Razer Focus+\\400-20000dpi | Varmilo VA108M Sakura, Cherry MX Silent Red | БЕСПРОВОДНОЙ НАБОР": {
+"category": "mouse",
+"brand": "Razer",
+"model": "DeathAdder V2 - HALO Infinite Ed.",
+"name": "Мышь Razer DeathAdder V2 - HALO Infinite Ed.",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Razer Sphex V3 Large 450x400x4 мм | Ducky x Hotkeys/ Ducky League Lucky | КЛАВИАТУРА": {
+"category": "other",
+"brand": "Razer",
+"model": "Sphex V3 Large",
+"name": "Коврик для мыши Razer Sphex V3 Large",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"Razer Huntsman Mini Mercury [Razer Linear Optical] | HyperX Alloy Origins 60 Pink [HyperX Red Linear] | КЛАВИАТУРЫ": {
+"category": "keyboard",
+"brand": "Razer",
+"model": "Huntsman Mini Mercury",
+"name": "Клавиатура Razer Huntsman Mini Mercury",
+"condition": "new",
+"specs": {
+"type": "mechanical"
+},
+"risks": []
+},
+"RAZER Huntsman Mini (Red Switch) US 60% Gaming Keyboard, Linear Optical Switch | HyperX Alloy Origins 65 [HyperX Red Linear] | Redragon CENTAUR-2 K506-1 Quiet membrane switches\\USB\\7 Colors": {
+"category": "keyboard",
+"brand": "Razer",
+"model": "Huntsman Mini",
+"name": "Клавиатура Razer Huntsman Mini (Red Switch)",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"gaming": "true"
+},
+"risks": []
+},
+"Razer BlackwidowV3 Mini HyperSpeed Green Switches | HyperX Pulsefire FPS Pro Global Pixart PMW3389 800-16000dpi | Redragon Aryaman Mechanical switches\\USB\\RGB": {
+"category": "keyboard",
+"brand": "Razer",
+"model": "BlackwidowV3 Mini HyperSpeed",
+"name": "Клавиатура Razer BlackwidowV3 Mini HyperSpeed Green Switches",
+"condition": "new",
+"specs": {
+"connection": "wireless",
+"type": "mechanical"
+},
+"risks": []
+},
+"Razer BlackwidowV3 Mini HyperSpeed Yellow Switches | HyperX Pulsefire Haste (Black, Black-Red, White-Pink) RGB PixArt PAW3335\\400-16000dpi | КОМБО НАБОРЫ": {
+"category": "keyboard",
+"brand": "Razer",
+"model": "BlackwidowV3 Mini HyperSpeed",
+"name": "Клавиатура Razer BlackwidowV3 Mini HyperSpeed Yellow Switches",
+"condition": "new",
+"specs": {
+"connection": "wireless",
+"type": "mechanical"
+},
+"risks": []
+},
+"Razer DeathStalker V2 (Razer Linear Optical Switch) | HyperX Pulsefire Wireless Haste (Black,White) RGB PixArt PAW3335\\400-16000dpi | Redragon S117 Combo Brown Mechanical switches + mouse 4200PDI\\USB\\RGB": {
+"category": "keyboard",
+"brand": "Razer",
+"model": "DeathStalker V2",
+"name": "Клавиатура Razer DeathStalker V2",
+"condition": "new",
+"specs": {
+"type": "mechanical"
+},
+"risks": []
+},
+"RAZER KIYO CAMERA Online Webcam for Streaming 4 Megapixels\\1080p@30FPS/720p@60FPS/480p@30FPS/360p@30FPS | HyperX Cloud Flight Wireless Black 20 – 20000 Гц\\32 Ом\\стерео\\mini-Jack (3.5 мм) радиоканал | ПОДСТАВКА ДЛЯ НОУТБУКА": {
+"category": "other",
+"brand": "Razer",
+"model": "KIYO CAMERA",
+"name": "Веб-камера Razer KIYO CAMERA",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"LOGITECH | HyperX Fury S Pro M [Control] | КЛАВИАТУРЫ + КОМБО НАБОРЫ": null,
+"МЫШКИ | HyperX Fury S M [Speed] | RAPOO X120 PRO проводной набор клавиатура + мышь": null,
+"Logitech G402 Gaming Mouse RGB 240-4000 dpi\\Logitech Delta Zero + Fusion Engine | HyperX Pulsefire Mat L | Rapoo X1960 беспроводной набор клавиатура + мышь": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G402 Gaming Mouse",
+"name": "Мышь Logitech G402 Gaming Mouse",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"Logitech G502 HERO USB\\HERO Sensor\\100-16000 DPI | HyperX Fury S Pro XL [Control] | RAPOO 8200T беспроводной набор клавиатура + мышь": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G502 HERO",
+"name": "Мышь Logitech G502 HERO",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech G703 Lightspeed Wireless Gaming Mouse\\POWERPLAY Wireless Charging Compatibility\\400IPS | HyperX Fury S Pro XL [Control] | Rapoo E2710 беспроводная клавиатура с тачпадоом": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G703 Lightspeed Wireless",
+"name": "Мышь Logitech G703 Lightspeed Wireless Gaming Mouse",
+"condition": "new",
+"specs": {
+"connection": "wireless",
+"gaming": "true"
+},
+"risks": []
+},
+"Logitech G403 Gaming Mouse, HERO 16K, 10 - 16,000 DPI, 400 IPS | HyperX Pulsefire Mat XL | Rapoo GK-500 игровая механическая клавиатура\\Red Switch\\RGB": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G403 Gaming Mouse",
+"name": "Мышь Logitech G403 Gaming Mouse HERO",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"gaming": "true"
+},
+"risks": []
+},
+"Logitech G903 Lightspeed Pixart PMW3366\\200-12000 dpi\\Wireless + USB | HyperX Pulsefire Mat 2XL | Rapoo V700 RGB игровая механическая клавиатура\\Blue Switch\\RGB": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G903 Lightspeed",
+"name": "Мышь Logitech G903 Lightspeed",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech G603 Wireless\\HERO Sensor\\200 – 12,000 DPI | HyperX Pulsefire Mat RGB XL | МЫШКИ": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "G603 Wireless",
+"name": "Мышь Logitech G603 Wireless",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech G413 Silver Romer-G Tactical (Есть русская раскладка) | SteelSeries Sensei Ten TrueMove Pro 500-18000 dpi | Defender Oscar SM-600 Проводная клавиатура": {
+"category": "keyboard",
+"brand": "Logitech",
+"model": "G413 Silver",
+"name": "Клавиатура Logitech G413 Silver Romer-G Tactical",
+"condition": "new",
+"specs": {
+"type": "mechanical"
+},
+"risks": []
+},
+"Logitech G413 CARBON Romer-G Tactical (Есть русская раскладка) | Sensei 310 Ambidextrous TrueMove3 Mouse 100-12000 dpi | Defender Harvard C-945 беспроводной набор клавиатура + мышь": {
+"category": "keyboard",
+"brand": "Logitech",
+"model": "G413 CARBON",
+"name": "Клавиатура Logitech G413 CARBON Romer-G Tactical",
+"condition": "new",
+"specs": {
+"type": "mechanical"
+},
+"risks": []
+},
+"Logitech G332 20 Hz-20 KHz\\ 39 Ohms (passive), 5k Ohms (active)\\107 dB SPL/mW\\mini jack 3.5 mm combo | SteelSeries Aerox 3 Onyx Wireless Sensor SteelSeries TrueMove Air 100-18000dpi | WI-FI Приемники": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "G332",
+"name": "Наушники Logitech G332",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech g333 vr 20Hz -20 KHz\\24Ohms\\mini-Jack(3.5mm)USB C | SteelSeries Aerox 3 Ghost Wireless Sensor SteelSeries TrueMove Air 100-18000dpi | TP-Link Archer T2U Nano W i-Fi – до 200 Мбит/с на 2,4 ГГц и до 433 Мбит/с на 5 ГГц по стандарту Wi-Fi 802.11ac": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "g333 vr",
+"name": "Наушники Logitech g333 vr",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech G333 Black,White,Purple 20Hz -20 KHz\\24 Ohms\\mini-Jack(3.5mm)USB C | SteelSeries Aerox 3 Wireless Sensor SteelSeries TrueMove Air 100-18000dpi | TL-WN822N TL-WN822N 802.11n\\2 антенны\\WPS\\Диапазон частот 2400-2483,5 МГц": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "G333",
+"name": "Наушники Logitech G333",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech G PRO X 7.1\\jack 3.5 мм, USB\\39 Ом\\20-20000\\93Дб | SteelSeries Arctis Nova 1 Black, White 20–22,000 Hz\\93 dBSPL\\36 Ohm | TP-LINK Archer T9UH AC1900 Двухдиапазонный Wi‑Fi USB‑адаптер\\2400–2483,5 МГц 5150–5350 МГц\\": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "G PRO X 7.1",
+"name": "Наушники Logitech G PRO X 7.1",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech G Pro X League of Legends 7.1\\jack 3.5 мм, USB\\39 Ом\\20-20000\\93Дб | SteelSeries Arctis Nova 1P Black, White 20–22,000 Hz\\93 dBSPL\\36 Ohm | TP-LINK TX3000E Wi-Fi 6 Bluetooth 5.0 адаптер PCI Express\\Wi-Fi 6 и непревзойдённая скорость — до 2402 Мбит/с (5 ГГц) + 574 Мбит/с (2,4 ГГц)": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "G Pro X League of Legends 7.1",
+"name": "Наушники Logitech G Pro X League of Legends 7.1",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Logitech G PRO X 7.1 Wireless\\USB + Wireless\\32 Ом\\20-20000 | SteelSeries Arctis Nova 1X 20–22,000 Hz\\93 dBSPL\\36 Ohm | TP-Link Archer TX55E AX3000 Wi-Fi 6 Bluetooth 5.2 адаптер PCI Express\\2,4 ГГц — IEEE 802.11ax/n/g/b 5 ГГц — IEEE 802.11ax/ac/n/a Bluetooth 4.0, 4.2, 5.0, 5.2": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "G PRO X 7.1 Wireless",
+"name": "Наушники Logitech G PRO X 7.1 Wireless",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech H110 Grey/Silver 32 Ohms\\20Hz-20KHz\\2 x mini jack 3.5 mm | SteelSeries Arctis Nova 3 Black 20–22,000 Hz\\93 dBSPL\\36 Ohm | ARCHER C20 Двухдиапазонный Wi-Fi роутер до 300 Мбит/с на 2,4 ГГц и до 433 Мбит/с на 5 ГГц": {
+"category": "headphones",
+"brand": "Logitech",
+"model": "H110",
+"name": "Наушники Logitech H110",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"КОВРИКИ | SteelSeries Arctis Prime -38 дБ\\2,2 кОм\\100 - 10000 Гц | TP-LINK Archer C64 AC1200 Wi-Fi роутер с MU‑MIMO\\Wi-Fi 5 IEEE 802.11ac/n/a 5 ГГц IEEE 802.11n/b/g 2,4 ГГц\\AC1200 5 ГГц: 867 Мбит/с (802.11ac) 2,4 ГГц: 300 Мбит/с (802.11n)": null,
+"Logitech G920 Xbox One, PC\\проводной USB\\Режим работы цифровой и аналоговый\\3 педали\\Коробка передач | КОВРИКИ | TP-Link Archer AX55 MU-MIMO Wi-Fi 6 5 ГГц: IEEE 802.11ax/ac/n/a 2,4 ГГц: IEEE 802.11ax/n/b/g\\Wi-Fi 6 5 ГГц: IEEE 802.11ax/ac/n/a 2,4 ГГц: IEEE 802.11ax/n/b/g": {
+"category": "other",
+"brand": "Logitech",
+"model": "G920",
+"name": "Игровой руль Logitech G920 Xbox One, PC",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"Logitech G29 Xbox One, PC\\проводной USB\\Режим работы цифровой и аналоговый\\3 педали\\Коробка передач | SteelSeries QcK Mini | TP-Link Archer MR400 V4.20 AC1200 Двухдиапазонный 4G LTE Wi-Fi роутер\\о 300 Мбит/с на 2,4 ГГц, до 867 Мбит/с на 5 ГГц": {
+"category": "other",
+"brand": "Logitech",
+"model": "G29",
+"name": "Игровой руль Logitech G29 Xbox One, PC",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"Джойстик EXTREME 3D PRO ПОВОРОТНОЕ УПРАВЛЕНИЕ\\12 КНОПОК\\8-ПОЗИЦИОННЫЙ ПЕРЕКЛЮЧАТЕЛЬ | SteelSeries QcK Edge Medium | TP-LINK Archer A9 3×3 MU-MIMO Wi-Fi 5 IEEE 802.11ac/n/a 5 ГГц IEEE 802.11n/b/g 2,4 ГГц\\AC1900 5 ГГц: 1300 Мбит/с (802.11ac) 2,4 ГГц: 900 Мбит/с (802.11n)": {
+"category": "other",
+"brand": "Logitech",
+"model": "EXTREME 3D PRO",
+"name": "Джойстик Logitech EXTREME 3D PRO",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"Logitech Webcam C920S PRO Full HD 1080p\\H.264 | SteelSeries QcK Heavy XXL | TP-Link Deco S4 (3-pack) Wi-Fi 5 IEEE 802.11ac/n/a 5 ГГц IEEE 802.11n/b/g 2,4 ГГц\\AC1200 5 ГГц: до 867 Мбит/с (802.11ac) 2,4 ГГц: до 300 Мбит/с (802.11n)": {
+"category": "other",
+"brand": "Logitech",
+"model": "C920S PRO",
+"name": "Веб-камера Logitech C920S PRO Full HD",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"БЕСПРОВОДНЫЕ МЫШКИ | SteelSeries Nimbus+ Apple Gaming Controller Official Apple- licensed wireless connectivity for all Apple products including iOS, iPadOS and tvOS devices Built-in rechargeable battery for 50 hours | EDIFIER HEADPHONES K550 2 x mini jack 3.5 mm": null,
+"Mouse Logitech M170 Беспроводная 1000 DPI | ДЕРЖАТЕЛЬ ДЛЯ МЫШИ | EDIFIER HEADPHONES K800 Single Plug 1 x mini jack 3.5 mm": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "M170",
+"name": "Мышь Logitech M170 Беспроводная",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Mouse Logitech M185 Silent Беспроводная 1000 DPI (Red,Blue, Swift Grey) | SteelSeries PRISMCAPS PBT | Edifier K830 20Hz～20kHz\\32Ω\\2 x mini jack 3.5 mm": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "M185 Silent",
+"name": "Мышь Logitech M185 Silent Беспроводная",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech Signature M650 L Rose | МЫШКИ | TWS Edifier X3 20 - 20000 Гц\\95 дБ\\Bluetooth 5.0\\aptX\\Dark Blue, Matte Pink": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "Signature M650 L",
+"name": "Мышь Logitech Signature M650 L Rose",
+"condition": "new",
+"specs": {
+"color": "Rose"
+},
+"risks": []
+},
+"Logitech Signature M650 L Left Off-White | MSI INTERCEPTOR DS B1 800-1600 dpi | Edifier W800BT 20 - 20000 Гц\\98 дБ\\32dB\\Bluetooth 4.0, mini-Jack (3.5мм)": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "Signature M650 L Left",
+"name": "Мышь Logitech Signature M650 L Left Off-White",
+"condition": "new",
+"specs": {
+"color": "Off-White"
+},
+"risks": []
+},
+"Mouse Logitech M705 Беспроводная 1000 DPI | MSI CLUTCH GM 50 Pixart PMW3330\\400-7300dpi | Edifier TWS200 20-20000hz\\28om\\96dB\\Bluetooth 5.0\\aptX\\": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "M705",
+"name": "Мышь Logitech M705 Беспроводная",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech MX Ergo Graphite 2048 dpi\\USB Type-A, Bluetooth | MSI Vigor GK20 RU Мембранная\\USB\\FRGB | Edifier GT4 Black Bluetooth version V5.2\\SBC\\20Hz-20kHz\\100dB\\32Ω": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "MX Ergo",
+"name": "Мышь Logitech MX Ergo Graphite",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"Logitech MX Ergo Graphite | MSI Vigor GK50 LOW PROFILE UA | Edifier TWS330 NB 20-20000hz\\24om\\92dB\\Bluetooth 5.0\\AAC, SBC\\ANC": {
+"category": "mouse",
+"brand": "Logitech",
+"model": "MX Ergo",
+"name": "Мышь Logitech MX Ergo Graphite",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"ZOWIE S1 DIVINA PINK | Asus ROG Pugio II Wireless PixArt3335\\USB 2.0 RF 2.4GHz\\400-16000DPI | Edifier X230 R/L: 7W+7W | SW: 14W\\R/L: 210Hz-18KHz | SW: 53Hz-240Hz\\AUX, Line in, Bluetooth": {
+"category": "mouse",
+"brand": "ZOWIE",
+"model": "S1 DIVINA",
+"name": "Мышь ZOWIE S1 DIVINA PINK",
+"condition": "new",
+"specs": {
+"color": "Pink"
+},
+"risks": []
+},
+"CORSAIR VOID RGB ELITE USB (Carbon,White) Premium Gaming Headset 7.1 Surround Sound 32Ом\\20000-30000Гц | Asus ROG Strix Flare USB\\RGB\\Cherry MX Red | EDIFIER R1080 BT 12W+12W RMS\\≥84dBA (A)\\AUX: 550±50mV | Bluetooth: 700±50mFFS": {
+"category": "headphones",
+"brand": "Corsair",
+"model": "VOID RGB ELITE USB",
+"name": "Наушники Corsair VOID RGB ELITE USB Premium Gaming Headset 7.1 Surround Sound",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"CORSAIR K83 Wireless RU Wireless Entertainment Keyboard | Akko 3087DS Mirror of the Sky CS Radiant Red, RU, Blue | EDIFIER S880DB RMS 88 Вт- 12 Вт х 2 + 32 Вт х 2 (bass)\\≧85 dBА\\55 Гц — 20 кГц\\Bluetooth 4.1\\Bluetooth 4.1": {
+"category": "keyboard",
+"brand": "Corsair",
+"model": "K83 Wireless",
+"name": "Клавиатура Corsair K83 Wireless RU",
+"condition": "new",
+"specs": {
+"connection": "wireless"
+},
+"risks": []
+},
+"CORSAIR K65 RGB RAPIDFIRE Compact RU TKL Mechanical Gaming Keyboard, Cherry MX Speed | Akko 3087DS Matcha Red Bean Gateron Pink, RU, Green | Edifier S351DB RMS 150 Вт\\RMS 150 Вт\\40 Гц - 20 кГц\\RCA,Bluetooth": {
+"category": "keyboard",
+"brand": "Corsair",
+"model": "K65 RGB RAPIDFIRE",
+"name": "Клавиатура Corsair K65 RGB RAPIDFIRE Compact RU TKL Mechanical Gaming Keyboard",
+"condition": "new",
+"specs": {
+"connection": "wired",
+"type": "mechanical",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"CORSAIR K68 MX-Red RU Mechanical Gaming Keyboard | Akko 3087DS Mirror of the Sky CS Radiant Red, RU, Blue | Edifier S360DB Edifier S360DB\\R/L (СЧ/НЧ): 30W+30W\\SW: 75W \\R/L: 60 Hz – 40 kHz": {
+"category": "keyboard",
+"brand": "Corsair",
+"model": "K68 MX-Red",
+"name": "Клавиатура Corsair K68 MX-Red RU Mechanical Gaming Keyboard",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"gaming": "true"
+},
+"risks": []
+},
+"CORSAIR K68 RGB MX-Red RU Mechanical Gaming Key board, Dust and Spill Resistant | Akko 3087DS Mirror of the Sky Lavender Purple RU, Blue | Edifier S2000MKIII 2x 15 Вт (ВЧ), 2x 50 Вт (СЧ/НЧ)\\Bluetooth: 450 ± 50mFFs\\L/R ≥ 90 дБ (A)\\45 Гц - 30 кГц": {
+"category": "keyboard",
+"brand": "Corsair",
+"model": "K68 RGB MX-Red",
+"name": "Клавиатура Corsair K68 RGB MX-Red RU Mechanical Gaming Keyboard",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"CORSAIR K70 RGB MK.2 MX-Silent RU Mechanical Gaming Keyboard | Akko 3087DS Mirror of the Sky Cherry MX Silent Red, RU, Blue | АКУСТИКА FENDA": {
+"category": "keyboard",
+"brand": "Corsair",
+"model": "K70 RGB MK.2 MX-Silent",
+"name": "Клавиатура Corsair K70 RGB MK.2 MX-Silent RU Mechanical Gaming Keyboard",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"CORSAIR IRONCLAW RGB WIRELESS Gaming Mouse PMW3391 18000dpi | CoolerMaster MM710 PixArt PMW3389 1200-16000Dpi\\USB | Aerocool Admiral Chempion Red, Искусственная кожа с карбоновым тиснением, +2 подушки, 2D подлок-ки": {
+"category": "mouse",
+"brand": "Corsair",
+"model": "IRONCLAW RGB WIRELESS",
+"name": "Мышь Corsair IRONCLAW RGB WIRELESS Gaming Mouse",
+"condition": "new",
+"specs": {
+"connection": "wireless",
+"gaming": "true",
+"rgb": "true"
+},
+"risks": []
+},
+"Corsair MM250 Champion Series X-Large 450mm x 400mm | RAMPAGE | ИГРОВОЕ КРЕСЛО RAZER": {
+"category": "other",
+"brand": "Corsair",
+"model": "MM250 Champion Series X-Large",
+"name": "Коврик для мыши Corsair MM250 Champion Series X-Large",
+"condition": "new",
+"specs": {},
+"risks": []
+},
+"Keychron K4 RGB, Gateron Brown [K4C3] | Rampage KB-R136 GHOST White (Red Switch) | Trust Gaming Desk GXT 711 Dominus": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K4 RGB",
+"name": "Клавиатура Keychron K4 RGB Gateron Brown",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K8 RGB Hot-Swap, Gateron Brown [K8J3] | Rampage Miracle-X5 Black 20Hz - 20KHz\\120±3dB\\7.1 Virtual Surround\\USB | Anda Seat NAVI Edition Size L Yellow экокожа\\Подлокотники 4D\\Класс газлифта4\\Ограничение по весу 130 кг": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K8 RGB Hot-Swap",
+"name": "Клавиатура Keychron K8 RGB Hot-Swap Gateron Brown",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K8 RGB Hot-Swap, Gateron Red [K8J1] | Rampage RM-F5 FURY-X Black/Green 20Hz - 20KHz\\108±3dB\\7.1 Virtual Surround\\USB | КРОНШТЕЙНЫ ДЛЯ МОНИТОРА KSL": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K8 RGB Hot-Swap",
+"name": "Клавиатура Keychron K8 RGB Hot-Swap Gateron Red",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K8 RGB Hot-Swap, Gateron Brown [K8J3] | Rampage RM-K9 PALADIN Black 20Hz - 20KHz\\120±3dB\\7.1 Virtual Surround\\USB | Настольный кронштейн KSL DM11T для мониторов с диагональю 13-32 дюйма": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K8 RGB Hot-Swap",
+"name": "Клавиатура Keychron K8 RGB Hot-Swap Gateron Brown",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K8 RGB Hot-Swap, Gateron Red [K8J1] | Rampage RM-W1 FURY Wireless 20Hz - 20KHz\\99±3dB\\7.1 Virtual Surround\\3.5mm Audio\\2,4Ghz | КРОНШТЕЙНЫ ДЛЯ МОНИТОРА NORTH BAYOU": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K8 RGB Hot-Swap",
+"name": "Клавиатура Keychron K8 RGB Hot-Swap Gateron Red",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K4 RGB Hot-Swap, Gateron Brown [K4J3] | Подставка для наушников | North Bayou F80 Black Single Arm": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K4 RGB Hot-Swap",
+"name": "Клавиатура Keychron K4 RGB Hot-Swap Gateron Brown",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Keychron K8 RGB Hot-Swap, Gateron Blue [K8J2] | ПРОДУКЦИЯ SVEN | North Bayou F100A Black Single Arm": {
+"category": "keyboard",
+"brand": "Keychron",
+"model": "K8 RGB Hot-Swap",
+"name": "Клавиатура Keychron K8 RGB Hot-Swap Gateron Blue",
+"condition": "new",
+"specs": {
+"type": "mechanical",
+"rgb": "true"
+},
+"risks": []
+},
+"Sharkoon Elbrus 3 Black/White Максимальный вес 150кг\\Газлифт 4ур.\\Эко-кожа,металл\\Регулируемые подлокотники 3D | SVEN AP-010MV Stereo\\32 Ом\\20 - 20000 Гц\\2*3,5 мм (3 pin) | Xbox Wireless Controller Electric Volt": {
+"category": "chair",
+"brand": "Sharkoon",
+"model": "Elbrus 3",
+"name": "Игровое кресло Sharkoon Elbrus 3 Black/White",
+"condition": "new",
+"specs": {
+"color": "Black/White"
+},
+"risks": []
+},
+"Sharkoon Skiller SGS40 Black Максимальный вес 150кг\\Газлифт 4ур.\\Эко-кожа,металл\\Регулируемые подлокотники 4D | SVEN AP-310M Stereo\\32 Ом\\20 - 20000 Гц\\2*3,5 мм (4 pin) | Xbox Wireless Controller Shock Blue": {
+"category": "chair",
+"brand": "Sharkoon",
+"model": "Skiller SGS40",
+"name": "Игровое кресло Sharkoon Skiller SGS40 Black",
+"condition": "new",
+"specs": {
+"color": "Black"
+},
+"risks": []
+},
+"Sharkoon Skiller SGS40 Black\\Grey Максимальный вес 150кг\\Газлифт 4ур.\\Эко-кожа,металл\\Регулируемые подлокотники 4D | SVEN AP-860V Stereo\\32 Ом\\20 - 20000 Гц\\1*3,5 мм (3 pin) | MEETION": {
+"category": "chair",
+"brand": "Sharkoon",
+"model": "Skiller SGS40",
+"name": "Игровое кресло Sharkoon Skiller SGS40 Black/Grey",
+"condition": "new",
+"specs": {
+"color": "Black/Grey"
+},
+"risks": []
+},
+"Sharkoon Skiller SGS4 Black Максимальый вес 150кг\\Газлифт 4ур.\\Эко-кожа,металл\\Регулируемые подлокотники 4D | SVEN AP-860MV Stereo\\32 Ом\\20 - 20000 Гц\\2*3,5 мм (3 pin) | ИГРОВЫЕ МЫШКИ": {
+"category": "chair",
+"brand": "Sharkoon",
+"model": "Skiller SGS4",
+"name": "Игровое кресло Sharkoon Skiller SGS4 Black",
+"condition": "new",
+"specs": {
+"color": "Black"
+},
+"risks": []
+},
+"i5 12400f б/у": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i5-12400F",
+"name": "Процессор Intel Core i5-12400F",
+"condition": "used",
+"specs": {
+"socket": "LGA1700",
+"cores": "6",
+"threads": "12"
+},
+"risks": []
+},
+"rtx 3060 12gb новая": {
+"category": "gpu",
+"brand": "NVIDIA",
+"model": "RTX 3060",
+"name": "Видеокарта NVIDIA GeForce RTX 3060 12GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060",
+"memory": "12GB"
+},
+"risks": []
+},
+"озу 16гб ддр4 3200": {
+"category": "ram",
+"brand": null,
+"model": null,
+"name": "Оперативная память 16GB DDR4 3200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"SSD 1TB Samsung 980": {
+"category": "ssd",
+"brand": "Samsung",
+"model": "980",
+"name": "SSD-накопитель Samsung 980 1TB",
+"condition": "new",
+"specs": {
+"capacity": "1TB"
+},
+"risks": []
+},
+"Ryzen 5 5600 box": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 5 5600",
+"name": "Процессор AMD Ryzen 5 5600",
+"condition": "new",
+"specs": {
+"pack": "BOX"
+},
+"risks": []
+},
+"RX 6600 8gb б/у": {
+"category": "gpu",
+"brand": "AMD",
+"model": "RX 6600",
+"name": "Видеокарта AMD Radeon RX 6600 8GB",
+"condition": "used",
+"specs": {
+"vendor": "AMD",
+"chip": "RX 6600",
+"memory": "8GB"
+},
+"risks": []
+},
+"Kingston Fury 32gb ddr5 6000": {
+"category": "ram",
+"brand": "Kingston",
+"model": "Fury",
+"name": "Оперативная память Kingston Fury 32GB DDR5 6000MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "32GB",
+"frequency": "6000MHz"
+},
+"risks": []
+},
+"Монитор Samsung 24\" 75Hz": {
+"category": "monitor",
+"brand": "Samsung",
+"model": null,
+"name": "Монитор Samsung 24\" 75Hz",
+"condition": "new",
+"specs": {
+"size": "24\"",
+"refresh_rate": "75Hz"
+},
+"risks": []
+},
+"Клавиатура Logitech K120": {
+"category": "keyboard",
+"brand": "Logitech",
+"model": "K120",
+"name": "Клавиатура Logitech K120",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Мышь A4Tech OP-720": {
+"category": "mouse",
+"brand": "A4Tech",
+"model": "OP-720",
+"name": "Мышь A4Tech OP-720",
+"condition": "new",
+"specs": {
+"connection": "wired"
+},
+"risks": []
+},
+"Ноутбук Lenovo IdeaPad 3 i3-1115G4 8/256": {
+"category": "laptop",
+"brand": "Lenovo",
+"model": "IdeaPad 3",
+"name": "Ноутбук Lenovo IdeaPad 3 i3-1115G4 8/256",
+"condition": "new",
+"specs": {
+"cpu": "i3-1115G4",
+"ram": "8",
+"storage": "256"
+},
+"risks": []
+},
+"Видеокарта GTX 1660 Super б/у": {
+"category": "gpu",
+"brand": "NVIDIA",
+"model": "GTX 1660 Super",
+"name": "Видеокарта NVIDIA GeForce GTX 1660 Super",
+"condition": "used",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 1660 Super"
+},
+"risks": []
+},
+"БП Cougar 600W 80+ Bronze": {
+"category": "psu",
+"brand": "Cougar",
+"model": null,
+"name": "Блок питания Cougar 600W 80+ Bronze",
+"condition": "new",
+"specs": {
+"power": "600W",
+"certification": "Bronze"
+},
+"risks": []
+},
+"Комплект оперативной памяти Corsair Vengeance LPX 16GB (2x8GB) DDR4 3000MHz | Состояние: Б/У, в отличном рабочем состоянии | Бренд: Corsair | Серия: Vengeance LPX | Объем: 16 GB (комплект 2x8 GB) | XMP профиль: 3000 MHz (тайминги 16-20-20-38, 1.35V) | Чипы: SK Hynix M-die (ver 5.30)": {
+"category": "ram",
+"brand": "Corsair",
+"model": "Vengeance LPX",
+"name": "Оперативная память Corsair Vengeance LPX 16GB (2x8GB) DDR4 3000MHz",
+"condition": "used",
+"specs": {
+"type": "DDR4",
+"capacity": "16GB",
+"frequency": "3000MHz",
+"modules": "2x8GB"
+},
+"risks": []
+},
+"Видеокарта MSI GeForce RTX 3060 Ventus 2X 12GB | Состояние: б/у, без майнинга, 1 год использования | Производитель: MSI | Память: 12 GB GDDR6 | Разъёмы: 3x DisplayPort, 1x HDMI | Комплект: коробка, документы | Ташкент, Чиланзар": {
+"category": "gpu",
+"brand": "MSI",
+"model": "GeForce RTX 3060 Ventus 2X",
+"name": "Видеокарта MSI GeForce RTX 3060 Ventus 2X 12GB",
+"condition": "used",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3060",
+"memory": "12GB",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Protsessor AMD Ryzen 7 5700X (BOX) | состояние: новый, muhrlangan | Yadrolar: 8 ta, oqimlar: 16 ta | Soket: AM4": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 5700X",
+"name": "Процессор AMD Ryzen 7 5700X",
+"condition": "new",
+"specs": {
+"socket": "AM4",
+"cores": "8",
+"threads": "16",
+"pack": "BOX"
+},
+"risks": []
+},
+"Trident Z Royal DDR4 32GB (2x16GB) 3200Mhz up to 4000Mhz CL18 | NexGrade | Оперативная память | Отличное состояние, проверена тестами | Подсветка RGB, золотой цвет | Комплект из 2 планок по 16 ГБ": {
+"category": "ram",
+"brand": "G.Skill",
+"model": "Trident Z Royal",
+"name": "Оперативная память G.Skill Trident Z Royal 32GB (2x16GB) DDR4 3200MHz",
+"condition": "used",
+"specs": {
+"type": "DDR4",
+"capacity": "32GB",
+"frequency": "3200Mhz",
+"modules": "2x16GB",
+"rgb": "RGB"
+},
+"risks": []
+},
+"ПРОДАМ Palit GeForce RTX 3080 Ti GamingPro LHR 12GB | Мощная видеокарта для игр в 1440p и 4K, отлично подходит для современных AAA-проектов | Модель: Palit GeForce RTX 3080 Ti GamingPro | Видеопамять: 12GB GDDR6X | Версия: LHR | Состояние: б/у | Коробки нет | Обслужена | Заменены термопрокладки | На GPU нанесён фазовый термоинтерфейс / phase-change thermal pad | Карта протестирована | Отличная производительность в 2K / 4K | Подходит для мощной игровой сборки | GPU SHOP — игровые ПК и комплектующие": {
+"category": "gpu",
+"brand": "Palit",
+"model": "GeForce RTX 3080 Ti GamingPro",
+"name": "Видеокарта Palit GeForce RTX 3080 Ti GamingPro LHR 12GB",
+"condition": "used",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 3080 Ti",
+"memory": "12GB",
+"memory_type": "GDDR6X",
+"revision": "LHR"
+},
+"risks": []
+},
+"[25.10.2026 17:58] Продавец 1 | Переслано из PC Store A | [ 3 фото ] | Видеокарта | GIGABYTE WINFORCE GTX 750Ti 2gb | Полностью обслужена | В идеальном состояни | Кулера не трещат,(прозрачные) | Ни пылинки": {
+"category": "gpu",
+"brand": "GIGABYTE",
+"model": "GTX 750Ti",
+"name": "Видеокарта GIGABYTE WINDFORCE GTX 750Ti 2GB",
+"condition": "used",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 750Ti",
+"memory": "2gb"
+},
+"risks": []
+},
+"[25.10.2026 17:58] Продавец 1 | Переслано из PC Store A | [ Фотография ] | Процессор | AMD Ryzen 5 5600 | 6/12 | 32мб кеш | 3.5ггц-4.4.ггц | Король бюджетного гейминга | Пизже i5-12400f": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 5 5600",
+"name": "Процессор AMD Ryzen 5 5600",
+"condition": "new",
+"specs": {
+"cores": "6",
+"threads": "12"
+},
+"risks": []
+},
+"[25.10.2026 17:58] Продавец 1 | Переслано из PC Store A | [ 2 фото ] | Процессор | AMD Ryzen 7 2700 | 8 ядер / 16 потоков | Для монтажа идеален": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 2700",
+"name": "Процессор AMD Ryzen 7 2700",
+"condition": "new",
+"specs": {
+"cores": "8",
+"threads": "16"
+},
+"risks": []
+},
+"[25.10.2026 19:11] Продавец 2: [ 2 фото ] | Оперативная память T-Force | DDR5 | TeamGroup DELTA RGB Black | 32GB 5200MHz | 2x16GB": {
+"category": "ram",
+"brand": "TeamGroup",
+"model": "DELTA RGB",
+"name": "Оперативная память TeamGroup T-Force DELTA RGB Black 32GB (2x16GB) DDR5 5200MHz",
+"condition": "new",
+"specs": {
+"type": "DDR5",
+"capacity": "32GB",
+"frequency": "5200MHz",
+"modules": "2x16GB",
+"rgb": "RGB"
+},
+"risks": []
+},
+"[25.10.2026 19:44] Продавец 4 | Переслано из PC Store B | [ Фотография ] | Intel Core i5-3330 | 4 Cores / 4 Threads | 3.2Ghz Turbo boost": {
+"category": "cpu",
+"brand": "Intel",
+"model": "Core i5-3330",
+"name": "Процессор Intel Core i5-3330",
+"condition": "new",
+"specs": {
+"cores": "4",
+"threads": "4"
+},
+"risks": []
+},
+"[25.10.2026 20:11] Продавец 5 | Переслано из PC Store C | [ Фотография ] | Процессор AMD | Ryzen 7 8700F | 8/16 | Осталось 1шт": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Ryzen 7 8700F",
+"name": "Процессор AMD Ryzen 7 8700F",
+"condition": "new",
+"specs": {
+"cores": "8",
+"threads": "16"
+},
+"risks": []
+},
+"[25.10.2026 20:45] Продавец 4 | Переслано из PC Store B | [ Фотография ] | AMD Athlon 200GE | 2 Cores / 4 Threads | 3.2Ghz | Radeon Vega 3": {
+"category": "cpu",
+"brand": "AMD",
+"model": "Athlon 200GE",
+"name": "Процессор AMD Athlon 200GE",
+"condition": "new",
+"specs": {
+"cores": "2",
+"threads": "4",
+"graphics": "Radeon Vega 3"
+},
+"risks": []
+},
+"[25.10.2026 21:15] Продавец 4 | Переслано из PC Store B | [ Фотография ] | Kingston ValueRAM DDR4 | 8GB | 3200MHz | SO-DIMM": {
+"category": "ram",
+"brand": "Kingston",
+"model": "ValueRAM",
+"name": "Оперативная память Kingston ValueRAM 8GB DDR4 3200MHz SO-DIMM",
+"condition": "new",
+"specs": {
+"type": "DDR4",
+"form_factor": "SODIMM",
+"capacity": "8GB",
+"frequency": "3200MHz"
+},
+"risks": []
+},
+"[25.10.2026 22:03] Продавец 6 | Переслано из PC Store D | [ 3 фото ] | GeForce RTX 2060 6GB sotiladi! | Videokarta: RTX 2060 | память: 6GB GDDR6 | Ulanish portlari: HDMI / DisplayPort ×3 | 192-bit | CS2, Dota 2, GTA V va boshqa o‘yinlar uchun yaxshi variant | Furmarkda 10 minut 68-69 | состояние zor": {
+"category": "gpu",
+"brand": "NVIDIA",
+"model": "RTX 2060",
+"name": "Видеокарта NVIDIA GeForce RTX 2060 6GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "RTX 2060",
+"memory": "6GB",
+"memory_type": "GDDR6"
+},
+"risks": []
+},
+"Нархи | [25.10.2026 23:13] Продавец 8: [ 2 фото ] | Axle Gtx 1650 Super 4gb | 6pin 100 ват | Андижон": {
+"category": "gpu",
+"brand": "Axle",
+"model": "GTX 1650 Super",
+"name": "Видеокарта Axle GTX 1650 Super 4GB",
+"condition": "new",
+"specs": {
+"vendor": "NVIDIA",
+"chip": "GTX 1650 Super",
+"memory": "4gb"
+},
+"risks": []
+},
+"[25.10.2026 23:19] Продавец 9: [ Фотография ] | 3 tb Hitachi | полностью рабочий, не шумит": {
+"category": "hdd",
+"brand": "Hitachi",
+"model": null,
+"name": "Жёсткий диск Hitachi 3TB",
+"condition": "new",
+"specs": {
+"capacity": "3TB"
+},
+"risks": []
+},
+"Продаю видеокарту, состояние отличное, всё работает": null,
+"Оперативка есть, 16гб, недорого": null
+}
