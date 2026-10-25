@@ -290,11 +290,20 @@ def missing_popular(db: Session, md: MarketData, store_id: int, limit: int = 10)
     """Popular products other stores sell and this one does not: what the seller could add."""
     own = set(db.scalars(select(Offer.product_id).where(Offer.store_id == store_id)))
     keys = [k for k in md.series if k[1] == "new" and k[0] not in own and md.stores[k] >= MIN_STORES]
-    # Popular = sold by more stores; among equals, from the busier categories and cheaper (mass products first)
+    # Popular = sold by more stores; among equals, from the busier categories ("other" last) and cheaper.
+    # At most 3 per category, so the hint covers several kinds of goods
     category_size: dict[str, int] = {}
-    for pid in md.category:
-        category_size[md.category[pid]] = category_size.get(md.category[pid], 0) + 1
-    keys.sort(key=lambda k: (-md.stores[k], -category_size.get(md.category.get(k[0]), 0), md.now(k) or 0))
+    for k in keys:
+        category_size[md.category[k[0]]] = category_size.get(md.category[k[0]], 0) + 1
+    category_size["other"] = 0
+    keys.sort(key=lambda k: (-md.stores[k], -category_size[md.category[k[0]]], md.now(k) or 0))
+    picked, per_category = [], {}
+    for k in keys:
+        slug = md.category[k[0]]
+        if per_category.get(slug, 0) < 3:
+            picked.append(k)
+            per_category[slug] = per_category.get(slug, 0) + 1
+    keys = picked
     names = _names(db, [k[0] for k in keys[:limit]])
     return [{**names[pid], "stores": md.stores[(pid, cond)], "market_usd": round(md.now((pid, cond)), 2)}
             for pid, cond in keys[:limit]]
