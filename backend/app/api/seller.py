@@ -86,7 +86,7 @@ def paste_text(data: TextImportIn, background: BackgroundTasks, user: User = Dep
     """"Paste as text": a Telegram post goes through the same pipeline and preview as a file."""
     store = _require_store(db, user)
     # No file name: the page calls it "Текст от 25.10, 14:30" by the creation time
-    imp = PriceImport(store_id=store.id, filename="", source="text", currency=Currency(data.currency))
+    imp = PriceImport(store_id=store.id, filename="", source="text", text=data.text, currency=Currency(data.currency))
     db.add(imp)
     db.commit()
     db.refresh(imp)

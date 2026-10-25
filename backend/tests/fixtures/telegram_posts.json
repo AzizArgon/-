@@ -359,6 +359,47 @@
         },
         "inferred": []
       }
+    },
+    {
+      "title": "NexGrade-style post, reconstructed (the original was not pasted): no Key: value, one price",
+      "default_currency": "UZS",
+      "text": "🔥 NexGrade | Оперативная память 🔥\n\n⚡️ Trident Z Royal DDR4 32GB (2x16GB) 3200Mhz up to 4000Mhz CL18\n\n✅ Отличное состояние, проверена тестами\n✅ Подсветка RGB, золотой цвет\n✅ Комплект из 2 планок по 16 ГБ\n\nЦена : 190 У.Е\n\n🛡 Гарантия 1 месяц\n💳 Рассрочка через 🍇🍇 Uzum Nasiya\n📞 +998 91 234 56 78\n👉 t.me/nexgrade_uz\n👤 Админ: @nexgrade_admin\n\n#RAM #DDR4",
+      "ai": [
+        {
+          "i": 1,
+          "c": "ram",
+          "b": "G.Skill",
+          "m": "Trident Z Royal F4-3200C18D-32GTRG",
+          "n": "G.Skill Trident Z Royal DDR4 32GB (2x16GB) 3200MHz CL18",
+          "p": [
+            "type:DDR4",
+            "capacity:32GB",
+            "modules:2",
+            "frequency:3200MHz",
+            "rgb:RGB"
+          ]
+        }
+      ],
+      "expected": {
+        "name": "G.Skill Trident Z Royal DDR4 32GB (2x16GB) 3200MHz CL18",
+        "category": "ram",
+        "condition": "new",
+        "price": 190,
+        "currency": "USD",
+        "specs": {
+          "type": "DDR4",
+          "form_factor": "DIMM",
+          "capacity": 32,
+          "frequency": 3200,
+          "modules": 2,
+          "rgb": true,
+          "brand": "G.Skill"
+        },
+        "inferred": [
+          "brand",
+          "form_factor"
+        ]
+      }
     }
   ]
 }

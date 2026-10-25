@@ -70,6 +70,26 @@ def _ram_dimm(text: str, specs: dict):
     return "DIMM"
 
 
+# Memory series names are trademarks of one maker each (regexes on the row text)
+RAM_SERIES = (
+    (r"trident\s*z|ripjaws|flare\s*x|aegis|sniper\s*x", "G.Skill"),
+    (r"vengeance|dominator", "Corsair"),
+    (r"fury|hyperx|valueram", "Kingston"),
+    (r"ballistix", "Crucial"),
+    (r"xpg|spectrix|gammix|lancer", "ADATA"),
+    (r"t-?force|vulcan|delta\s*rgb", "TeamGroup"),
+    (r"viper", "Patriot"),
+    (r"ares", "Lexar"),
+)
+
+
+def _ram_brand(text: str, specs: dict):
+    # Why: Trident Z, Ripjaws (G.Skill), Vengeance, Dominator (Corsair), Fury, HyperX (Kingston), Ballistix
+    # (Crucial), XPG (ADATA), T-Force (TeamGroup), Viper (Patriot), Ares (Lexar) are registered names of one
+    # maker each: a seller writing "Trident Z Royal" names a G.Skill kit even without the word "G.Skill".
+    return next((brand for pattern, brand in RAM_SERIES if re.search(pattern, text, re.I)), None)
+
+
 INFERENCES = (
     Inference("intel_f_graphics", "cpu", "graphics", _intel_graphics),
     Inference("cpu_brand_by_series", "cpu", "brand", _cpu_brand),
@@ -78,6 +98,7 @@ INFERENCES = (
     Inference("resolution_by_name", "monitor", "resolution", _resolution),
     Inference("resolution_by_name", "projector", "resolution", _resolution),
     Inference("ram_dimm_by_default", "ram", "form_factor", _ram_dimm),
+    Inference("ram_brand_by_series", "ram", "brand", _ram_brand),
 )
 
 INFERABLE: dict[str, set[str]] = {}

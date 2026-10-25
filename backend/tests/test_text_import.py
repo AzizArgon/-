@@ -166,3 +166,16 @@ def test_uzbek_words():
 
 def test_list_is_not_a_card():
     assert len(text_to_rows(POSTS[2]["text"], "USD")) == 3  # "Цена:" on its own line is still a list
+
+
+def test_any_layout_with_one_price_is_one_card():
+    row, = text_to_rows(CARDS[3]["text"], "UZS")
+    assert (row.price, row.currency, row.category_hint) == (190, "USD", "ram")
+    assert row.name.startswith("Trident Z Royal DDR4 32GB")
+    text = " ".join(row.cells).lower()
+    assert not any(w in text for w in ("гарант", "рассрочк", "uzum", "998", "t.me", "админ", "@"))
+
+
+@pytest.mark.parametrize("line", ["Цена : 190 У.Е", "Цена: 190 у.е.", "190 уе", "190 USD"])
+def test_dollar_spellings(line):
+    assert find_price(line, "UZS")[:2] == (190, "USD")

@@ -223,6 +223,7 @@ BRAND_CASE = {b.lower(): b for b in (
     "ASUS", "MSI", "Gigabyte", "HP", "LG", "AOC", "AMD", "Intel", "NVIDIA", "Lenovo", "Acer", "Dell", "Apple",
     "Samsung", "Deepcool", "Corsair", "Kingston", "ADATA", "Lexar", "Palit", "Sapphire", "Zotac", "PNY", "Inno3D",
     "Redragon", "AULA", "Defender", "Thermaltake", "Lian Li", "Jonsbo", "Montech", "ID-Cooling", "Xiaomi", "Edifier",
+    "G.Skill", "TeamGroup", "Patriot", "Crucial",
 )}
 
 

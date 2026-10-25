@@ -70,7 +70,9 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
     if source in ("ai", "cache"):
         # AI specs must be backed by the row text; the rest is only a guess
         specs, guessed = split_specs(specs, f"{r.sheet} {r.section} {r.raw_name}")
-    category = p.get("category", "other")
+    category = p.get("category") or "other"
+    if category == "other" and r.category_hint:
+        category = r.category_hint
     # Only dictionary keys and values reach the product (values are read from the row itself first)
     specs = normalize_specs(category, source_text(r.raw_name, r.article), specs, p.get("brand"))
     return {

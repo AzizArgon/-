@@ -232,7 +232,8 @@
       "gpu_vendor_by_chip": "Выведено правилом: чипы GeForce RTX/GTX выпускает NVIDIA, Radeon RX — AMD, Arc — Intel",
       "board_size_by_chipset": "Выведено правилом: буква M после чипсета (B760M) означает Micro-ATX, буква I — Mini-ITX",
       "resolution_by_name": "Выведено правилом: FHD = 1920×1080, QHD = 2560×1440, UHD/4K = 3840×2160",
-      "ram_dimm_by_default": "Выведено правилом: память для ноутбуков (SODIMM) продавцы всегда помечают; без такой пометки это обычная память DIMM для ПК"
+      "ram_dimm_by_default": "Выведено правилом: память для ноутбуков (SODIMM) продавцы всегда помечают; без такой пометки это обычная память DIMM для ПК",
+      "ram_brand_by_series": "Продавец не указал бренд — он выведен по названию серии (Trident Z → G.Skill, Vengeance → Corsair, Fury → Kingston)"
     }
   },
   "roles": {

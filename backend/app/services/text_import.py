@@ -46,7 +46,14 @@ AD_WORDS = (
     "поступлени", "доставк", "звоните", "звонит", "телефон", "тел.", "тел:", "адрес", "ориентир", "пишите",
     "заказ", "гарантия", "t.me", "http", "@", "instagram", "telegram", "скидк", "акция", "купить", "самовывоз",
     "manzil", "aloqa", "yetkazib", "sotib olish", "buyurtma", "murojaat", "chegirma",
+    "гарант", "рассрочк", "админ", "uzum", "kafolat", "muddatli", "nasiya", "kanal", "канал", "подпис",
 )
+CURRENCY_WORDS = {"сум", "сўм", "so'm", "som", "sum", "uzs", "usd", "долл", "доллар", "долларов", "уе"}
+HASHTAG_CATEGORIES = {
+    "ram": "ram", "озу": "ram", "оперативка": "ram", "ddr4": "ram", "ddr5": "ram", "gpu": "gpu", "видеокарта": "gpu",
+    "cpu": "cpu", "процессор": "cpu", "ssd": "ssd", "hdd": "hdd", "monitor": "monitor", "монитор": "monitor",
+    "psu": "psu", "motherboard": "motherboard", "материнка": "motherboard", "laptop": "laptop", "ноутбук": "laptop",
+}
 PRICE_WORDS = {"цена", "цены", "price", "narxi", "narx", "нарх"}
 # Uzbek (Latin) words of posts -> the Russian ones the rules and the AI prompt know
 UZ_WORDS = {
@@ -153,12 +160,20 @@ def _prices(lines: list[str], default_currency: str) -> list[tuple[float, str, b
     return found
 
 
+def _is_named(rest: str) -> bool:
+    """What is left of a price line names a product ("i5 12400f б/у —"), not just "Цена:" / "Narxi:"."""
+    words = [w for w in re.findall(r"[\w'.]+", uz_to_ru(rest).lower()) if re.search(r"[^\W\d_]", w)]
+    return any(w.strip(".") not in PRICE_WORDS and w.replace(".", "") not in CURRENCY_WORDS for w in words)
+
+
 def is_card_post(lines: list[str], default_currency: str) -> bool:
-    """One product on many lines: 2+ "Key: value" lines and one price (a bilingual post repeats the same price).
-    A list has a price on almost every line, and different ones."""
-    specs = [line for line in lines if _key_value(line) and not find_price(line, default_currency)[0]]
-    prices = {(p, c) for p, c, _, _ in _prices(lines, default_currency)}
-    return len(specs) >= 2 and len(prices) == 1
+    """One price in the post = one product, whatever the layout ("Key: value" lines are not required).
+
+    A list names a product on each priced line ("i5 12400f — 110$", "rtx 3060 — 290$"); a card has one price,
+    often on its own line ("Цена : 190 У.Е", repeated in Uzbek: "Narxi: ...")."""
+    named = [i for i in range(len(lines)) if find_price(lines[i], default_currency)[0] is not None
+             and _is_named(find_price(lines[i], default_currency)[3])]
+    return bool(_prices(lines, default_currency)) and len(named) <= 1
 
 
 def _condition(value: str) -> str | None:
@@ -169,33 +184,46 @@ def _condition(value: str) -> str | None:
     return None
 
 
-def card_row(lines: list[str], default_currency: str) -> CleanRow | None:
-    """The whole post is one product: the title is its name, "Key: value" lines are its characteristics.
+def _title(lines: list[str], price_line: int, default_currency: str) -> str:
+    """The product name: the priced line if it names the product, else the first line with a model (letters and
+    digits: "Corsair ... 16GB"), else the first line with words."""
+    rest = _clean_name(find_price(lines[price_line], default_currency)[3])
+    if _is_named(rest) and not _key_value(lines[price_line]):
+        return rest
+    texts = [_clean_name(line) for i, line in enumerate(lines)
+             if line and i != price_line and not _key_value(line) and re.search(r"[^\W\d_]", line)]
+    return next((t for t in texts if re.search(r"\d", t)), texts[0] if texts else "")
 
-    A bilingual post says everything twice: if there are Russian keys, the Uzbek (Latin) duplicates are dropped.
-    Price and condition are read by code; the AI gets the title and the characteristics.
+
+def card_row(lines: list[str], default_currency: str, max_len: int = 1000) -> CleanRow | None:
+    """The whole post is one product: the AI gets all of it (title first), code reads price and condition.
+
+    A bilingual post says everything twice: if there are Russian "Key: value" lines, their Uzbek (Latin)
+    copies are dropped, so the AI sees one product and the row text is not doubled.
     """
     price, currency, check, price_line = _prices(lines, default_currency)[0]
-    pairs = [(i, kv) for i, line in enumerate(lines) if i != price_line and (kv := _key_value(line))]
-    title = next((_clean_name(line) for i, line in enumerate(lines)
-                  if line and i != price_line and not _key_value(line) and re.search(r"[^\W\d_]", line)), "")
+    title = _title(lines, price_line, default_currency)
     if not title:
         return None
-    has_russian = any(re.search("[а-яё]", key.lower()) for _, (key, _) in pairs)
-    specs, condition = [], None
-    for i, (key, value) in pairs:
-        if key.lower() in PRICE_WORDS or find_price(lines[i], default_currency)[0] is not None:
+    pairs = [kv for line in lines if (kv := _key_value(line))]
+    has_russian = any(re.search("[а-яё]", key.lower()) for key, _ in pairs)
+    cells, condition = [uz_to_ru(title)], None
+    for line in lines:
+        kv = _key_value(line)
+        if not line or _clean_name(line) == title or find_price(line, default_currency)[0] is not None:
             continue
-        if key.lower() in CONDITION_KEYS:
-            condition = condition or _condition(value)
-        if has_russian and not re.search("[а-яё]", key.lower()):
-            continue  # the Uzbek copy of a Russian line
-        specs.append(uz_to_ru(f"{key}: {_TAIL.sub('', value)}"))
-    title = uz_to_ru(title)
-    cells = [title, *specs]
+        if kv:
+            key, value = kv
+            if key.lower() in CONDITION_KEYS:
+                condition = condition or _condition(value)
+            if has_russian and not re.search("[а-яё]", key.lower()):
+                continue  # the Uzbek copy of a Russian line
+            line = f"{key}: {value}"
+        cells.append(uz_to_ru(_TAIL.sub("", _BULLET.sub("", line))))
+    text = " | ".join(cells)
     return CleanRow(
-        row=1, sheet="", section="", cells=cells, name=title, price=price, is_in_stock=True,
-        ai_text=" | ".join(cells), currency=currency, currency_check=check, condition=condition,
+        row=1, sheet="", section="", cells=cells, name=cells[0], price=price, is_in_stock=True,
+        ai_text=text[:max_len], currency=currency, currency_check=check, condition=condition,
     )
 
 
@@ -221,9 +249,22 @@ def list_rows(lines: list[str], default_currency: str) -> list[CleanRow]:
     return rows
 
 
+def category_hint(text: str) -> str | None:
+    """#RAM, #GPU, #видеокарта: the seller's own category tag (used when the AI is not sure)."""
+    for tag in re.findall(r"#(\w+)", text.lower()):
+        if tag in HASHTAG_CATEGORIES:
+            return HASHTAG_CATEGORIES[tag]
+    return None
+
+
 def text_to_rows(text: str, default_currency: str) -> list[CleanRow]:
     lines = clean_lines(text)
     if is_card_post(lines, default_currency):
         row = card_row(lines, default_currency)
-        return [row] if row else []
-    return list_rows(lines, default_currency)
+        rows = [row] if row else []
+    else:
+        rows = list_rows(lines, default_currency)
+    hint = category_hint(text)
+    for row in rows:
+        row.category_hint = hint
+    return rows
