@@ -7,6 +7,8 @@ article) — those are kept for the Anti-Fraud checks.
 
 import re
 
+from app.services.spec_normalizer import normalize_specs
+
 # Rows with condition markers always go to the AI: it decides used/refurbished
 _CONDITION_MARKERS = re.compile(r"б/у|\bused\b|восстан|refurb|\bref\b|уценк", re.IGNORECASE)
 # Shop notes in brackets: "(распродажа)", "(Маркировка)", "(без рамки)"
@@ -199,5 +201,7 @@ def parse_by_rules(name: str) -> dict | None:
     for rule in RULES:
         result = rule(text)
         if result:
+            # Specs go through the dictionary like everything else: "16GB" -> capacity 16
+            result["specs"] = normalize_specs(result["category"], text, result["specs"], result["brand"])
             return result
     return None

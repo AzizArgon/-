@@ -16,6 +16,7 @@ from sqlalchemy.orm import Session
 
 from app.db.models import Currency, FlagLevel, FlagSource, FlagStatus, FraudFlag, Offer, Product
 from app.services.exchange import to_usd
+from app.services.spec_normalizer import specs_as_text
 
 TYPES = ("spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu", "price_below_market")
 # AI only names the type; the wording is ours (reason_key "ai_<type>"), so it stays soft
@@ -52,7 +53,7 @@ def _flag(type_: str, level: str, reason_key: str, source: str = "rule", **param
 
 def _text(row: dict) -> str:
     """What the seller wrote: original row, article and specs confirmed by the row. No AI guesses."""
-    specs = " ".join(f"{k} {v}" for k, v in (row.get("specs") or {}).items())
+    specs = specs_as_text(row.get("category") or "other", row.get("specs") or {})
     return " ".join(filter(None, [row.get("raw_name"), row.get("article"), specs]))
 
 

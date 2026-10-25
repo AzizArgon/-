@@ -51,7 +51,7 @@ class PreviewRow(BaseModel):
     name: str = Field(min_length=1, max_length=512)
     price: float | None = Field(default=None, ge=0)
     condition: Literal["new", "used", "refurbished"] = "new"
-    specs: dict[str, str] = {}
+    specs: dict[str, bool | int | float | str] = {}  # dictionary values: "DDR5", 16, true
     # AI specs not found in the row text: shown to the seller, never saved to the product
     specs_guess: dict[str, str] = {}
     is_in_stock: bool = True

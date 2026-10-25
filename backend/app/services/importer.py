@@ -22,6 +22,7 @@ from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
+from app.services.spec_normalizer import normalize_specs, source_text
 
 log = logging.getLogger(__name__)
 
@@ -68,6 +69,9 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
     if source in ("ai", "cache"):
         # AI specs must be backed by the row text; the rest is only a guess
         specs, guessed = split_specs(specs, f"{r.sheet} {r.section} {r.raw_name}")
+    category = p.get("category", "other")
+    # Only dictionary keys and values reach the product (values are read from the row itself first)
+    specs = normalize_specs(category, source_text(r.raw_name, r.article), specs, p.get("brand"))
     return {
         "row": r.row,
         "raw_name": r.raw_name,
@@ -76,7 +80,7 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "ai_text": r.ai_text,
         "cache_key": cache_key(r.ai_text),
         "article": r.article,
-        "category": p.get("category", "other"),
+        "category": category,
         "brand": p.get("brand"),
         "model": p.get("model") or r.article,
         "name": p.get("name") or r.name,
@@ -270,12 +274,17 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         category = categories.get(r["category"]) or categories["other"]
         key = make_match_key(category.slug, r["name"], r.get("brand"))
         product = products.get(key) or db.scalar(select(Product).where(Product.match_key == key))
+        # The seller may have changed the category in the preview: specs are normalized again for it
+        specs = normalize_specs(category.slug, source_text(r["raw_name"], r.get("article")), r.get("specs"), r.get("brand"))
         if product is None:
             product = Product(
                 category=category, brand=r.get("brand"), model=r.get("model"),
-                normalized_name=r["name"], match_key=key, specs_json=r.get("specs") or {},
+                normalized_name=r["name"], match_key=key, specs_json=specs,
             )
             db.add(product)
+        elif any(k not in (product.specs_json or {}) for k in specs):
+            # Another store wrote what this card was missing: the card gets the union of all stores
+            product.specs_json = {**specs, **(product.specs_json or {})}
         products[key] = product
 
         price = r.get("price")

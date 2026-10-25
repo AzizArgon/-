@@ -129,7 +129,7 @@ def test_ai_specs_not_in_row_are_guesses(db, rows):
     result = asyncio.run(parse_clean_rows(db, rows, {}))
     psu = next(r for r in result if r["category"] == "psu")
     # "600W" is in the row; "80 PLUS Bronze" was invented by the AI
-    assert "600W" in psu["specs"].values()
+    assert psu["specs"]["power"] == 600  # normalized by the dictionary: "600W" -> 600
     assert "certification" in psu["specs_guess"] and "certification" not in psu["specs"]
     cpu = next(r for r in result if r["source"] == "ai" and r["category"] == "cpu")
     assert "socket" in cpu["specs_guess"]  # LGA1700 is not written in "проц i5 12400f б/у"

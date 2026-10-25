@@ -21,6 +21,7 @@ from pydantic import BaseModel, TypeAdapter, ValidationError
 from app.core.config import settings
 from app.db.seed import CATEGORIES, CATEGORY_SLUGS
 from app.services.price_cleaner import CleanRow
+from app.services.spec_dictionary import CHOICE, NUMBER, DICTIONARY
 
 log = logging.getLogger(__name__)
 
@@ -56,17 +57,34 @@ _items_adapter = TypeAdapter(list[CompactItem])
 
 _CATEGORY_LIST = ", ".join(f"{slug} ({name})" for slug, name, _ in CATEGORIES)
 
+
+def _spec_hint(spec) -> str:
+    if spec.kind == NUMBER:
+        return spec.key if spec.unit in ("modules", "cores", "threads") else f"{spec.key}({spec.unit})"
+    if spec.kind == CHOICE:
+        return f"{spec.key}({'/'.join(spec.values)})" if spec.values and len(spec.values) <= 7 else spec.key
+    return f"{spec.key}(признак)"  # yes/no: the word from the row ("rgb:ARGB"), so it can be checked
+
+
+# Spec keys from the dictionary (brand has its own field "b")
+_SPEC_KEYS = "\n".join(
+    f"{cat}: {', '.join(_spec_hint(s) for s in specs if s.key != 'brand')}"
+    for cat, specs in DICTIONARY.items() if any(s.key != "brand" for s in specs)
+)
+
 PROMPT = f"""Ты нормализуешь названия товаров из прайс-листа магазина компьютерной техники (Узбекистан).
 Вход: строки "id|название | доп. текст". Строки "# лист / раздел" — контекст, подсказка категории.
 Для каждой строки-ТОВАРА верни объект:
 i — id; c — категория (slug из списка); b — бренд; m — модель/артикул производителя;
 n — чистое название в стиле "Тип Бренд Модель параметры" на русском (как "Блок питания Aerocool KCAS Plus 600W"); не переводи на английский; исправь опечатки и сленг; убери пометки магазина ("распродажа", "акция"); если в строке комплект — перечисли все его части (плата + процессор);
 s — состояние: used (б/у) или refurbished (восстановленный); для новых не указывай;
-p — 2–5 ключевых характеристик строками "ключ:значение" (socket:AM5, capacity:1TB).
+p — характеристики строками "ключ:значение", ТОЛЬКО ключи из списка для категории ниже и только то, что написано в строке (capacity:16GB, socket:AM5, rgb:ARGB); значение пиши как в строке, без пересчёта; чего нет в строке — не указывай.
 f — подозрения, ТОЛЬКО если они явно видны в строке, обычно не указывай: spec_mismatch (характеристики противоречат друг другу), server_hardware (серверное: Xeon, ECC, китайская X99), mining (после майнинга), used_as_new (признаки б/у при s новом), fake_capacity (неправдоподобный объём, напр. флешка 2TB), noname_psu (БП без бренда).
 Не указывай b и m, если их нет. Не придумывай данные. Противоречия (в названии DDR5, в артикуле DDR4) не исправляй.
 Не-товары (заголовки, примечания, условия) пропусти.
 Категории: {_CATEGORY_LIST}
+Ключи характеристик по категориям:
+{_SPEC_KEYS}
 """
 
 GROQ_FORMAT = 'Ответ — JSON-объект {"items": [ ... ]} с объектами из ключей i, c, b, m, n, s, p, f.'
