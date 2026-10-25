@@ -166,7 +166,7 @@ DICTIONARY: dict[str, tuple[Spec, ...]] = {
 # 2–4 key characteristics shown right in the catalog tile: "DDR5 · 16 GB · 6000 MHz · SODIMM"
 CARD_SPECS: dict[str, tuple[str, ...]] = {
     "ram": ("type", "capacity", "frequency", "form_factor"),
-    "cpu": ("socket", "cores", "threads", "pack"),
+    "cpu": ("series", "socket", "cores", "threads"),
     "gpu": ("chip", "memory", "memory_type"),
     "ssd": ("capacity", "interface", "form_factor"),
     "hdd": ("capacity", "form_factor", "rpm"),

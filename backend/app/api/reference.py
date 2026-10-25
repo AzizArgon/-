@@ -6,6 +6,7 @@ from app.db.database import get_db
 from app.db.models import Category
 from app.schemas.seller import CategoryOut, RateOut
 from app.services.exchange import get_usd_rate
+from app.services.spec_dictionary import DICTIONARY
 
 router = APIRouter(tags=["reference"])
 
@@ -21,3 +22,13 @@ def usd_rate(db: Session = Depends(get_db)):
     if rate is None:
         raise HTTPException(status.HTTP_503_SERVICE_UNAVAILABLE, "Exchange rate unavailable")
     return rate
+
+
+@router.get("/spec-dictionary")
+def spec_dictionary():
+    """The characteristics dictionary: keys, value kinds, units and allowed values of every category."""
+    return {
+        category: [{"key": s.key, "kind": s.kind, "unit": s.unit, "values": s.values, "at_least": s.at_least}
+                   for s in specs]
+        for category, specs in DICTIONARY.items()
+    }

@@ -5,6 +5,7 @@ import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
 import { formatDayMonth, formatPrice, roundSum, roundUsd } from '../services/format'
+import { specsText, useSpecDictionary } from '../services/specs'
 
 const PAGE_SIZE = 50
 const POLL_MS = 2000
@@ -33,13 +34,15 @@ function Progress({ imp }) {
   )
 }
 
-const specsText = (specs) => Object.entries(specs || {}).map(([k, v]) => `${k}: ${v}`).join(' · ')
+const rawSpecsText = (specs) => Object.entries(specs || {}).map(([k, v]) => `${k}: ${v}`).join(' · ')
 
-// Confirmed specs are written in the row; AI guesses are shown apart and never saved
-function Specs({ specs, guess }) {
+// Confirmed specs are written in the row and already normalized by the dictionary; AI guesses are shown apart
+// as the AI wrote them and are never saved
+function Specs({ category, specs, guess }) {
   const { t } = useTranslation()
-  const confirmed = specsText(specs)
-  const guessed = specsText(guess)
+  const dictionary = useSpecDictionary()
+  const confirmed = specsText(category, specs, dictionary)
+  const guessed = rawSpecsText(guess)
   if (!confirmed && !guessed) return null
   return (
     <p className="truncate px-1.5 text-xs text-slate-500" title={[confirmed, guessed].filter(Boolean).join('\n')}>
@@ -135,7 +138,7 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
                   <span className={SOURCE_STYLE[r.source] || ''}>{t(`import.source.${r.source || 'ai'}`)}</span>
                   {' · '}{t('import.original')}: {r.raw_name}
                 </p>
-                <Specs specs={r.specs} guess={r.specs_guess} />
+                <Specs category={r.category} specs={r.specs} guess={r.specs_guess} />
                 <Flags flags={r.flags} />
               </td>
               <td className="px-2 py-1.5 align-top">

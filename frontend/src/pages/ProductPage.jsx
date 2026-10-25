@@ -6,6 +6,7 @@ import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
 import Price from '../components/Price'
 import { formatDate, formatDayMonth, formatPrice, telegramUrl } from '../services/format'
+import { formatSpec, specLabel } from '../services/specs'
 
 const SORTS = ['recommended', 'price']
 
@@ -79,7 +80,7 @@ export default function ProductPage() {
 
   if (error) return <ErrorText>{error}</ErrorText>
   if (!product) return null
-  const specs = Object.entries(product.specs)
+  const specs = product.specs.filter((s) => s.key !== 'brand') // the brand has its own line
 
   return (
     <section>
@@ -92,10 +93,10 @@ export default function ProductPage() {
       {product.brand && <p className="mt-1 text-slate-600">{t('product.brand')}: {product.brand}</p>}
       {specs.length > 0 && (
         <dl className="mt-4 grid max-w-xl grid-cols-2 gap-x-6 gap-y-1 text-sm">
-          {specs.map(([k, v]) => (
-            <div key={k} className="contents">
-              <dt className="text-slate-500">{t(`specs.${k}`, { defaultValue: k })}</dt>
-              <dd>{String(v)}</dd>
+          {specs.map((s) => (
+            <div key={s.key} className="contents">
+              <dt className="text-slate-500">{specLabel(s.key, product.category)}</dt>
+              <dd>{formatSpec(s)}</dd>
             </div>
           ))}
         </dl>

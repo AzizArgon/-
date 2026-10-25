@@ -28,7 +28,13 @@
     "offers_other": "{{count}} предложения",
     "prev": "← Назад",
     "next": "Вперёд →",
-    "page": "Страница {{page}} из {{pages}}"
+    "page": "Страница {{page}} из {{pages}}",
+    "filters": "Фильтры",
+    "reset": "Сбросить фильтры",
+    "showAll": "Показать все ({{count}})",
+    "showLess": "Свернуть",
+    "any": "Любая",
+    "atLeast": "от {{value}}"
   },
   "product": {
     "back": "Назад",
@@ -59,38 +65,165 @@
     "UZS": "сум"
   },
   "specs": {
+    "brand": "Бренд",
     "type": "Тип",
-    "color": "Цвет",
-    "frequency": "Частота",
-    "capacity": "Объём",
-    "screen_size": "Диагональ",
-    "memory": "Память",
-    "socket": "Сокет",
-    "resolution": "Разрешение",
-    "panel_type": "Тип матрицы",
-    "ram": "Оперативная память",
-    "cpu": "Процессор",
-    "ssd": "SSD",
-    "screen": "Экран",
-    "gpu": "Видеокарта",
-    "lighting": "Подсветка",
-    "size": "Размер",
-    "series": "Серия",
-    "power": "Мощность",
-    "certification": "Сертификат",
-    "interface": "Интерфейс",
-    "memory_type": "Тип памяти",
     "form_factor": "Форм-фактор",
-    "speed": "Скорость",
-    "chipset": "Чипсет",
-    "connectivity": "Подключение",
-    "bus": "Шина",
-    "cache": "Кэш",
-    "wattage": "Мощность",
-    "storage": "Накопитель",
+    "capacity": "Объём",
+    "frequency": "Частота",
+    "modules": "Комплект",
+    "ecc": "ECC",
+    "rgb": "Подсветка",
+    "series": "Линейка",
+    "socket": "Сокет",
     "cores": "Ядра",
     "threads": "Потоки",
-    "connection": "Подключение"
+    "graphics": "Встроенная графика",
+    "pack": "Комплектация",
+    "vendor": "Производитель чипа",
+    "chip": "Чип",
+    "memory": "Видеопамять",
+    "memory_type": "Тип памяти",
+    "interface": "Интерфейс",
+    "pcie": "Поколение PCIe",
+    "external": "Внешний",
+    "rpm": "Скорость вращения",
+    "chipset": "Чипсет",
+    "wifi": "Wi-Fi",
+    "size": "Диагональ",
+    "resolution": "Разрешение",
+    "refresh_rate": "Частота обновления",
+    "panel": "Матрица",
+    "curved": "Изогнутый экран",
+    "power": "Мощность",
+    "certification": "Сертификат 80 PLUS",
+    "modular": "Модульность",
+    "board": "Материнская плата (до)",
+    "color": "Цвет",
+    "radiator": "Радиатор",
+    "connection": "Подключение",
+    "with_mouse": "Мышь в комплекте",
+    "gaming": "Игровые",
+    "channels": "Схема",
+    "bluetooth": "Bluetooth",
+    "cpu": "Процессор",
+    "ram": "Оперативная память",
+    "storage": "Накопитель",
+    "screen": "Экран",
+    "gpu": "Видеокарта",
+    "power_va": "Мощность, ВА",
+    "power_w": "Мощность, Вт",
+    "technology": "Технология печати",
+    "color_print": "Цветная печать",
+    "paper": "Формат бумаги",
+    "brightness": "Яркость",
+    "yes": "Да",
+    "no": "Нет",
+    "label": {
+      "ram": {
+        "type": "Тип памяти"
+      },
+      "cooling": {
+        "type": "Тип охлаждения"
+      },
+      "keyboard": {
+        "type": "Тип клавиш"
+      },
+      "printer": {
+        "type": "Устройство"
+      },
+      "flash": {
+        "type": "Тип"
+      },
+      "motherboard": {
+        "form_factor": "Форм-фактор платы"
+      }
+    },
+    "unit": {
+      "GB": "{{value}} ГБ",
+      "TB": "{{value}} ТБ",
+      "MHz": "{{value}} МГц",
+      "Hz": "{{value}} Гц",
+      "W": "{{value}} Вт",
+      "VA": "{{value}} ВА",
+      "inch": "{{value}}″",
+      "mm": "{{value}} мм",
+      "rpm": "{{value}} об/мин",
+      "lm": "{{value}} лм",
+      "cores_one": "{{value}} ядро",
+      "cores_few": "{{value}} ядра",
+      "cores_many": "{{value}} ядер",
+      "cores_other": "{{value}} ядра",
+      "threads_one": "{{value}} поток",
+      "threads_few": "{{value}} потока",
+      "threads_many": "{{value}} потоков",
+      "threads_other": "{{value}} потока",
+      "modules_one": "{{value}} планка",
+      "modules_few": "{{value}} планки",
+      "modules_many": "{{value}} планок",
+      "modules_other": "{{value}} планки"
+    },
+    "values": {
+      "form_factor": {
+        "mATX": "Micro-ATX",
+        "ITX": "Mini-ITX"
+      },
+      "board": {
+        "mATX": "Micro-ATX",
+        "ITX": "Mini-ITX"
+      },
+      "certification": {
+        "White": "80 PLUS White",
+        "Bronze": "80 PLUS Bronze",
+        "Silver": "80 PLUS Silver",
+        "Gold": "80 PLUS Gold",
+        "Platinum": "80 PLUS Platinum",
+        "Titanium": "80 PLUS Titanium"
+      },
+      "modular": {
+        "full": "Полностью модульный",
+        "semi": "Частично модульный",
+        "no": "Немодульный"
+      },
+      "pcie": {
+        "3.0": "PCIe 3.0",
+        "4.0": "PCIe 4.0",
+        "5.0": "PCIe 5.0"
+      },
+      "connection": {
+        "wired": "Проводное",
+        "wireless": "Беспроводное"
+      },
+      "type": {
+        "air": "Воздушное (кулер)",
+        "liquid": "Жидкостное",
+        "fan": "Вентилятор",
+        "paste": "Термопаста",
+        "mechanical": "Механическая",
+        "membrane": "Мембранная",
+        "printer": "Принтер",
+        "mfp": "МФУ",
+        "usb": "USB-флешка",
+        "microsd": "microSD",
+        "sd": "SD"
+      },
+      "technology": {
+        "laser": "Лазерная",
+        "inkjet": "Струйная"
+      },
+      "color": {
+        "black": "Чёрный",
+        "white": "Белый",
+        "gray": "Серый",
+        "silver": "Серебристый",
+        "red": "Красный",
+        "blue": "Синий",
+        "green": "Зелёный",
+        "pink": "Розовый",
+        "yellow": "Жёлтый",
+        "orange": "Оранжевый",
+        "purple": "Фиолетовый"
+      }
+    }
   },
   "roles": {
     "buyer": "Покупатель",
