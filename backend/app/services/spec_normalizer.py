@@ -345,7 +345,7 @@ def strip_modifiers(category: str, text: str) -> tuple[str, dict]:
             found.setdefault(key, value or f"{m[1].lower()} {m[2]}")
             text = re.sub(pattern, " ", text, flags=re.IGNORECASE)
     text = re.sub(r"\(\s*\)|\[\s*\]", " ", text)  # "(LHR)" leaves empty brackets
-    text = re.sub(r"\s+([,.;)])", r"", re.sub(r"\s{2,}", " ", text))
+    text = re.sub(r"\s+([,.;)])", r"\1", re.sub(r"\s{2,}", " ", text))
     return text.strip(" ,;-–—|"), found
 
 

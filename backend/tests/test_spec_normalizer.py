@@ -222,3 +222,8 @@ def test_no_lhr_flag():
     flags = check_offer({"raw_name": "MSI RTX 3070 Gaming X Trio Non-LHR б/у", "category": "gpu", "condition": "used"})
     assert [(f["type"], f["level"]) for f in flags if f["type"] == "no_lhr"] == [("no_lhr", "info")]
     assert not check_offer({"raw_name": "Palit RTX 3080 Ti LHR", "category": "gpu", "condition": "used"})
+
+
+def test_strip_modifiers_tidies_punctuation():
+    from app.services.spec_normalizer import strip_modifiers
+    assert strip_modifiers("gpu", "MSI RTX 3070 Gaming X Trio LHR , 8GB (LHR)")[0] == "MSI RTX 3070 Gaming X Trio, 8GB"
