@@ -3,25 +3,24 @@ import { useTranslation } from 'react-i18next'
 import { Link, useSearchParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import api, { errorKey } from '../services/api'
-import { formatPrice } from '../services/format'
+import Price from '../components/Price'
+import { formatDayMonth, formatPrice } from '../services/format'
 
 const SEARCH_DELAY_MS = 300
 const inputClass = 'rounded-md border border-slate-300 bg-white px-3 py-2 outline-none focus:border-slate-900'
 
-function ProductTile({ item, usdRate }) {
+function ProductTile({ item, usdRate, rateDate }) {
   const { t } = useTranslation()
   return (
     <Link to={`/products/${item.id}`}
       className="flex flex-col rounded-xl border border-slate-200 bg-white p-4 hover:border-slate-400 hover:shadow-sm">
       <span className="text-xs text-slate-500">{t(`categories.${item.category}`)}</span>
       <span className="mt-1 line-clamp-3 font-medium leading-snug">{item.name}</span>
-      <span className="mt-auto pt-3">
-        <span className="text-lg font-semibold">{t('catalog.from')} {formatPrice(item.min_price_usd, 'USD')}</span>
-        {usdRate && item.min_price_usd != null && (
-          <span className="block text-sm text-slate-500">≈ {formatPrice(item.min_price_usd * usdRate, 'UZS')}</span>
-        )}
+      <div className="mt-auto pt-3">
+        <Price price={item.min_price} currency={item.min_currency} usdRate={usdRate} rateDate={rateDate}
+          prefix={`${t('catalog.from')} `} size="text-lg" />
         <span className="block text-sm text-slate-500">{t('catalog.offers', { count: item.offers })}</span>
-      </span>
+      </div>
     </Link>
   )
 }
@@ -80,9 +79,9 @@ export default function CatalogPage() {
         <label className="flex items-center gap-2 text-sm text-slate-600">
           {t('catalog.price')}
           <input type="number" min="0" value={params.get('price_min') || ''} placeholder={t('catalog.priceMin')}
-            onChange={(e) => setParam('price_min', e.target.value)} className={`${inputClass} w-24`} />
+            onChange={(e) => setParam('price_min', e.target.value)} className={`${inputClass} w-36`} step="100000" />
           <input type="number" min="0" value={params.get('price_max') || ''} placeholder={t('catalog.priceMax')}
-            onChange={(e) => setParam('price_max', e.target.value)} className={`${inputClass} w-24`} />
+            onChange={(e) => setParam('price_max', e.target.value)} className={`${inputClass} w-36`} step="100000" />
         </label>
         <label className="flex items-center gap-2 py-2 text-sm">
           <input type="checkbox" checked={!params.get('all')} onChange={(e) => setParam('all', e.target.checked ? '' : '1')} />
@@ -93,12 +92,15 @@ export default function CatalogPage() {
       <div className="mt-4"><ErrorText>{error}</ErrorText></div>
       {data && (
         <>
-          <p className="text-sm text-slate-500">{t('catalog.found', { count: data.total })}</p>
+          <p className="text-sm text-slate-500">
+            {t('catalog.found', { count: data.total })}
+            {data.usd_rate && <> · {t('price.rateNote', { date: formatDayMonth(data.usd_rate_date), rate: formatPrice(data.usd_rate, 'UZS') })}</>}
+          </p>
           {data.items.length === 0 ? (
             <p className="mt-6 text-slate-500">{t('catalog.empty')}</p>
           ) : (
             <div className="mt-4 grid grid-cols-4 gap-4">
-              {data.items.map((item) => <ProductTile key={item.id} item={item} usdRate={data.usd_rate} />)}
+              {data.items.map((item) => <ProductTile key={item.id} item={item} usdRate={data.usd_rate} rateDate={data.usd_rate_date} />)}
             </div>
           )}
           {pages > 1 && (

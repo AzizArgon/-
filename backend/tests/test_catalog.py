@@ -4,6 +4,7 @@ from sqlalchemy import select
 
 from app.db.models import Currency, FlagLevel, FlagSource, FraudFlag, Offer, Product, utcnow
 from app.services.catalog import make_match_key, product_card, rebuild_match_keys, search_products
+from app.services.exchange import to_uzs
 from app.services.importer import publish_import
 from tests.test_publish import _import, _row, _store, db  # noqa: F401  (db is a fixture)
 
@@ -49,7 +50,7 @@ def test_search_filters_and_stock(db):
         {**_row(1, "Intel Core i5-12400F OEM", 120), "category": "cpu"},
         _row(2, "Kingston DDR5 16GB", 50), {**_row(3, "Lexar DDR4 8GB", 30), "is_in_stock": False},
     ])
-    publish_import(db, _import(db, b, Currency.UZS), b, [_row(1, "Kingston DDR5 16GB", 600_000)])
+    publish_import(db, _import(db, b, Currency.UZS), b, [_row(1, "Kingston DDR5 16GB", 590_000)])
     names = lambda r: [i["name"] for i in r["items"]]  # noqa: E731
 
     # Russian category word + Latin model: "Процессоры" matches "процессор"
@@ -57,9 +58,15 @@ def test_search_filters_and_stock(db):
     assert names(search_products(db, 12_000, category="ram")) == ["Kingston DDR5 16GB"]  # Lexar is out of stock
     assert len(search_products(db, 12_000, category="ram", in_stock=False)["items"]) == 2
     kingston = search_products(db, 12_000, "kingston")["items"][0]
-    assert kingston["offers"] == 2 and kingston["min_price_usd"] == 50  # 600 000 UZS = $50
+    assert kingston["offers"] == 2 and kingston["min_price_usd"] == 49.17  # 590 000 UZS < $50
+    assert (kingston["min_price"], kingston["min_currency"]) == (590_000, "UZS")  # as the seller wrote it
     assert names(search_products(db, 12_000, price_min=100)) == ["Intel Core i5-12400F OEM"]
     assert names(search_products(db, 12_000, price_max=60)) == ["Kingston DDR5 16GB"]
+
+
+def test_converted_sums_are_rounded_to_thousands():
+    assert to_uzs(113.4, Currency.USD, 11_839) == 1_343_000
+    assert to_uzs(1_342_542, Currency.UZS, 11_839) == 1_342_542  # the seller's own price is kept as is
 
 
 def test_recommended_order_and_price_order(db):

@@ -56,4 +56,5 @@ def to_uzs(price: float | None, currency: Currency, usd_rate: float | None) -> f
         return None
     if currency == Currency.UZS:
         return price
-    return round(price * usd_rate) if usd_rate else None
+    # Converted sums are approximate anyway: rounded to 1 000 sum
+    return int(round(price * usd_rate, -3)) if usd_rate else None

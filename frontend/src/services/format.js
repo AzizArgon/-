@@ -19,3 +19,11 @@ export function telegramUrl(handle) {
   const name = handle.trim().replace(/^(https?:\/\/)?(t\.me\/)?@?/, '')
   return `https://t.me/${name}`
 }
+
+// "25.10" for "by the CBU rate on 25.10"
+export function formatDayMonth(iso) {
+  return new Intl.DateTimeFormat(i18n.language || 'ru', { day: '2-digit', month: '2-digit' }).format(new Date(iso))
+}
+
+// Converted sums are approximate: rounded to 1 000 sum
+export const roundSum = (value) => Math.round(value / 1000) * 1000

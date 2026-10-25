@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
+import { formatDayMonth, formatPrice, roundSum } from '../services/format'
 
 const PAGE_SIZE = 50
 const POLL_MS = 2000
@@ -50,7 +51,17 @@ function Specs({ specs, guess }) {
   )
 }
 
-function PreviewTable({ importId, rows, setRows, categories, currency, readOnly }) {
+// Under the editable price: the other currency by the CBU rate. Sum is what buyers see first
+function ConvertedPrice({ price, currency, rate }) {
+  const { t } = useTranslation()
+  if (price == null || !rate) return null
+  const hint = t('price.rateHint', { date: formatDayMonth(rate.rate_date) })
+  return currency === 'USD'
+    ? <p className="px-1.5 text-xs font-medium text-slate-700" title={hint}>≈ {formatPrice(roundSum(price * rate.rate), 'UZS')}</p>
+    : <p className="px-1.5 text-xs text-slate-500" title={hint}>≈ {formatPrice(price / rate.rate, 'USD')}</p>
+}
+
+function PreviewTable({ importId, rows, setRows, categories, currency, rate, readOnly }) {
   const { t } = useTranslation()
   const [query, setQuery] = useState('')
   const [onlyIssues, setOnlyIssues] = useState(false)
@@ -139,6 +150,7 @@ function PreviewTable({ importId, rows, setRows, categories, currency, readOnly 
               <td className="px-2 py-1.5 align-top">
                 <input className={cellInput} disabled={readOnly} type="number" min="0" step="any" value={r.price ?? ''}
                   onChange={(e) => edit(r.row, 'price', e.target.value === '' ? null : Number(e.target.value))} />
+                <ConvertedPrice price={r.price} currency={currency} rate={rate} />
               </td>
               <td className="px-2 py-1.5 align-top">
                 <select className={cellInput} disabled={readOnly} value={r.condition} onChange={(e) => edit(r.row, 'condition', e.target.value)}>
@@ -177,9 +189,11 @@ export default function ImportPage() {
   const [busy, setBusy] = useState(false)
   const [stats, setStats] = useState(null)
   const [reloadKey, setReloadKey] = useState(0)
+  const [rate, setRate] = useState(null)
 
   useEffect(() => {
     api.get('/categories').then((res) => setCategories(res.data)).catch(() => {})
+    api.get('/rates/usd').then((res) => setRate(res.data)).catch(() => {})
   }, [])
 
   // Poll while the AI is still parsing
@@ -270,7 +284,7 @@ export default function ImportPage() {
       )}
       {(imp?.status === 'ready' || imp?.status === 'published') && rows.length > 0 && (
         <PreviewTable importId={id} rows={rows} setRows={setRows} categories={categories}
-          currency={imp.currency} readOnly={imp.status !== 'ready'} />
+          currency={imp.currency} rate={rate} readOnly={imp.status !== 'ready'} />
       )}
     </div>
   )

@@ -71,6 +71,19 @@ def _usd_price(usd_rate: float | None):
     return case((Offer.currency == Currency.UZS, Offer.price / (usd_rate or 1e18)), else_=Offer.price)
 
 
+def _cheapest_offers(db: Session, product_ids: list[int], usd_rate: float | None, in_stock: bool) -> dict[int, Offer]:
+    query = select(Offer).where(Offer.product_id.in_(product_ids), Offer.price.is_not(None))
+    if in_stock:
+        query = query.where(Offer.is_in_stock.is_(True))
+    result: dict[int, Offer] = {}
+    for o in db.scalars(query):
+        best = result.get(o.product_id)
+        usd = to_usd(o.price, o.currency, usd_rate) or float("inf")
+        if best is None or usd < (to_usd(best.price, best.currency, usd_rate) or float("inf")):
+            result[o.product_id] = o
+    return result
+
+
 def search_products(
     db: Session, usd_rate: float | None, q: str = "", category: str | None = None,
     price_min: float | None = None, price_max: float | None = None, in_stock: bool = True, page: int = 1,
@@ -109,9 +122,13 @@ def search_products(
         .order_by(stats.c.offers.desc(), Product.normalized_name)
         .offset((page - 1) * PAGE_SIZE).limit(PAGE_SIZE)
     ).all()
+    cheapest = _cheapest_offers(db, [p.id for p, _, _ in rows], usd_rate, in_stock)
     items = [
         {"id": p.id, "name": p.normalized_name, "brand": p.brand, "category": p.category.slug if p.category else "other",
-         "min_price_usd": round(min_usd, 2) if min_usd is not None else None, "offers": n}
+         "min_price_usd": round(min_usd, 2) if min_usd is not None else None, "offers": n,
+         # The cheapest offer as the seller wrote it: the page shows "≈" only for a converted currency
+         "min_price": cheapest[p.id].price if p.id in cheapest else None,
+         "min_currency": cheapest[p.id].currency.value if p.id in cheapest else None}
         for p, min_usd, n in rows
     ]
     return {"items": items, "total": total, "page": page, "page_size": PAGE_SIZE}

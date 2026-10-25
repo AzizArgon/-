@@ -4,7 +4,8 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
-import { formatDate, formatPrice, telegramUrl } from '../services/format'
+import Price from '../components/Price'
+import { formatDate, formatDayMonth, formatPrice, telegramUrl } from '../services/format'
 
 const SORTS = ['recommended', 'price']
 
@@ -23,12 +24,10 @@ function Contacts({ store }) {
   )
 }
 
-function OfferRow({ offer }) {
+function OfferRow({ offer, usdRate, rateDate }) {
   const { t } = useTranslation()
   const [open, setOpen] = useState(false)
   const { store } = offer
-  // The seller's own currency is the main price; the other one is converted by the CBU rate
-  const other = offer.currency === 'USD' ? formatPrice(offer.price_uzs, 'UZS') : formatPrice(offer.price_usd, 'USD')
 
   return (
     <li className={`rounded-xl border border-slate-200 bg-white p-4 ${offer.is_in_stock ? '' : 'opacity-60'}`}>
@@ -49,8 +48,7 @@ function OfferRow({ offer }) {
           </p>
         </div>
         <div className="text-right">
-          <p className="text-xl font-semibold">{formatPrice(offer.price, offer.currency)}</p>
-          <p className="text-sm text-slate-500">≈ {other}</p>
+          <Price price={offer.price} currency={offer.currency} usdRate={usdRate} rateDate={rateDate} />
         </div>
         <div className="w-44 text-right">
           {open ? <Contacts store={store} /> : (
@@ -116,10 +114,10 @@ export default function ProductPage() {
       </div>
       {sort === 'recommended' && <p className="mt-1 text-sm text-slate-500">{t('product.recommendedHint')}</p>}
       {product.usd_rate && (
-        <p className="mt-1 text-sm text-slate-500">{t('product.rate', { rate: formatPrice(product.usd_rate, 'UZS') })}</p>
+        <p className="mt-1 text-sm text-slate-500">{t('price.rateNote', { date: formatDayMonth(product.usd_rate_date), rate: formatPrice(product.usd_rate, 'UZS') })}</p>
       )}
       <ul className="mt-4 grid gap-3">
-        {product.offers.map((o) => <OfferRow key={o.id} offer={o} />)}
+        {product.offers.map((o) => <OfferRow key={o.id} offer={o} usdRate={product.usd_rate} rateDate={product.usd_rate_date} />)}
       </ul>
     </section>
   )
