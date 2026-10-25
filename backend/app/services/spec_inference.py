@@ -72,14 +72,14 @@ def _ram_dimm(text: str, specs: dict):
 
 # Memory series names are trademarks of one maker each (regexes on the row text)
 RAM_SERIES = (
-    (r"trident\s*z|ripjaws|flare\s*x|aegis|sniper\s*x", "G.Skill"),
+    (r"trident\s*z|ripjaws|flare\s*x|\baegis\b|sniper\s*x", "G.Skill"),
     (r"vengeance|dominator", "Corsair"),
-    (r"fury|hyperx|valueram", "Kingston"),
+    (r"\bfury\b|hyperx|valueram", "Kingston"),
     (r"ballistix", "Crucial"),
-    (r"xpg|spectrix|gammix|lancer", "ADATA"),
-    (r"t-?force|vulcan|delta\s*rgb", "TeamGroup"),
-    (r"viper", "Patriot"),
-    (r"ares", "Lexar"),
+    (r"\bxpg\b|spectrix|gammix|lancer", "ADATA"),
+    (r"t-?force|\bvulcan\b|\bdelta\s*rgb", "TeamGroup"),
+    (r"\bviper\b", "Patriot"),
+    (r"\bares\b", "Lexar"),
 )
 
 

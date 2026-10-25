@@ -282,7 +282,8 @@
           "modules": 2,
           "frequency": 3000,
           "form_factor": "DIMM",
-          "brand": "Corsair"
+          "brand": "Corsair",
+          "revision": "ver 5.30"
         },
         "inferred": [
           "form_factor"
@@ -399,6 +400,44 @@
           "brand",
           "form_factor"
         ]
+      }
+    },
+    {
+      "title": "real post (FPS HUB UZ): RTX 3080 Ti LHR, no box",
+      "default_currency": "UZS",
+      "text": "🎆 🔤🔤🔤🔤🔤🔤🔤🎆\n🔥 ПРОДАМ Palit GeForce RTX 3080 Ti GamingPro LHR 12GB 🔥\nМощная видеокарта для игр в 1440p и 4K, отлично подходит для современных AAA-проектов.\n🔹 Модель: Palit GeForce RTX 3080 Ti GamingPro\n🔹 Видеопамять: 12GB GDDR6X\n🔹 Версия: LHR\n🔹 Состояние: б/у\n🔹 Коробки нет\n🛠 Обслужена:\n✅ Заменены термопрокладки\n✅ На GPU нанесён фазовый термоинтерфейс / phase-change thermal pad\n✅ Карта протестирована\n✅ Отличная производительность в 2K / 4K\n✅ Подходит для мощной игровой сборки\n💰 Цена: $450  🎆 🔤🔤🔤🔤🔤🔤🔤🎆\n🔤🔤🔤🔤🔤🔤 🔤🔤🔤\n📍 Самовывоз: Ташкент, Мирзо-Улугбекский район, массив Ялангач\n🚚 Доставка обсуждается\n📞 +998 99 838 23 31\n📞 +998 93 812 23 31\n📲 Telegram-канал: fpshubuz\n🎮 FPS HUB UZ — игровые ПК и комплектующие",
+      "ai": [
+        {
+          "i": 1,
+          "c": "gpu",
+          "b": "Palit",
+          "m": "GeForce RTX 3080 Ti GamingPro LHR",
+          "n": "Palit GeForce RTX 3080 Ti GamingPro LHR 12GB",
+          "s": "used",
+          "p": [
+            "chip:RTX 3080 Ti",
+            "memory:12GB",
+            "memory_type:GDDR6X",
+            "revision:LHR"
+          ]
+        }
+      ],
+      "expected": {
+        "name": "Palit GeForce RTX 3080 Ti GamingPro 12GB",
+        "category": "gpu",
+        "condition": "used",
+        "price": 450,
+        "currency": "USD",
+        "specs": {
+          "vendor": "NVIDIA",
+          "chip": "RTX 3080 Ti",
+          "memory": 12,
+          "memory_type": "GDDR6X",
+          "revision": "LHR",
+          "brand": "Palit",
+          "box": "no_box"
+        },
+        "inferred": []
       }
     }
   ]

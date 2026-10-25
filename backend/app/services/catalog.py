@@ -10,7 +10,7 @@ from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Prod
 from app.services.exchange import to_usd, to_uzs
 from app.services.spec_dictionary import CARD_SPECS, NUMBER, YESNO, Spec, spec_map, specs_of
 from app.services.spec_inference import INFERABLE
-from app.services.spec_normalizer import INFERRED, SUSPECT, merge_specs, normalize_specs
+from app.services.spec_normalizer import INFERRED, SUSPECT, merge_specs, normalize_specs, strip_modifiers
 
 # Type words some stores add and others don't ("Процессор ...", "... Motherboard"): not part of the model
 TYPE_WORDS = {
@@ -34,7 +34,8 @@ def make_match_key(category: str, name: str, brand: str | None = None) -> str:
     Type words ("Процессор", "Видеокарта") are dropped, other words stay ("беспроводная"), so the rule parser name
     "Intel Core i5-12400F OEM" and the AI name "Процессор Intel Core i5-12400F OEM" match.
     """
-    text = f"{brand or ''} {name}".lower().replace("ё", "е")
+    # Modifiers ("LHR", "ver 5.30", "коробки нет") are kept as characteristics, not as model words
+    text = f"{brand or ''} {strip_modifiers(category, name)[0]}".lower().replace("ё", "е")
     text = re.sub(rf"(\d)\s+({UNITS})\b", r"\1\2", text)  # "16 GB" == "16GB"
     tokens = re.findall(r"[a-zа-я0-9]+", text)
     words = sorted({t for t in tokens if t not in TYPE_WORDS} or set(tokens))
@@ -47,7 +48,9 @@ def rebuild_match_keys(db: Session) -> dict:
     by_key: dict[str, Product] = {}
     merged = 0
     for p in sorted(products, key=lambda p: p.id):
-        key = make_match_key(p.category.slug if p.category else "other", p.normalized_name, p.brand)
+        slug = p.category.slug if p.category else "other"
+        p.normalized_name = strip_modifiers(slug, p.normalized_name)[0] or p.normalized_name
+        key = make_match_key(slug, p.normalized_name, p.brand)
         keeper = by_key.get(key)
         if keeper is None:
             p.match_key = key

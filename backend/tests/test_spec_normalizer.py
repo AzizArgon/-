@@ -192,3 +192,33 @@ def test_implausible_numbers_are_kept_apart():
 
 def test_base_frequency_not_overclock():
     assert normalize_specs("ram", "DDR4 32GB (2x16GB) 3200Mhz up to 4000Mhz")["frequency"] == 3200
+
+
+def test_modifiers_leave_the_name_and_become_specs():
+    from app.services.catalog import make_match_key
+    from app.services.spec_normalizer import strip_modifiers
+    assert strip_modifiers("gpu", "Palit GeForce RTX 3080 Ti GamingPro LHR 12GB") == (
+        "Palit GeForce RTX 3080 Ti GamingPro 12GB", {"revision": "LHR"})
+    assert strip_modifiers("gpu", "MSI RTX 3070 (Non-LHR) коробки нет")[1] == {"revision": "Full Hash Rate", "box": "no_box"}
+    assert strip_modifiers("ram", "Corsair Vengeance LPX 16GB ver 5.30")[1] == {"revision": "ver 5.30"}
+    key = lambda name: make_match_key("gpu", name, "Palit")  # noqa: E731
+    assert key("RTX 3080 Ti GamingPro LHR 12GB") == key("RTX 3080 Ti GamingPro 12GB") == key("RTX 3080 Ti GamingPro NO LHR 12GB")
+    assert normalize_specs("gpu", "RTX 3060 NO LHR 12GB")["revision"] == "Full Hash Rate"
+    assert normalize_specs("ram", "DDR4 16GB 3200MHz rev 1.0")["revision"] == "rev 1.0"
+
+
+@pytest.mark.parametrize("a, b", [
+    ("RTX 4070 Gaming OC 12GB", "RTX 4070 12GB"), ("RTX 4070 Ti 12GB", "RTX 4070 12GB"),
+    ("RTX 4070 Super 12GB", "RTX 4070 12GB"), ("RTX 3080 Ti", "RTX 3080"),
+])
+def test_other_models_are_not_modifiers(a, b):
+    from app.services.catalog import make_match_key
+    assert make_match_key("gpu", a, "MSI") != make_match_key("gpu", b, "MSI")
+    assert make_match_key("cpu", "AMD Ryzen 7 7800X3D", "AMD") != make_match_key("cpu", "AMD Ryzen 7 7800X", "AMD")
+
+
+def test_no_lhr_flag():
+    from app.services.antifraud import check_offer
+    flags = check_offer({"raw_name": "MSI RTX 3070 Gaming X Trio Non-LHR б/у", "category": "gpu", "condition": "used"})
+    assert [(f["type"], f["level"]) for f in flags if f["type"] == "no_lhr"] == [("no_lhr", "info")]
+    assert not check_offer({"raw_name": "Palit RTX 3080 Ti LHR", "category": "gpu", "condition": "used"})

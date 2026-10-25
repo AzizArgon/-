@@ -12,7 +12,7 @@ Micro-ATX) are added by the rules in `spec_inference.py` and stored as "inferred
 import re
 from collections import Counter, defaultdict
 
-from app.services.spec_dictionary import CHOICE, NUMBER, YESNO, Spec, implausible, spec_map, specs_of
+from app.services.spec_dictionary import CHOICE, MODIFIERS, NUMBER, YESNO, Spec, implausible, spec_map, specs_of
 from app.services.spec_inference import infer
 
 INFERRED = "_inferred"  # specs_json[INFERRED] = {key: rule_id}: values the seller did not write
@@ -334,6 +334,21 @@ def canonical_brand(brand: str) -> str | None:
     return brand.title() if brand.isupper() and len(brand) > 4 else brand
 
 
+def strip_modifiers(category: str, text: str) -> tuple[str, dict]:
+    """"Palit RTX 3080 Ti GamingPro LHR 12GB" -> ("Palit RTX 3080 Ti GamingPro 12GB", {"revision": "LHR"})."""
+    found: dict = {}
+    for categories, pattern, key, value in MODIFIERS:
+        if categories and category not in categories:
+            continue
+        m = re.search(pattern, text, re.IGNORECASE)
+        if m:
+            found.setdefault(key, value or f"{m[1].lower()} {m[2]}")
+            text = re.sub(pattern, " ", text, flags=re.IGNORECASE)
+    text = re.sub(r"\(\s*\)|\[\s*\]", " ", text)  # "(LHR)" leaves empty brackets
+    text = re.sub(r"\s+([,.;)])", r"", re.sub(r"\s{2,}", " ", text))
+    return text.strip(" ,;-–—|"), found
+
+
 def extract(category: str, text: str, trace: dict | None = None) -> dict:
     """Characteristics written in the text, as dictionary values. `trace` collects spellings for the report."""
     result: dict = {}
@@ -361,6 +376,8 @@ def extract(category: str, text: str, trace: dict | None = None) -> dict:
         if color:
             result["color"] = color
 
+    for key, value in strip_modifiers(category, text)[1].items():
+        result.setdefault(key, value)
     specs = spec_map(category)
     clean = {k: v for k, v in result.items() if k in specs and valid(specs[k], v)}
     if trace is not None:

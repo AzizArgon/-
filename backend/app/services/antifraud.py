@@ -18,9 +18,12 @@ from app.db.models import Currency, FlagLevel, FlagSource, FlagStatus, FraudFlag
 from app.services.exchange import to_usd
 from app.services.spec_normalizer import specs_as_text
 
-TYPES = ("spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu", "price_below_market")
+TYPES = (
+    "spec_mismatch", "server_hardware", "mining", "used_as_new", "fake_capacity", "noname_psu", "price_below_market",
+    "no_lhr",
+)
 # AI only names the type; the wording is ours (reason_key "ai_<type>"), so it stays soft
-AI_TYPES = set(TYPES) - {"price_below_market"}
+AI_TYPES = set(TYPES) - {"price_below_market", "no_lhr"}
 LEVEL_ORDER = {"info": 0, "warning": 1, "danger": 2}
 
 # Market price check: at least this many offers from other stores, prices in USD
@@ -38,6 +41,7 @@ _X99 = re.compile(r"\b(x99|x79|c612)\b", re.I)
 _CHINA_BOARD = re.compile(r"huananzhi|machinist|jingsha|kllisre|atermiter|qiyida|soyo|zsus|jginyue", re.I)
 _KNOWN_BOARD = re.compile(r"\b(asus|msi|gigabyte|asrock|biostar|intel|supermicro)\b", re.I)
 _MINING = re.compile(r"майнинг|mining|майнер|\bminer\b|\bcmp\s?\d{2,3}\s?hx\b|\bp10[246]\b|\bp104-100\b", re.I)
+_NO_LHR = re.compile(r"\b(?:non|no)[\s-]*lhr\b|\bfull[\s-]*hash[\s-]*rate\b", re.I)
 _MINING_GPU = re.compile(r"\brx\s?(470|480|570|580|5700)\b", re.I)
 _MINING_PSU = re.compile(r"для\s+майнинга|mining|\bdps-\d{3,4}|серверн", re.I)
 _USED = re.compile(r"б/у|\bб\.у\b|\bбу\b|\bused\b|восстановленн|refurb|\bref\b|уценк|после\s+ремонт|ex-?demo|витринн", re.I)
@@ -113,6 +117,11 @@ def _mining(text: str, category: str, condition: str) -> list[dict]:
     return []
 
 
+def _no_lhr(text: str, category: str) -> list[dict]:
+    # A card without the mining limiter was wanted by miners: not a fault, just a reason to ask about its past
+    return [_flag("no_lhr", "info", "no_lhr")] if category == "gpu" and _NO_LHR.search(text) else []
+
+
 def _used_as_new(text: str, condition: str) -> list[dict]:
     used = _USED.search(text)
     if condition == "new" and used:
@@ -169,6 +178,7 @@ def check_offer(row: dict, market_usd: list[float] | None = None, usd_rate: floa
         *_spec_mismatch(text),
         *_server_hardware(text, category),
         *_mining(text, category, condition),
+        *_no_lhr(text, category),
         *_used_as_new(text, condition),
         *_fake_capacity(text, category, price_usd),
         *_noname_psu(row, text, category, price_usd),

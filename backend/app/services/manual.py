@@ -15,7 +15,9 @@ from app.services.antifraud import check_offer, market_prices, save_offer_flags
 from app.services.catalog import card_specs, make_match_key, search_filter
 from app.services.exchange import get_usd_rate
 from app.services.spec_dictionary import spec_map
-from app.services.spec_normalizer import INFERRED, SUSPECT, _from_value, canonical_brand, normalize_specs
+from app.services.spec_normalizer import (
+    INFERRED, SUSPECT, _from_value, canonical_brand, normalize_specs, strip_modifiers,
+)
 
 SUGGEST_LIMIT = 8
 
@@ -108,6 +110,7 @@ def create_product(db: Session, store: Store, category: Category, brand: str | N
     returned instead of a duplicate, so the seller can use it."""
     brand = canonical_brand(brand or "") or None
     name = (name or " ".join(filter(None, [brand, model]))).strip()
+    written, name = name, strip_modifiers(category.slug, name)[0] or name  # "LHR" stays a characteristic
     key = make_match_key(category.slug, name, brand)
     existing = db.scalar(select(Product).where(Product.match_key == key))
     if existing is not None:
@@ -119,7 +122,7 @@ def create_product(db: Session, store: Store, category: Category, brand: str | N
         if brand_value is not None:
             chosen["brand"] = brand_value
     # What the seller chose is "specified by the seller"; inference rules may add the rest (marked as inferred)
-    specs = normalize_specs(category.slug, " ".join(filter(None, [brand, model, name])), chosen, brand)
+    specs = normalize_specs(category.slug, " ".join(filter(None, [brand, model, written])), chosen, brand)
     suspect = specs.pop(SUSPECT, {})
     specs.update({k: v for k, v in chosen.items() if k not in suspect})  # a typo in the form stays doubtful
     inferred = {k: v for k, v in specs.pop(INFERRED, {}).items() if k not in chosen}

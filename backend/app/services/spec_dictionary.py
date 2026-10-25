@@ -53,6 +53,7 @@ DICTIONARY: dict[str, tuple[Spec, ...]] = {
         Spec("frequency", NUMBER, "MHz"),
         Spec("modules", NUMBER, "modules"),  # how many sticks in the box
         Spec("ecc", YESNO),
+        Spec("revision", CHOICE),  # "ver 5.30", "rev 1.0" — a modifier: not part of the model
         RGB, BRAND,
     ),
     "cpu": (
@@ -72,6 +73,7 @@ DICTIONARY: dict[str, tuple[Spec, ...]] = {
         Spec("chip", CHOICE),
         Spec("memory", NUMBER, "GB"),
         Spec("memory_type", CHOICE, values=("GDDR5", "GDDR6", "GDDR6X", "GDDR7")),
+        Spec("revision", CHOICE, values=("LHR", "Full Hash Rate")),  # a modifier: not part of the model
         BRAND,
     ),
     "ssd": (
@@ -162,6 +164,21 @@ DICTIONARY: dict[str, tuple[Spec, ...]] = {
     "chair": (COLOR, BRAND),
     "other": (BRAND,),
 }
+
+# "Without the box" is possible for any product: the last key of every category
+BOX = Spec("box", CHOICE, values=("no_box",))
+DICTIONARY = {category: (*specs, BOX) for category, specs in DICTIONARY.items()}
+
+# Modifiers: words that sellers add to a product name, but that do not make it another product. They are removed
+# from the name and the match key (so "RTX 3080 Ti LHR" and "RTX 3080 Ti" are one card) and kept as a
+# characteristic. OC, Gaming OC, Ti, Super, X3D are NOT modifiers: those are different models.
+# (categories or None for all, pattern, key, value or None = the matched text in the "ver 5.30" form)
+MODIFIERS: tuple[tuple[tuple[str, ...] | None, str, str, str | None], ...] = (
+    (("gpu",), r"\b(?:non|no)[\s-]*lhr\b|\bfull[\s-]*hash[\s-]*rate\b|\bfhr\b", "revision", "Full Hash Rate"),
+    (("gpu",), r"\blhr\b", "revision", "LHR"),
+    (("ram",), r"\b(ver|rev)\.?\s*(\d+(?:\.\d+)*)\b", "revision", None),
+    (None, r"коробки\s+нет|без\s+коробки|только\s+плата|\bno\s+box\b|\bwithout\s+box\b|qutisiz", "box", "no_box"),
+)
 
 # 2–4 key characteristics shown right in the catalog tile: "DDR5 · 16 GB · 6000 MHz · SODIMM"
 CARD_SPECS: dict[str, tuple[str, ...]] = {

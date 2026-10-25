@@ -23,7 +23,7 @@ from app.services.exchange import get_usd_rate
 from app.services.price_cleaner import CleanRow, cache_key, clean_markdown
 from app.services.rule_parser import parse_by_rules
 from app.services.text_import import text_to_rows
-from app.services.spec_normalizer import merge_specs, normalize_specs, source_text, written_specs
+from app.services.spec_normalizer import merge_specs, normalize_specs, source_text, strip_modifiers, written_specs
 
 log = logging.getLogger(__name__)
 
@@ -86,7 +86,7 @@ def _preview_row(r: CleanRow, parsed: dict | None, source: str) -> dict:
         "category": category,
         "brand": p.get("brand"),
         "model": p.get("model") or r.article,
-        "name": p.get("name") or r.name,
+        "name": strip_modifiers(category, p.get("name") or r.name)[0] or r.name,  # "LHR" -> a characteristic
         "price": r.price,
         "condition": r.condition or p.get("condition", "new"),
         "specs": specs,
@@ -313,7 +313,8 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         if product is None:
             product = Product(
                 category=category, brand=r.get("brand"), model=r.get("model"),
-                normalized_name=r["name"], match_key=key, specs_json=specs,
+                normalized_name=strip_modifiers(category.slug, r["name"])[0] or r["name"], match_key=key,
+                specs_json=specs,
             )
             db.add(product)
         else:
