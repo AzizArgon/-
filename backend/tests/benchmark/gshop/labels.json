@@ -1,0 +1,836 @@
+{
+ "note": "70 random priced items (seed 70) of F:/claudy/samples/old_store_2023.xlsx (Gshop, December 2022; the file is outside git). Labelled by hand from the source row: category slug, brand, model, price in USD, condition, the key characteristics (dictionary values), expected Anti-Fraud flags. text = the source cell, sheet = sheet title. Only characteristics written in the row are labelled (no \"mechanical\" for \"Gateron Red\").",
+ "currency": "USD",
+ "items": [
+  {
+   "text": "Thermaltake Core P3 TG",
+   "price": 170,
+   "category": "case",
+   "brand": "Thermaltake",
+   "model": "Core P3 TG",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Logitech G413 Silver Romer-G Tactical (Есть русская раскладка)",
+   "price": 105,
+   "category": "keyboard",
+   "brand": "Logitech",
+   "model": "G413",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "SteelSeries Aerox 3 Wireless Sensor SteelSeries TrueMove Air 100-18000dpi",
+   "price": 109,
+   "category": "mouse",
+   "brand": "SteelSeries",
+   "model": "Aerox 3 Wireless",
+   "specs": {
+    "connection": "wireless"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "HyperX Pulsefire Mat XL",
+   "price": 34,
+   "category": "other",
+   "brand": "HyperX",
+   "model": "Pulsefire Mat XL",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Cooler Master MWE 1050W Gold V2 FM",
+   "price": 215,
+   "category": "psu",
+   "brand": "Cooler Master",
+   "model": "MWE 1050 Gold V2",
+   "specs": {
+    "power": 1050,
+    "certification": "Gold"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Logitech MX Ergo Graphite",
+   "price": 135,
+   "category": "mouse",
+   "brand": "Logitech",
+   "model": "MX Ergo",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Cooler Master Cosmos C700M ARGB\\Сталь, закаленное стекло\\Fan 4x120mm",
+   "price": 583,
+   "category": "case",
+   "brand": "Cooler Master",
+   "model": "Cosmos C700M",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Lian Li Galahad 360 AIO White 360mm RGB water/liquid CPU Cooler , Closed Loop",
+   "price": 160,
+   "category": "cooling",
+   "brand": "Lian Li",
+   "model": "Galahad 360",
+   "specs": {
+    "type": "liquid",
+    "radiator": 360,
+    "rgb": true,
+    "color": "white"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Edifier TWS200 20-20000hz\\28om\\96dB\\Bluetooth 5.0\\aptX\\",
+   "price": 35,
+   "category": "headphones",
+   "brand": "Edifier",
+   "model": "TWS200",
+   "specs": {
+    "connection": "wireless"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Xiaomi 24 1C 24\"\\IPS\\LED\\1920X1080\\60HZ\\6MS\\HDMI, VGA (D-sub)",
+   "price": 170,
+   "category": "monitor",
+   "brand": "Xiaomi",
+   "model": "1C",
+   "specs": {
+    "size": 24,
+    "panel": "IPS",
+    "resolution": "1920x1080",
+    "refresh_rate": 60
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Varmilo VA108M Sakura, Cherry MX Silent Red",
+   "price": 205,
+   "category": "keyboard",
+   "brand": "Varmilo",
+   "model": "VA108M Sakura",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Glorious 3XL Extended White",
+   "price": 80,
+   "category": "other",
+   "brand": "Glorious",
+   "model": "3XL Extended",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "BenQ PD2700U 27\"\\3840x2160\\60Гц\\5 мс\\IPS\\100% sRGB/Rec.709\\Min DisplayPort,DisplayPort,HDMI,USB Downstream,USB Upstream",
+   "price": 715,
+   "category": "monitor",
+   "brand": "BenQ",
+   "model": "PD2700U",
+   "specs": {
+    "size": 27,
+    "resolution": "3840x2160",
+    "refresh_rate": 60,
+    "panel": "IPS"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Varmilo VA108M Moonlight, Cherry MX Black",
+   "price": 178,
+   "category": "keyboard",
+   "brand": "Varmilo",
+   "model": "VA108M Moonlight",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "AORUS NVMe Gen4 500GB M.2 3D TLC Toshiba BiCS4\\PCI-E 4.0 x4\\max.write 2500mb/s\\max.read 5000mb/s",
+   "price": 100,
+   "category": "ssd",
+   "brand": "Gigabyte",
+   "model": "AORUS NVMe Gen4",
+   "specs": {
+    "capacity": 500,
+    "interface": "NVMe",
+    "form_factor": "M.2",
+    "pcie": "4.0"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "CoolerMaster MM710 PixArt PMW3389 1200-16000Dpi\\USB",
+   "price": 50,
+   "category": "mouse",
+   "brand": "Cooler Master",
+   "model": "MM710",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Logitech Signature M650 L Rose",
+   "price": 40,
+   "category": "mouse",
+   "brand": "Logitech",
+   "model": "M650 L",
+   "specs": {
+    "color": "pink"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Razer BlackwidowV3 Mini HyperSpeed Green Switches",
+   "price": 180,
+   "category": "keyboard",
+   "brand": "Razer",
+   "model": "BlackWidow V3 Mini HyperSpeed",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Glorious Element Air Mouse Pad",
+   "price": 30,
+   "category": "other",
+   "brand": "Glorious",
+   "model": "Element Air",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "HyperX Fury S Pro M [Control]",
+   "price": 13,
+   "category": "other",
+   "brand": "HyperX",
+   "model": "Fury S Pro M",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "JONSBO TR03-G Black Full-Tower\\ATX,mATX,ITX\\Стекло\\Алюминий\\Б.П. ATX",
+   "price": 223,
+   "category": "case",
+   "brand": "Jonsbo",
+   "model": "TR03-G",
+   "specs": {
+    "board": "ATX",
+    "color": "black"
+   },
+   "note": "only_in_builds",
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "JONSBO D40 Silver Midi-Tower\\ATX,mATX\\Стекло\\Алюминий\\Б.П. ATX",
+   "price": 75,
+   "category": "case",
+   "brand": "Jonsbo",
+   "model": "D40",
+   "specs": {
+    "board": "ATX",
+    "color": "silver"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "MSI A520M-A PRO AM4 Socet DDR4 Micro-ATX 236x200",
+   "price": 75,
+   "category": "motherboard",
+   "brand": "MSI",
+   "model": "A520M-A PRO",
+   "specs": {
+    "socket": "AM4",
+    "chipset": "A520",
+    "memory_type": "DDR4",
+    "form_factor": "mATX"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Asus ROG Pugio II Wireless PixArt3335\\USB 2.0 RF 2.4GHz\\400-16000DPI",
+   "price": 90,
+   "category": "mouse",
+   "brand": "ASUS",
+   "model": "ROG Pugio II",
+   "specs": {
+    "connection": "wireless"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Corsair MM250 Champion Series X-Large 450mm x 400mm",
+   "price": 16,
+   "category": "other",
+   "brand": "Corsair",
+   "model": "MM250",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "RAZER KIYO CAMERA Online Webcam for Streaming 4 Megapixels\\1080p@30FPS/720p@60FPS/480p@30FPS/360p@30FPS",
+   "price": 101,
+   "category": "other",
+   "brand": "Razer",
+   "model": "Kiyo",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Corsair HX1200 80 PLUS PLATINUM",
+   "price": 295,
+   "category": "psu",
+   "brand": "Corsair",
+   "model": "HX1200",
+   "specs": {
+    "power": 1200,
+    "certification": "Platinum"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Gigabyte Z690 AORUS ULTRA DDR5 LGA 1700 ATX",
+   "price": 370,
+   "category": "motherboard",
+   "brand": "Gigabyte",
+   "model": "Z690 AORUS ULTRA",
+   "specs": {
+    "socket": "LGA1700",
+    "chipset": "Z690",
+    "memory_type": "DDR5",
+    "form_factor": "ATX"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Razer Sphex V3 Large 450x400x4 мм",
+   "price": 29,
+   "category": "other",
+   "brand": "Razer",
+   "model": "Sphex V3",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "HyperX Pulsefire Mat RGB XL",
+   "price": 49,
+   "category": "other",
+   "brand": "HyperX",
+   "model": "Pulsefire Mat RGB XL",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Thermaltake View 51 TG ARGB SNOW",
+   "price": 235,
+   "category": "case",
+   "brand": "Thermaltake",
+   "model": "View 51 TG",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Akko 3087DS Matcha Red Bean Gateron Pink, RU, Green",
+   "price": 80,
+   "category": "keyboard",
+   "brand": "Akko",
+   "model": "3087DS Matcha Red Bean",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Kingston Fury Beast RGB 16GB (2*8GB 3200MHz CL16)",
+   "price": 70,
+   "category": "ram",
+   "brand": "Kingston",
+   "model": "Fury Beast RGB",
+   "specs": {
+    "capacity": 16,
+    "modules": 2,
+    "frequency": 3200,
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Corsair HX1000 80 PLUS PLATINUM",
+   "price": 260,
+   "category": "psu",
+   "brand": "Corsair",
+   "model": "HX1000",
+   "specs": {
+    "power": 1000,
+    "certification": "Platinum"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Keychron K8 RGB Hot-Swap, Gateron Blue [K8J2]",
+   "price": 95,
+   "category": "keyboard",
+   "brand": "Keychron",
+   "model": "K8",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "HEBE P1A RGB 32 Ом\\119 дБ\\USB\\20-20000Гц\\7.1",
+   "price": 65,
+   "category": "headphones",
+   "brand": "HEBE",
+   "model": "P1A",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "32\" MSI Optix G32C4 Curverd VA LED\\1920x1080\\165Гц\\1мс\\AMD FreeSync\\HDMI, DisplayPort",
+   "price": 380,
+   "category": "monitor",
+   "brand": "MSI",
+   "model": "Optix G32C4",
+   "specs": {
+    "size": 32,
+    "panel": "VA",
+    "resolution": "1920x1080",
+    "refresh_rate": 165,
+    "curved": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Edifier GT4 Black Bluetooth version V5.2\\SBC\\20Hz-20kHz\\100dB\\32Ω",
+   "price": 41,
+   "category": "headphones",
+   "brand": "Edifier",
+   "model": "GT4",
+   "specs": {
+    "connection": "wireless"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Samsung 980 1TB M.2 NVMe V-NAND 3-bit MLC\\max.write 3000mb/s\\max.read 3500mb/s PCI-E 3.0 4x",
+   "price": 135,
+   "category": "ssd",
+   "brand": "Samsung",
+   "model": "980",
+   "specs": {
+    "capacity": 1000,
+    "interface": "NVMe",
+    "form_factor": "M.2",
+    "pcie": "3.0"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Corsair VENGEANCE RGB PRO 16GB (2x8GB) DDR4 3000MHz 15-17-17-36 black",
+   "price": 90,
+   "category": "ram",
+   "brand": "Corsair",
+   "model": "Vengeance RGB PRO",
+   "specs": {
+    "type": "DDR4",
+    "capacity": 16,
+    "modules": 2,
+    "frequency": 3000,
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "SVEN AP-310M Stereo\\32 Ом\\20 - 20000 Гц\\2*3,5 мм (4 pin)",
+   "price": 4,
+   "category": "headphones",
+   "brand": "SVEN",
+   "model": "AP-310M",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Glorious PBT Pastel KeyCaps [US ANSI]",
+   "price": 49,
+   "category": "other",
+   "brand": "Glorious",
+   "model": "PBT Pastel",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Gigabyte GeForce RTX 3050 EAGLE 8G\\2xFAN GDDR6/128bit/CC 1777MHz/Cores 2560/mc14000/PciEx4.0",
+   "price": 365,
+   "category": "gpu",
+   "brand": "Gigabyte",
+   "model": "RTX 3050 EAGLE",
+   "specs": {
+    "vendor": "NVIDIA",
+    "chip": "RTX 3050",
+    "memory": 8,
+    "memory_type": "GDDR6"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Logitech G29 Xbox One, PC\\проводной USB\\Режим работы цифровой и аналоговый\\3 педали\\Коробка передач",
+   "price": 500,
+   "category": "other",
+   "brand": "Logitech",
+   "model": "G29",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Enermax ELC-LTTRTO360-TBP",
+   "price": 240,
+   "category": "cooling",
+   "brand": "Enermax",
+   "model": "ELC-LTTRTO360-TBP",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "North Bayou F100A Black Single Arm",
+   "price": 57,
+   "category": "other",
+   "brand": "North Bayou",
+   "model": "F100A",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Keychron K8 RGB Hot-Swap, Gateron Red [K8J1]",
+   "price": 95,
+   "category": "keyboard",
+   "brand": "Keychron",
+   "model": "K8",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Cougar MX440-G RGB сталь, стекло, пластик\\RGB\\3x120mm Fan",
+   "price": 60,
+   "category": "case",
+   "brand": "Cougar",
+   "model": "MX440-G RGB",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Thermaltake Riing Silent 12 Pro Blue TDP 170W/1xFan/PWM/1400rpm/AMD,INTEL",
+   "price": 48,
+   "category": "cooling",
+   "brand": "Thermaltake",
+   "model": "Riing Silent 12 Pro",
+   "specs": {
+    "color": "blue"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Lian Li Galahad 360 AIO Black 360mm RGB water/liquid CPU Cooler , Closed Loop",
+   "price": 160,
+   "category": "cooling",
+   "brand": "Lian Li",
+   "model": "Galahad 360",
+   "specs": {
+    "type": "liquid",
+    "radiator": 360,
+    "rgb": true,
+    "color": "black"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "TP-LINK Archer C64 AC1200 Wi-Fi роутер с MU‑MIMO\\Wi-Fi 5 IEEE 802.11ac/n/a 5 ГГц IEEE 802.11n/b/g 2,4 ГГц\\AC1200 5 ГГц: 867 Мбит/с (802.11ac) 2,4 ГГц: 300 Мбит/с (802.11n)",
+   "price": 37,
+   "category": "other",
+   "brand": "TP-Link",
+   "model": "Archer C64",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "2E Gaming KG370 RGB White, Gateron Brown",
+   "price": 62,
+   "category": "keyboard",
+   "brand": "2E",
+   "model": "KG370",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "MSI Spatium M390 500GB M.2 NVMe PHISON E15T\\3D NAND\\PCIe Gen3x4, NVMe 1.4\\\\max.write 2300mb/s\\max.read 3300mb/s",
+   "price": 75,
+   "category": "ssd",
+   "brand": "MSI",
+   "model": "Spatium M390",
+   "specs": {
+    "capacity": 500,
+    "interface": "NVMe",
+    "form_factor": "M.2"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Glorious Aura Keycaps v2 Black",
+   "price": 49,
+   "category": "other",
+   "brand": "Glorious",
+   "model": "Aura Keycaps v2",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Cooler Master HAF 700 EVO ARGB\\Сталь, закаленное стекло\\Fan 3x120mm, 2x200mm",
+   "price": 484,
+   "category": "case",
+   "brand": "Cooler Master",
+   "model": "HAF 700 EVO",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "MSI MAG CORELIQUID C280 2x140mm Fan\\500 ~ 1800 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700",
+   "price": 150,
+   "category": "cooling",
+   "brand": "MSI",
+   "model": "MAG CoreLiquid C280",
+   "specs": {
+    "type": "liquid"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Akko 3087DS Mirror of the Sky CS Radiant Red, RU, Blue",
+   "price": 80,
+   "category": "keyboard",
+   "brand": "Akko",
+   "model": "3087DS Mirror of the Sky",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "HyperX Pulsefire Haste (Black, Black-Red, White-Pink) RGB PixArt PAW3335\\400-16000dpi",
+   "price": 49,
+   "category": "mouse",
+   "brand": "HyperX",
+   "model": "Pulsefire Haste",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Razer Huntsman Mini Mercury [Razer Linear Optical]",
+   "price": 125,
+   "category": "keyboard",
+   "brand": "Razer",
+   "model": "Huntsman Mini",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "EDIFIER R1080 BT 12W+12W RMS\\≥84dBA (A)\\AUX: 550±50mV | Bluetooth: 700±50mFFS",
+   "price": 75,
+   "category": "speakers",
+   "brand": "Edifier",
+   "model": "R1080BT",
+   "specs": {
+    "bluetooth": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Rampage KB-R136 GHOST White (Red Switch)",
+   "price": 70,
+   "category": "keyboard",
+   "brand": "Rampage",
+   "model": "KB-R136 Ghost",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "MSI MPG CORELIQUID K360 3x120mm Fan\\500 ~ 2000 RPM\\Two Ball Bearing\\PUMP SPEED 4200RPM LGA 1700",
+   "price": 290,
+   "category": "cooling",
+   "brand": "MSI",
+   "model": "MPG CoreLiquid K360",
+   "specs": {
+    "type": "liquid"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Cooler Master MasterBox MB500 ARGB Cталь\\Закаленное стекло\\Fan 3x120mm",
+   "price": 90,
+   "category": "case",
+   "brand": "Cooler Master",
+   "model": "MasterBox MB500",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Keychron K8 RGB Hot-Swap, Gateron Brown [K8J3]",
+   "price": 95,
+   "category": "keyboard",
+   "brand": "Keychron",
+   "model": "K8",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "JONSBO V9 Silver Mini-Tower\\Micro-ATX,Mini-ITX\\Стекло\\Алюминий\\Б.П.SFX",
+   "price": 48,
+   "category": "case",
+   "brand": "Jonsbo",
+   "model": "V9",
+   "specs": {
+    "board": "mATX",
+    "color": "silver"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "SE-224-XT ARGB Duet TDP 180W/2xFan/PWM/700-1500rpm/AMD,INTEL 1700",
+   "price": 38,
+   "category": "cooling",
+   "brand": "ID-Cooling",
+   "model": "SE-224-XT ARGB Duet",
+   "specs": {
+    "rgb": true
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "EDIFIER HEADPHONES K550 2 x mini jack 3.5 mm",
+   "price": 9,
+   "category": "headphones",
+   "brand": "Edifier",
+   "model": "K550",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Thermaltake S300 TG SNOW",
+   "price": 115,
+   "category": "case",
+   "brand": "Thermaltake",
+   "model": "S300 TG",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "Crucial BX500 1TB SATA III TLC 3D NAND\\max.write 500mb/s\\max.read 540mb/s",
+   "price": 70,
+   "category": "ssd",
+   "brand": "Crucial",
+   "model": "BX500",
+   "specs": {
+    "capacity": 1000,
+    "interface": "SATA"
+   },
+   "condition": "new",
+   "flags": []
+  },
+  {
+   "text": "SteelSeries Arctis Nova 1X 20–22,000 Hz\\93 dBSPL\\36 Ohm",
+   "price": 63,
+   "category": "headphones",
+   "brand": "SteelSeries",
+   "model": "Arctis Nova 1X",
+   "specs": {},
+   "condition": "new",
+   "flags": []
+  }
+ ]
+}

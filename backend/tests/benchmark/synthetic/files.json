@@ -1,0 +1,37 @@
+{
+ "s1_slang": {
+  "file": "s1_slang.xlsx",
+  "currency": "USD",
+  "what": "сленг и сокращения, цены «110$», «110 у.е.»"
+ },
+ "s2_typos": {
+  "file": "s2_typos.xlsx",
+  "currency": "USD",
+  "what": "опечатки в брендах, кириллица в кодах, пробелы"
+ },
+ "s3_columns": {
+  "file": "s3_columns.xlsx",
+  "currency": "USD",
+  "what": "столбцы в другом порядке, безымянные, лист без шапки"
+ },
+ "s4_merged": {
+  "file": "s4_merged.xlsx",
+  "currency": "UZS",
+  "what": "объединённые ячейки: заголовок раздела, бренд на несколько строк"
+ },
+ "s5_multitable": {
+  "file": "s5_multitable.xlsx",
+  "currency": "UZS",
+  "what": "несколько таблиц на листе (две рядом, одна ниже), цены «1 250 000», «1.250.000 сум»"
+ },
+ "s6_csv_cp1251": {
+  "file": "s6_csv_cp1251.csv",
+  "currency": "USD",
+  "what": "CSV с «;» в cp1251, цены «1 250 000 сум», «1.250.000 сум», «110$», «110 у.е.», «110,00»"
+ },
+ "s7_pdf": {
+  "file": "s7_pdf.pdf",
+  "currency": "USD",
+  "what": "PDF-таблица, цены «110$» и «1 250 000 сум»"
+ }
+}

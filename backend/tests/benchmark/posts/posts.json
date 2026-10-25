@@ -1,0 +1,601 @@
+{
+ "note": "Posts for 'paste as text'. Real posts are anonymized: phones, @usernames, people and channel names replaced. expected = products (category, brand, model, price, currency, condition, key characteristics); 'no_model' = the post names no product: nothing is created, the seller sees 'model not specified'. condition 'unknown' = no explicit word in the post.",
+ "posts": [
+  {
+   "source": "fixture_list",
+   "default_currency": "UZS",
+   "text": "🔥 Новое поступление!\ni5 12400f б/у — 110$\nrtx 3060 12gb новая 290$\nозу 16гб ддр4 3200 - 35 у.е.\nSSD 1TB Samsung 980 — 1 250 000 сум\n📍 Чиланзар, тел +998 90 123 45 67",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "Intel",
+     "model": "Core i5-12400F",
+     "price": 110,
+     "currency": "USD",
+     "condition": "used",
+     "specs": {
+      "series": "Core i5"
+     }
+    },
+    {
+     "category": "gpu",
+     "brand": null,
+     "model": "RTX 3060",
+     "price": 290,
+     "currency": "USD",
+     "condition": "new",
+     "specs": {
+      "chip": "RTX 3060",
+      "memory": 12
+     }
+    },
+    {
+     "category": "ram",
+     "brand": null,
+     "model": null,
+     "price": 35,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "type": "DDR4",
+      "capacity": 16,
+      "frequency": 3200
+     }
+    },
+    {
+     "category": "ssd",
+     "brand": "Samsung",
+     "model": "980",
+     "price": 1250000,
+     "currency": "UZS",
+     "condition": "unknown",
+     "specs": {
+      "capacity": 1000
+     }
+    }
+   ],
+   "id": "p-01"
+  },
+  {
+   "source": "fixture_list",
+   "default_currency": "UZS",
+   "text": "✅ Sotuvda bor!\nRyzen 5 5600 box — 1.6 mln so'm\nRX 6600 8gb б/у 2 100 000 сум\nKingston Fury 32gb ddr5 6000 — 1 450 тыс сум\n📞 +998 93 555 12 34\n#kompyuter #toshkent",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Ryzen 5 5600",
+     "price": 1600000,
+     "currency": "UZS",
+     "condition": "unknown",
+     "specs": {
+      "series": "Ryzen 5",
+      "pack": "BOX"
+     }
+    },
+    {
+     "category": "gpu",
+     "brand": null,
+     "model": "RX 6600",
+     "price": 2100000,
+     "currency": "UZS",
+     "condition": "used",
+     "specs": {
+      "chip": "RX 6600",
+      "memory": 8
+     }
+    },
+    {
+     "category": "ram",
+     "brand": "Kingston",
+     "model": "Fury",
+     "price": 1450000,
+     "currency": "UZS",
+     "condition": "unknown",
+     "specs": {
+      "type": "DDR5",
+      "capacity": 32,
+      "frequency": 6000
+     }
+    }
+   ],
+   "id": "p-02"
+  },
+  {
+   "source": "fixture_list",
+   "default_currency": "USD",
+   "text": "⚡️ АКЦИЯ ⚡️\nМонитор Samsung 24\" 75Hz\nЦена: 1 300 000 сум\nКлавиатура Logitech K120 — 9\nМышь A4Tech OP-720 - 5$\nДоставка по городу 30 000 сум\nАдрес: Юнусабад 4",
+   "expected": [
+    {
+     "category": "monitor",
+     "brand": "Samsung",
+     "model": null,
+     "price": 1300000,
+     "currency": "UZS",
+     "condition": "unknown",
+     "specs": {
+      "size": 24,
+      "refresh_rate": 75
+     }
+    },
+    {
+     "category": "keyboard",
+     "brand": "Logitech",
+     "model": "K120",
+     "price": 9,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {},
+     "currency_check": true
+    },
+    {
+     "category": "mouse",
+     "brand": "A4Tech",
+     "model": "OP-720",
+     "price": 5,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {}
+    }
+   ],
+   "id": "p-03"
+  },
+  {
+   "source": "fixture_list",
+   "default_currency": "UZS",
+   "text": "Срочно продаю!\nНоутбук Lenovo IdeaPad 3 i3-1115G4 8/256 — $350\nВидеокарта GTX 1660 Super б/у 140 долларов\nБП Cougar 600W 80+ Bronze 45 у.е\nПишите в личку @seller_uz",
+   "expected": [
+    {
+     "category": "laptop",
+     "brand": "Lenovo",
+     "model": "IdeaPad 3",
+     "price": 350,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "cpu": "Core i3",
+      "ram": 8,
+      "storage": 256
+     }
+    },
+    {
+     "category": "gpu",
+     "brand": null,
+     "model": "GTX 1660 Super",
+     "price": 140,
+     "currency": "USD",
+     "condition": "used",
+     "specs": {
+      "chip": "GTX 1660 Super"
+     }
+    },
+    {
+     "category": "psu",
+     "brand": "Cougar",
+     "model": null,
+     "price": 45,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "power": 600,
+      "certification": "Bronze"
+     }
+    }
+   ],
+   "id": "p-04"
+  },
+  {
+   "source": "fixture_card",
+   "default_currency": "UZS",
+   "text": "🙂 Комплект оперативной памяти Corsair Vengeance LPX 16GB (2x8GB) DDR4 3000MHz 🖥\n\n🇷🇺 \nСостояние: Б/У, в отличном рабочем состоянии.\nБренд: Corsair.\nСерия: Vengeance LPX.\nОбъем: 16 GB (комплект 2x8 GB).\nXMP профиль: 3000 MHz (тайминги 16-20-20-38, 1.35V).\nЧипы: SK Hynix M-die (ver 5.30).\n💰 Цена: 950.000 сум\n\n🇺🇿 \nHolati: B/U, a'lo ishchi holatda.\nBrend: Corsair.\nSeriya: Vengeance LPX.\nHajmi: 16 GB (2x8 GB to'plam).\nXMP profili: 3000 MHz (tayminglar 16-20-20-38, 1.35V).\nChiplar: SK Hynix M-die (ver 5.30).\n💰 Narxi: 950.000 so'm\n\n\n🚛 Доставка / Yetkazib berish: \n• По Фергане — Такси / Самовывоз. \n• По всему Узбекистану — BTS почта.\n\n\n📩 Купить / Sotib olish: @demo_seller",
+   "expected": [
+    {
+     "category": "ram",
+     "brand": "Corsair",
+     "model": "Vengeance LPX",
+     "price": 950000,
+     "currency": "UZS",
+     "condition": "used",
+     "specs": {
+      "type": "DDR4",
+      "capacity": 16,
+      "modules": 2,
+      "frequency": 3000
+     }
+    }
+   ],
+   "id": "p-05"
+  },
+  {
+   "source": "fixture_card",
+   "default_currency": "UZS",
+   "text": "🔥 Видеокарта MSI GeForce RTX 3060 Ventus 2X 12GB 🔥\n\nСостояние: б/у, без майнинга, 1 год использования.\nПроизводитель: MSI\nПамять: 12 GB GDDR6\nРазъёмы: 3x DisplayPort, 1x HDMI\nКомплект: коробка, документы\n\n💰 Цена: 3 200 000 сум\n📍 Ташкент, Чиланзар\n📞 +998 90 111 22 33",
+   "expected": [
+    {
+     "category": "gpu",
+     "brand": "MSI",
+     "model": "RTX 3060 Ventus 2X",
+     "price": 3200000,
+     "currency": "UZS",
+     "condition": "used",
+     "specs": {
+      "chip": "RTX 3060",
+      "memory": 12,
+      "memory_type": "GDDR6"
+     }
+    }
+   ],
+   "id": "p-06"
+  },
+  {
+   "source": "fixture_card",
+   "default_currency": "UZS",
+   "text": "✅ Protsessor AMD Ryzen 7 5700X (BOX)\n\nHolati: yangi, muhrlangan.\nYadrolar: 8 ta, oqimlar: 16 ta.\nSoket: AM4.\nKafolat: 6 oy.\n💵 Narxi: 165$\n\n📲 Buyurtma uchun: @pc_shop_uz\n🚚 Yetkazib berish butun O'zbekiston bo'ylab.",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Ryzen 7 5700X",
+     "price": 165,
+     "currency": "USD",
+     "condition": "new",
+     "specs": {
+      "socket": "AM4",
+      "cores": 8,
+      "threads": 16,
+      "pack": "BOX"
+     }
+    }
+   ],
+   "id": "p-07"
+  },
+  {
+   "source": "reconstructed",
+   "default_currency": "UZS",
+   "text": "🔥 NexGrade | Оперативная память 🔥\n\n⚡️ Trident Z Royal DDR4 32GB (2x16GB) 3200Mhz up to 4000Mhz CL18\n\n✅ Отличное состояние, проверена тестами\n✅ Подсветка RGB, золотой цвет\n✅ Комплект из 2 планок по 16 ГБ\n\nЦена : 190 У.Е\n\n🛡 Гарантия 1 месяц\n💳 Рассрочка через 🍇🍇 Uzum Nasiya\n📞 +998 91 234 56 78\n👉 t.me/nexgrade_uz\n👤 Админ: @nexgrade_admin\n\n#RAM #DDR4",
+   "expected": [
+    {
+     "category": "ram",
+     "brand": "G.Skill",
+     "model": "Trident Z Royal",
+     "price": 190,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "type": "DDR4",
+      "capacity": 32,
+      "modules": 2,
+      "frequency": 3200,
+      "rgb": true
+     }
+    }
+   ],
+   "id": "p-08"
+  },
+  {
+   "source": "fixture_card",
+   "default_currency": "UZS",
+   "text": "🎆 🔤🔤🔤🔤🔤🔤🔤🎆\n🔥 ПРОДАМ Palit GeForce RTX 3080 Ti GamingPro LHR 12GB 🔥\nМощная видеокарта для игр в 1440p и 4K, отлично подходит для современных AAA-проектов.\n🔹 Модель: Palit GeForce RTX 3080 Ti GamingPro\n🔹 Видеопамять: 12GB GDDR6X\n🔹 Версия: LHR\n🔹 Состояние: б/у\n🔹 Коробки нет\n🛠 Обслужена:\n✅ Заменены термопрокладки\n✅ На GPU нанесён фазовый термоинтерфейс / phase-change thermal pad\n✅ Карта протестирована\n✅ Отличная производительность в 2K / 4K\n✅ Подходит для мощной игровой сборки\n💰 Цена: $450  🎆 🔤🔤🔤🔤🔤🔤🔤🎆\n🔤🔤🔤🔤🔤🔤 🔤🔤🔤\n📍 Самовывоз: Ташкент, Мирзо-Улугбекский район, массив Ялангач\n🚚 Доставка обсуждается\n📞 +998 90 000 11 22\n📞 +998 90 000 33 44\n📲 Telegram-канал: demo_gpu_shop\n🎮 GPU SHOP — игровые ПК и комплектующие",
+   "expected": [
+    {
+     "category": "gpu",
+     "brand": "Palit",
+     "model": "RTX 3080 Ti GamingPro",
+     "price": 450,
+     "currency": "USD",
+     "condition": "used",
+     "specs": {
+      "chip": "RTX 3080 Ti",
+      "memory": 12,
+      "memory_type": "GDDR6X",
+      "revision": "LHR",
+      "box": "no_box"
+     }
+    }
+   ],
+   "id": "p-09"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 17:58] Продавец 1:\nПереслано из PC Store A\n[ 3 фото ]\n\nВидеокарта\n\nGIGABYTE WINFORCE GTX 750Ti 2gb\n\nПолностью обслужена\nВ идеальном состояни\nКулера не трещат,(прозрачные)\nНи пылинки\n\nЦЕНА:34У.Е\n\nКанал (https://t.me/demo_store_a)",
+   "expected": [
+    {
+     "category": "gpu",
+     "brand": "Gigabyte",
+     "model": "GTX 750 Ti",
+     "price": 34,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "vendor": "NVIDIA",
+      "chip": "GTX 750 Ti",
+      "memory": 2
+     }
+    }
+   ],
+   "id": "p-10"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 17:58] Продавец 1:\nПереслано из PC Store A\n[ Фотография ]\n\nПроцессор \n\nAMD Ryzen 5 5600\n\n6/12\n32мб кеш\n3.5ггц-4.4.ггц\nКороль бюджетного гейминга \nПизже i5-12400f\n\nЦЕНА:120У.Е. 115У.Е.\n\nКанал (https://t.me/demo_store_a)\n@demo_user_1",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Ryzen 5 5600",
+     "price": 115,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "series": "Ryzen 5",
+      "cores": 6,
+      "threads": 12
+     },
+     "note": "old price 120"
+    }
+   ],
+   "id": "p-11"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 17:58] Продавец 1:\nПереслано из PC Store A\n[ 2 фото ]\n\nПроцессор \n\nAMD Ryzen 7 2700\n8 ядер / 16 потоков\nДля монтажа идеален\n\nЦЕНА:50У.Е.\n\nКанал (https://t.me/demo_store_a)",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Ryzen 7 2700",
+     "price": 50,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "series": "Ryzen 7",
+      "cores": 8,
+      "threads": 16
+     }
+    }
+   ],
+   "id": "p-12"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 19:11] Продавец 2: [ 2 фото ]\n\nОперативная память T-Force\nDDR5\nTeamGroup DELTA RGB Black\n32GB 5200MHz\n2x16GB\n\nЦена: 400$\nТел: 901112233\nТг: @demo_user_2",
+   "expected": [
+    {
+     "category": "ram",
+     "brand": "TeamGroup",
+     "model": "T-Force Delta RGB",
+     "price": 400,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "type": "DDR5",
+      "capacity": 32,
+      "frequency": 5200,
+      "modules": 2,
+      "rgb": true
+     }
+    }
+   ],
+   "id": "p-13"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 19:34] Продавец 3: [ 3 фото ]\n\nКулер AG300 от DeepCool\n\nСостояние новое, openbox\nЗаводская термопаста.\n\nХарактеристики: \n\nРассеиваемая мощность (TDP): до 150 Вт\nПоддержка Intel: LGA 1700 / 1200 / 1151 / 1150 / 1155\nПоддержка AMD: AM5 / AM4 \nВентилятор: 92 мм с PWM-регулировкой оборотов \nВысота: 129 мм (влезет практически в любой корпус)\n\nЦена 140.000",
+   "expected": [
+    {
+     "category": "cooling",
+     "brand": "Deepcool",
+     "model": "AG300",
+     "price": 140000,
+     "currency": "UZS",
+     "currency_check": true,
+     "condition": "new_openbox",
+     "specs": {}
+    }
+   ],
+   "id": "p-14"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 19:44] Продавец 4:\nПереслано из PC Store B 🌊\n[ Фотография ]\n\n🍀 Intel Core i5-3330\n• 4 Cores / 4 Threads \n• 3.2Ghz Turbo boost \n\n💵 Цена: 15$\n🔥 Подписчикам 13$🔥\n\n🛡 Гарантия неделя",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "Intel",
+     "model": "Core i5-3330",
+     "price": 15,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "series": "Core i5",
+      "cores": 4,
+      "threads": 4
+     },
+     "note": "subscribers 13"
+    }
+   ],
+   "id": "p-15"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 20:11] Продавец 5:\nПереслано из PC Store C\n[ Фотография ]\n\nПроцессор AMD\n\nRyzen 7 8700F\n8/16\n\nОсталось 1шт\n\nЦена: 111$",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Ryzen 7 8700F",
+     "price": 111,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "series": "Ryzen 7"
+     }
+    }
+   ],
+   "id": "p-16"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 20:45] Продавец 4:\nПереслано из PC Store B 🌊\n[ Фотография ]\n\n🍀 AMD Athlon 200GE\n• 2 Cores / 4 Threads \n• 3.2Ghz\n• Radeon Vega 3\n\n💵 Цена: 13$\n🔥 Подписчикам 11$🔥\n\n🛡 Гарантия неделя",
+   "expected": [
+    {
+     "category": "cpu",
+     "brand": "AMD",
+     "model": "Athlon 200GE",
+     "price": 13,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "series": "Athlon",
+      "cores": 2,
+      "threads": 4
+     },
+     "note": "subscribers 11"
+    }
+   ],
+   "id": "p-17"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 21:15] Продавец 4:\nПереслано из PC Store B 🌊\n[ Фотография ]\n\n🍀 Kingston ValueRAM DDR4\n• 8GB\n• 3200MHz\n• SO-DIMM\n\n💵 Цена: 40$\n🔥 Подписчикам 39$🔥\n\n🛡 Гарантия неделя",
+   "expected": [
+    {
+     "category": "ram",
+     "brand": "Kingston",
+     "model": "ValueRAM",
+     "price": 40,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "type": "DDR4",
+      "capacity": 8,
+      "frequency": 3200,
+      "form_factor": "SODIMM"
+     },
+     "note": "subscribers 39"
+    }
+   ],
+   "id": "p-18"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 22:03] Продавец 6:\nПереслано из PC Store D\n[ 3 фото ]\n\n🔥 GeForce RTX 2060 6GB sotiladi! 🔥\n\n🎮 Videokarta: RTX 2060\n💾 Xotira: 6GB GDDR6\n🖥 Ulanish portlari: HDMI / DisplayPort ×3\n⚡ 192-bit\n🎯 CS2, Dota 2, GTA V va boshqa o‘yinlar uchun yaxshi variant.\nFurmarkda 10 minut  68-69°\n✅ Holati zor \n💰 Narxi: 190$",
+   "expected": [
+    {
+     "category": "gpu",
+     "brand": null,
+     "model": "RTX 2060",
+     "price": 190,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "vendor": "NVIDIA",
+      "chip": "RTX 2060",
+      "memory": 6,
+      "memory_type": "GDDR6"
+     }
+    }
+   ],
+   "id": "p-19"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 22:17] Продавец 7:\nПереслано из PC Store E\n[ Фотография ]\n\nCorsair Vengeance 16*2 5600 cl36\n\n\n400 y.e",
+   "expected": [
+    {
+     "category": "ram",
+     "brand": "Corsair",
+     "model": "Vengeance",
+     "price": 400,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "capacity": 32,
+      "modules": 2,
+      "frequency": 5600
+     }
+    }
+   ],
+   "id": "p-20"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 23:13] Продавец 8: [ 2 фото ]\n\nAxle Gtx 1650 Super 4gb\n6pin 100 ват\nАндижон\nНархи 99$\n+998901234567",
+   "expected": [
+    {
+     "category": "gpu",
+     "brand": "Axle",
+     "model": "GTX 1650 Super",
+     "price": 99,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "vendor": "NVIDIA",
+      "chip": "GTX 1650 Super",
+      "memory": 4
+     }
+    }
+   ],
+   "id": "p-21"
+  },
+  {
+   "source": "real",
+   "default_currency": "UZS",
+   "text": "[25.10.2026 23:19] Продавец 9: [ Фотография ]\n\n3 tb Hitachi\nполностью рабочий, не шумит\nЦена: 42$",
+   "expected": [
+    {
+     "category": "hdd",
+     "brand": "Hitachi",
+     "model": null,
+     "price": 42,
+     "currency": "USD",
+     "condition": "unknown",
+     "specs": {
+      "capacity": 3000
+     }
+    }
+   ],
+   "id": "p-22"
+  },
+  {
+   "source": "no_model",
+   "default_currency": "UZS",
+   "text": "🔥 Топовая видюха, пишите в лс 🔥",
+   "expected": "no_model",
+   "id": "p-23"
+  },
+  {
+   "source": "no_model",
+   "default_currency": "UZS",
+   "text": "Продаю комп, цена договорная.\nЗвоните +998 90 000 00 00",
+   "expected": "no_model",
+   "id": "p-24"
+  },
+  {
+   "source": "no_model",
+   "default_currency": "UZS",
+   "text": "Продаю видеокарту, состояние отличное, всё работает\nЦена: 150$\nПишите в лс",
+   "expected": "no_model",
+   "id": "p-25"
+  },
+  {
+   "source": "no_model",
+   "default_currency": "UZS",
+   "text": "Оперативка есть, 16гб, недорого\n35$\nТел: @demo_seller",
+   "expected": "no_model",
+   "id": "p-26"
+  }
+ ]
+}
