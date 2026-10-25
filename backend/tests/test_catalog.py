@@ -2,11 +2,15 @@ from datetime import timedelta
 
 from sqlalchemy import select
 
-from app.db.models import Currency, FlagLevel, FlagSource, FraudFlag, Offer, Product, utcnow
-from app.services.catalog import make_match_key, product_card, rebuild_match_keys, search_products
+from app.db.models import Category, Currency, FlagLevel, FlagSource, FraudFlag, Offer, Product, utcnow
+from app.services.catalog import make_match_key, product_card, rebuild_match_keys, rebuild_specs, search_products
 from app.services.exchange import to_uzs
 from app.services.importer import publish_import
 from tests.test_publish import _import, _row, _store, db  # noqa: F401  (db is a fixture)
+
+
+def _category(db, slug):
+    return db.scalar(select(Category).where(Category.slug == slug))
 
 
 def test_match_key_ignores_type_words_case_order_and_spaces():
@@ -91,3 +95,17 @@ def test_recommended_order_and_price_order(db):
 
     by_price = [o["store"]["name"].split("@")[0] for o in product_card(db, product_id, 12_000, "price")["offers"]]
     assert by_price == ["cheap", "stale", "verified", "gone"]
+
+
+def test_rebuild_specs_from_store_rows(db):
+    a, demo = _store(db, "a@example.com"), _store(db, "demo1@example.com")
+    product = Product(normalized_name="Kingston DDR5 16GB", match_key="ram:x", brand="Kingston",
+                      specs_json={"capacity": "16GB", "voltage": "1.1V"}, category=_category(db, "ram"))
+    db.add(Offer(store=a, raw_name="Kingston DDR5 2x8GB 6000MHz SO-DIMM", price=50, product=product))
+    # The demo store copies the product name: it adds nothing when a real row exists
+    db.add(Offer(store=demo, raw_name="Kingston DDR5 16GB 6000MHz RGB", price=55, product=product))
+    db.commit()
+    assert rebuild_specs(db, demo_store_ids={demo.id}) == {"products": 1, "changed": 1}
+    assert product.specs_json == {"type": "DDR5", "form_factor": "SODIMM", "capacity": 16, "frequency": 6000,
+                                  "modules": 2, "brand": "Kingston"}
+    assert rebuild_specs(db, demo_store_ids={demo.id})["changed"] == 0  # stable on a second run

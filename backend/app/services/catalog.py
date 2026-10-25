@@ -8,6 +8,7 @@ from sqlalchemy.orm import Session, selectinload
 
 from app.db.models import Category, Currency, FlagLevel, FlagStatus, Offer, Product, Store
 from app.services.exchange import to_usd, to_uzs
+from app.services.spec_normalizer import normalize_specs
 
 # Type words some stores add and others don't ("Процессор ...", "... Motherboard"): not part of the model
 TYPE_WORDS = {
@@ -57,6 +58,34 @@ def rebuild_match_keys(db: Session) -> dict:
         merged += 1
     db.commit()
     return {"products": len(by_key), "merged": merged}
+
+
+def rebuild_specs(db: Session, trace: dict | None = None, demo_store_ids: set[int] = frozenset(),
+                  commit: bool = True) -> dict:
+    """Recomputes product specs by the dictionary from what the stores wrote. No AI requests.
+
+    Sources: original rows (offers.raw_name) and specs already confirmed by those rows. Demo stores copy
+    product names, not real rows, so they are used only if a product has no other offers.
+    """
+    products = db.scalars(select(Product).options(selectinload(Product.category), selectinload(Product.offers))).all()
+    changed = 0
+    for p in products:
+        category = p.category.slug if p.category else "other"
+        offers = sorted(p.offers, key=lambda o: o.id)
+        texts = [o.raw_name for o in offers if o.store_id not in demo_store_ids] or [o.raw_name for o in offers]
+        specs: dict = {}
+        for i, text in enumerate(dict.fromkeys(texts)):
+            # Old specs were checked against the first store's row; other rows only add what is missing
+            found = normalize_specs(category, text, p.specs_json if i == 0 else None, p.brand, trace)
+            specs.update({k: v for k, v in found.items() if k not in specs})
+        if specs != p.specs_json:
+            p.specs_json = specs
+            changed += 1
+    if commit:
+        db.commit()
+    else:
+        db.flush()
+    return {"products": len(products), "changed": changed}
 
 
 def _search_stem(word: str) -> str:

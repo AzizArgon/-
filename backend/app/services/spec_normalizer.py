@@ -87,7 +87,7 @@ def _chip(m):
 
 
 GPU_CHIP = [(r"\b(rtx|gtx|gt|rx|arc\s*[ab])\s*-?\s*(\d{3,4})\s*(ti\s*super|ti|super|xtx|xt|gre)?(?![a-z0-9])", _chip)]
-RESOLUTION = [(r"(\d{3,4})\s*[x×х*]\s*(\d{3,4})", lambda m: f"{m[1]}x{m[2]}"),
+RESOLUTION = [(r"(\d{3,4})\s*[x×х*]\s*(\d{3,4})(?!\s*(?:см|cm|мм|mm))", lambda m: f"{m[1]}x{m[2]}"),
               (r"\b(?:uhd|4k)\b", "3840x2160"), (r"\bqhd\b|\b2k\b", "2560x1440"), (r"\bfhd\b|full\s*hd", "1920x1080")]
 LAPTOP_RAM = [(r"(?:lp)?ddr\d?\w*\s*(\d+)\s*gb|(\d+)\s*gb\s*(?:lp)?ddr", lambda m: _number(_first(m[1], m[2])))]
 LAPTOP_STORAGE = [(
@@ -146,7 +146,7 @@ RULES: dict[str, dict[str, list]] = {
     },
     "motherboard": {
         "socket": SOCKET,
-        "chipset": [(r"\b([abhqxz]\d{2,3})(e?)[mi]?(?![a-z0-9])", lambda m: (m[1] + m[2]).upper())],
+        "chipset": [(r"\b([abhqxz]\d{2,3})(e?)[a-z]?(?![a-z0-9])", lambda m: (m[1] + m[2]).upper())],
         "form_factor": [
             (r"\be-?atx\b", "E-ATX"),
             (r"micro-?\s?atx|\bm-?atx\b|\b[abhqxz]\d{2,3}e?m(?![a-z0-9])", "mATX"),
@@ -181,7 +181,8 @@ RULES: dict[str, dict[str, list]] = {
     "keyboard": {
         "connection": CONNECTION,
         "type": [(r"механ|mechanic", "mechanical"), (r"мембран|membrane", "membrane")],
-        "with_mouse": [(r"набор|\+\s*мыш|key\s*\+\s*mouse|mouse and kb|keyboard\s*\+\s*mouse|combo", True)],
+        "with_mouse": [(r"набор|combo|key(?:board)?\s*(?:\+|and|&)\s*mouse|mouse\s*(?:\+|and|&)\s*(?:kb|keyboard)"
+                        r"|клавиатура\s*(?:\+|и)\s*мыш|\+\s*мыш", True)],
         "rgb": RGB,
     },
     "mouse": {"connection": CONNECTION, "gaming": GAMING, "rgb": RGB},
