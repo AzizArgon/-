@@ -4,7 +4,6 @@ import asyncio
 import csv
 import io
 import logging
-import re
 import time
 from pathlib import Path
 
@@ -15,8 +14,9 @@ from sqlalchemy.orm import Session
 from app.core.config import settings
 from app.db.database import SessionLocal
 from app.db.models import (
-    Category, Condition, Currency, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store,
+    Category, Condition, Currency, ImportStatus, Offer, ParseCache, PriceHistory, PriceImport, Product, Store, utcnow,
 )
+from app.services.catalog import make_match_key
 from app.services.antifraud import check_offer, market_prices, save_offer_flags
 from app.services.ai_parser import QuotaExhausted, parse_rows, split_specs
 from app.services.exchange import get_usd_rate
@@ -176,10 +176,10 @@ def flag_rows(db: Session, rows: list[dict], store_id: int, currency: Currency) 
     """Anti-Fraud for preview rows: fills row["flags"]. Market prices come from other stores."""
     rate = get_usd_rate(db)  # cached in the DB for a day
     usd_rate = rate.rate if rate else None
-    keys = {make_match_key(r.get("category") or "other", r["name"]) for r in rows}
+    keys = {make_match_key(r.get("category") or "other", r["name"], r.get("brand")) for r in rows}
     market = market_prices(db, keys, store_id, usd_rate)
     for r in rows:
-        key = make_match_key(r.get("category") or "other", r["name"])
+        key = make_match_key(r.get("category") or "other", r["name"], r.get("brand"))
         r["flags"] = check_offer({**r, "currency": currency.value}, market.get(key), usd_rate)
 
 
@@ -253,12 +253,6 @@ def fail_stale_imports() -> None:
         db.commit()
 
 
-def make_match_key(category: str, name: str) -> str:
-    """Same product from different stores -> same key (case, spaces and punctuation ignored)."""
-    tokens = re.findall(r"[a-zа-я0-9]+", name.lower())
-    return f"{category}:{' '.join(tokens)}"
-
-
 def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]) -> dict:
     """Creates/updates offers. Store offers missing from the file become "out of stock"."""
     categories = {c.slug: c for c in db.scalars(select(Category))}
@@ -274,7 +268,7 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
     flag_rows(db, rows, store.id, imp.currency)
     for r in rows_to_save:
         category = categories.get(r["category"]) or categories["other"]
-        key = make_match_key(category.slug, r["name"])
+        key = make_match_key(category.slug, r["name"], r.get("brand"))
         product = products.get(key) or db.scalar(select(Product).where(Product.match_key == key))
         if product is None:
             product = Product(
@@ -303,6 +297,7 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
         offer.currency = imp.currency
         offer.condition = Condition(r.get("condition") or "new")
         offer.is_in_stock = in_stock
+        offer.updated_at = utcnow()  # the price list confirmed this offer: freshness for "recommended"
         save_offer_flags(offer, r["flags"])
         if price is not None and price_changed:
             offer.price_history.append(PriceHistory(price=price, currency=imp.currency))

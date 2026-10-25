@@ -1,8 +1,9 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
-import HomePage from './pages/HomePage'
+import CatalogPage from './pages/CatalogPage'
 import ImportPage from './pages/ImportPage'
 import LoginPage from './pages/LoginPage'
+import ProductPage from './pages/ProductPage'
 import RegisterPage from './pages/RegisterPage'
 import SellerPage from './pages/SellerPage'
 import { useAuth } from './services/auth.jsx'
@@ -27,7 +28,8 @@ export default function App() {
       <Header />
       <main className="mx-auto max-w-7xl px-6 py-10">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/" element={<CatalogPage />} />
+          <Route path="/products/:id" element={<ProductPage />} />
           <Route path="/login" element={<GuestOnly><LoginPage /></GuestOnly>} />
           <Route path="/register" element={<GuestOnly><RegisterPage /></GuestOnly>} />
           <Route path="/seller" element={<RoleOnly role="seller"><SellerPage /></RoleOnly>} />

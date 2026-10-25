@@ -4,14 +4,59 @@
     {
       "name": "backend",
       "runtimeExecutable": "F:\\claudy\\diplom\\backend\\.venv\\Scripts\\python.exe",
-      "runtimeArgs": ["-m", "uvicorn", "main:app", "--reload", "--app-dir", "F:\\claudy\\diplom\\backend"],
+      "runtimeArgs": [
+        "-m",
+        "uvicorn",
+        "main:app",
+        "--reload",
+        "--app-dir",
+        "F:\\claudy\\diplom\\backend"
+      ],
       "port": 8000
     },
     {
       "name": "frontend",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["--prefix", "F:\\claudy\\diplom\\frontend", "run", "dev"],
+      "runtimeArgs": [
+        "--prefix",
+        "F:\\claudy\\diplom\\frontend",
+        "run",
+        "dev"
+      ],
       "port": 5173
+    },
+    {
+      "name": "frontend-verify",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "F:/claudy/diplom/frontend",
+        "run",
+        "dev",
+        "--",
+        "--mode",
+        "verify",
+        "--port",
+        "5175",
+        "--strictPort"
+      ],
+      "port": 5175,
+      "autoPort": false
+    },
+    {
+      "name": "backend-verify",
+      "runtimeExecutable": "F:/claudy/diplom/backend/.venv/Scripts/python.exe",
+      "runtimeArgs": [
+        "-m",
+        "uvicorn",
+        "main:app",
+        "--port",
+        "8001",
+        "--app-dir",
+        "F:/claudy/diplom/backend"
+      ],
+      "port": 8001,
+      "autoPort": false
     }
   ]
 }

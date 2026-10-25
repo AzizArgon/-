@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
+import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
 
 const PAGE_SIZE = 50
@@ -12,12 +13,6 @@ const CONDITIONS = ['new', 'used', 'refurbished']
 // Rows the seller should look at: no price, unknown category, no brand or an Anti-Fraud warning
 const isFlagged = (r) => (r.flags || []).some((f) => f.level !== 'info')
 const needsAttention = (r) => r.source === 'failed' || r.price == null || r.category === 'other' || !r.brand || isFlagged(r)
-const FLAG_STYLE = {
-  info: 'border-sky-200 bg-sky-50 text-sky-800',
-  warning: 'border-amber-300 bg-amber-50 text-amber-900',
-  danger: 'border-red-300 bg-red-50 text-red-800',
-}
-const FLAG_ICON = { info: 'ℹ', warning: '⚠', danger: '⛔' }
 const SOURCE_STYLE = { rule: 'text-sky-700', cache: 'text-slate-500', ai: 'text-violet-700', failed: 'text-red-600' }
 
 const cellInput = 'w-full rounded border border-transparent bg-transparent px-1.5 py-1 hover:border-slate-300 focus:border-slate-900 focus:bg-white outline-none'
@@ -52,23 +47,6 @@ function Specs({ specs, guess }) {
         <span className="italic text-amber-700">{confirmed && ' · '}{t('import.aiGuess')}: {guessed}</span>
       )}
     </p>
-  )
-}
-
-// Anti-Fraud badges: the server sends a reason key + params, the soft text is in the translations
-function Flags({ flags }) {
-  const { t } = useTranslation()
-  if (!flags?.length) return null
-  return (
-    <div className="mt-1 grid gap-1 px-1.5">
-      {flags.map((f) => (
-        <p key={f.type} className={`rounded border px-2 py-1 text-xs ${FLAG_STYLE[f.level]}`}>
-          <span className="font-medium">{FLAG_ICON[f.level]} {t(`flags.type.${f.type}`)}</span>
-          {f.source === 'ai' && <span className="opacity-70"> ({t('flags.ai')})</span>}
-          {' — '}{t(`flags.reason.${f.reason_key}`, f.params)}
-        </p>
-      ))}
-    </div>
   )
 }
 
