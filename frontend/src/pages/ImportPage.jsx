@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import { ErrorText } from '../components/AuthForm'
 import Flags from '../components/Flags'
 import api, { errorKey } from '../services/api'
-import { formatDayMonth, formatPrice, roundSum } from '../services/format'
+import { formatDayMonth, formatPrice, roundSum, roundUsd } from '../services/format'
 
 const PAGE_SIZE = 50
 const POLL_MS = 2000
@@ -58,7 +58,7 @@ function ConvertedPrice({ price, currency, rate }) {
   const hint = t('price.rateHint', { date: formatDayMonth(rate.rate_date) })
   return currency === 'USD'
     ? <p className="px-1.5 text-xs font-medium text-slate-700" title={hint}>≈ {formatPrice(roundSum(price * rate.rate), 'UZS')}</p>
-    : <p className="px-1.5 text-xs text-slate-500" title={hint}>≈ {formatPrice(price / rate.rate, 'USD')}</p>
+    : <p className="px-1.5 text-xs text-slate-500" title={hint}>≈ {formatPrice(roundUsd(price / rate.rate), 'USD')}</p>
 }
 
 function PreviewTable({ importId, rows, setRows, categories, currency, rate, readOnly }) {

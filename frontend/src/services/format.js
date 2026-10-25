@@ -25,5 +25,6 @@ export function formatDayMonth(iso) {
   return new Intl.DateTimeFormat(i18n.language || 'ru', { day: '2-digit', month: '2-digit' }).format(new Date(iso))
 }
 
-// Converted sums are approximate: rounded to 1 000 sum
+// Converted amounts are approximate: sums rounded to 1 000, dollars to whole dollars
 export const roundSum = (value) => Math.round(value / 1000) * 1000
+export const roundUsd = (value) => Math.round(value)
