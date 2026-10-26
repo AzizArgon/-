@@ -303,16 +303,15 @@
    },
    "source": "ai"
   },
-  "видеокарта msi geforce rtx 4060 ti ventus 2x 8g oc память 8 gb gddr6 шина 128 bit ташкент чиланзар": {
+  "видеокарта msi geforce rtx 4060 ti ventus 2x 8g oc память 8 gb gddr6 шина 128 bit состояние новая в коробке гарантия 1 год ташкент чиланзар": {
    "data": {
     "category": "gpu",
     "brand": "MSI",
     "model": "GeForce RTX 4060 Ti VENTUS 2X 8G OC",
-    "name": "Видеокарта MSI GeForce RTX 4060 Ti VENTUS 2X 8G OC 8GB GDDR6",
+    "name": "Видеокарта MSI GeForce RTX 4060 Ti VENTUS 2X 8G OC",
     "condition": "new",
     "risks": [],
     "specs": {
-     "vendor": "NVIDIA",
      "memory": "8 GB",
      "memory_type": "GDDR6"
     }

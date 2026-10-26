@@ -60,6 +60,7 @@ AD_WORDS = (
     "manzil", "aloqa", "yetkazib", "sotib olish", "buyurtma", "murojaat", "chegirma",
     "гарант", "рассрочк", "админ", "uzum", "kafolat", "muddatli", "nasiya", "kanal", "канал", "подпис",
 )
+WARRANTY_WORDS = ("гарантия", "гарант", "kafolat")
 # A second price for some buyers ("Подписчикам 13$", "Опт: 100$"): a note to the main price, not a product
 DISCOUNT_WORDS = ("подписчик", "obunachi", "скидк", "chegirma", "опт", "ulgurji", "для своих", "при покупке")
 NOT_DISCOUNT = ("доставк", "yetkazib", "самовывоз", "такси")
@@ -174,6 +175,12 @@ def _is_ad(line: str) -> bool:
     return _has_phone(line) or any(w in low for w in AD_WORDS)
 
 
+def _only_warranty(line: str) -> bool:
+    """The only advert words of the line are about the warranty ("новая, гарантия 1 год")."""
+    low = line.lower()
+    return not _has_phone(line) and not any(w in low for w in AD_WORDS if w not in WARRANTY_WORDS)
+
+
 def split_posts(text: str) -> list[str]:
     """Several forwarded posts pasted at once: one text per Telegram header; without headers the text as is."""
     starts = [m.start() for m in _TG_HEADER.finditer(text)]
@@ -196,6 +203,8 @@ def clean_lines(text: str) -> list[str]:
             continue
         elif _is_discount(line) and not _has_phone(line):
             result.append(line)
+        elif _only_warranty(line) and condition_of(line) != "unknown":
+            result.append(line)  # "Состояние: новая, гарантия 1 год" says the condition, it is not an advert
         elif _is_ad(line):
             in_ad = True
         elif not (in_ad and _BULLET.match(line)):

@@ -265,3 +265,12 @@ def test_no_rows_reason(text, reason):
 
 def test_card_without_model_is_not_a_product():
     assert text_to_rows("Продаю видеокарту, состояние отличное\nЦена: 150$") == []
+
+
+def test_condition_line_with_warranty_is_kept():
+    # "гарантия" is an advert word, but this line is the only one that says the card is new
+    post = "Видеокарта MSI GeForce RTX 4060 Ti VENTUS 2X 8G OC\n✅ Состояние: новая, в коробке, гарантия 1 год\n" \
+           "💰 Цена: 4 950 000 сум\nГарантия, доставка — звоните +998 90 000 00 00"
+    [row] = text_to_rows(post)
+    assert row.condition == "new"
+    assert "доставка" not in row.ai_text
