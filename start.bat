@@ -3,7 +3,7 @@ rem Starts backend and frontend in two windows and opens the site
 cd /d "%~dp0"
 
 if not exist "backend\.venv\Scripts\python.exe" (
-    echo Backend venv not found. See "Как запустить сервер" in CLAUDE.md
+    echo Backend venv not found. See the run section in CLAUDE.md
     pause
     exit /b 1
 )
