@@ -17,7 +17,8 @@ fi
 git push origin main
 
 step "2/6 build frontend"
-(cd frontend && VITE_API_URL=/api VITE_PUBLIC_DEMO=1 npm run build --silent)
+# Settings in frontend/.env.public: Git Bash would turn "/api" on the command line into a Windows path
+(cd frontend && npm run build --silent -- --mode public)
 tar czf "${TMPDIR:-/tmp}/pcm_dist.tgz" -C frontend/dist .
 scp -q "${TMPDIR:-/tmp}/pcm_dist.tgz" "$SSH_HOST:/tmp/pcm_dist.tgz"
 rm -f "${TMPDIR:-/tmp}/pcm_dist.tgz"
