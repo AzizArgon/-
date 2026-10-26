@@ -13,6 +13,7 @@ Usage (from backend/, servers stopped):
 import argparse
 import asyncio
 import json
+import os
 import shutil
 import sqlite3
 import subprocess
@@ -25,8 +26,9 @@ BACKEND = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(BACKEND))
 
 DB_FILE = BACKEND / "database.db"
-BACKUPS = Path("F:/claudy/backups")
-SAMPLES = Path("F:/claudy/samples")
+# On the server the samples and backups live in other folders (docs/deploy.md)
+BACKUPS = Path(os.environ.get("PC_MARKET_BACKUPS", "F:/claudy/backups"))
+SAMPLES = Path(os.environ.get("PC_MARKET_SAMPLES", "F:/claudy/samples"))
 SNAPSHOT = SAMPLES / "demo_cache.json"
 DEMO_CACHE = BACKEND.parent / "samples" / "demo" / "cache.json"
 PRICE_FILE = SAMPLES / "Price of Age Computers (9).xlsx"

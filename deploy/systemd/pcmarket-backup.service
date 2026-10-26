@@ -1,0 +1,8 @@
+[Unit]
+Description=pc_market daily database backup
+
+[Service]
+Type=oneshot
+User=pcmarket
+Group=pcmarket
+ExecStart=/opt/pcmarket/app/deploy/backup.sh

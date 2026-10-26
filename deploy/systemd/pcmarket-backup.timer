@@ -1,0 +1,10 @@
+[Unit]
+Description=pc_market database backup once a day
+
+[Timer]
+OnCalendar=*-*-* 03:30:00
+RandomizedDelaySec=15min
+Persistent=true
+
+[Install]
+WantedBy=timers.target

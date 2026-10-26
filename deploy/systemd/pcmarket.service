@@ -1,0 +1,23 @@
+[Unit]
+Description=pc_market backend (FastAPI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=pcmarket
+Group=pcmarket
+WorkingDirectory=/opt/pcmarket/app/backend
+ExecStart=/opt/pcmarket/app/backend/.venv/bin/uvicorn main:app --host 127.0.0.1 --port 8020 --workers 1 --no-server-header
+Restart=always
+RestartSec=3
+Environment=PYTHONUNBUFFERED=1
+# The server is shared: keep memory bounded and the service locked to its own folder
+MemoryMax=700M
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/opt/pcmarket
+
+[Install]
+WantedBy=multi-user.target
