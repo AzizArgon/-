@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next'
 import { Navigate, Route, Routes } from 'react-router-dom'
 import Header from './components/Header'
 import CatalogPage from './pages/CatalogPage'
@@ -24,11 +25,39 @@ function RoleOnly({ role, children }) {
   return user?.role === role ? children : <Navigate to="/" replace />
 }
 
+const GITHUB_URL = 'https://github.com/AzizArgon/-'
+// Set only for the public server build (deploy.bat)
+const PUBLIC_DEMO = import.meta.env.VITE_PUBLIC_DEMO === '1'
+
+function DemoBanner() {
+  const { t } = useTranslation()
+  return (
+    <div className="border-b border-amber-200 bg-amber-50 px-6 py-2 text-center text-sm text-amber-900">
+      {t('demo.banner')}
+    </div>
+  )
+}
+
+function Footer() {
+  const { t } = useTranslation()
+  return (
+    <footer className="border-t border-slate-200">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-6 text-sm text-slate-500">
+        <span>{t('demo.footer')}</span>
+        <a href={GITHUB_URL} target="_blank" rel="noreferrer" className="shrink-0 font-medium text-slate-700 hover:underline">
+          {t('demo.github')}
+        </a>
+      </div>
+    </footer>
+  )
+}
+
 export default function App() {
   return (
-    <div className="min-h-screen">
+    <div className="flex min-h-screen flex-col">
+      {PUBLIC_DEMO && <DemoBanner />}
       <Header />
-      <main className="mx-auto max-w-7xl px-6 py-10">
+      <main className="mx-auto w-full max-w-7xl flex-1 px-6 py-10">
         <Routes>
           <Route path="/" element={<CatalogPage />} />
           <Route path="/products/:id" element={<ProductPage />} />
@@ -41,6 +70,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   )
 }

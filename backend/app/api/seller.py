@@ -3,6 +3,7 @@ from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from app.api.deps import require_role
+from app.core.limits import spend_import
 from app.db.database import get_db
 from app.db.models import Category, Condition, Currency, ImportStatus, PriceImport, Product, Store, User
 from app.schemas.seller import (
@@ -72,6 +73,7 @@ async def upload_price(
     if len(data) > MAX_FILE_SIZE:
         raise HTTPException(status.HTTP_413_REQUEST_ENTITY_TOO_LARGE, "File too large")
 
+    spend_import(db, store.id)
     imp = PriceImport(store_id=store.id, filename=filename, currency=currency)
     db.add(imp)
     db.commit()
@@ -86,6 +88,7 @@ def paste_text(data: TextImportIn, background: BackgroundTasks, user: User = Dep
                db: Session = Depends(get_db)):
     """"Paste as text": a Telegram post goes through the same pipeline and preview as a file."""
     store = _require_store(db, user)
+    spend_import(db, store.id)
     # No file name: the page calls it "Текст от 25.10, 14:30" by the creation time
     imp = PriceImport(store_id=store.id, filename="", source="text", text=data.text, currency=Currency(data.currency))
     db.add(imp)
@@ -130,9 +133,10 @@ def retry_import(
     import_id: int, background: BackgroundTasks, user: User = Depends(seller_only), db: Session = Depends(get_db)
 ):
     """Parses again the rows that failed, e.g. the next day when the AI quota is back."""
-    _, imp = _my_import(db, user, import_id)
+    store, imp = _my_import(db, user, import_id)
     if imp.status != ImportStatus.ready or not any(r.get("source") == "failed" for r in imp.rows_json):
         raise HTTPException(status.HTTP_409_CONFLICT, "Nothing to retry")
+    spend_import(db, store.id)
     imp.status = ImportStatus.processing
     imp.chunks_done = 0
     db.commit()

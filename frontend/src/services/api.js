@@ -17,6 +17,9 @@ api.interceptors.request.use((config) => {
 export function errorKey(err, overrides = {}) {
   if (!err.response) return 'errors.network'
   if (overrides[err.response.status]) return overrides[err.response.status]
+  // Limits of the public demo answer with a code: { detail: { code: 'import_limit_store' } }
+  const code = err.response.data?.detail?.code
+  if ([403, 429].includes(err.response.status) && code) return `errors.${code}`
   switch (err.response.status) {
     case 401: return 'errors.invalidCredentials'
     case 404: return 'errors.notFound'

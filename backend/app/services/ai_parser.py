@@ -19,6 +19,7 @@ from google.genai import types
 from pydantic import BaseModel, TypeAdapter, ValidationError, field_validator
 
 from app.core.config import settings
+from app.core.limits import spend_ai_request
 from app.db.seed import CATEGORIES, CATEGORY_SLUGS
 from app.services.price_cleaner import CleanRow
 from app.services.spec_dictionary import CHOICE, NUMBER, DICTIONARY
@@ -280,6 +281,8 @@ async def _gemini(rows: list[CleanRow], stats: dict) -> list[dict]:
         if not models:
             raise QuotaExhausted("Daily quota exhausted for all Gemini models")
         model = models[0]
+        if not spend_ai_request():
+            raise QuotaExhausted("Daily AI limit of the server reached")
         await _gemini_limiter.acquire()
         stats["requests"] = stats.get("requests", 0) + 1
         try:
@@ -331,6 +334,8 @@ async def _groq(rows: list[CleanRow], stats: dict) -> list[dict]:
     text = format_chunk(rows)
     last_error: Exception | None = None
     for attempt in range(MAX_RETRIES):
+        if not spend_ai_request():
+            raise QuotaExhausted("Daily AI limit of the server reached")
         await _groq_limiter.acquire(_estimate_tokens(text, len(rows)))
         stats["requests"] = stats.get("requests", 0) + 1
         stats["groq_requests"] = stats.get("groq_requests", 0) + 1

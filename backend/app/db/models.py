@@ -248,3 +248,13 @@ class ExchangeRate(Base):
     rate_date: Mapped[date] = mapped_column(Date, index=True)
     # When we last asked cbu.uz: on weekends rate_date lags behind, so it can't tell freshness
     fetched_on: Mapped[date] = mapped_column(Date, default=date.today)
+
+
+class UsageCounter(Base):
+    """Daily usage for the limits of the public server; key: "imports", "imports:store:5" or "ai"."""
+
+    __tablename__ = "usage_counters"
+
+    day: Mapped[date] = mapped_column(Date, primary_key=True)
+    key: Mapped[str] = mapped_column(String(64), primary_key=True)
+    count: Mapped[int] = mapped_column(Integer, default=0)

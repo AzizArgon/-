@@ -9,6 +9,7 @@ class RegisterRequest(BaseModel):
     password: str = Field(min_length=8, max_length=72)  # bcrypt limit is 72 bytes
     # admin is never self-registered; master comes after November
     role: Literal["buyer", "seller"] = "buyer"
+    invite_code: str = Field("", max_length=100)  # needed for sellers on the public server
 
 
 class LoginRequest(BaseModel):

@@ -35,5 +35,14 @@ class Settings(BaseSettings):
     cbu_rate_url: str = "https://cbu.uz/ru/arkhiv-kursov-valyut/json/USD/"
     cors_origins: list[str] = ["http://localhost:5173"]
 
+    # Public server only (backend/.env there); 0 or "" = off, as on the laptop
+    seller_invite_code: str = ""  # sellers register only with this code; buyers freely
+    seller_daily_imports: int = 0  # files, texts and retries per store per day
+    server_daily_imports: int = 0  # the same for all stores together
+    server_daily_ai_requests: int = 0  # Gemini + Groq requests per day, so strangers can't spend the free quota
+    login_max_failures: int = 0  # failed logins per IP per window, then 429
+    login_window_minutes: int = 15
+    register_per_hour: int = 0  # new accounts per IP per hour
+
 
 settings = Settings()

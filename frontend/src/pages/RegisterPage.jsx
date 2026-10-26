@@ -1,8 +1,8 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthCard, ErrorText, Field, SubmitButton } from '../components/AuthForm'
-import { errorKey } from '../services/api'
+import api, { errorKey } from '../services/api'
 import { useAuth } from '../services/auth.jsx'
 
 const ROLES = [
@@ -20,6 +20,13 @@ export default function RegisterPage() {
   const [role, setRole] = useState('buyer')
   const [error, setError] = useState('')
   const [busy, setBusy] = useState(false)
+  const [invite, setInvite] = useState('')
+  // On the public demo sellers register only with an invite code
+  const [inviteRequired, setInviteRequired] = useState(false)
+
+  useEffect(() => {
+    api.get('/auth/options').then((res) => setInviteRequired(res.data.seller_invite_required)).catch(() => {})
+  }, [])
 
   const onSubmit = async (e) => {
     e.preventDefault()
@@ -29,7 +36,7 @@ export default function RegisterPage() {
     if (password !== confirm) return setError(t('errors.passwordMismatch'))
     setBusy(true)
     try {
-      await register(email, password, role)
+      await register(email, password, role, invite)
       navigate('/')
     } catch (err) {
       setError(t(errorKey(err)))
@@ -66,6 +73,14 @@ export default function RegisterPage() {
             </button>
           ))}
         </div>
+
+        {role === 'seller' && inviteRequired && (
+          <>
+            <Field label={t('auth.inviteCode')} required autoComplete="off"
+              value={invite} onChange={(e) => setInvite(e.target.value)} />
+            <p className="-mt-2 mb-4 text-xs text-slate-500">{t('auth.inviteHint')}</p>
+          </>
+        )}
 
         <ErrorText>{error}</ErrorText>
         <SubmitButton busy={busy} busyText={t('auth.loading')}>{t('auth.submitRegister')}</SubmitButton>

@@ -26,8 +26,8 @@ export function AuthProvider({ children }) {
     saveSession(res.data)
   }
 
-  const register = async (email, password, role) => {
-    const res = await api.post('/auth/register', { email, password, role })
+  const register = async (email, password, role, inviteCode = '') => {
+    const res = await api.post('/auth/register', { email, password, role, invite_code: inviteCode })
     saveSession(res.data)
   }
 
