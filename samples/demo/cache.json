@@ -1,0 +1,615 @@
+{
+ "parse_cache": {
+  "amd ryzen 5 5500": {
+   "data": {
+    "category": "cpu",
+    "brand": "AMD",
+    "model": "Ryzen 5 5500",
+    "name": "Процессор AMD Ryzen 5 5500",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Ryzen 5"
+    }
+   },
+   "source": "ai"
+  },
+  "asus tuf gaming rtx 4070 super 12gb": {
+   "data": {
+    "category": "gpu",
+    "brand": "ASUS",
+    "model": "TUF-RTX4070S-12G-GAMING",
+    "name": "Видеокарта ASUS TUF Gaming GeForce RTX 4070 SUPER 12GB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "vendor": "NVIDIA",
+     "chip": "GeForce RTX 4070 SUPER",
+     "memory": "12GB"
+    }
+   },
+   "source": "ai"
+  },
+  "cpu core i7 14700k tray": {
+   "data": {
+    "category": "cpu",
+    "brand": "Intel",
+    "model": "i7-14700k",
+    "name": "Процессор Intel Core i7-14700K",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Core i7",
+     "pack": "OEM"
+    }
+   },
+   "source": "ai"
+  },
+  "gtx 3060 6gb": {
+   "data": {
+    "category": "gpu",
+    "brand": "NVIDIA",
+    "model": "GTX 3060 6gb",
+    "name": "Видеокарта NVIDIA GeForce GTX 3060 6GB",
+    "condition": "new",
+    "risks": [
+     "spec_mismatch"
+    ],
+    "specs": {
+     "vendor": "NVIDIA",
+     "chip": "GTX 3060",
+     "memory": "6GB"
+    }
+   },
+   "source": "ai"
+  },
+  "hdd wd blue 2tb 7200": {
+   "data": {
+    "category": "hdd",
+    "brand": "Western Digital",
+    "model": "WD Blue",
+    "name": "Жесткий диск WD Blue 2TB 7200rpm",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "2TB",
+     "rpm": "7200rpm"
+    }
+   },
+   "source": "ai"
+  },
+  "i5 12400f": {
+   "data": {
+    "category": "cpu",
+    "brand": "Intel",
+    "model": "Core i5-12400F",
+    "name": "Процессор Intel Core i5-12400F",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "i5"
+    }
+   },
+   "source": "ai"
+  },
+  "i9 xeon e5 2699 v3 18 ядер как i9": {
+   "data": {
+    "category": "cpu",
+    "brand": "Intel",
+    "model": "Xeon E5-2699 v3",
+    "name": "Процессор Intel Xeon E5-2699 v3",
+    "condition": "new",
+    "risks": [
+     "server_hardware"
+    ],
+    "specs": {
+     "series": "Xeon",
+     "cores": "18"
+    }
+   },
+   "source": "ai"
+  },
+  "intel core i3 12100f": {
+   "data": {
+    "category": "cpu",
+    "brand": "Intel",
+    "model": "Core i3-12100F",
+    "name": "Процессор Intel Core i3-12100F",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Core i3"
+    }
+   },
+   "source": "ai"
+  },
+  "kingston fury 32gb ddr5 6000": {
+   "data": {
+    "category": "ram",
+    "brand": "Kingston",
+    "model": "Fury",
+    "name": "Оперативная память Kingston Fury 32GB DDR5 6000MHz",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "type": "DDR5",
+     "capacity": "32GB",
+     "frequency": "6000MHz"
+    }
+   },
+   "source": "ai"
+  },
+  "kingston fury beast 8gb ddr4 3200": {
+   "data": {
+    "category": "ram",
+    "brand": "Kingston",
+    "model": "FURY Beast",
+    "name": "Оперативная память Kingston FURY Beast 8GB DDR4 3200MHz",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "8GB",
+     "type": "DDR4",
+     "frequency": "3200MHz"
+    }
+   },
+   "source": "ai"
+  },
+  "kingston nv3 1tb новый": {
+   "data": {
+    "category": "ssd",
+    "brand": "Kingston",
+    "model": "NV3 1TB",
+    "name": "SSD-накопитель Kingston NV3 1TB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "1TB"
+    }
+   },
+   "source": "ai"
+  },
+  "ozu kingstn fury beast 16gb ddr5 5600": {
+   "data": {
+    "category": "ram",
+    "brand": "Kingston",
+    "model": "FURY Beast",
+    "name": "Оперативная память Kingston FURY Beast 16GB DDR5 5600MHz",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "type": "DDR5",
+     "capacity": "16GB",
+     "frequency": "5600MHz"
+    }
+   },
+   "source": "ai"
+  },
+  "rx 6600 8gb б у": {
+   "data": {
+    "category": "gpu",
+    "brand": "AMD",
+    "model": "RX 6600",
+    "name": "Видеокарта AMD RX 6600",
+    "condition": "used",
+    "risks": [],
+    "specs": {
+     "memory": "8GB"
+    }
+   },
+   "source": "ai"
+  },
+  "ryzen 5 5600 box": {
+   "data": {
+    "category": "cpu",
+    "brand": "AMD",
+    "model": "Ryzen 5 5600",
+    "name": "Процессор AMD Ryzen 5 5600",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "pack": "BOX",
+     "box": "no_box"
+    }
+   },
+   "source": "ai"
+  },
+  "ryzen 7 7700 box": {
+   "data": {
+    "category": "cpu",
+    "brand": "AMD",
+    "model": "Ryzen 7 7700",
+    "name": "Процессор AMD Ryzen 7 7700",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Ryzen 7",
+     "box": "box"
+    }
+   },
+   "source": "ai"
+  },
+  "samsung 870 evo 500gb": {
+   "data": {
+    "category": "ssd",
+    "brand": "Samsung",
+    "model": "870 EVO",
+    "name": "SSD-накопитель Samsung 870 EVO 500GB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "500GB"
+    }
+   },
+   "source": "ai"
+  },
+  "ssd kingston nv3 500gb m 2": {
+   "data": {
+    "category": "ssd",
+    "brand": "Kingston",
+    "model": "NV3",
+    "name": "SSD-накопитель Kingston NV3 500GB M.2",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "500GB",
+     "form_factor": "M.2"
+    }
+   },
+   "source": "ai"
+  },
+  "ssd samsung 980 1tb": {
+   "data": {
+    "category": "ssd",
+    "brand": "Samsung",
+    "model": "980",
+    "name": "SSD накопитель Samsung 980 1TB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "1TB"
+    }
+   },
+   "source": "ai"
+  },
+  "блок питания deepcool pk650d 650w 80 bronze": {
+   "data": {
+    "category": "psu",
+    "brand": "DeepCool",
+    "model": "PK650D",
+    "name": "Блок питания DeepCool PK650D 650W",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "power": "650W",
+     "certification": "80 PLUS Bronze"
+    }
+   },
+   "source": "ai"
+  },
+  "бп 750w": {
+   "data": {
+    "category": "psu",
+    "brand": null,
+    "model": null,
+    "name": "Блок питания 750W",
+    "condition": "new",
+    "risks": [
+     "noname_psu"
+    ],
+    "specs": {
+     "power": "750W"
+    }
+   },
+   "source": "ai"
+  },
+  "видеокарта msi geforce rtx 4060 ti ventus 2x 8g oc память 8 gb gddr6 шина 128 bit ташкент чиланзар": {
+   "data": {
+    "category": "gpu",
+    "brand": "MSI",
+    "model": "GeForce RTX 4060 Ti VENTUS 2X 8G OC",
+    "name": "Видеокарта MSI GeForce RTX 4060 Ti VENTUS 2X 8G OC 8GB GDDR6",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "vendor": "NVIDIA",
+     "memory": "8 GB",
+     "memory_type": "GDDR6"
+    }
+   },
+   "source": "ai"
+  },
+  "видеокарта msi geforce rtx 4060 ventus 2x 8g": {
+   "data": {
+    "category": "gpu",
+    "brand": "MSI",
+    "model": "RTX 4060 VENTUS 2X 8G",
+    "name": "Видеокарта MSI GeForce RTX 4060 VENTUS 2X 8G",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "vendor": "NVIDIA",
+     "chip": "GeForce RTX 4060",
+     "memory": "8GB"
+    }
+   },
+   "source": "ai"
+  },
+  "видеокарта palit rtx 5060 dual 8gb": {
+   "data": {
+    "category": "gpu",
+    "brand": "Palit",
+    "model": "rtx 5060 dual 8gb",
+    "name": "Видеокарта Palit GeForce RTX 5060 Dual 8GB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "vendor": "NVIDIA",
+     "chip": "RTX 5060",
+     "memory": "8GB"
+    }
+   },
+   "source": "ai"
+  },
+  "видюха rtx 3060 12gb no lhr": {
+   "data": {
+    "category": "gpu",
+    "brand": "NVIDIA",
+    "model": "RTX 3060",
+    "name": "Видеокарта NVIDIA GeForce RTX 3060 12GB",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "vendor": "NVIDIA",
+     "chip": "RTX 3060",
+     "memory": "12GB",
+     "revision": "Full Hash Rate"
+    }
+   },
+   "source": "ai"
+  },
+  "доставка по ташкенту бесплатно от 500 у е": {
+   "data": {
+    "skip": true
+   },
+   "source": "ai"
+  },
+  "корпус zalman i3 neo черный": {
+   "data": {
+    "category": "case",
+    "brand": "Zalman",
+    "model": "i3 Neo",
+    "name": "Корпус Zalman i3 Neo черный",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "color": "черный"
+    }
+   },
+   "source": "ai"
+  },
+  "корпус zalman s2": {
+   "data": {
+    "category": "case",
+    "brand": "Zalman",
+    "model": "S2",
+    "name": "Корпус Zalman S2",
+    "condition": "new",
+    "risks": [],
+    "specs": {}
+   },
+   "source": "ai"
+  },
+  "кулер deepcool ak400": {
+   "data": {
+    "category": "cooling",
+    "brand": "DeepCool",
+    "model": "AK400",
+    "name": "Кулер для процессора DeepCool AK400",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "type": "air"
+    }
+   },
+   "source": "ai"
+  },
+  "мат плата msi pro b760m a wifi ddr5": {
+   "data": {
+    "category": "motherboard",
+    "brand": "MSI",
+    "model": "PRO B760M-A WIFI DDR5",
+    "name": "Материнская плата MSI PRO B760M-A WIFI DDR5",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "chipset": "B760",
+     "memory_type": "DDR5",
+     "wifi": "WIFI"
+    }
+   },
+   "source": "ai"
+  },
+  "мат плата x99 xeon e5 2680 v4 комплект": {
+   "data": {
+    "category": "motherboard",
+    "brand": null,
+    "model": "X99",
+    "name": "Комплект Материнская плата X99 + Процессор Intel Xeon E5-2680 v4",
+    "condition": "new",
+    "risks": [
+     "server_hardware"
+    ],
+    "specs": {
+     "socket": "X99"
+    }
+   },
+   "source": "ai"
+  },
+  "материнка gigabyte b650m ds3h": {
+   "data": {
+    "category": "motherboard",
+    "brand": "Gigabyte",
+    "model": "b650m ds3h",
+    "name": "Материнская плата Gigabyte B650M DS3H",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "chipset": "B650",
+     "form_factor": "mATX"
+    }
+   },
+   "source": "ai"
+  },
+  "монитор samsung odyssey g5 27 165гц": {
+   "data": {
+    "category": "monitor",
+    "brand": "Samsung",
+    "model": "odyssey g5 27",
+    "name": "Монитор Samsung Odyssey G5 27\" 165Hz",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "size": "27inch",
+     "refresh_rate": "165Hz"
+    }
+   },
+   "source": "ai"
+  },
+  "мышь logitech g102 lightsync б у как новая": {
+   "data": {
+    "category": "mouse",
+    "brand": "Logitech",
+    "model": "G102 Lightsync",
+    "name": "Мышь Logitech G102 Lightsync",
+    "condition": "used",
+    "risks": [],
+    "specs": {
+     "gaming": "gaming"
+    }
+   },
+   "source": "ai"
+  },
+  "озу kingston fury beast ddr4 16gb 3200 ddr5": {
+   "data": {
+    "category": "ram",
+    "brand": "Kingston",
+    "model": "FURY Beast",
+    "name": "Оперативная память Kingston FURY Beast DDR4 16GB 3200MHz",
+    "condition": "new",
+    "risks": [
+     "spec_mismatch"
+    ],
+    "specs": {
+     "type": "DDR4",
+     "capacity": "16GB",
+     "frequency": "3200MHz"
+    }
+   },
+   "source": "ai"
+  },
+  "опер память crucial 8гб ддр4 3200 sodimm": {
+   "data": {
+    "category": "ram",
+    "brand": "Crucial",
+    "model": null,
+    "name": "Оперативная память Crucial 8GB DDR4 3200MHz SODIMM",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "type": "DDR4",
+     "form_factor": "SODIMM",
+     "capacity": "8GB",
+     "frequency": "3200MHz"
+    }
+   },
+   "source": "ai"
+  },
+  "прайс на 26 10 цены в у е уточняйте наличие": {
+   "data": {
+    "skip": true
+   },
+   "source": "ai"
+  },
+  "проц i5 12400f box": {
+   "data": {
+    "category": "cpu",
+    "brand": "Intel",
+    "model": "i5 12400f",
+    "name": "Процессор Intel Core i5-12400F",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Core i5",
+     "pack": "BOX"
+    }
+   },
+   "source": "ai"
+  },
+  "процессор ryzen 5 7500f oem am5": {
+   "data": {
+    "category": "cpu",
+    "brand": "AMD",
+    "model": "Ryzen 5 7500F",
+    "name": "Процессор AMD Ryzen 5 7500F",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "series": "Ryzen 5",
+     "socket": "AM5",
+     "pack": "OEM"
+    }
+   },
+   "source": "ai"
+  },
+  "ссд самсунг 990 pro 1tb nvme": {
+   "data": {
+    "category": "ssd",
+    "brand": "Samsung",
+    "model": "990 pro",
+    "name": "SSD-накопитель Samsung 990 Pro 1TB NVMe",
+    "condition": "new",
+    "risks": [],
+    "specs": {
+     "capacity": "1TB",
+     "interface": "NVMe"
+    }
+   },
+   "source": "ai"
+  },
+  "флешка kingston datatraveler 2tb usb 3 2": {
+   "data": {
+    "category": "flash",
+    "brand": "Kingston",
+    "model": "DataTraveler",
+    "name": "Флешка Kingston DataTraveler 2TB USB 3.2",
+    "condition": "new",
+    "risks": [
+     "fake_capacity"
+    ],
+    "specs": {
+     "capacity": "2TB",
+     "type": "usb"
+    }
+   },
+   "source": "ai"
+  },
+  "флешка usb 2tb metal подарок": {
+   "data": {
+    "category": "flash",
+    "brand": null,
+    "model": null,
+    "name": "Флешка USB 2TB Metal",
+    "condition": "new",
+    "risks": [
+     "fake_capacity"
+    ],
+    "specs": {
+     "capacity": "2TB",
+     "type": "usb"
+    }
+   },
+   "source": "ai"
+  }
+ }
+}

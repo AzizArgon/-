@@ -1,6 +1,6 @@
 """Builds the synthetic part of the Phase 7 benchmark (run once; needs F:/claudy/samples, which is outside git).
 
-Every synthetic row starts from a clean row of the real Age Computers price list that the rule parser reads
+Every synthetic row starts from a clean row of the real store price list that the rule parser reads
 completely (CPU, RAM, SSD, HDD, boards, video cards, monitors). The rule result of the clean row is the right answer;
 the row is then made dirty (slang, typos, columns, merged cells, several tables, CSV cp1251, PDF, price formats).
 Prices are shifted by a random 0-10% so the real price list of the shop is not published.

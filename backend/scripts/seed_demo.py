@@ -1,4 +1,4 @@
-"""Demo stores for the catalog: 3 invented shops built from the Age Computers assortment.
+"""Demo stores for the catalog: 3 invented shops built from the assortment of a real store price list.
 
 Each store gets part of the assortment (popular items overlap, so cards show 2-4 offers),
 prices +-5-15%, some items out of stock, its own price-list freshness; one store sells in UZS,
@@ -25,7 +25,7 @@ from app.db.models import (  # noqa: E402
 )
 from app.services.exchange import RateBook, ensure_rates  # noqa: E402
 
-SOURCE_EMAIL = "seller1@example.com"  # Age Computers: the real price list the demo is built from
+SOURCE_EMAIL = "seller1@example.com"  # the real store price list the demo is built from
 DEMO_PASSWORD = "demo12345"
 DEMO_FILENAME = "demo_seed.xlsx"
 # Showcase items every demo store sells (matched by name, ids change on a clean DB)
@@ -80,7 +80,7 @@ def _demo_import(db: Session, store: Store, currency: Currency) -> PriceImport:
 def _source_offers(db: Session) -> list[Offer]:
     source = db.scalar(select(Store).join(Store.owner).where(User.email == SOURCE_EMAIL))
     if source is None:
-        raise SystemExit(f"No store of {SOURCE_EMAIL}: publish the Age Computers price list first")
+        raise SystemExit(f"No store of {SOURCE_EMAIL}: publish the real price list first")
     return db.scalars(
         select(Offer).where(Offer.store_id == source.id, Offer.is_in_stock.is_(True), Offer.price.is_not(None),
                             Offer.currency == Currency.USD)

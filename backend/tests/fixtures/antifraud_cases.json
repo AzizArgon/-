@@ -2,7 +2,7 @@
   {
     "id": "kingbank_ddr5_vs_kjxs_ddr4",
     "description": "Название говорит DDR5, а артикул производителя (KJXS) — DDR4. Покупатель может получить не тот тип памяти, который не встанет в его плату.",
-    "source": "Реальный прайс Age Computers, лист 'CPU, DDR, HDD', раздел DDR",
+    "source": "Реальный прайс магазина, лист 'CPU, DDR, HDD', раздел DDR",
     "row": {
       "category": "ram",
       "raw_name": "KingBank DDR5 8GB 6000MHz Silver Heatsink | KJXS DDR4 6000MHz 8GB UDIMM",
@@ -28,7 +28,7 @@
   {
     "id": "gtx_3050_does_not_exist",
     "description": "GTX 3050 не существует: у серии 30xx только RTX. Покупатель может получить не ту карту.",
-    "source": "Реальный прайс Age Computers, раздел видеокарт",
+    "source": "Реальный прайс магазина, раздел видеокарт",
     "row": {
       "category": "gpu",
       "raw_name": "OCPC - 8GB GeForce GTX3050 128Bits GDDR6 (OCVN3050G8XM)",
@@ -141,7 +141,7 @@
   {
     "id": "clean_rows_have_no_flags",
     "description": "Аккуратные строки без подвохов: правила не должны ничего находить.",
-    "source": "Реальный прайс Age Computers",
+    "source": "Реальный прайс магазина",
     "row": {
       "category": "ram",
       "raw_name": "Lexar DDR4 8GB 3200MHz",
