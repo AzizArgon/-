@@ -1,5 +1,6 @@
 """Demo mode from scratch: backup -> clean DB -> categories -> cache -> real price list -> demo stores -> Gshop archive.
 
+An empty store (live@example.com) is made for uploading the demo files during the show.
 No live AI requests: the full price list is parsed from the parse cache (rows the cache doesn't know fail and are
 reported, not sent to the AI). The cache and CBU rates are kept in a snapshot outside the repo
 (F:/claudy/samples/demo_cache.json), so the demo works without the internet and AI limits.
@@ -32,6 +33,10 @@ PRICE_FILE = SAMPLES / "Price of Age Computers (9).xlsx"
 ARCHIVE_FILE = SAMPLES / "old_store_2023.xlsx"
 SELLER = {"email": "seller1@example.com", "password": "seller12345", "name": "Age Computers",
           "phone": "+998901234567", "district": "Чиланзар"}
+# An empty store for the live upload: a file published by a store marks its other goods "out of stock",
+# so the demo files must not go to a store with a full price list
+LIVE_SELLER = {"email": "live@example.com", "password": "demo12345", "name": "Tech Point",
+               "phone": "+998900000404", "district": "Шайхантахур"}
 
 
 def backup() -> Path | None:
@@ -76,21 +81,28 @@ def restore(db, snap: dict, demo: dict) -> None:
     db.commit()
 
 
+def add_seller(db, spec: dict):
+    from app.core.security import hash_password
+    from app.db.models import Store, User, UserRole
+
+    user = User(email=spec["email"], password_hash=hash_password(spec["password"]), role=UserRole.seller)
+    store = Store(owner=user, name=spec["name"], phone=spec["phone"], district=spec["district"])
+    db.add_all([user, store])
+    db.flush()
+    return store
+
+
 def import_price_list(db) -> dict:
     from sqlalchemy import select
 
-    from app.core.security import hash_password
-    from app.db.models import Currency, PriceImport, Store, User, UserRole
+    from app.db.models import Currency, PriceImport
     from app.services import importer
 
     async def offline(rows, stats):
         raise RuntimeError("demo mode: no live AI")
 
     importer.parse_rows = offline
-    user = User(email=SELLER["email"], password_hash=hash_password(SELLER["password"]), role=UserRole.seller)
-    store = Store(owner=user, name=SELLER["name"], phone=SELLER["phone"], district=SELLER["district"])
-    db.add_all([user, store])
-    db.flush()
+    store = add_seller(db, SELLER)
     imp = PriceImport(store_id=store.id, filename=PRICE_FILE.name, currency=Currency.USD)
     db.add(imp)
     db.commit()
@@ -128,6 +140,8 @@ if __name__ == "__main__":
     with SessionLocal() as db:
         restore(db, snap, {"parse_cache": {}} if args.live else demo)
         print("price list:", import_price_list(db))
+        add_seller(db, LIVE_SELLER)
+        db.commit()
     run_script("scripts/seed_demo.py")
     run_script("scripts/load_archive.py", str(ARCHIVE_FILE), "--store", "Gshop")
     print(f"demo data ready in {time.monotonic() - started:.0f} s")
