@@ -7,11 +7,11 @@ from app.core.limits import spend_import
 from app.db.database import get_db
 from app.db.models import Category, Condition, Currency, ImportStatus, PriceImport, Product, Store, User
 from app.schemas.seller import (
-    CheckResult, ImportDetail, ImportOut, OfferIn, ProductIn, PublishRequest, PublishResult, StoreIn, StoreOut,
-    TextImportIn,
+    CheckResult, ImportDetail, ImportOut, OfferIn, PreviewRow, ProductIn, PublishRequest, PublishResult, StoreIn,
+    StoreOut, TextImportIn,
 )
 from app.services.importer import (
-    ALLOWED_EXTENSIONS, flag_rows, publish_import, retry_failed_rows, run_import, run_text_import,
+    ALLOWED_EXTENSIONS, flag_rows, publish_import, reparse_row, retry_failed_rows, run_import, run_text_import,
 )
 from app.services.market import PERIODS, index_table, market_data, missing_popular, seller_position
 from app.services.manual import create_product, product_brief, save_offer, store_offer, suggest_products
@@ -142,6 +142,24 @@ def retry_import(
     db.commit()
     background.add_task(retry_failed_rows, imp.id)
     return imp
+
+
+@router.post("/imports/{import_id}/rows/{row}/reparse", response_model=PreviewRow)
+async def reparse_import_row(import_id: int, row: int, user: User = Depends(seller_only),
+                             db: Session = Depends(get_db)):
+    """"Re-parse without the cache": the AI reads this row again; a wrong cached answer is forgotten."""
+    store, imp = _my_import(db, user, import_id)
+    if imp.status != ImportStatus.ready:
+        raise HTTPException(status.HTTP_409_CONFLICT, "Import is not ready")
+    old = next((r for r in imp.rows_json if r["row"] == row), None)
+    if old is None:
+        raise HTTPException(status.HTTP_404_NOT_FOUND, "Row not found")
+    spend_import(db, store.id)
+    db.commit()
+    new = await reparse_row(db, imp, old)
+    if new is None:
+        raise HTTPException(status.HTTP_422_UNPROCESSABLE_ENTITY, {"code": "not_a_product"})
+    return new
 
 
 @router.get("/seller/catalog-search")

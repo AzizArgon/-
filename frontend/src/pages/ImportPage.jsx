@@ -76,6 +76,8 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
   const [onlyFlagged, setOnlyFlagged] = useState(false)
   const timers = useRef({})
   const [page, setPage] = useState(1)
+  const [reparsing, setReparsing] = useState({}) // row -> true while the AI reads it again
+  const [rowErrors, setRowErrors] = useState({})
 
   const visible = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -99,6 +101,20 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
   }
 
   const perRowCurrency = rows.some((r) => r.currency)
+
+  // "Re-parse without the cache": the AI reads the row again, a wrong remembered answer is forgotten
+  const reparse = async (rowId) => {
+    setReparsing((prev) => ({ ...prev, [rowId]: true }))
+    setRowErrors((prev) => ({ ...prev, [rowId]: null }))
+    try {
+      const res = await api.post(`/imports/${importId}/rows/${rowId}/reparse`)
+      setRows((prev) => prev.map((r) => (r.row === rowId ? res.data : r)))
+    } catch (err) {
+      setRowErrors((prev) => ({ ...prev, [rowId]: t(errorKey(err, { 422: 'import.reparseNotProduct' })) }))
+    } finally {
+      setReparsing((prev) => ({ ...prev, [rowId]: false }))
+    }
+  }
 
   const edit = (rowId, field, value) => {
     const next = { ...rows.find((r) => r.row === rowId), [field]: value }
@@ -127,14 +143,14 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
       <table className="w-full table-fixed text-sm">
         <thead className="bg-slate-50 text-left text-slate-500">
           <tr>
-            <th className="w-[34%] px-3 py-2 font-medium">{t('import.col.name')}</th>
+            <th className="w-[32%] px-3 py-2 font-medium">{t('import.col.name')}</th>
             <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.brand')}</th>
             <th className="w-[15%] px-3 py-2 font-medium">{t('import.col.category')}</th>
             {/* Pasted text: every line has its own currency, shown in the cell */}
             <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.price')}{!perRowCurrency && `, ${currency}`}</th>
             <th className="w-[13%] px-3 py-2 font-medium">{t('import.col.condition')}</th>
             <th className="w-[11%] px-3 py-2 font-medium">{t('import.col.stock')}</th>
-            <th className="w-[5%]" />
+            <th className="w-[7%]" />
           </tr>
         </thead>
         <tbody className="divide-y divide-slate-100">
@@ -150,6 +166,7 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
                 {r.note && <p className="truncate px-1.5 text-xs text-slate-600" title={r.note}>{t('import.note')}: {r.note}</p>}
                 <Specs category={r.category} specs={r.specs} guess={r.specs_guess} />
                 <Flags flags={r.flags} />
+                {rowErrors[r.row] && <p className="px-1.5 text-xs text-red-700">{rowErrors[r.row]}</p>}
               </td>
               <td className="px-2 py-1.5 align-top">
                 <input className={cellInput} disabled={readOnly} value={r.brand ?? ''}
@@ -182,6 +199,8 @@ function PreviewTable({ importId, rows, setRows, categories, currency, rate, rea
                 {t(r.is_in_stock ? 'import.inStock' : 'import.outOfStock')}
               </td>
               <td className="px-2 py-1.5 text-center align-top">
+                <button title={t('import.reparse')} hidden={readOnly} disabled={reparsing[r.row]} onClick={() => reparse(r.row)}
+                  className="rounded px-2 py-1 text-slate-400 hover:bg-slate-100 hover:text-slate-900 disabled:animate-spin">↻</button>
                 <button title={t('import.remove')} hidden={readOnly} onClick={() => setRows(rows.filter((x) => x.row !== r.row))}
                   className="rounded px-2 py-1 text-slate-400 hover:bg-red-50 hover:text-red-600">✕</button>
               </td>

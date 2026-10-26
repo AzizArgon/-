@@ -10,7 +10,7 @@ from pathlib import Path
 
 import pdfplumber
 from markitdown import MarkItDown, StreamInfo
-from sqlalchemy import select, update
+from sqlalchemy import delete, select, update
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
@@ -144,6 +144,14 @@ def _cache_data(row: dict) -> dict:
     return data
 
 
+def cacheable(data: dict) -> bool:
+    """An answer worth remembering: a real category and a brand or a model.
+
+    "Other" without them is what a failed or confused parse looks like; cached, it would stick to the row forever.
+    """
+    return data.get("category") not in (None, "other") and bool(data.get("brand") or data.get("model"))
+
+
 def save_cache(db: Session, entries: dict[str, dict], source: str) -> None:
     if not entries:
         return
@@ -156,17 +164,18 @@ def save_cache(db: Session, entries: dict[str, dict], source: str) -> None:
     db.commit()
 
 
-async def parse_clean_rows(db: Session, rows: list[CleanRow], stats: dict, on_progress=None) -> list[dict]:
-    """Cache first, then rules, and only the rest goes to the AI in big chunks."""
+async def parse_clean_rows(db: Session, rows: list[CleanRow], stats: dict, on_progress=None,
+                           fresh: bool = False) -> list[dict]:
+    """Cache first, then rules, and only the rest goes to the AI in big chunks. fresh: straight to the AI."""
     started = time.monotonic()
     keys = list({cache_key(r.ai_text) for r in rows})
-    cached = {c.key: c.data for c in db.scalars(select(ParseCache).where(ParseCache.key.in_(keys)))}
+    cached = {} if fresh else {c.key: c.data for c in db.scalars(select(ParseCache).where(ParseCache.key.in_(keys)))}
     result: dict[int, dict] = {}
     pending: list[CleanRow] = []
     skipped = 0
     for r in rows:
         hit = cached.get(cache_key(r.ai_text))
-        rule = None if hit else parse_by_rules(r.name)
+        rule = None if hit or fresh else parse_by_rules(r.name)
         if hit and hit.get("skip"):
             skipped += 1  # the AI said earlier: not a product
         elif hit:
@@ -203,10 +212,11 @@ async def parse_clean_rows(db: Session, rows: list[CleanRow], stats: dict, on_pr
                 for r in chunk:
                     if r.row in items:
                         result[r.row] = _preview_row(r, items[r.row], "ai")
-                # Skipped rows are cached too, so notes are not sent to the AI again
+                # Skipped rows are cached too, so notes are not sent to the AI again;
+                # weak answers are not: next time the row is asked again instead of repeating the mistake
                 save_cache(db, {
                     cache_key(r.ai_text): _cache_data(items[r.row]) if r.row in items else {"skip": True}
-                    for r in chunk
+                    for r in chunk if r.row not in items or cacheable(result[r.row])
                 }, "ai")
         done += 1
         if on_progress:
@@ -286,22 +296,43 @@ async def run_text_import(import_id: int, text: str, currency: Currency) -> None
         _set(import_id, status=ImportStatus.failed, error=f"internal:{str(e)[:400]}")
 
 
+def _clean_row(r: dict, imp: PriceImport) -> CleanRow:
+    """A preview row back to the parser input (price, stock and currency stay from the file)."""
+    return CleanRow(
+        row=r["row"], sheet=r.get("sheet", ""), section=r.get("section", ""), cells=[r["raw_name"]],
+        name=r["name"], article=r.get("article"), price=r.get("price"),
+        is_in_stock=r.get("is_in_stock", False), ai_text=r.get("ai_text") or r["name"],
+        currency=r.get("currency"), currency_check=r.get("currency_check", False),
+        condition=r.get("condition") if imp.source == "text" else None, note=r.get("note"),
+    )
+
+
+async def reparse_row(db: Session, imp: PriceImport, row: dict) -> dict | None:
+    """"Re-parse without the cache": one row straight to the AI, its old cache entry dropped first.
+
+    Returns the new preview row (saved into the import), or None if the AI says it is not a product.
+    """
+    if row.get("cache_key"):
+        db.execute(delete(ParseCache).where(ParseCache.key == row["cache_key"]))
+        db.commit()
+    stats: dict = {}
+    parsed = await parse_clean_rows(db, [_clean_row(row, imp)], stats, fresh=True)
+    if not parsed:
+        return None
+    new = parsed[0]
+    flag_rows(db, [new], imp.store_id, imp.currency)
+    imp.rows_json = [new if r["row"] == new["row"] else r for r in imp.rows_json]
+    db.commit()
+    return new
+
+
 async def retry_failed_rows(import_id: int) -> None:
     """Parses again only the rows that failed (e.g. after the AI quota ran out)."""
     try:
         with SessionLocal() as db:
             imp = db.get(PriceImport, import_id)
             rows = list(imp.rows_json)
-            failed = [
-                CleanRow(
-                    row=r["row"], sheet=r.get("sheet", ""), section=r.get("section", ""), cells=[r["raw_name"]],
-                    name=r["name"], article=r.get("article"), price=r.get("price"),
-                    is_in_stock=r.get("is_in_stock", False), ai_text=r.get("ai_text") or r["name"],
-                    currency=r.get("currency"), currency_check=r.get("currency_check", False),
-                    condition=r.get("condition") if imp.source == "text" else None, note=r.get("note"),
-                )
-                for r in rows if r.get("source") == "failed"
-            ]
+            failed = [_clean_row(r, imp) for r in rows if r.get("source") == "failed"]
             stats = dict(imp.stats_json or {})
             retry_stats: dict = {}
             reparsed = await parse_clean_rows(db, failed, retry_stats, _progress(import_id))
@@ -325,6 +356,27 @@ def fail_stale_imports() -> None:
             .values(status=ImportStatus.failed, error="interrupted")
         )
         db.commit()
+
+
+SELLER_FIELDS = ("category", "brand", "model", "name", "condition")
+
+
+def _seller_cache(parsed: list[dict], published: list[dict]) -> dict[str, dict]:
+    """Cache entries from a publish: a seller's edit always overwrites the cache.
+
+    An untouched row is cached only if it says something: the defaults of a failed row (or an "other" without a
+    brand) must not hide the row from the AI on the next upload.
+    """
+    before = {r["row"]: r for r in parsed}
+    entries = {}
+    for r in published:
+        if not r.get("cache_key"):
+            continue
+        old = before.get(r["row"], {})
+        edited = any(r.get(k) != old.get(k) for k in SELLER_FIELDS)
+        if edited or (old.get("source") != "failed" and cacheable(r)):
+            entries[r["cache_key"]] = _cache_data(r)
+    return entries
 
 
 def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]) -> dict:
@@ -402,9 +454,10 @@ def publish_import(db: Session, imp: PriceImport, store: Store, rows: list[dict]
             offer.is_in_stock = False
             stats["out_of_stock"] += 1
 
+    parsed_rows = imp.rows_json or []
     imp.status = ImportStatus.published
     imp.rows_json = rows
     db.commit()
     # Reviewed rows teach the cache: next upload of the same names needs no AI at all
-    save_cache(db, {r["cache_key"]: _cache_data(r) for r in rows if r.get("cache_key")}, "seller")
+    save_cache(db, _seller_cache(parsed_rows, rows), "seller")
     return stats
