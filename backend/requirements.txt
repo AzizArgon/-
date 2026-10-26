@@ -10,6 +10,8 @@ passlib==1.7.4
 bcrypt==4.0.1
 python-dotenv==1.1.0
 markitdown[xlsx,xls,pdf]==0.1.9
+pdfplumber==0.11.10
+openpyxl==3.1.5
 google-genai==2.33.0
 httpx==0.28.1
 python-multipart==0.0.32
