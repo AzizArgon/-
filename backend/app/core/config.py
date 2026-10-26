@@ -33,6 +33,7 @@ class Settings(BaseSettings):
     groq_chunk_rows: int = 60
     groq_max_output_tokens: int = 4096
     cbu_rate_url: str = "https://cbu.uz/ru/arkhiv-kursov-valyut/json/USD/"
+    cbu_fetch: bool = True  # false on the public server: cbu.uz is closed to foreign addresses
     cors_origins: list[str] = ["http://localhost:5173"]
 
     # Public server only (backend/.env there); 0 or "" = off, as on the laptop

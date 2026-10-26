@@ -43,8 +43,14 @@ rm -rf /opt/pcmarket/dist_new
 EOF
 ssh "$SSH_HOST" 'rm -f /tmp/pcm_dist.tgz'
 
-step "4/6 restart backend"
+step "4/6 restart backend, CBU rate"
 ssh "$SSH_HOST" 'sudo systemctl restart pcmarket'
+# cbu.uz answers only Uzbek addresses: the laptop fetches the rate and hands it to the server
+if usd=$(curl -sf -m 15 https://cbu.uz/ru/arkhiv-kursov-valyut/json/USD/); then
+    echo "$usd" | ssh "$SSH_HOST" 'cd /tmp && sudo -u pcmarket bash -c "cd /opt/pcmarket/app/backend && .venv/bin/python scripts/set_rate.py"'
+else
+    echo "cbu.uz did not answer: the server keeps the last known rate"
+fi
 
 step "5/6 wait for the backend"
 for i in $(seq 1 30); do

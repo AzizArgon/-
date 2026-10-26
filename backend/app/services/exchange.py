@@ -2,7 +2,7 @@
 
 import bisect
 import logging
-from datetime import date, datetime
+from datetime import date, datetime, timedelta
 
 import httpx
 from sqlalchemy import select
@@ -12,6 +12,10 @@ from app.core.config import settings
 from app.db.models import Currency, ExchangeRate
 
 log = logging.getLogger(__name__)
+
+# After a failed request cbu.uz is not asked again for a while: otherwise every page waits for the timeout
+RETRY_AFTER = timedelta(hours=1)
+_failed_at: datetime | None = None
 
 
 def _fetch_cbu_usd() -> tuple[float, date]:
@@ -23,16 +27,30 @@ def _fetch_cbu_usd() -> tuple[float, date]:
 
 def get_usd_rate(db: Session) -> ExchangeRate | None:
     """Today's rate from the DB; if missing, ask cbu.uz. Falls back to the latest known rate."""
+    global _failed_at
     latest = db.scalar(
         select(ExchangeRate).where(ExchangeRate.currency == "USD").order_by(ExchangeRate.rate_date.desc())
     )
     if latest and latest.fetched_on >= date.today():
         return latest
+    # cbu.uz answers only Uzbek addresses: the public server gets the rate from the laptop (scripts/set_rate.py)
+    if not settings.cbu_fetch or (_failed_at and datetime.now() - _failed_at < RETRY_AFTER):
+        return latest
     try:
         rate, rate_date = _fetch_cbu_usd()
     except (httpx.HTTPError, ValueError, KeyError, IndexError) as e:
+        _failed_at = datetime.now()
         log.warning("CBU rate fetch failed, using last known rate: %s", e)
         return latest
+    return save_usd_rate(db, rate, rate_date, latest)
+
+
+def save_usd_rate(db: Session, rate: float, rate_date: date, latest: ExchangeRate | None = None) -> ExchangeRate:
+    """Stores the CBU rate as checked today."""
+    if latest is None:
+        latest = db.scalar(
+            select(ExchangeRate).where(ExchangeRate.currency == "USD").order_by(ExchangeRate.rate_date.desc())
+        )
     if latest and latest.rate_date == rate_date:
         # No new rate yet (weekend/holiday): keep the row, remember we checked today
         latest.rate = rate
