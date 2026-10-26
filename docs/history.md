@@ -433,3 +433,35 @@ npm run dev        # http://localhost:5173 (backend должен быть зап
 - `docs/demo_script.md` — 14 шагов на 5–7 минут и запасной план без интернета.
 - `README.md` — для GitHub, без тестовых паролей.
 - Тестов: 257.
+
+## Фаза 8.5 — готово (размещение на VPS, 26.10.2026)
+
+Сайт: https://pcmarket.khudoberdi.uz. Подробная инструкция — `docs/deploy.md`; адрес сервера, пароли и команды для секретов — вне git (`F:\claudy\server_notes.txt`, `server_passwords.txt`).
+
+### Сервер и решения
+- Чужой VPS (Ubuntu 24.04, 2 ядра, 3,7 ГБ, свободно ~0,9 ГБ), на нём сайты другого человека, VPN, Docker, Minecraft. Наш сайт встроен рядом: свой пользователь `pcmarket`, папки `/opt/pcmarket` (код, закрытая папка прайсов, копии) и `/var/www/pcmarket` (статика), свой файл nginx, свои службы и `sudoers`. Чужие конфиги не менялись; копия `/etc/nginx` сделана до установки.
+- Порт 443 занят VPN (Xray), Cloudflare ходит к серверу по HTTP :80 (зона в режиме Flexible). Сделано: :80 для pcmarket + :2053 с сертификатом Let's Encrypt (webroot через :80, продление certbot). Для «Full (strict)» владельцу домена — два правила Cloudflare только для поддомена (Origin Rule → порт 2053, Configuration Rule → SSL Full (strict)); режим зоны не меняли.
+- Доступ: SSH-ключ `id_ed25519_pcmarket` (без пароля — для `deploy.bat`), пароль sudo вводил Азиз в терминале один раз (`deploy/server_setup.sh`). Без пароля админу разрешено только действовать от `pcmarket` и перезапускать/смотреть службу. Firewall на сервере выключен — не включали (риск закрыть порты чужих сервисов); backend слушает только 127.0.0.1:8020.
+- backend — systemd `pcmarket.service` (Restart=always, MemoryMax=700M, ProtectSystem=strict). Проверено: штатный перезапуск — 4 с; `kill -9` — поднялся сам за 2 с.
+- Frontend собирается на ноутбуке (на сервере нет Node.js и мало памяти), настройки публичной сборки — `frontend/.env.public` (`/api`, плашка). SQLite оставлен: для демо достаточно.
+
+### Данные
+- Демо-база тем же `demo_reset.py --live` (пути `PC_MARKET_SAMPLES`/`PC_MARKET_BACKUPS` из окружения): 2 397 предложений Age, 3 демо-магазина, Gshop, пустой Tech Point; прайсы и снимок кэша — в `/opt/pcmarket/private` (700).
+- Пароли 6 демо-аккаунтов заменены случайными (`scripts/set_passwords.py`, пароли через stdin); старые не принимаются (проверено 401). `JWT_SECRET` свой; ключи ИИ переданы с ноутбука напрямую в `.env` сервера (права 600), не показываясь в чате.
+
+### Защита публичной версии
+- Регистрация продавца — по `SELLER_INVITE_CODE` (`GET /api/auth/options`, поле в форме), покупатели — свободно.
+- Дневные лимиты в таблице `usage_counters` (новая, через `create_all`): 10 загрузок на магазин, 40 на сервер (файл, текст, «Повторить»), 100 запросов к ИИ на сервер (сверх — `QuotaExhausted`, строки «не распознано, повторите завтра»). Вход — 10 неудачных попыток / 15 мин с IP, регистрация — 5 / час с IP. Ответ 429/403 с кодом → тексты в `ru.json`.
+- Реальный IP: nginx `real_ip_header CF-Connecting-IP` только от сетей Cloudflare → `X-Real-IP`; backend верит заголовку только от 127.0.0.1 (`core/limits.client_ip`).
+- Плашка «Демо-версия…», подвал со ссылкой на GitHub, `noindex` (заголовок + meta) и `robots.txt`. Cloudflare на домене подставляет свой robots.txt с Allow — запрет индексации держится на `noindex`.
+- На ноутбуке все лимиты выключены (0 / пусто). Тестов: 263 (+6 `test_limits.py`).
+
+### Копии и обновление
+- `pcmarket-backup.timer`: раз в день `sqlite3 .backup` + gzip, 14 копий; перед каждым deploy — копия `before_deploy`, 5 штук. `get_backup.bat` скачивает свежую в `F:\claudy\backups\server\`.
+- `deploy.bat` → `deploy/deploy.sh`: push → копия базы → `git pull` → pip → сборка frontend и загрузка → перезапуск → курс ЦБ → проверка `/` и `/api/health` (`DEPLOY OK`). Прогнан 3 раза.
+
+### Найдено по ходу
+- `requirements.txt`: pydantic 2.11.4 конфликтовал с google-genai — поставлен 2.14.1, как в рабочем `.venv`.
+- Git Bash превращал `VITE_API_URL=/api` в `C:/Program Files/Git/api` → «Сервер недоступен»; настройки сборки вынесены в `.env.public`.
+- cbu.uz не отвечает зарубежным IP: каждая страница ждала 10 с таймаута. Теперь на сервере `CBU_FETCH=false`, курс передаёт ноутбук при deploy (`scripts/set_rate.py`); после неудачного запроса к cbu.uz пауза 1 час (и на ноутбуке без интернета).
+- Живая проверка ИИ на сервере: `dirty_price.xlsx` → 27 строк одним запросом Gemini, 9 плашек (2 danger, 6 warning, 1 info) — импорт №8 Tech Point. Текст Азиза (№7) упал без ключа и был повторён после установки ключей; категория строки DDR5 из кэша — «другое» (разобрать отдельно).
